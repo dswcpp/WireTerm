@@ -37,11 +37,11 @@ use crate::auth::auth_view_shared_helpers::{
 };
 use crate::auth::login_failure_notification::{self, LoginFailureReason};
 use crate::editor::{EditorView, SingleLineEditorOptions, TextColors, TextOptions};
+use crate::send_telemetry_from_ctx;
 use crate::server::telemetry::{LoginEventSource, TelemetryEvent};
 use crate::settings::PrivacySettings;
 use crate::themes::theme::Fill as ThemeFill;
 use crate::util::bindings::CustomAction;
-use crate::{send_telemetry_from_ctx, send_telemetry_sync_from_ctx};
 
 const TOS_URL: &str = "https://www.warp.dev/terms-of-service";
 
@@ -487,12 +487,6 @@ impl LoginSlideView {
         self.send_account_first_action("create_account", "skip_account", ctx);
         // Send synchronously since this is an important event in the sign up funnel and we
         // don't want to lose events if the user quits before the event queue is flushed.
-        send_telemetry_sync_from_ctx!(
-            TelemetryEvent::LoginLaterConfirmationButtonClicked {
-                source: LoginEventSource::OnboardingSlide,
-            },
-            ctx
-        );
         if FeatureFlag::SkipFirebaseAnonymousUser.is_enabled() {
             AuthManager::handle(ctx).update(ctx, |_, ctx| {
                 ctx.emit(AuthManagerEvent::SkippedLogin);
@@ -1407,12 +1401,6 @@ impl TypedActionView for LoginSlideView {
                 ctx.notify();
             }
             LoginSlideAction::ShowPrivacySettings => {
-                send_telemetry_sync_from_ctx!(
-                    TelemetryEvent::OpenAuthPrivacySettings {
-                        source: LoginEventSource::OnboardingSlide,
-                    },
-                    ctx
-                );
                 self.step = LoginStep::PrivacySettings;
                 ctx.notify();
             }

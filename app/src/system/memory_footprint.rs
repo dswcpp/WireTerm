@@ -14,6 +14,7 @@ pub fn memory_footprint_bytes() -> u64 {
 /// Each platform populates whichever fields it can natively provide.  The
 /// returned value is an opaque JSON blob suitable for attaching to Sentry
 /// events and telemetry payloads.
+#[cfg(feature = "heap_usage_tracking")]
 pub fn memory_breakdown() -> serde_json::Value {
     platform::memory_breakdown()
 }
@@ -56,6 +57,7 @@ mod platform {
             .unwrap_or(0)
     }
 
+    #[cfg(feature = "heap_usage_tracking")]
     pub fn memory_breakdown() -> serde_json::Value {
         let Some(info) = query_task_vm_info() else {
             return serde_json::json!({});
@@ -123,6 +125,7 @@ mod platform {
             .unwrap_or(0)
     }
 
+    #[cfg(feature = "heap_usage_tracking")]
     pub fn memory_breakdown() -> serde_json::Value {
         let Ok(status) = std::fs::read_to_string("/proc/self/status") else {
             return serde_json::json!({});
@@ -167,6 +170,7 @@ mod platform {
         (usage.ru_maxrss as u64).saturating_mul(1024)
     }
 
+    #[cfg(feature = "heap_usage_tracking")]
     pub fn memory_breakdown() -> serde_json::Value {
         let mut usage: libc::rusage = unsafe { std::mem::zeroed() };
         if unsafe { libc::getrusage(libc::RUSAGE_SELF, &mut usage) } != 0 {
@@ -225,6 +229,7 @@ mod platform {
         }
     }
 
+    #[cfg(feature = "heap_usage_tracking")]
     pub fn memory_breakdown() -> serde_json::Value {
         let Some(counters) = query_counters() else {
             return serde_json::json!({});

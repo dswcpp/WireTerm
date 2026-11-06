@@ -14,6 +14,7 @@ use futures::channel::oneshot;
 use futures::future::{Either, join_all, select};
 use instant::Instant;
 use repo_metadata::repositories::{DetectedRepositories, RepoDetectionSource};
+use secret_redaction::diagnostic::redact_secrets_in_string;
 use warp_cli::agent::{
     RepositoryForge, RepositoryHeadRef, RepositoryIdentity, RepositoryPreparationOverride,
 };
@@ -38,7 +39,6 @@ use crate::ai::agent_sdk::environment_snapshot::{
 };
 use crate::ai::agent_sdk::setup_observability::{SetupClientEventReporter, SetupStep};
 use crate::ai::cloud_environments::{AmbientAgentEnvironment, SourceRepo};
-use crate::server::telemetry::secret_redaction::redact_secrets_in_string;
 use crate::terminal::model::BlockId;
 use crate::terminal::model::session::command_executor::shell_escape_single_quotes;
 use crate::terminal::shell::ShellType;
@@ -1266,8 +1266,6 @@ async fn execute_checkout_helper(
     std::fs::write(&requests_file, bytes).map_err(|_| PrepareEnvironmentError::CheckoutHelper {
         reason: "could not write checkout requests",
     })?;
-    #[cfg(not(target_family = "wasm"))]
-    let _tracing_handoff = crate::tracing::create_child_process_handoff(&requests_file);
     let executable =
         std::env::current_exe().map_err(|_| PrepareEnvironmentError::CheckoutHelper {
             reason: "could not resolve the running Warp/Oz executable",

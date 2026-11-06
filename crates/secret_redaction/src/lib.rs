@@ -1,6 +1,8 @@
 //! Secret detection and redaction. This crate owns the compiled secret regexes, the default
 //! secret patterns, and helpers that find and redact secrets in text.
 
+pub mod diagnostic;
+
 use std::sync::Arc;
 
 use itertools::Itertools;

@@ -96,7 +96,7 @@ impl InterruptWatch {
 }
 
 fn emit_signal_trace(signal: Interrupt, sender: Option<Process>, cause: Cause) {
-    use crate::server::telemetry::secret_redaction::redact_secrets_in_string;
+    use secret_redaction::diagnostic::redact_secrets_in_string;
 
     let username = sender.and_then(|process| resolve_username(process.uid));
     let mut command_line = sender.and_then(|process| resolve_command_line(process.pid));

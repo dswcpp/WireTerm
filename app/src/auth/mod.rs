@@ -48,7 +48,7 @@ use crate::palette::PaletteMode;
 use crate::root_view::RootView;
 use crate::server::cloud_objects::update_manager::UpdateManager;
 use crate::server::sync_queue::SyncQueue;
-use crate::server::telemetry::{PaletteSource, TelemetryEvent};
+use crate::server::telemetry::PaletteSource;
 use crate::session_management::{RunningSessionSummary, SessionNavigationData};
 use crate::settings::{
     AISettings, CRASH_REPORTING_ENABLED_DEFAULTS_KEY, CloudPreferencesSettings, PrivacySettings,
@@ -61,7 +61,6 @@ use crate::workspace::{OneTimeModalModel, Workspace, WorkspaceAction};
 use crate::workspaces::update_manager::TeamUpdateManager;
 use crate::{
     GlobalResourceHandlesProvider, focus_running_window_and_show_native_modal, persistence,
-    send_telemetry_sync_from_app_ctx,
 };
 
 pub fn init(app: &mut AppContext) {
@@ -117,8 +116,6 @@ pub fn web_logout_url_with_continue(continue_url: &str) -> Option<String> {
 /// If the app has running processes or dirty objects, we'll show a confirmation modal before logging out.
 /// If the user aborts, the user will not be logged out.
 pub fn maybe_log_out(app: &mut AppContext) {
-    send_telemetry_sync_from_app_ctx!(TelemetryEvent::UserInitiatedLogOut, app);
-
     let sessions = SessionNavigationData::all_sessions(app).collect_vec();
     let num_long_running_commands = RunningSessionSummary::new(&sessions)
         .long_running_cmds
@@ -141,7 +138,6 @@ pub fn maybe_log_out(app: &mut AppContext) {
             || num_unsaved_objects > 0
             || num_unsaved_files > 0)
     {
-        send_telemetry_sync_from_app_ctx!(TelemetryEvent::LogOutModalShown, app);
         let mut button_data = vec![ModalButton::for_app("Yes, log out", |ctx| {
             log_out_and_open_web(ctx);
         })];
@@ -158,10 +154,6 @@ pub fn maybe_log_out(app: &mut AppContext) {
             ));
 
             button_data.push(ModalButton::for_app("Show running processes", move |ctx| {
-                send_telemetry_sync_from_app_ctx!(
-                    TelemetryEvent::LogOutModalCancel { nav_palette: true },
-                    ctx
-                );
                 let windowing_model = ctx.windows();
                 let window_id = if let Some(active_window_id) = windowing_model.active_window() {
                     active_window_id
@@ -222,12 +214,7 @@ pub fn maybe_log_out(app: &mut AppContext) {
             ));
         }
 
-        button_data.push(ModalButton::for_app("Cancel", move |ctx| {
-            send_telemetry_sync_from_app_ctx!(
-                TelemetryEvent::LogOutModalCancel { nav_palette: false },
-                ctx
-            );
-        }));
+        button_data.push(ModalButton::for_app("Cancel", |_| {}));
 
         let alert_data = AlertDialogWithCallbacks::for_app(
             "Log out?",
@@ -271,8 +258,6 @@ pub fn log_out_and_open_web(app: &mut AppContext) {
 
 // Log out the user, clears workspace state, stops running processes, and deletes database.
 pub fn log_out(app: &mut AppContext) {
-    send_telemetry_sync_from_app_ctx!(TelemetryEvent::LogOut, app);
-
     CodebaseIndexManager::handle(app).update(app, |index_manager, ctx| {
         index_manager.reset_codebase_indexing(ctx);
     });

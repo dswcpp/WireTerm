@@ -14,7 +14,7 @@ use warpui::{App, AppContext, Entity, ModelContext, SingletonEntity};
 use crate::server::telemetry;
 use crate::system::memory_footprint;
 use crate::terminal::TerminalView;
-use crate::{TelemetryEvent, send_telemetry_from_app_ctx, send_telemetry_sync_from_ctx};
+use crate::{TelemetryEvent, send_telemetry_from_app_ctx};
 
 /// The threshold at which we emit a memory usage warning, in bytes.
 const MEMORY_USAGE_WARNING_THRESHOLD_BYTES: u64 = Byte::GIGABYTE.as_u64() * 10;
@@ -155,9 +155,8 @@ impl SystemInfo {
             cpu: self.cpu_usage(),
         });
 
-        let rss = self.used_memory();
         let footprint = self.memory_footprint();
-        self.check_for_excessive_memory_usage(rss, footprint, ctx);
+        self.check_for_excessive_memory_usage(footprint, ctx);
 
         // Once we have a full buffer of statistics, consider sending a report
         // each time we store new resource usage data.
@@ -171,8 +170,6 @@ impl SystemInfo {
     ///
     /// The threshold check uses `memory_footprint` (which includes swapped
     /// and compressed pages) so we actually detect high memory situations.
-    /// The Rudderstack telemetry event still reports `rss` so existing
-    /// dashboards are unaffected.
     ///
     /// A crossing of the threshold is only reported once it's confirmed still excessive on the next
     /// poll tick, rather than on the tick that first observed it, so a short-lived spike that's
@@ -181,7 +178,6 @@ impl SystemInfo {
     /// spike doesn't silence the process for the rest of its lifetime.
     fn check_for_excessive_memory_usage(
         &mut self,
-        rss: Byte,
         memory_footprint: Byte,
         ctx: &mut ModelContext<Self>,
     ) {
@@ -207,40 +203,19 @@ impl SystemInfo {
                  {triggering_footprint_bytes} bytes; skipping the excessive-memory-usage report \
                  for what looks like a transient spike."
             );
-            send_telemetry_sync_from_ctx!(
-                TelemetryEvent::TransientMemorySpike {
-                    triggering_footprint_bytes,
-                    confirmation_footprint_bytes: footprint_bytes,
-                },
-                ctx
-            );
             return;
         }
-
-        // Collect a detailed memory breakdown for diagnostics.
-        let memory_breakdown = memory_footprint::memory_breakdown();
 
         // If we're tracking heap usage and detect excessive memory usage,
         // dump and upload the current heap profiling data.
         #[cfg(feature = "heap_usage_tracking")]
         {
-            let breakdown_for_sentry = memory_breakdown.clone();
+            let breakdown_for_sentry = memory_footprint::memory_breakdown();
             ctx.spawn(
                 crate::profiling::dump_jemalloc_heap_profile(breakdown_for_sentry),
                 |_, _, _| {},
             );
         }
-
-        // Send a telemetry event indicating that memory usage is extreme.
-        // Report RSS here to keep Rudderstack dashboards consistent.
-        let total_application_usage_bytes = rss.as_u64();
-        send_telemetry_sync_from_ctx!(
-            TelemetryEvent::MemoryUsageHigh {
-                total_application_usage_bytes,
-                memory_breakdown,
-            },
-            ctx
-        );
 
         ctx.emit(SystemInfoEvent::MemoryUsageHigh);
         self.has_emitted_memory_warning_event = true;

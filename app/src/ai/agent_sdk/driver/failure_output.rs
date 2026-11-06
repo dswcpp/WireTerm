@@ -1,7 +1,6 @@
 use lazy_static::lazy_static;
 use regex::Regex;
-
-use crate::server::telemetry::secret_redaction::redact_secrets_in_string;
+use secret_redaction::diagnostic::redact_secrets_in_string;
 
 const FAILURE_OUTPUT_MAX_BYTES: usize = 4 * 1024;
 lazy_static! {

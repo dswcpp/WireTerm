@@ -667,7 +667,6 @@ jobs:
             # TODO(vorporeal): Re-enable the `all-features` flag once we've fixed things.
             cargo clippy --locked --workspace --all-targets --tests -- -D warnings
           fi
-          # Workspace feature unification enables `warp/tui` through the `warp_tui` package.
           # Also lint the default GUI configuration used by `cargo run` and `./script/run`.
           cargo clippy --locked -p warp --all-targets --tests -- -D warnings
         env:

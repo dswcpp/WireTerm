@@ -7,12 +7,6 @@ use crate::features::FeatureFlag;
 
 /// Telemetry events for the computer-use video recording lifecycle.
 ///
-/// Emitted through the same client-side RudderStack pipeline as
-/// [`SkillTelemetryEvent`](crate::ai::skills::SkillTelemetryEvent) via
-/// `send_telemetry_from_ctx!`. These are infrastructure signals for tracking
-/// recording start/stop outcomes and upload success; they carry a
-/// client-generated `recording_id` plus capture metadata only and contain no
-/// user-generated content.
 #[derive(Serialize, Debug, EnumDiscriminants)]
 #[strum_discriminants(derive(EnumIter))]
 // `Stopped` is only built in the non-wasm stop/finalize path.
