@@ -42,7 +42,30 @@
 
 原版 Windows GUI 编译成功并显示欢迎页，debug exe 为 405,002,240 字节。
 原版曾因本机缺 `protoc` 失败，安装仓库脚本同版本 protoc 25.1 后成功；这是环境问题。
-`cargo-nextest` 尚未安装。跨平台验证需要 Oz runner；本机没有 `oz-dev`，不能声称 Linux/macOS 已验证。
+基线检查时 `cargo-nextest` 尚未安装；后续已安装并执行 35 项相关测试。跨平台验证需要 Oz runner；
+本机没有 `oz-dev`，不能声称 Linux/macOS 已验证。
+
+## 首批落地与审计证据
+
+- 独立 `warp_tui` 的反向依赖为空；已删除 crate、运行脚本、安装器、专用打包分支和发布任务。
+- OTLP 与 Rudder 发送链已删除；相关符号调用已同步移除，没有添加空 API 或禁用 feature。
+- 原遥测字符串脱敏被本地错误诊断复用，已提取到既有 `secret_redaction` crate 的 `diagnostic` 模块。
+- 精确资源/构建脚本路径、原始大小及删除状态见 resource-build-inventory.tsv，共 839 项。
+  标为保留待审计的资源不表示已逐一证明在所有平台使用，未据此盲目删除。
+- 其余云账号、Drive、AI、团队等运行时入口仍保留，完整 P0 验收未完成。
+- 下表为原始基线图，当前声明图见最终 current.json。
+
+Windows GUI 的实际 normal/build 依赖已另外比较：原始 1,011 个包，裁剪后 1,005 个包
+（按名称和版本去重，不含根 crate，不含 dev 边）。原始图在未修改的基线 SHA 临时工作树中
+生成，没有重新编译基线，也没有切换当前分支。命令为：
+
+```text
+cargo tree -p warp --features gui --edges normal,build --target x86_64-pc-windows-msvc --prefix none --format {p} --locked --offline
+```
+
+精确清单见 baseline-gui-dependencies.txt、current-gui-dependencies.txt 和
+gui-dependency-comparison.json。减少的 6 个包全部属于 OTLP；删除的独立 TUI 原本不在 GUI
+构建依赖图中，因此不会虚算成 GUI 运行依赖的减少。
 
 ## Workspace 正向和反向依赖
 

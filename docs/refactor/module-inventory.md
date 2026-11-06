@@ -4,6 +4,12 @@
 
 保留指保护通用能力；删除候选必须先解除反向引用；替换指混合业务模块；待确认不授权整块删除。
 
+## 首批执行状态
+
+以下表格记录原始声明图；当前 workspace 为 80 个 crate。独立 `warp_tui` 已删除，OTLP/Rudder
+发送器及专用依赖已删除。本地脱敏提取至既有 `secret_redaction::diagnostic`，未增加 crate。
+其余标为删除候选的模块尚未完成，详情见 deletion-report.md；不能据此把候选当成已经删除。
+
 ## Cargo workspace
 
 | Crate | Manifest | 处置 | 直接依赖数 |
@@ -46,7 +52,7 @@
 | regex_dfas | `crates/regex_dfas/Cargo.toml` | 保留 | 2 |
 | remote_server | `crates/remote_server/Cargo.toml` | 替换/待确认 | 23 |
 | repo_metadata | `crates/repo_metadata/Cargo.toml` | 替换/待确认 | 28 |
-| secret_redaction | `crates/secret_redaction/Cargo.toml` | 替换/待确认 | 10 |
+| secret_redaction | `crates/secret_redaction/Cargo.toml` | 保留（本地脱敏） | 10 |
 | serve-wasm | `crates/serve-wasm/Cargo.toml` | 替换/待确认 | 8 |
 | settings | `crates/settings/Cargo.toml` | 保留 | 13 |
 | settings_value | `crates/settings_value/Cargo.toml` | 保留 | 6 |

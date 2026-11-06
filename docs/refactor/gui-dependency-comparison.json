@@ -1,0 +1,22 @@
+{
+  "target": "x86_64-pc-windows-msvc",
+  "features": [
+    "gui"
+  ],
+  "edges": [
+    "normal",
+    "build"
+  ],
+  "includes_root": false,
+  "baseline_packages": 1011,
+  "current_packages": 1005,
+  "removed": [
+    "opentelemetry 0.32.0",
+    "opentelemetry-http 0.32.0",
+    "opentelemetry-otlp 0.32.0",
+    "opentelemetry-proto 0.32.0",
+    "opentelemetry_sdk 0.32.1",
+    "tracing-opentelemetry 0.33.0"
+  ],
+  "added": []
+}

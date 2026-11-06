@@ -1,0 +1,37 @@
+[
+  [
+    "opentelemetry",
+    "0.32.0",
+    "registry+https://github.com/rust-lang/crates.io-index"
+  ],
+  [
+    "opentelemetry-http",
+    "0.32.0",
+    "registry+https://github.com/rust-lang/crates.io-index"
+  ],
+  [
+    "opentelemetry-otlp",
+    "0.32.0",
+    "registry+https://github.com/rust-lang/crates.io-index"
+  ],
+  [
+    "opentelemetry-proto",
+    "0.32.0",
+    "registry+https://github.com/rust-lang/crates.io-index"
+  ],
+  [
+    "opentelemetry_sdk",
+    "0.32.1",
+    "registry+https://github.com/rust-lang/crates.io-index"
+  ],
+  [
+    "tracing-opentelemetry",
+    "0.33.0",
+    "registry+https://github.com/rust-lang/crates.io-index"
+  ],
+  [
+    "warp_tui",
+    "0.0.0",
+    "workspace"
+  ]
+]
