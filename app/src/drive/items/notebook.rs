@@ -6,7 +6,6 @@ use warpui::{AppContext, Element};
 use super::{WarpDriveItem, WarpDriveItemId};
 use crate::appearance::Appearance;
 use crate::cloud_object::CloudObjectMetadata;
-use crate::drive::index::DriveIndexAction;
 use crate::drive::{CloudObjectTypeAndId, DriveObjectType};
 use crate::notebooks::CloudNotebook;
 use crate::themes::theme::Fill;
@@ -51,9 +50,7 @@ impl WarpDriveItem for WarpDriveNotebook {
         None
     }
 
-    fn click_action(&self) -> Option<DriveIndexAction> {
-        Some(DriveIndexAction::OpenObject(self.id))
-    }
+    
 
     fn preview(&self, appearance: &Appearance) -> Option<Box<dyn Element>> {
         let title_text = self.notebook.model().title.clone();

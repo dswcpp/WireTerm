@@ -2960,12 +2960,9 @@ fn clicking_old_banner_for_open_conversation_focuses_current_terminal_surface_wi
         });
         let restored_agent_view_controller =
             restored_view.read(&app, |view, _| view.agent_view_controller().clone());
-        let restored_active_session =
-            restored_view.read(&app, |view, _| view.active_session().clone());
         ActiveAgentViewsModel::handle(&app).update(&mut app, |active_views, ctx| {
             active_views.register_agent_view_controller(
                 &restored_agent_view_controller,
-                &restored_active_session,
                 restored_view_id,
                 ctx,
             );

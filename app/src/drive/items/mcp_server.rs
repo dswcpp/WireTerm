@@ -5,7 +5,6 @@ use super::{WarpDriveItem, WarpDriveItemId};
 use crate::ai::mcp::CloudMCPServer;
 use crate::appearance::Appearance;
 use crate::cloud_object::CloudObjectMetadata;
-use crate::drive::index::DriveIndexAction;
 use crate::drive::{CloudObjectTypeAndId, DriveObjectType};
 use crate::themes::theme::Fill;
 
@@ -37,9 +36,7 @@ impl WarpDriveItem for WarpDriveMCPServer {
         None
     }
 
-    fn click_action(&self) -> Option<DriveIndexAction> {
-        Some(DriveIndexAction::OpenMCPServerCollection)
-    }
+    
 
     fn preview(&self, _appearance: &Appearance) -> Option<Box<dyn Element>> {
         // TODO

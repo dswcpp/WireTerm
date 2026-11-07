@@ -371,7 +371,6 @@ impl PaneContent for TerminalPane {
                 );
             }
         });
-        let active_session = terminal_view.as_ref(ctx).active_session().clone();
         let active_stack_view = pane_stack.as_ref(ctx).active_view().clone();
         let active_ambient_session_registration = active_stack_view
             .as_ref(ctx)
@@ -380,7 +379,6 @@ impl PaneContent for TerminalPane {
         ActiveAgentViewsModel::handle(ctx).update(ctx, |model, ctx| {
             model.register_agent_view_controller(
                 &agent_view_controller,
-                &active_session,
                 terminal_view_id,
                 ctx,
             );

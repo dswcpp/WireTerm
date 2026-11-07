@@ -232,7 +232,6 @@ use warp_logging::{LogDestination, LogFrontend};
 use warp_server_client::iap::{IapManager, IapManagerEvent, IapState, ManagedIapMint};
 use warp_server_client::network_logging::NetworkLogModel;
 use warpui::integration::TestDriver;
-use warpui::modals::{AlertDialogWithCallbacks, AppModalCallback};
 use warpui::platform::TerminationMode;
 use warpui::platform::app::{ApproveTerminateResult, TerminationRequestSource};
 use warpui::windowing::state::ApplicationStage;
@@ -440,6 +439,7 @@ enum TuiEntryPoint {
 }
 
 enum AuthInitialization {
+    Local,
     Persisted,
     PendingApiKey(String),
 }
@@ -491,6 +491,9 @@ impl LaunchMode {
     }
 
     fn auth_initialization(&self) -> AuthInitialization {
+        if matches!(self, LaunchMode::App { .. }) {
+            return AuthInitialization::Local;
+        }
         match self.api_key() {
             Some(api_key) => AuthInitialization::PendingApiKey(api_key),
             None => AuthInitialization::Persisted,
@@ -1517,6 +1520,7 @@ pub(crate) fn initialize_app(
     }
 
     let (auth_state, pending_api_key) = match launch_mode.auth_initialization() {
+        AuthInitialization::Local => (AuthState::initialize_local(ctx), None),
         AuthInitialization::Persisted => (AuthState::initialize(ctx), None),
         AuthInitialization::PendingApiKey(api_key) => (
             AuthState::initialize_for_credential_validation(ctx),
@@ -2111,7 +2115,6 @@ pub(crate) fn initialize_app(
     themes::theme_deletion_modal::init(ctx);
     root_view::init(ctx);
     voltron::init(ctx);
-    auth::init(ctx);
     reward_view::init(ctx);
     crate::view_components::find::init(ctx);
     prompt::editor_modal::init(ctx);
@@ -2122,7 +2125,6 @@ pub(crate) fn initialize_app(
     tab_configs::params_modal::init(ctx);
     ai::blocklist::init(ctx);
     ai::blocklist::block::status_bar::init(ctx);
-    drive::index::init(ctx);
     drive::sharing::dialog::init(ctx);
     ai_assistant::panel::init(ctx);
     settings_view::update_environment_form::init(ctx);
@@ -2958,33 +2960,7 @@ pub(crate) fn app_callbacks(is_integration_test: bool) -> warpui::platform::AppC
     }
 }
 
-/// Focuses the active window or if there isn't one then a window with a running process
-/// and then shows the native modal.
-fn focus_running_window_and_show_native_modal(
-    sessions_summary: RunningSessionSummary,
-    dialog_with_callbacks: AlertDialogWithCallbacks<AppModalCallback>,
-    ctx: &mut AppContext,
-) {
-    let windowing_model = ctx.windows();
-    let active_window_id = windowing_model.active_window();
-    // Show the nav palette in the active window. If there is no active window,
-    // arbitrarily pick one of the windows having a running process.
-    let window_id_to_focus = active_window_id.unwrap_or_else(|| {
-        *sessions_summary
-            .windows_running()
-            .iter()
-            .next()
-            .expect("already checked len > 0")
-    });
-    ctx.windows().show_window_and_focus_app(window_id_to_focus);
-    if let Some(workspaces) = ctx.views_of_type::<Workspace>(window_id_to_focus)
-        && let Some(handle) = workspaces.first()
-    {
-        handle.update(ctx, |view, ctx| {
-            view.show_native_modal(dialog_with_callbacks, ctx);
-        });
-    }
-}
+
 
 fn on_close_app_cancelled(open_navigation_palette: bool, ctx: &mut AppContext) {
     autoupdate::cancel_relaunch(ctx);

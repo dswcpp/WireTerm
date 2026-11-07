@@ -1,5 +1,24 @@
 # 模块清单
 
+## 第二批：桌面本地启动与账号/Drive 界面删除
+
+桌面 `LaunchMode::App` 使用 `AuthInitialization::Local`；`RootView` 只持有本地
+`Workspace`，不再构造账号登录、SSO、粘贴令牌或账号优先引导视图。登录页相关文件、
+Account 设置页、Drive 侧栏主体/行渲染器/命名及清空回收站对话框、云会话列表已实际删除。
+精确路径见 [batch-2-deleted-files.txt](batch-2-deleted-files.txt)。
+
+| 模块 | 当前处置 | 反向依赖与保留边界 |
+|---|---|---|
+| 桌面 RootView 认证状态机 | 删除，直接构造 Workspace | 保留窗口、热键、多标签/Pane、Quake、语音修饰键释放处理 |
+| GUI 登录/SSO/token/账号设置 | 删除实现、注册、菜单、回调入口 | CLI/TUI 残留适配和 API-key/device flow 尚存；第三方 MCP/ChatGPT OAuth 未混同为 Warp 账号登录 |
+| `warp_server_auth::AuthState` | 最小本地初始化 | 无账户/凭据；保留稳定本地 UUID；既有 UserUid/credentials 类型仍被共享模型使用 |
+| `drive/index.rs`、`panel.rs`、`items/item.rs` | 删除视图及专用测试 | sidebar 通用宽度常量移入 Workspace；保留被对象查询使用的 DriveIndexVariant |
+| `drive/items` 共享模型适配 | 保留部分，删除侧栏点击/定位接口 | CloudObject、Notebook、Workflow、env-var/MCP 的展示/所有权接口仍引用 WarpDriveItem |
+| 本地侧栏 | 保留项目文件树、全局搜索 | 旧存储的 Drive/云会话页签映射至文件树；保留旧快捷键序列化标识以兼容用户绑定 |
+| 本地 SQLite/会话恢复 | 保留 | 未清空数据库，未篡改云对象所有者；云同步与本地对象存储仍待解耦 |
+| AI onboarding 账号模型转换 | 删除无调用模块 | 通用 onboarding crate 仍被终端 callout/教程数据类型使用，不能整包删除 |
+| 自动更新/语音/云 AI/计费及团队设置 | 未完成裁剪 | 保留实际实现和调用，不将永久禁用开关算作删除 |
+
 原始 SHA：`f7fc2f2a08a3aa446baa23960710e630c5defd6e`。完整原始数据见 baseline.json。
 
 保留指保护通用能力；删除候选必须先解除反向引用；替换指混合业务模块；待确认不授权整块删除。

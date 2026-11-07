@@ -39,7 +39,6 @@ use crate::ai::facts::{AIFact, CloudAIFactModel};
 #[cfg(not(target_family = "wasm"))]
 use crate::ai::mcp::templatable::{CloudTemplatableMCPServerModel, TemplatableMCPServer};
 use crate::auth::AuthStateProvider;
-use crate::auth::auth_manager::AuthManager;
 use crate::cloud_object::model::actions::{
     ObjectAction, ObjectActionHistory, ObjectActionType, ObjectActions,
 };
@@ -121,10 +120,8 @@ pub enum ObjectOperation {
     TakeEditAccess,
     Untrash,
     Delete { initiated_by: InitiatedBy },
-    EmptyTrash,
     UpdatePermissions,
-    Leave,
-}
+    }
 
 #[derive(Debug)]
 pub struct ObjectOperationResult {
@@ -156,9 +153,6 @@ pub enum UpdateManagerEvent {
 pub enum FetchSingleObjectOption {
     /// Perform the normal upsert behavior.
     None,
-    /// Perform the normal upsert behavior, but additionally force overwrite the
-    /// in-memory object to whatever the server object is.
-    ForceOverwrite,
     /// Only perform the normal upsert behavior if the object doesn't already
     /// exist in-memory.
     IgnoreIfExists,
@@ -1511,22 +1505,7 @@ impl UpdateManager {
 
                             cloud_model.upsert_from_server_cloud_object(object.clone(), ctx);
 
-                            if matches!(
-                                fetch_single_object_option,
-                                FetchSingleObjectOption::ForceOverwrite
-                            ) && let Some(object) = cloud_model.get_mut_by_uid(&uid)
-                            {
-                                let had_conflict = object.has_conflicting_changes();
-                                object.replace_object_with_conflict();
-                                // If there was a conflict, `upsert_from_server_cloud_object` won't
-                                // have emitted an update event. Do it here instead.
-                                if had_conflict {
-                                    ctx.emit(CloudModelEvent::ObjectUpdated {
-                                        type_and_id: object.cloud_object_type_and_id(),
-                                        source: UpdateSource::Server,
-                                    });
-                                }
-                            }
+                            
 
                             Self::save_in_memory_object_to_sqlite(
                                 me,
@@ -2356,88 +2335,7 @@ impl UpdateManager {
         self.spawned_futures.push(future.future_id());
     }
 
-    /// Leaves a shared object, removing all of the current user's ACLs on it.
-    pub fn leave_object(&mut self, server_id: ServerId, ctx: &mut ModelContext<Self>) {
-        let uid = server_id.uid();
-
-        // If there's a pending online-only operation for this object, don't leave it.
-        if CloudModel::as_ref(ctx)
-            .get_by_uid(&uid)
-            .is_none_or(|object| object.metadata().has_pending_online_only_change())
-        {
-            return;
-        }
-
-        let object_client = self.object_client.clone();
-
-        // Make the request.
-        let future = ctx.spawn_with_retry_on_error(
-            move || {
-                let object_client = object_client.clone();
-                async move { object_client.leave_object(server_id).await }
-            },
-            *ONLINE_ONLY_OPERATION_RETRY_STRATEGY,
-            move |me, res, ctx| match res {
-                RequestState::RequestSucceeded(ObjectDeleteResult::Success { .. }) => {
-                    // Remove the object and contents.
-                    let deleted_objects =
-                        CloudModel::handle(ctx).update(ctx, |cloud_model, ctx| {
-                            cloud_model.delete_object_and_descendants(server_id.uid(), ctx)
-                        });
-
-                    // Show a confirmation toast.
-                    ctx.emit(UpdateManagerEvent::ObjectOperationComplete {
-                        result: ObjectOperationResult {
-                            success_type: OperationSuccessType::Success,
-                            operation: ObjectOperation::Leave,
-                            client_id: None,
-                            server_id: Some(server_id),
-                            num_objects: Some(deleted_objects.len() as i32),
-                        },
-                    });
-
-                    // Delete object actions as well.
-                    ObjectActions::handle(ctx).update(ctx, |object_actions, ctx| {
-                        for (id, _) in deleted_objects.iter() {
-                            object_actions.delete_actions_for_object(&id.uid(), ctx);
-                        }
-                    });
-
-                    // Delete objects and their actions from SQLite.
-                    me.save_to_db([ModelEvent::DeleteObjects {
-                        ids: deleted_objects,
-                    }]);
-                }
-                RequestState::RequestFailedRetryPending(e) => {
-                    log::warn!("Failed to leave object: {e}. Retrying.");
-                }
-                RequestState::RequestFailed(e) => {
-                    log::warn!("Failed to leave object: {e}. Not retrying.");
-                    ctx.emit(UpdateManagerEvent::ObjectOperationComplete {
-                        result: ObjectOperationResult {
-                            success_type: OperationSuccessType::Failure,
-                            operation: ObjectOperation::Leave,
-                            client_id: None,
-                            server_id: Some(server_id),
-                            num_objects: None,
-                        },
-                    })
-                }
-                RequestState::RequestSucceeded(ObjectDeleteResult::Failure) => {
-                    ctx.emit(UpdateManagerEvent::ObjectOperationComplete {
-                        result: ObjectOperationResult {
-                            success_type: OperationSuccessType::Failure,
-                            operation: ObjectOperation::Leave,
-                            client_id: None,
-                            server_id: Some(server_id),
-                            num_objects: None,
-                        },
-                    })
-                }
-            },
-        );
-        self.spawned_futures.push(future.future_id());
-    }
+    
 
     /// Sets or removes link sharing permissions for a cloud object.
     ///
@@ -3354,9 +3252,7 @@ impl UpdateManager {
                 count + 1,
             )
         }) {
-            AuthManager::handle(ctx).update(ctx, |auth_manager: &mut AuthManager, ctx| {
-                auth_manager.anonymous_user_hit_drive_object_limit(ctx);
-            });
+            
             return;
         };
 
@@ -3425,9 +3321,7 @@ impl UpdateManager {
                 count + 1,
             )
         }) {
-            AuthManager::handle(ctx).update(ctx, |auth_manager: &mut AuthManager, ctx| {
-                auth_manager.anonymous_user_hit_drive_object_limit(ctx);
-            });
+            
             return;
         };
 
@@ -3488,9 +3382,7 @@ impl UpdateManager {
         if AuthStateProvider::handle(ctx).read(ctx, |auth_state_provider, _ctx| {
             is_feature_gated_anonymous_user_past_env_var_limit(auth_state_provider.get(), count + 1)
         }) {
-            AuthManager::handle(ctx).update(ctx, |auth_manager: &mut AuthManager, ctx| {
-                auth_manager.anonymous_user_hit_drive_object_limit(ctx);
-            });
+            
             return;
         };
 
@@ -4609,95 +4501,7 @@ impl UpdateManager {
         self.spawned_futures.push(future.future_id());
     }
 
-    pub fn empty_trash(&mut self, space: Space, ctx: &mut ModelContext<Self>) {
-        let object_client = self.object_client.clone();
-
-        let owner = match UserWorkspaces::as_ref(ctx).space_to_owner(space, ctx) {
-            Some(owner) => owner,
-            None => {
-                // TODO: For the Shared space, this should delete every object that's shared with the user
-                // and trashed.
-                log::warn!("Tried to empty trash in unsupported space {space:?}");
-                return;
-            }
-        };
-
-        // Make the request.
-        let future = ctx.spawn_with_retry_on_error(
-            move || {
-                let object_client = object_client.clone();
-                async move { object_client.empty_trash(owner).await }
-            },
-            *ONLINE_ONLY_OPERATION_RETRY_STRATEGY,
-            move |me, res, ctx| match res {
-                RequestState::RequestSucceeded(delete_result) => {
-                    match delete_result {
-                        ObjectDeleteResult::Success { deleted_ids } => {
-                            let num_deleted_objects = me.on_object_delete_success(deleted_ids, ctx);
-
-                            if num_deleted_objects == 0 {
-                                // Show rejection toast that states there are no objects in the Trash
-                                ctx.emit(UpdateManagerEvent::ObjectOperationComplete {
-                                    result: ObjectOperationResult {
-                                        success_type: OperationSuccessType::Rejection,
-                                        operation: ObjectOperation::EmptyTrash,
-                                        client_id: None,
-                                        server_id: None,
-                                        num_objects: Some(num_deleted_objects),
-                                    },
-                                });
-                            } else {
-                                // Show success confirmation toast
-                                ctx.emit(UpdateManagerEvent::ObjectOperationComplete {
-                                    result: ObjectOperationResult {
-                                        success_type: OperationSuccessType::Success,
-                                        operation: ObjectOperation::EmptyTrash,
-                                        client_id: None,
-                                        server_id: None,
-                                        num_objects: Some(num_deleted_objects),
-                                    },
-                                });
-                            }
-                        }
-                        ObjectDeleteResult::Failure => {
-                            // Show an error toast to relay the failure to the user.
-                            ctx.emit(UpdateManagerEvent::ObjectOperationComplete {
-                                result: ObjectOperationResult {
-                                    success_type: OperationSuccessType::Failure,
-                                    operation: ObjectOperation::EmptyTrash,
-                                    client_id: None,
-                                    server_id: None,
-                                    num_objects: Some(0),
-                                },
-                            });
-                        }
-                    }
-
-                    ctx.notify();
-                }
-                RequestState::RequestFailedRetryPending(e) => {
-                    log::warn!("Failed to empty trash: {e}. Retrying");
-                }
-                RequestState::RequestFailed(e) => {
-                    log::warn!("Failed to empty trash: {e}. Not retrying");
-
-                    // Show an error toast to relay the failure to the user.
-                    ctx.emit(UpdateManagerEvent::ObjectOperationComplete {
-                        result: ObjectOperationResult {
-                            success_type: OperationSuccessType::Failure,
-                            operation: ObjectOperation::EmptyTrash,
-                            client_id: None,
-                            server_id: None,
-                            num_objects: Some(0),
-                        },
-                    });
-                    ctx.notify();
-                }
-            },
-        );
-
-        self.spawned_futures.push(future.future_id());
-    }
+    
 
     pub fn on_object_delete_success(
         &mut self,
@@ -4736,25 +4540,7 @@ impl UpdateManager {
         num_deleted_objects
     }
 
-    pub fn rename_folder(
-        &mut self,
-        folder_id: SyncId,
-        new_name: String,
-        ctx: &mut ModelContext<Self>,
-    ) {
-        let cloud_model = CloudModel::as_ref(ctx);
-        let revision = cloud_model.current_revision(&folder_id).cloned();
-        if let Some(folder) = cloud_model.get_folder(&folder_id) {
-            let new_folder = CloudFolderModel {
-                name: new_name,
-                is_open: folder.model().is_open,
-                is_warp_pack: folder.model().is_warp_pack,
-            };
-            self.update_object(new_folder, folder_id, revision, ctx);
-        } else {
-            log::warn!("Attempted to rename folder that doesn't exist with id: {folder_id:?}");
-        }
-    }
+    
 
     /// Persist updated metadata returned by a non-content update API. Because this metadata comes
     /// from an online-only API call, we assume it is always more up-to-date than the local

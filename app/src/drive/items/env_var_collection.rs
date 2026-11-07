@@ -1,5 +1,4 @@
 use itertools::Itertools;
-use warp_core::context_flag::ContextFlag;
 use warpui::elements::{Clipped, Container, Flex, MouseStateHandle, ParentElement};
 use warpui::fonts::Weight;
 use warpui::ui_components::components::{UiComponent, UiComponentStyles};
@@ -9,7 +8,6 @@ use super::{WarpDriveItem, WarpDriveItemId};
 use crate::appearance::Appearance;
 use crate::cloud_object::CloudObjectMetadata;
 use crate::cloud_object::model::actions::{ObjectActionType, ObjectActions};
-use crate::drive::index::DriveIndexAction;
 use crate::drive::{CloudObjectTypeAndId, DriveObjectType};
 use crate::env_vars::{CloudEnvVarCollection, EnvVarValue};
 use crate::themes::theme::Fill;
@@ -46,15 +44,7 @@ impl WarpDriveItem for WarpDriveEnvVarCollection {
         None
     }
 
-    fn click_action(&self) -> Option<DriveIndexAction> {
-        // If running the workflow is disabled (true for some web views),
-        // we should just open the workflow instead.
-        if !ContextFlag::RunWorkflow.is_enabled() {
-            Some(DriveIndexAction::OpenObject(self.id))
-        } else {
-            Some(DriveIndexAction::RunObject(self.id))
-        }
-    }
+    
 
     fn preview(&self, appearance: &Appearance) -> Option<Box<dyn Element>> {
         let title_text = self.env_var_collection.model().string_model.title.clone();

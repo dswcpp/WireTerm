@@ -17,12 +17,7 @@ pub enum OnboardingTutorial {
 }
 
 impl OnboardingTutorial {
-    /// Extracts the onboarding intention from any tutorial variant.
-    pub(crate) fn intention(&self) -> OnboardingIntention {
-        match self {
-            OnboardingTutorial::NoProject { intention } => *intention,
-        }
-    }
+    
 }
 
 /// A tutorial dispatch held back until the blocking one-time modal that was open closes.

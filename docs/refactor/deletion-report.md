@@ -1,5 +1,27 @@
 # P0 首批裁剪报告
 
+## 第二批实际删除与本地替代
+
+本批处理用户指出的残留 Sign in 入口：删除 RootView 的认证/引导状态机、GUI 登录/SSO/token/
+认证错误组件、Account 设置页与原退出登录菜单，并将桌面启动替换为直接打开本地 Workspace。
+同时删除左侧 Drive/云会话列表的构造、订阅、视图实现、命名/清空回收站 UI，以及不再使用的
+云 leave/empty-trash/rename-folder 操作和专用测试。完整路径清单见
+[batch-2-deleted-files.txt](batch-2-deleted-files.txt)；总删除列表仍见 deleted-files.txt。
+
+最小替代实现：
+
+- `AuthState::initialize_local`：无账号、无凭据，复用既有稳定本地 UUID；不读取或删除旧 Warp 凭据。
+- `RootView::new`：直接创建 Workspace；保留窗口/Quake/热键路由及 macOS 原有按键重复设置逻辑。
+- 原本点击“在 Drive 中查看”改为已有缓存对象编辑器路由；没有新增云同步或伪成功服务。
+- 旧 sidebar 序列化值兼容映射到 ProjectExplorer；旧 ToggleWarpDrive 快捷键标识仍供通用侧栏
+  开关解析。没有清空 SQLite、设置或会话；旧账号数据未被迁移成伪造本地账户。
+- 残余共享编辑器的账号/分享请求在本地边界明确报错；这些生产者和模型尚未全量删除。
+
+本批移除 Cargo 依赖：0；新增依赖：0。云客户端 crate 仍有 AI、共享会话、对象持久化和 CLI
+反向依赖，不能因 GUI 登录页已删除就宣称认证及云服务源码/运行时依赖已清零。
+onboarding 资源仍被终端 callout/教程和 DTO 使用，保留并列为后续解耦项。
+自动更新、语音、团队/计费设置、云 AI/Oz 及可选 Sentry 仍未完成裁剪，完整 P0 尚未通过。
+
 ## 当前结论
 
 本分支完成已确认边界的实际源码删除：远程遥测发送链与独立 TUI 的构建、发布和运行入口。
@@ -62,7 +84,7 @@
 
 | 保留项 | 真实耦合与下一步 |
 |---|---|
-| 账号 / 认证 | `lib.rs::initialize_app`、`auth/`、`root_view.rs::AuthOnboardingState`、`warp_server_auth`；UserUid 参与 SQLite/对象键。需先定义本地身份及迁移契约，再删除认证 singleton 和引导状态机 |
+| 账号 / 认证剩余 | 桌面已使用 Local 初始化并删除 RootView 登录状态机；`auth/` 后端、`warp_server_auth` 和 CLI/device flow 尚存，UserUid 仍参与 SQLite/对象键，需先分离身份/所有权和迁移契约 |
 | Drive / 云对象 | `cloud_object/model/persistence.rs` 同时恢复本地对象和云对象；`PersistenceWriter`、notebook/workflow/session state 共用模型。需先区分本地存储、待同步队列和远程所有权 |
 | 云 AI / Oz | `ai/`、`ai_assistant/`、`warp_multi_agent_client`、`warp_server_client` 与输入、block list、Pane 视图共用类型。`terminal/view/ambient_agent/view_impl.rs` 仍读取 ServerApi，不能整体删目录 |
 | 团队 / 计费 | `workspaces/`、`billing/`、`pricing/`、Settings 权限枚举和 LLM 可用性互相引用；需先分离本地功能可用性，不能将权限查询伪装为永久成功 |

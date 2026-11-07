@@ -1,9 +1,22 @@
 # P0 首批验证报告
 
+## 第二批验证范围
+
+本批验证桌面无账号启动、旧凭据隔离、登录开关不阻断本地终端，以及删除 Drive 侧栏后本地
+文件树/搜索、会话、标签和分屏的完整性。后面的首批结果属于历史证据，不替代本批验证。
+
+环境仍为 Windows x86_64 / Rust 1.92.0 / MSVC 2022。构建缓存因 D 盘空间不足迁移到
+`%LOCALAPPDATA%/WireTerm/build-targets/WireTerm`，仓库 target 为 junction；源码及用户数据
+路径未迁移。迁移后构建时间受缓存重建影响，不能据此判断终端性能退化。
+
+新增回归用例覆盖 Local 初始化无账户/凭据且保留本地 UUID、初始化不读取/删除旧安全存储
+凭据、桌面忽略 Warp API key，以及 ForceLogin/AgentOnboarding 开关开启时未登录窗口仍有本地
+终端。真实 GUI smoke 使用既有用户数据，不等同于全新配置或物理断网测试。
+
 ## 验证对象与判定
 
 分支 `refactor/p0-local-terminal`，原始 SHA `f7fc2f2a08a3aa446baa23960710e630c5defd6e`。
-本报告覆盖遥测发送链和独立 TUI 分发的裁剪，**完整 P0 验收尚未通过**。
+本报告覆盖遥测/TUI 首批及桌面本地启动第二批裁剪，**完整 P0 验收尚未通过**。
 剩余功能和风险边界见 [deletion-report.md](deletion-report.md)。
 验证源码提交：`a1dacae0bd26ce34f22a062e622cadd010820f11`。规模对比及提交记录见该删除报告。
 

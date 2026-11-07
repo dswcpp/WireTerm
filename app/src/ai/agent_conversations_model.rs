@@ -9,7 +9,6 @@ use chrono::{DateTime, Utc};
 use clap::ValueEnum;
 pub use entry::{
     AgentConversationEntry, AgentConversationEntryId, AgentConversationNavigationSubject,
-    AgentConversationProvenance,
 };
 use futures::stream::AbortHandle;
 use fuzzy_match::FuzzyMatchResult;

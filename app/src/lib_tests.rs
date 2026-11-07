@@ -84,7 +84,7 @@ fn command_line_launch_runs_in_sdk_execution_mode() {
 }
 
 #[test]
-fn app_api_key_requires_validation() {
+fn desktop_ignores_warp_api_key() {
     let app = LaunchMode::App {
         args: Default::default(),
         api_key: Some("app-api-key".to_owned()),
@@ -92,7 +92,7 @@ fn app_api_key_requires_validation() {
 
     assert!(matches!(
         app.auth_initialization(),
-        AuthInitialization::PendingApiKey(api_key) if api_key == "app-api-key"
+        AuthInitialization::Local
     ));
 }
 
@@ -131,7 +131,7 @@ fn command_line_api_key_requires_validation() {
 }
 
 #[test]
-fn startup_without_api_key_loads_persisted_auth() {
+fn desktop_starts_locally_without_persisted_auth() {
     let app = LaunchMode::App {
         args: Default::default(),
         api_key: None,
@@ -139,7 +139,7 @@ fn startup_without_api_key_loads_persisted_auth() {
 
     assert!(matches!(
         app.auth_initialization(),
-        AuthInitialization::Persisted
+        AuthInitialization::Local
     ));
 }
 

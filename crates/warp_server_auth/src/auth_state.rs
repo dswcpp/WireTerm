@@ -20,6 +20,7 @@ use super::user::{
     AnonymousUserType, FirebaseAuthTokens, PersonalObjectLimits, PrincipalType, User,
 };
 
+
 const ANONYMOUS_USER_NOTIFICATION_BLOCK_TIMER: Duration = Duration::days(7);
 
 /// Describes what persistence action to take based on the current auth state.
@@ -50,6 +51,11 @@ pub struct AuthState {
 }
 
 impl AuthState {
+    /// Creates a local session without reading or installing Warp credentials.
+    pub fn initialize_local(ctx: &AppContext) -> Self {
+        Self::new(ctx)
+    }
+
     fn new(ctx: &AppContext) -> Self {
         Self {
             user: RwLock::new(None),
@@ -616,3 +622,7 @@ impl Entity for AuthStateProvider {
 }
 
 impl SingletonEntity for AuthStateProvider {}
+
+#[cfg(test)]
+#[path = "auth_state_tests.rs"]
+mod tests;

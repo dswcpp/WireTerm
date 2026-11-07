@@ -5,7 +5,6 @@ use super::{WarpDriveItem, WarpDriveItemId};
 use crate::appearance::Appearance;
 use crate::cloud_object::{CloudObjectMetadata, Space};
 use crate::drive::DriveObjectType;
-use crate::drive::index::DriveIndexAction;
 use crate::themes::theme::Fill;
 
 #[derive(Clone)]
@@ -37,9 +36,7 @@ impl WarpDriveItem for WarpDriveSpace {
         None
     }
 
-    fn click_action(&self) -> Option<DriveIndexAction> {
-        None
-    }
+    
 
     fn preview(&self, _appearance: &Appearance) -> Option<Box<dyn Element>> {
         None

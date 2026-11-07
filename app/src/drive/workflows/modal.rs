@@ -400,24 +400,7 @@ impl WorkflowModal {
         })
     }
 
-    /// Opens the modal with no preexisting workflow.
-    /// This represents the creation experience; saving this workflow will add
-    /// a new one to the space specified.
-    pub fn open_with_new(
-        &mut self,
-        owner: Owner,
-        initial_folder_id: Option<SyncId>,
-        ctx: &mut ViewContext<Self>,
-    ) {
-        self.is_open = true;
-        self.initial_folder_id = initial_folder_id;
-        self.owner = Some(owner);
-        self.workflow_id = None;
-        self.compute_breadcrumbs(ctx);
-        self.all_workflow_enums =
-            workflow_arg_type_helpers::load_workflow_enums_with_owner(owner, ctx);
-        ctx.notify();
-    }
+    
 
     /// Populate the modal with the data of a [`Workflow`] struct
     #[allow(dead_code)]

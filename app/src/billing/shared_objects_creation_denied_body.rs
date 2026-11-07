@@ -62,20 +62,7 @@ impl SharedObjectsCreationDeniedBody {
         }
     }
 
-    pub fn update_state(
-        &mut self,
-        object_type: DriveObjectType,
-        has_admin_permissions: bool,
-        is_delinquent_due_to_payment_issue: bool,
-        customer_type: CustomerType,
-        ctx: &mut ViewContext<Self>,
-    ) {
-        self.object_type = Some(object_type);
-        self.has_admin_permissions = has_admin_permissions;
-        self.is_delinquent_due_to_payment_issue = is_delinquent_due_to_payment_issue;
-        self.customer_type = customer_type;
-        ctx.notify();
-    }
+    
 }
 
 impl Entity for SharedObjectsCreationDeniedBody {

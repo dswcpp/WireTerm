@@ -1,4 +1,3 @@
-use warp_core::context_flag::ContextFlag;
 use warpui::elements::{Container, Flex, MouseStateHandle, ParentElement};
 use warpui::fonts::Weight;
 use warpui::ui_components::components::{UiComponent, UiComponentStyles};
@@ -8,10 +7,9 @@ use super::{WarpDriveItem, WarpDriveItemId};
 use crate::appearance::Appearance;
 use crate::cloud_object::CloudObjectMetadata;
 use crate::cloud_object::model::actions::{ObjectActionType, ObjectActions};
-use crate::drive::index::DriveIndexAction;
 use crate::drive::{CloudObjectTypeAndId, DriveObjectType};
 use crate::themes::theme::Fill;
-use crate::workflows::{CloudWorkflow, WorkflowViewMode};
+use crate::workflows::CloudWorkflow;
 
 #[derive(Clone)]
 pub struct WarpDriveWorkflow {
@@ -50,18 +48,7 @@ impl WarpDriveItem for WarpDriveWorkflow {
         None
     }
 
-    fn click_action(&self) -> Option<DriveIndexAction> {
-        if !ContextFlag::RunWorkflow.is_enabled() {
-            // If we are in a context where we can't run workflows, open it in view mode
-            // by default
-            Some(DriveIndexAction::OpenWorkflowInPane {
-                cloud_object_type_and_id: self.id,
-                open_mode: WorkflowViewMode::View,
-            })
-        } else {
-            Some(DriveIndexAction::RunObject(self.id))
-        }
-    }
+    
 
     fn preview(&self, appearance: &Appearance) -> Option<Box<dyn Element>> {
         let mut modal =

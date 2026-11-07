@@ -26,7 +26,6 @@ pub enum SetupGuideStep {
 #[serde(rename_all = "snake_case")]
 pub enum OpenedFrom {
     ManagementView,
-    ConversationList,
     DetailsPanel,
 }
 

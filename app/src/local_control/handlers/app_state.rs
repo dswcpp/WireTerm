@@ -83,14 +83,7 @@ pub(crate) fn handle(
             target,
             ctx,
         ),
-        ActionKind::SurfaceWarpDriveOpen => surface_workspace_action(
-            instance_id,
-            action,
-            SurfaceDestination::WarpDrive,
-            WorkspaceAction::OpenWarpDrive,
-            target,
-            ctx,
-        ),
+        
         ActionKind::SurfaceAgentManagementOpen => surface_workspace_action(
             instance_id,
             action,
@@ -122,13 +115,7 @@ pub(crate) fn handle(
             surface_command_search_open(instance_id, params, target, ctx)
         }
         ActionKind::SurfaceThemePickerOpen => surface_theme_picker_open(instance_id, target, ctx),
-        ActionKind::SurfaceWarpDriveToggle => workspace_action(
-            instance_id,
-            action,
-            WorkspaceAction::ToggleWarpDrive,
-            target,
-            ctx,
-        ),
+        
         ActionKind::SurfaceResourceCenterToggle => workspace_action(
             instance_id,
             action,
@@ -169,14 +156,7 @@ pub(crate) fn handle(
             target,
             ctx,
         ),
-        ActionKind::SurfaceConversationListOpen => surface_workspace_action(
-            instance_id,
-            action,
-            SurfaceDestination::ConversationList,
-            WorkspaceAction::OpenConversationListView,
-            target,
-            ctx,
-        ),
+        
         ActionKind::SurfaceLeftPanelToggle => workspace_action(
             instance_id,
             action,

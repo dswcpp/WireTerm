@@ -1,6 +1,26 @@
 # 依赖分析
 
-## 基线和启动调用链
+## 第二批依赖边界与当前启动链
+
+原始启动链记于下节；当前桌面启动为：`run_internal` → `initialize_app` → 本地 Settings / secure
+storage 注册 → `AuthState::initialize_local` → 共享模型/SQLite 初始化 → `RootView::new` → `Workspace`。
+Local 初始化不读取或删除旧 Warp 凭据，不消费桌面入口继承的 Warp API key，不伪造 Firebase 用户。
+RootView 已没有 AuthOnboardingState、浏览器认证交接、SSO 或账号强制登录状态转换。
+
+删除依据为调用关系：RootView/Workspace 是原 GUI 认证组件消费者；移除注册、字段和订阅后再删除
+组件。LeftPanelView 是 DrivePanel/云会话列表唯一构造入口，解除后移除 DrivePanel、DriveIndex
+及专用行/对话框。CloudObject 的 WarpDriveItem 转换还被本地对象与编辑器使用，因此保留其
+展示类型，删除仅侧栏消费的 click_action/position 接口；DriveIndexVariant 仍参与既有对象查询。
+
+CloudModel/CloudViewModel/UpdateManager、UserUid 与 SQLite/对象所有权存在交叉引用，未将未知
+云对象自动归给本地身份，未删历史数据。共享编辑器仍会产生若干账号/分享请求，目前在 Workspace
+边界明确报错，不打开登录页或声称服务成功；这些生产者及共享模型是后续源码裁剪项。
+
+URI 的 Warp Auth/Team/Drive 路由及处理已移除；MCP/第三方 OAuth 和其他云 Agent URI 仍有独立
+消费者，不代表所有外部网络入口已清零。自动更新调用保留，不能把本批视为完整离线验收。
+本批没有新增/移除 Cargo 依赖，也未删未证明专用的 onboarding 图片资源、shell/GPU 资源或许可证。
+
+## 原始基线启动调用链（历史）
 
 - SHA：`f7fc2f2a08a3aa446baa23960710e630c5defd6e`，Windows x86_64，MSVC 2022，Rust 1.92.0。
 - `script/run` → `cargo run --bin warp-oss --features gui` → `app/src/bin/oss.rs::main`

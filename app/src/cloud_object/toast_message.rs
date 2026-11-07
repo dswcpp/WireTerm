@@ -43,9 +43,7 @@ impl CloudObjectToastMessage {
             (_, ObjectOperation::Untrash, OperationSuccessType::Success) => {
                 Some(format!("{object_name} restored"))
             }
-            (_, ObjectOperation::Leave, OperationSuccessType::Success) => {
-                Some(format!("Left {object_name}"))
-            }
+            
             (_, ObjectOperation::Create { initiated_by: InitiatedBy::User }, OperationSuccessType::Failure) => {
                 Some(format!("Failed to create {object_name_lowercase}"))
             }
@@ -68,9 +66,7 @@ impl CloudObjectToastMessage {
             (_, ObjectOperation::Delete { initiated_by: InitiatedBy::User }, OperationSuccessType::Failure) => {
                 Some(format!("Failed to delete {object_name_lowercase}"))
             }
-            (_, ObjectOperation::Leave, OperationSuccessType::Failure) => {
-                Some(format!("Failed to leave {object_name}"))
-            }
+            
             (
                 ObjectType::Workflow,
                 ObjectOperation::Update,
@@ -124,15 +120,9 @@ impl CloudObjectToastMessage {
                 },
                 OperationSuccessType::Success,
             ) => Some(format!("{count_objects_message} deleted forever")),
-            (ObjectOperation::EmptyTrash, OperationSuccessType::Success) => Some(format!(
-                "Trash emptied: {count_objects_message} deleted forever"
-            )),
-            (ObjectOperation::EmptyTrash, OperationSuccessType::Failure) => {
-                Some("Failed to empty trash".to_string())
-            }
-            (ObjectOperation::EmptyTrash, OperationSuccessType::Rejection) => {
-                Some("No objects in trash to empty".to_string())
-            }
+            
+            
+            
             _ => None,
         }
     }

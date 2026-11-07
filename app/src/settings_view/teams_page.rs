@@ -47,9 +47,8 @@ use super::transfer_ownership_confirmation_modal::{
 };
 use crate::ai::AIRequestUsageModel;
 use crate::appearance::Appearance;
-use crate::auth::auth_manager::{AuthManager, LoginGatedFeature};
+use crate::auth::auth_manager::LoginGatedFeature;
 use crate::auth::auth_state::AuthState;
-use crate::auth::auth_view_modal::AuthViewVariant;
 use crate::auth::{AuthStateProvider, UserUid};
 use crate::cloud_object::model::persistence::CloudModel;
 use crate::cloud_object::{CloudObjectEventEntrypoint, Space};
@@ -690,13 +689,7 @@ impl TypedActionView for TeamsPageView {
             .is_anonymous_or_logged_out()
             && action.blocked_for_anonymous_user()
         {
-            AuthManager::handle(ctx).update(ctx, |auth_manager, ctx| {
-                auth_manager.attempt_login_gated_feature(
-                    action.into(),
-                    AuthViewVariant::RequireLoginCloseable,
-                    ctx,
-                )
-            });
+            
             return;
         }
 
@@ -2054,7 +2047,6 @@ impl TeamsPageView {
                 ctx,
             );
         });
-        ctx.dispatch_typed_action(&WorkspaceAction::OpenWarpDrive);
     }
 
     fn set_team_member_role(

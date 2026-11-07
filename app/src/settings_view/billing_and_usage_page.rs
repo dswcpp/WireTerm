@@ -47,7 +47,6 @@ use crate::ai::AIRequestUsageModel;
 use crate::ai::blocklist::view_util::{format_dollars, usage_display_unit};
 use crate::auth::auth_manager::LoginGatedFeature;
 use crate::auth::auth_state::AuthState;
-use crate::auth::auth_view_modal::AuthViewVariant;
 use crate::auth::{AuthManager, AuthStateProvider, UserUid};
 use crate::menu::{Event as MenuEvent, Menu, MenuItem, MenuItemFields};
 use crate::modal::{Modal, ModalEvent, ModalViewState};
@@ -866,13 +865,7 @@ impl TypedActionView for BillingAndUsagePageView {
             .is_anonymous_or_logged_out()
             && action.blocked_for_anonymous_user()
         {
-            AuthManager::handle(ctx).update(ctx, |auth_manager, ctx| {
-                auth_manager.attempt_login_gated_feature(
-                    action.into(),
-                    AuthViewVariant::RequireLoginCloseable,
-                    ctx,
-                )
-            });
+            
             return;
         }
 
@@ -903,13 +896,7 @@ impl TypedActionView for BillingAndUsagePageView {
                 ctx.emit(BillingAndUsagePageEvent::SignupAnonymousUser);
             }
             BillingAndUsagePageAction::AttemptLoginGatedUpgrade => {
-                AuthManager::handle(ctx).update(ctx, |auth_manager, ctx| {
-                    auth_manager.attempt_login_gated_feature(
-                        action.into(),
-                        AuthViewVariant::RequireLoginCloseable,
-                        ctx,
-                    )
-                });
+                
             }
             BillingAndUsagePageAction::OpenUrl(url) => {
                 ctx.open_url(&url.url);
