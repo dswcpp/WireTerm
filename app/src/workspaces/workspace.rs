@@ -345,7 +345,6 @@ pub struct WarpAiPolicy {
     pub is_prompt_suggestions_toggleable: bool,
     pub is_next_command_enabled: bool,
     pub is_git_operations_ai_enabled: bool,
-    pub is_voice_enabled: bool,
 }
 #[derive(Clone, Debug, Copy, Serialize, Deserialize)]
 pub struct WorkspaceSizePolicy {
@@ -588,9 +587,6 @@ pub struct BillingMetadata {
     #[serde(skip)]
     pub ai_overages: Option<AiOverages>,
 }
-
-
-
 
 #[derive(Clone, Debug, Default)]
 pub struct BonusGrantsPurchased {

@@ -1,5 +1,3 @@
-use warp_errors::report_error;
-use crate::themes::theme::AnsiColorIdentifier;
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
@@ -49,12 +47,11 @@ use crate::terminal::general_settings::GeneralSettings;
 use crate::terminal::keys_settings::KeysSettings;
 use crate::terminal::shell::ShellType;
 use crate::terminal::view::{TerminalAction, cell_size_and_padding};
+use crate::themes::theme::AnsiColorIdentifier;
 use crate::uri::{OpenMCPSettingsArgs, OpenSettingsArgs};
 use crate::util::bindings::{self, is_binding_pty_compliant};
 use crate::window_settings::WindowSettings;
-use crate::workspace::{
-    PaneViewLocator, Workspace, WorkspaceAction, WorkspaceRegistry,
-};
+use crate::workspace::{PaneViewLocator, Workspace, WorkspaceAction, WorkspaceRegistry};
 use crate::workspaces::user_workspaces::UserWorkspaces;
 use crate::{
     ChannelState, GlobalResourceHandles, GlobalResourceHandlesProvider, UpdateQuakeModeEventArg,
@@ -67,8 +64,6 @@ lazy_static! {
     static ref FALLBACK_WINDOW_SIZE: Vector2F = vec2f(800.0, 600.0);
     static ref QUAKE_STATE: Arc<Mutex<Option<QuakeModeState>>> = Arc::new(Mutex::new(None));
 }
-
-
 
 #[derive(Debug, Clone)]
 enum WindowState {
@@ -228,18 +223,12 @@ pub fn init(app: &mut AppContext) {
         "root_view:move_quake_mode_window_from_screen_change",
         move_quake_mode_window_from_screen_change,
     );
-    #[cfg(feature = "voice_input")]
-    app.add_global_action("root_view:abort_voice_input", abort_voice_input);
-    #[cfg(feature = "voice_input")]
-    app.add_action(
-        "root_view:maybe_stop_active_voice_input",
-        RootView::maybe_stop_active_voice_input,
-    );
+
     app.add_action(
         "root_view:add_session_at_path",
         RootView::add_session_at_path,
     );
-    
+
     app.add_action(
         "root_view:open_team_settings_page",
         RootView::open_team_settings_page,
@@ -297,8 +286,6 @@ pub fn init(app: &mut AppContext) {
         "root_view:create_environment_in_existing_window_and_run",
         RootView::create_environment_in_existing_window_and_run,
     );
-    
-    
 
     app.add_global_action(
         "root_view:open_team_settings_with_email_invite_in_new_window",
@@ -827,23 +814,22 @@ fn create_environment(arg: &CreateEnvironmentArg, ctx: &mut AppContext) {
     );
 
     root_handle.update(ctx, |root_view, ctx| {
-        { let workspace_handle = &root_view.workspace;
-            workspace_handle.update(ctx, |workspace, ctx| {
-                workspace
-                    .active_tab_pane_group()
-                    .update(ctx, |pane_group, ctx| {
-                        pane_group.set_title("Create Environment", ctx);
+        let workspace_handle = &root_view.workspace;
+        workspace_handle.update(ctx, |workspace, ctx| {
+            workspace
+                .active_tab_pane_group()
+                .update(ctx, |pane_group, ctx| {
+                    pane_group.set_title("Create Environment", ctx);
 
-                        if let Some(terminal_view) = pane_group.active_session_view(ctx) {
-                            terminal_view.update(ctx, |_, ctx| {
-                                ctx.dispatch_typed_action_deferred(
-                                    TerminalAction::SetupCloudEnvironment(repos.clone()),
-                                );
-                            });
-                        }
-                    });
-            });
-        }
+                    if let Some(terminal_view) = pane_group.active_session_view(ctx) {
+                        terminal_view.update(ctx, |_, ctx| {
+                            ctx.dispatch_typed_action_deferred(
+                                TerminalAction::SetupCloudEnvironment(repos.clone()),
+                            );
+                        });
+                    }
+                });
+        });
     });
 
     ctx.windows().show_window_and_focus_app(window_id);
@@ -861,23 +847,22 @@ fn create_environment_and_run(arg: &CreateEnvironmentArg, ctx: &mut AppContext) 
     );
 
     root_handle.update(ctx, |root_view, ctx| {
-        { let workspace_handle = &root_view.workspace;
-            workspace_handle.update(ctx, |workspace, ctx| {
-                workspace
-                    .active_tab_pane_group()
-                    .update(ctx, |pane_group, ctx| {
-                        pane_group.set_title("Create Environment", ctx);
+        let workspace_handle = &root_view.workspace;
+        workspace_handle.update(ctx, |workspace, ctx| {
+            workspace
+                .active_tab_pane_group()
+                .update(ctx, |pane_group, ctx| {
+                    pane_group.set_title("Create Environment", ctx);
 
-                        if let Some(terminal_view) = pane_group.active_session_view(ctx) {
-                            terminal_view.update(ctx, |_, ctx| {
-                                ctx.dispatch_typed_action_deferred(
-                                    TerminalAction::SetupCloudEnvironmentAndStart(repos.clone()),
-                                );
-                            });
-                        }
-                    });
-            });
-        }
+                    if let Some(terminal_view) = pane_group.active_session_view(ctx) {
+                        terminal_view.update(ctx, |_, ctx| {
+                            ctx.dispatch_typed_action_deferred(
+                                TerminalAction::SetupCloudEnvironmentAndStart(repos.clone()),
+                            );
+                        });
+                    }
+                });
+        });
     });
 
     ctx.windows().show_window_and_focus_app(window_id);
@@ -888,29 +873,27 @@ fn open_team_settings_with_email_invite_in_new_window(
 ) {
     let root_handle = open_new_window_get_handles(None, ctx).1;
     root_handle.update(ctx, |root_view, ctx| {
-        { let workspace_view_handle = &root_view.workspace;
-            let initial_load_complete = UpdateManager::as_ref(ctx).initial_load_complete();
-            let email_invite = arg.invite_email.clone();
-            workspace_view_handle.update(ctx, |_, ctx| {
-                let _ = ctx.spawn(initial_load_complete, move |workspace, _, ctx| {
-                    workspace.show_team_settings_page_with_email_invite(email_invite.as_ref(), ctx)
-                });
+        let workspace_view_handle = &root_view.workspace;
+        let initial_load_complete = UpdateManager::as_ref(ctx).initial_load_complete();
+        let email_invite = arg.invite_email.clone();
+        workspace_view_handle.update(ctx, |_, ctx| {
+            let _ = ctx.spawn(initial_load_complete, move |workspace, _, ctx| {
+                workspace.show_team_settings_page_with_email_invite(email_invite.as_ref(), ctx)
             });
-        }
+        });
     });
 }
 
 fn open_settings_page_in_new_window(section: &SettingsSection, ctx: &mut AppContext) {
     let root_handle = open_new_window_get_handles(None, ctx).1;
     root_handle.update(ctx, |root_view, ctx| {
-        { let workspace_view_handle = &root_view.workspace;
-            let window_id = ctx.window_id();
-            ctx.dispatch_typed_action_for_view(
-                window_id,
-                workspace_view_handle.id(),
-                &WorkspaceAction::ShowSettingsPage(*section),
-            );
-        }
+        let workspace_view_handle = &root_view.workspace;
+        let window_id = ctx.window_id();
+        ctx.dispatch_typed_action_for_view(
+            window_id,
+            workspace_view_handle.id(),
+            &WorkspaceAction::ShowSettingsPage(*section),
+        );
     });
 }
 
@@ -933,10 +916,9 @@ fn open_settings_in_new_window(args: &OpenSettingsArgs, ctx: &mut AppContext) {
     let action = workspace_action_for_open_settings(args);
     let root_handle = open_new_window_get_handles(None, ctx).1;
     root_handle.update(ctx, |root_view, ctx| {
-        { let workspace_view_handle = &root_view.workspace;
-            let window_id = ctx.window_id();
-            ctx.dispatch_typed_action_for_view(window_id, workspace_view_handle.id(), &action);
-        }
+        let workspace_view_handle = &root_view.workspace;
+        let window_id = ctx.window_id();
+        ctx.dispatch_typed_action_for_view(window_id, workspace_view_handle.id(), &action);
     });
 }
 
@@ -946,18 +928,17 @@ fn open_mcp_settings_in_new_window(args: &OpenMCPSettingsArgs, ctx: &mut AppCont
     let autoinstall = args.autoinstall.clone();
     let root_handle = open_new_window_get_handles(None, ctx).1;
     root_handle.update(ctx, |root_view, ctx| {
-        { let workspace_view_handle = &root_view.workspace;
-            let initial_load_complete = UpdateManager::as_ref(ctx).initial_load_complete();
-            workspace_view_handle.update(ctx, |_, ctx| {
-                let _ = ctx.spawn(initial_load_complete, move |workspace, _, ctx| {
-                    workspace.open_mcp_servers_page(
-                        MCPServersSettingsPage::List,
-                        autoinstall.as_deref(),
-                        ctx,
-                    )
-                });
+        let workspace_view_handle = &root_view.workspace;
+        let initial_load_complete = UpdateManager::as_ref(ctx).initial_load_complete();
+        workspace_view_handle.update(ctx, |_, ctx| {
+            let _ = ctx.spawn(initial_load_complete, move |workspace, _, ctx| {
+                workspace.open_mcp_servers_page(
+                    MCPServersSettingsPage::List,
+                    autoinstall.as_deref(),
+                    ctx,
+                )
             });
-        }
+        });
     });
 }
 
@@ -965,14 +946,13 @@ fn open_mcp_settings_in_new_window(args: &OpenMCPSettingsArgs, ctx: &mut AppCont
 fn open_codex_in_new_window(_: &(), ctx: &mut AppContext) {
     let root_handle = open_new_window_get_handles(None, ctx).1;
     root_handle.update(ctx, |root_view, ctx| {
-        { let workspace_view_handle = &root_view.workspace;
-            let initial_load_complete = UpdateManager::as_ref(ctx).initial_load_complete();
-            workspace_view_handle.update(ctx, |_, ctx| {
-                let _ = ctx.spawn(initial_load_complete, move |workspace, _, ctx| {
-                    workspace.open_codex_modal(ctx)
-                });
+        let workspace_view_handle = &root_view.workspace;
+        let initial_load_complete = UpdateManager::as_ref(ctx).initial_load_complete();
+        workspace_view_handle.update(ctx, |_, ctx| {
+            let _ = ctx.spawn(initial_load_complete, move |workspace, _, ctx| {
+                workspace.open_codex_modal(ctx)
             });
-        }
+        });
     });
 }
 
@@ -981,21 +961,12 @@ fn open_linear_issue_work_in_new_window(args: &LinearIssueWork, ctx: &mut AppCon
     let (_, root_handle) = open_new_window_get_handles(None, ctx);
     let args = args.clone();
     root_handle.update(ctx, |root_view, ctx| {
-        { let workspace_view_handle = &root_view.workspace;
-            workspace_view_handle.update(ctx, |workspace, ctx| {
-                workspace.open_linear_issue_work(&args, ctx);
-            });
-        }
+        let workspace_view_handle = &root_view.workspace;
+        workspace_view_handle.update(ctx, |workspace, ctx| {
+            workspace.open_linear_issue_work(&args, ctx);
+        });
     });
 }
-
-
-
-
-
-
-
-
 
 /// Opens a new window with a file-based notebook open.
 fn open_new_with_file_notebook(arg: &PathBuf, ctx: &mut AppContext) {
@@ -1049,7 +1020,8 @@ fn open_new_tab_insert_subshell_command_and_bootstrap_if_supported(
     let root_view_handle = match root_view_handle {
         Some(root_view_handle) => {
             root_view_handle.update(ctx, |root_view, ctx| {
-                { let workspace_view_handle = &root_view.workspace;
+                {
+                    let workspace_view_handle = &root_view.workspace;
                     workspace_view_handle.update(ctx, |workspace, ctx| {
                         workspace.add_terminal_tab(false /* hide_homepage */, ctx);
                     });
@@ -1357,16 +1329,6 @@ fn show_or_hide_non_quake_mode_windows(_: &(), ctx: &mut AppContext) {
     };
 }
 
-#[cfg(feature = "voice_input")]
-fn abort_voice_input(_: &(), ctx: &mut AppContext) {
-    let voice_input = voice_input::VoiceInput::handle(ctx);
-    if voice_input.as_ref(ctx).is_listening() {
-        voice_input.update(ctx, |voice_input, _| {
-            voice_input.abort_listening();
-        });
-    }
-}
-
 #[derive(Clone)]
 pub enum NewWorkspaceSource {
     Empty {
@@ -1534,8 +1496,15 @@ impl RootView {
             use warpui_extras::user_preferences::UserPreferences;
 
             // The accent menu consumes held keys that the terminal needs as repeated input.
-            let defaults = warpui_extras::user_preferences::user_defaults::UserDefaultsPreferencesStorage::new(None);
-            if defaults.read_value("ApplePressAndHoldEnabled").unwrap_or_default().is_none() {
+            let defaults =
+                warpui_extras::user_preferences::user_defaults::UserDefaultsPreferencesStorage::new(
+                    None,
+                );
+            if defaults
+                .read_value("ApplePressAndHoldEnabled")
+                .unwrap_or_default()
+                .is_none()
+            {
                 let _ = defaults.write_value("ApplePressAndHoldEnabled", "false".to_owned());
             }
         }
@@ -1551,7 +1520,10 @@ impl RootView {
         let workspace = ctx.add_typed_action_view(|ctx| {
             Workspace::new(global_resource_handles, None, workspace_setting, ctx)
         });
-        Self { workspace, model_event_sender }
+        Self {
+            workspace,
+            model_event_sender,
+        }
     }
 
     pub fn workspace_view(&self) -> Option<&ViewHandle<Workspace>> {
@@ -1602,7 +1574,8 @@ impl RootView {
         ctx.windows().show_window_and_focus_app(window_id);
 
         // Focus the appropriate tab/pane.
-        { let workspace = &self.workspace;
+        {
+            let workspace = &self.workspace;
             workspace.update(ctx, |view, ctx| {
                 view.focus_pane(*pane_view_locator, ctx);
             });
@@ -1616,7 +1589,8 @@ impl RootView {
         ctx: &mut ViewContext<Self>,
     ) -> bool {
         ctx.windows().show_window_and_focus_app(ctx.window_id());
-        { let workspace = &self.workspace;
+        {
+            let workspace = &self.workspace;
             workspace.update(ctx, |view, ctx| {
                 view.activate_tab_by_pane_group_id(*pane_group_id, ctx);
             });
@@ -1638,7 +1612,8 @@ impl RootView {
     #[allow(clippy::ptr_arg)]
     fn add_session_at_path(&mut self, path: &PathBuf, ctx: &mut ViewContext<Self>) -> bool {
         let window_id = ctx.window_id();
-        { let handle = &self.workspace;
+        {
+            let handle = &self.workspace;
             handle.update(ctx, |view, ctx| {
                 view.add_tab_with_pane_layout(
                     PanesLayout::SingleTerminal(Box::new(
@@ -1661,7 +1636,8 @@ impl RootView {
         arg: &OpenTeamsSettingsModalArgs,
         ctx: &mut ViewContext<Self>,
     ) -> bool {
-        { let handle = &self.workspace;
+        {
+            let handle = &self.workspace;
             handle.update(ctx, |workspace, ctx| {
                 workspace.show_team_settings_page_with_email_invite(arg.invite_email.as_ref(), ctx)
             });
@@ -1669,14 +1645,13 @@ impl RootView {
         }
     }
 
-    
-
     pub fn join_shared_session_in_existing_window(
         &mut self,
         session_id: &SessionId,
         ctx: &mut ViewContext<Self>,
     ) -> bool {
-        { let handle = &self.workspace;
+        {
+            let handle = &self.workspace;
             handle.update(ctx, |workspace, ctx| {
                 // Generic session link: ambient-ness (if any) is discovered at SessionJoined.
                 workspace.add_tab_for_joining_shared_session(*session_id, false, ctx);
@@ -1696,7 +1671,8 @@ impl RootView {
         conversation_id: &ServerConversationToken,
         ctx: &mut ViewContext<Self>,
     ) -> bool {
-        { let handle = &self.workspace;
+        {
+            let handle = &self.workspace;
             handle.update(ctx, |workspace, ctx| {
                 workspace.open_cloud_conversation_from_server_token(conversation_id.clone(), ctx);
             });
@@ -1713,7 +1689,8 @@ impl RootView {
         arg: &CreateEnvironmentArg,
         ctx: &mut ViewContext<Self>,
     ) -> bool {
-        { let handle = &self.workspace;
+        {
+            let handle = &self.workspace;
             let repos = arg.repos.clone();
 
             handle.update(ctx, |workspace, ctx| {
@@ -1787,7 +1764,8 @@ impl RootView {
     }
 
     pub fn add_file_pane(&mut self, path: &PathBuf, ctx: &mut ViewContext<Self>) -> bool {
-        { let handle = &self.workspace;
+        {
+            let handle = &self.workspace;
             handle.update(ctx, |workspace, ctx| {
                 workspace.add_tab_for_file_notebook(Some(path.to_owned()), ctx);
             });
@@ -1807,7 +1785,8 @@ impl RootView {
         ctx: &mut ViewContext<Self>,
     ) -> bool {
         let window_id = ctx.window_id();
-        { let handle = &self.workspace;
+        {
+            let handle = &self.workspace;
             handle.update(ctx, |workspace, ctx| {
                 workspace.insert_subshell_command_and_bootstrap_if_supported(
                     &arg.command,
@@ -1820,11 +1799,10 @@ impl RootView {
         true
     }
 
-    
-
     pub fn open_team_settings_page(&mut self, _: &(), ctx: &mut ViewContext<Self>) -> bool {
         let window_id = ctx.window_id();
-        { let handle = &self.workspace;
+        {
+            let handle = &self.workspace;
             ctx.dispatch_typed_action_for_view(
                 window_id,
                 handle.id(),
@@ -1841,7 +1819,8 @@ impl RootView {
         ctx: &mut ViewContext<Self>,
     ) -> bool {
         let window_id = ctx.window_id();
-        { let handle = &self.workspace;
+        {
+            let handle = &self.workspace;
             let handle = handle.clone();
             ctx.dispatch_typed_action_for_view(
                 window_id,
@@ -1859,7 +1838,8 @@ impl RootView {
         ctx: &mut ViewContext<Self>,
     ) -> bool {
         let window_id = ctx.window_id();
-        { let handle = &self.workspace;
+        {
+            let handle = &self.workspace;
             let action = workspace_action_for_open_settings(args);
             ctx.dispatch_typed_action_for_view(window_id, handle.id(), &action);
             ctx.windows().show_window_and_focus_app(window_id);
@@ -1874,7 +1854,8 @@ impl RootView {
         args: &OpenMCPSettingsArgs,
         ctx: &mut ViewContext<Self>,
     ) -> bool {
-        { let handle = &self.workspace;
+        {
+            let handle = &self.workspace;
             let autoinstall = args.autoinstall.clone();
             let initial_load_complete = UpdateManager::as_ref(ctx).initial_load_complete();
             handle.update(ctx, |_, ctx| {
@@ -1895,7 +1876,8 @@ impl RootView {
     /// Opens the Codex modal in an existing window.
     pub fn open_codex_in_existing_window(&mut self, _: &(), ctx: &mut ViewContext<Self>) -> bool {
         let window_id = ctx.window_id();
-        { let handle = &self.workspace;
+        {
+            let handle = &self.workspace;
             handle.update(ctx, |workspace, ctx| {
                 workspace.open_codex_modal(ctx);
             });
@@ -1911,7 +1893,8 @@ impl RootView {
         ctx: &mut ViewContext<Self>,
     ) -> bool {
         let window_id = ctx.window_id();
-        { let handle = &self.workspace;
+        {
+            let handle = &self.workspace;
             let args = args.clone();
             handle.update(ctx, |workspace, ctx| {
                 workspace.open_linear_issue_work(&args, ctx);
@@ -1926,45 +1909,6 @@ impl RootView {
         ctx.notify();
         true
     }
-
-    #[cfg(feature = "voice_input")]
-    fn maybe_stop_active_voice_input(
-        &mut self,
-        key_code: &warpui::platform::keyboard::KeyCode,
-        ctx: &mut ViewContext<Self>,
-    ) -> bool {
-        use voice_input::{VoiceInput, VoiceInputState, VoiceInputToggledFrom};
-        use warpui::event::KeyState;
-
-        use crate::settings::AISettings;
-
-        // Check that the released key matches the configured voice input toggle key.
-        let ai_settings = AISettings::as_ref(ctx);
-        if let Some(configured_key_code) = ai_settings.voice_input_toggle_key.value().to_key_code()
-            && configured_key_code == *key_code
-        {
-            let voice_input = VoiceInput::handle(ctx);
-            // Check if we're actively listening and it was started from a key press.
-            if let VoiceInputState::Listening { enabled_from, .. } = voice_input.as_ref(ctx).state()
-                && matches!(
-                    enabled_from,
-                    VoiceInputToggledFrom::Key {
-                        state: KeyState::Pressed
-                    }
-                )
-            {
-                log::debug!("Voice input key release detected: {key_code:?}");
-                // Stop listening and proceed to transcription (don't abort).
-                voice_input.update(ctx, |voice_input, ctx| {
-                    if let Err(e) = voice_input.stop_listening(ctx) {
-                        report_error!(e.context("Failed to stop voice input on key release"));
-                    }
-                });
-            }
-        }
-        true
-    }
-
 }
 
 impl Entity for RootView {
@@ -1983,22 +1927,7 @@ impl View for RootView {
     }
 
     fn render(&self, _app: &AppContext) -> Box<dyn Element> {
-        let child = ChildView::new(&self.workspace).finish();
-        cfg_if::cfg_if! {
-            if #[cfg(feature = "voice_input")] {
-                use warpui::elements::{DispatchEventResult, EventHandler};
-                EventHandler::new(child)
-                    .on_modifier_state_changed(|ctx, _app, key_code, key_state| {
-                        if matches!(key_state, warpui::event::KeyState::Released) {
-                            ctx.dispatch_action("root_view:maybe_stop_active_voice_input", *key_code);
-                        }
-                        DispatchEventResult::PropagateToParent
-                    })
-                    .finish()
-            } else {
-                child
-            }
-        }
+        ChildView::new(&self.workspace).finish()
     }
 
     fn keymap_context(&self, app: &AppContext) -> warpui::keymap::Context {
@@ -2048,4 +1977,3 @@ impl TypedActionView for RootView {
 #[cfg(test)]
 #[path = "root_view_tests.rs"]
 mod tests;
-

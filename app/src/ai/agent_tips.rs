@@ -22,7 +22,6 @@ use crate::workspace::WorkspaceAction;
 use crate::workspace::view::{
     TOGGLE_COMMAND_PALETTE_KEYBINDING_NAME, TOGGLE_RIGHT_PANEL_BINDING_NAME,
 };
-use crate::workspaces::user_workspaces::UserWorkspaces;
 
 /// Trait for tip implementations that can be displayed to users.
 /// Tips provide helpful information with optional links and keybindings.
@@ -356,11 +355,6 @@ impl AITip for AgentTip {
     fn keystroke(&self, app: &AppContext) -> Option<Keystroke> {
         let binding_name = self.binding_name?;
 
-        // Special case: voice input uses settings, not editable bindings
-        if binding_name == "FN" {
-            return AISettings::as_ref(app).voice_input_toggle_key.keystroke();
-        }
-
         if let Some(binding) = app.editable_bindings().find(|b| b.name == binding_name) {
             return trigger_to_keystroke(binding.trigger);
         }
@@ -432,35 +426,14 @@ impl WorkspaceAction {
     pub fn display_text(&self) -> Option<String> {
         match self {
             WorkspaceAction::OpenPalette { .. } => Some("Open palette".to_string()),
-            
             WorkspaceAction::ToggleRightPanel => Some("Show diff view".to_string()),
             _ => None,
         }
     }
 }
 
-/// Helper function to build the list of agent tips, including the voice tip if enabled.
-pub fn get_agent_tips(ctx: &AppContext) -> Vec<AgentTip> {
-    let mut tips = DEFAULT_TIPS.clone();
-
-    if cfg!(feature = "voice_input")
-        && UserWorkspaces::as_ref(ctx).is_voice_enabled()
-        && AISettings::as_ref(ctx).is_voice_input_enabled(ctx)
-    {
-        tips.push(AgentTip {
-            description: "Hold <keybinding> to speak your prompt directly to the agent."
-                .to_string(),
-            link: Some(
-                "https://docs.warp.dev/agents/local-agents/interacting-with-agents/voice"
-                    .to_string(),
-            ),
-            binding_name: Some("FN"),
-            action: None,
-            kind: AgentTipKind::General,
-        });
-    }
-
-    tips
+pub fn get_agent_tips() -> Vec<AgentTip> {
+    DEFAULT_TIPS.clone()
 }
 
 /// A model for managing tips with cooldown logic.
@@ -506,7 +479,7 @@ impl AITipModel<AgentTip> {
     /// Creates a new AITipModel for AgentTips.
     /// This is the constructor used for the singleton model.
     pub fn new_for_agent_tips(ctx: &AppContext) -> Self {
-        let tips = get_agent_tips(ctx);
+        let tips = get_agent_tips();
         // Pick an applicable tip so we never show a raw "<keybinding>" placeholder on first render.
         let current_tip = Self::pick_random_applicable_tip(&tips, None, ctx);
 
@@ -521,7 +494,7 @@ impl AITipModel<AgentTip> {
     /// if it is no longer applicable. Resets the cooldown timer so the revalidated
     /// tip is shown for the full cooldown period before the next rotation.
     pub fn revalidate_tips(&mut self, ctx: &mut ModelContext<Self>) {
-        self.tips = get_agent_tips(ctx);
+        self.tips = get_agent_tips();
 
         // If the current tip is no longer in the pool or no longer applicable, pick a new one.
         let should_replace = self
@@ -561,7 +534,7 @@ impl AITipModel<AgentTip> {
         }
 
         // Rebuild tips from current settings so changes are picked up.
-        self.tips = get_agent_tips(ctx);
+        self.tips = get_agent_tips();
 
         self.current_tip =
             Self::pick_random_applicable_tip(&self.tips, current_working_directory, ctx);

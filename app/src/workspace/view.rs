@@ -236,9 +236,7 @@ use crate::appearance::{Appearance, AppearanceManager};
 use crate::auth::AuthStateProvider;
 use crate::auth::auth_manager::{AuthManager, AuthManagerEvent};
 use crate::auth::auth_state::AuthState;
-use crate::autoupdate::{
-    AutoupdateState, RelaunchModel, is_incoming_version_past_current,
-};
+use crate::autoupdate::{AutoupdateState, RelaunchModel, is_incoming_version_past_current};
 use crate::banner::BannerState;
 use crate::billing::shared_objects_creation_denied_modal::{
     SharedObjectsCreationDeniedModal, SharedObjectsCreationDeniedModalEvent,
@@ -269,9 +267,7 @@ use crate::drive::items::WarpDriveItemId;
 use crate::drive::settings::{WarpDriveSettings, WarpDriveSettingsChangedEvent};
 use crate::drive::workflows::arguments::ArgumentsState;
 use crate::drive::workflows::modal::{WorkflowModal, WorkflowModalEvent};
-use crate::drive::{
-    CloudObjectTypeAndId, OpenWarpDriveObjectSettings,
-};
+use crate::drive::{CloudObjectTypeAndId, OpenWarpDriveObjectSettings};
 use crate::editor::{
     EditorView, Event as EditorEvent, PropagateAndNoOpNavigationKeys, SingleLineEditorOptions,
     TextOptions,
@@ -336,8 +332,7 @@ use crate::server::server_api::{ServerApi, ServerApiProvider, ServerTime};
 use crate::server::telemetry::{
     AddTabWithShellSource, CloseTarget, EnvVarTelemetryMetadata, FileTreeSource,
     KnowledgePaneEntrypoint, LaunchConfigUiLocation, MCPServerCollectionPaneEntrypoint,
-    NotificationsTurnedOnSource, OpenedWarpAISource, PaletteSource,
-    TabRenameEvent,
+    NotificationsTurnedOnSource, OpenedWarpAISource, PaletteSource, TabRenameEvent,
 };
 use crate::session_management::{SessionNavigationData, SessionSource, TabNavigationData};
 use crate::settings::cloud_preferences::CloudPreferencesSettings;
@@ -698,8 +693,6 @@ pub(crate) const LEFT_PANEL_PROJECT_EXPLORER_BINDING_NAME: &str =
     "workspace:left_panel_project_explorer";
 pub(crate) const LEFT_PANEL_GLOBAL_SEARCH_BINDING_NAME: &str = "workspace:left_panel_global_search";
 
-
-
 const KEYBINDINGS_TO_CACHE: [&str; 4] = [
     ASK_AI_ASSISTANT_KEYBINDING_NAME,
     TOGGLE_RESOURCE_CENTER_KEYBINDING_NAME,
@@ -758,8 +751,7 @@ pub enum WorkspaceBanner {
     UnableToUpdateToNewVersion,
     /// to display the AutoupdateStage::UnableToLaunchNewVersion
     UnableToLaunchNewVersion,
-    
-    
+
     /// to display when recovering from a crash that may have been due to use
     /// of Wayland
     #[cfg(target_os = "linux")]
@@ -777,8 +769,7 @@ impl WorkspaceBanner {
             Self::UnableToUpdateToNewVersion => true,
             Self::UnableToLaunchNewVersion => true,
             Self::VersionDeprecated => false,
-            
-            
+
             #[cfg(target_os = "linux")]
             Self::WaylandCrashRecovery => true,
             Self::InvalidSettings => true,
@@ -1246,8 +1237,6 @@ impl Workspace {
             );
         });
     }
-
-    
 
     pub fn is_tab_drag_preview(&self) -> bool {
         self.is_tab_drag_preview
@@ -1837,12 +1826,6 @@ impl Workspace {
         (settings_pane, theme_chooser_view)
     }
 
-    
-
-    
-
-    
-
     fn build_workflow_modal(
         ai_client: Arc<dyn AIClient>,
         ctx: &mut ViewContext<Self>,
@@ -2388,8 +2371,6 @@ impl Workspace {
         _ctx: &mut ViewContext<Self>,
     ) {
     }
-
-    
 
     fn show_hoa_onboarding_flow(&mut self, ctx: &mut ViewContext<Self>) {
         // Mark as completed immediately so the flow is never shown again,
@@ -2993,8 +2974,6 @@ impl Workspace {
                 me.handle_prompt_suggestions_unavailable_modal_event(event, ctx);
             },
         );
-
-
 
         let workflow_modal = Self::build_workflow_modal(ai_client.clone(), ctx);
 
@@ -4960,10 +4939,9 @@ impl Workspace {
 
     /// Sets focused to the index of either the selected object or the first item in WD
     fn focus_local_tools_panel(&mut self, ctx: &mut ViewContext<Self>) {
-    self.left_panel_view.update(ctx, |panel, ctx| panel.focus_active_view_on_entry(ctx));
-}
-
-    
+        self.left_panel_view
+            .update(ctx, |panel, ctx| panel.focus_active_view_on_entry(ctx));
+    }
 
     fn is_left_panel_view_focused(&self, ctx: &mut ViewContext<Self>) -> bool {
         let app = ctx;
@@ -5185,22 +5163,9 @@ impl Workspace {
             || self.resource_center_view.is_self_or_child_focused(ctx)
         {
             self.focus_active_tab(ctx);
-        }
-        // Starts from a left panel: Warp Drive
-        else if self.is_left_panel_view_focused(ctx) {
-            if self.current_workspace_state.is_right_panel_open() {
-                
-                if self.current_workspace_state.is_ai_assistant_panel_open {
-                    ctx.focus(&self.ai_assistant_panel);
-                } else if self.current_workspace_state.is_resource_center_open {
-                    ctx.focus(&self.resource_center_view);
-                }
-            } else {
-                self.focus_active_tab(ctx);
-            }
-        }
-        // Starts from a left panel: theme chooser
-        else if self.theme_chooser_view.is_self_or_child_focused(ctx) {
+        } else if self.is_left_panel_view_focused(ctx)
+            || self.theme_chooser_view.is_self_or_child_focused(ctx)
+        {
             if self.current_workspace_state.is_right_panel_open() {
                 if self.current_workspace_state.is_ai_assistant_panel_open {
                     ctx.focus(&self.ai_assistant_panel);
@@ -6655,7 +6620,7 @@ impl Workspace {
                 let pane_group = self.active_tab_pane_group().clone();
                 self.handle_file_tree_event(pane_group, pane_group_event, ctx);
             }
-            
+
             LeftPanelEvent::OpenFileWithTarget {
                 location,
                 target,
@@ -6702,9 +6667,6 @@ impl Workspace {
                     }
                 }
             }
-            
-            
-            
         }
     }
 
@@ -8482,7 +8444,6 @@ impl Workspace {
                     &locator,
                 );
             }
-
         } else if default_to_new_pane {
             let window_id = ctx.window_id();
             let pane = notebook_manager.update(ctx, |manager, ctx| {
@@ -8501,13 +8462,11 @@ impl Workspace {
         }
 
         // Get notebook ID to set Warp drive index selected state
-        if let NotebookSource::Existing(notebook_id) = source {
-
-            if !notebook_already_open && !default_to_new_pane {
-                self.add_tab_for_cloud_notebook(*notebook_id, settings, ctx);
-            }
-
-
+        if let NotebookSource::Existing(notebook_id) = source
+            && !notebook_already_open
+            && !default_to_new_pane
+        {
+            self.add_tab_for_cloud_notebook(*notebook_id, settings, ctx);
         }
     }
 
@@ -8532,8 +8491,6 @@ impl Workspace {
                         TerminalSessionFallbackBehavior::OpenIfNeeded,
                         ctx,
                     );
-
-
                 }
                 None => self.add_tab_for_cloud_workflow(workflow_id, settings, ctx),
             }
@@ -8620,8 +8577,6 @@ impl Workspace {
                 );
             });
         }
-
-
     }
 
     /// Create a pane from a cloud object. Returns `None` if the object cannot be opened in a
@@ -9061,7 +9016,6 @@ impl Workspace {
         });
 
         // Focus WD index item
-        
     }
 
     /// Open the Execution Profile Editor pane
@@ -9356,8 +9310,6 @@ impl Workspace {
         });
         ctx.notify();
     }
-
-    
 
     fn open_resource_center_main_page(&mut self, ctx: &mut ViewContext<Self>) {
         // Set current page to Main
@@ -11339,8 +11291,6 @@ impl Workspace {
         }
     }
 
-    
-
     fn handle_theme_creator_modal_event(
         &mut self,
         event: &ThemeCreatorModalEvent,
@@ -11540,8 +11490,6 @@ impl Workspace {
         ctx: &mut ViewContext<Self>,
     ) {
         match event {
-            
-            
             AuthManagerEvent::AuthComplete => {
                 // This workspace can survive an anonymous user signing up from
                 // inside the app. Refresh the cached auth state and recompute
@@ -14705,10 +14653,6 @@ impl Workspace {
         }
     }
 
-    
-
-    
-
     fn open_palette(
         &mut self,
         mode: PaletteMode,
@@ -14910,22 +14854,12 @@ impl Workspace {
         }
     }
 
-    
-
     /// This function is used when we want to view an item in Warp Drive AND focus Warp Drive.
     pub fn open_saved_object(&mut self, item: WarpDriveItemId, ctx: &mut ViewContext<Self>) {
-    if let WarpDriveItemId::Object(object) = item {
-        self.open_warp_drive_object_in_new_pane(&object.uid(), ctx);
+        if let WarpDriveItemId::Object(object) = item {
+            self.open_warp_drive_object_in_new_pane(&object.uid(), ctx);
+        }
     }
-}
-
-    
-
-    
-
-    
-
-    
 
     fn handle_changelog_event(&mut self, event: &ChangelogEvent, ctx: &mut ViewContext<Self>) {
         // For certain contexts, like shared sessions, we do not want to force open the side panel
@@ -16707,7 +16641,9 @@ impl Workspace {
             pane_group::Event::AnonymousUserSignup => {
                 self.reject_account_request(ctx);
             }
-            pane_group::Event::OpenDriveObjectShareDialog { .. } => self.reject_account_request(ctx),
+            pane_group::Event::OpenDriveObjectShareDialog { .. } => {
+                self.reject_account_request(ctx)
+            }
             pane_group::Event::OpenPalette {
                 mode,
                 source,
@@ -16884,7 +16820,6 @@ impl Workspace {
                     self.left_panel_view
                         .read(ctx, |left_panel, _| match target_view {
                             LeftPanelTargetView::FileTree => left_panel.is_file_tree_active(),
-                            
                         });
 
                 if self.active_tab_pane_group().as_ref(ctx).left_panel_open && is_target_active {
@@ -16899,7 +16834,6 @@ impl Workspace {
                     self.left_panel_view.update(ctx, |left_panel, ctx| {
                         let action = match target_view {
                             LeftPanelTargetView::FileTree => LeftPanelAction::ProjectExplorer,
-                            
                         };
                         left_panel.handle_action_with_force_open(&action, *force_open, ctx);
                     });
@@ -17423,8 +17357,6 @@ impl Workspace {
         }
     }
 
-    
-
     fn attach_plan_as_context(&mut self, id: AIDocumentId, ctx: &mut ViewContext<Self>) {
         let Some(view) = self.active_session_view(ctx) else {
             let window_id = ctx.window_id();
@@ -17479,7 +17411,6 @@ impl Workspace {
         );
         ctx.focus_self();
         ctx.notify();
-        
     }
 
     /// Focus and return the active terminal input. If there is no active terminal input (either
@@ -17651,7 +17582,6 @@ impl Workspace {
         if self.auth_state.is_anonymous_or_logged_out()
             && workflow.as_workflow().is_agent_mode_workflow()
         {
-            
             return;
         }
         if let Some(terminal_view_handle) =
@@ -18566,8 +18496,6 @@ impl Workspace {
         });
     }
 
-    
-
     fn toggle_mouse_reporting(&mut self, ctx: &mut ViewContext<Self>) {
         let prev_mouse_reporting_enabled =
             AltScreenReporting::handle(ctx).update(ctx, |reporting, ctx| {
@@ -19342,10 +19270,6 @@ impl Workspace {
         ctx.focus(&self.theme_deletion_modal);
         ctx.notify();
     }
-
-    
-
-    
 
     /// Opens the workflow from a given [`CloudWorkflow`]'s server ID.
     fn open_workflow_with_existing(
@@ -20134,8 +20058,6 @@ impl Workspace {
                     {
                         ToolPanelView::ProjectExplorer => "Project explorer",
                         ToolPanelView::GlobalSearch { .. } => "Global search",
-                        
-                        
                     }
                 } else {
                     "Tools panel"
@@ -20188,8 +20110,6 @@ impl Workspace {
             {
                 ToolPanelView::ProjectExplorer => "Project explorer",
                 ToolPanelView::GlobalSearch { .. } => "Global search",
-                
-                
             }
         } else {
             "Tools panel"
@@ -21814,8 +21734,6 @@ impl Workspace {
             .map(|fields| self.render_workspace_banner(fields, appearance))
     }
 
-    
-
     fn render_autoupdate_banner_element(&self, app: &AppContext) -> Option<WorkspaceBannerFields> {
         if FeatureFlag::Autoupdate.is_enabled() {
             match autoupdate::get_update_state(app) {
@@ -22152,8 +22070,7 @@ impl Workspace {
                 self.autoupdate_unable_to_launch_new_version = true;
             }
             WorkspaceBanner::VersionDeprecated => {}
-            
-            
+
             #[cfg(all(enable_crash_recovery, target_os = "linux"))]
             WorkspaceBanner::WaylandCrashRecovery => {
                 crash_recovery::dismiss_workspace_banner(ctx);
@@ -23195,12 +23112,6 @@ impl Workspace {
             .map(|team| team.uid)
     }
 
-    
-
-    
-
-    
-
     fn focus_openwarp_launch_modal(&mut self, ctx: &mut ViewContext<Self>) {
         ctx.focus(&self.openwarp_launch_modal);
     }
@@ -23314,16 +23225,20 @@ impl Workspace {
 
     /// Computes the list of available left panel views based on current AI settings and feature flags.
     fn compute_left_panel_views(ctx: &AppContext) -> Vec<ToolPanelView> {
-    let mut views = vec![];
-    if cfg!(feature = "local_fs") && *CodeSettings::as_ref(ctx).show_project_explorer.value() {
-        views.push(ToolPanelView::ProjectExplorer);
+        let mut views = vec![];
+        if cfg!(feature = "local_fs") && *CodeSettings::as_ref(ctx).show_project_explorer.value() {
+            views.push(ToolPanelView::ProjectExplorer);
+        }
+        if cfg!(feature = "local_fs")
+            && FeatureFlag::GlobalSearch.is_enabled()
+            && *CodeSettings::as_ref(ctx).show_global_search.value()
+        {
+            views.push(ToolPanelView::GlobalSearch {
+                entry_focus: GlobalSearchEntryFocus::Results,
+            });
+        }
+        views
     }
-    if cfg!(feature = "local_fs") && FeatureFlag::GlobalSearch.is_enabled()
-        && *CodeSettings::as_ref(ctx).show_global_search.value() {
-        views.push(ToolPanelView::GlobalSearch { entry_focus: GlobalSearchEntryFocus::Results });
-    }
-    views
-}
 
     /// Recomputes the available left panel views based on current AI settings and feature flags,
     /// then updates both the workspace's left_panel_views and the LeftPanelView's toolbelt buttons.
@@ -23400,7 +23315,6 @@ impl TypedActionView for Workspace {
         let window_id = ctx.window_id();
 
         if self.auth_state.is_anonymous_or_logged_out() && action.blocked_for_anonymous_user() {
-            
             return;
         }
 
@@ -24100,7 +24014,7 @@ impl TypedActionView for Workspace {
                 send_telemetry_from_ctx!(TelemetryEvent::DragAndDropTabGroup, ctx);
                 ctx.notify();
             }
-            
+
             ToggleLeftPanel => {
                 let active_pane_group = self.active_tab_pane_group().clone();
                 let was_open = active_pane_group.read(ctx, |pg, _| pg.left_panel_open);
@@ -24113,7 +24027,6 @@ impl TypedActionView for Workspace {
                 let file_tree_active = self
                     .left_panel_view
                     .read(ctx, |lp, _| lp.is_file_tree_active());
-
 
                 self.toggle_left_panel(ctx);
 
@@ -25567,7 +25480,7 @@ impl TypedActionView for Workspace {
                     self.open_left_panel_view(&LeftPanelAction::ProjectExplorer, ctx);
                 }
             }
-            
+
             ToggleGlobalSearch => {
                 if FeatureFlag::GlobalSearch.is_enabled()
                     && *CodeSettings::as_ref(ctx).show_global_search
@@ -25614,8 +25527,7 @@ impl TypedActionView for Workspace {
                     );
                 }
             }
-            
-            
+
             ShowRewindConfirmationDialog {
                 ai_block_view_id,
                 exchange_id,
@@ -25833,11 +25745,6 @@ impl View for Workspace {
 
         if AISettings::as_ref(app).is_active_ai_enabled(app) {
             context.set.insert(flags::IS_ACTIVE_AI_ENABLED);
-        }
-        if AISettings::as_ref(app).is_voice_input_enabled(app)
-            && UserWorkspaces::as_ref(app).is_voice_enabled()
-        {
-            context.set.insert(flags::IS_VOICE_INPUT_ENABLED);
         }
 
         if self
@@ -26692,8 +26599,6 @@ impl View for Workspace {
         if self.current_workspace_state.is_ctrl_tab_palette_open {
             stack.add_child(ChildView::new(&self.ctrl_tab_palette).finish());
         }
-
-
 
         if self.current_workspace_state.is_theme_creator_modal_open {
             stack.add_child(ChildView::new(&self.theme_creator_modal).finish());

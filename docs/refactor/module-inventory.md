@@ -4,25 +4,25 @@
 
 续作基线为 `59289b393215592d71c133511220da29db2def99`，工作分支为
 `codex/p0-source-pruning`。这次基线已经包含历史两批裁剪，不能将历史删除再次计入本批收益。
-完整的 80 个 workspace crate、manifest、声明依赖和反向 workspace 引用见
-[p0-workspace-graph.json](p0-workspace-graph.json)。该图包含 optional、target、dev/build 声明，
-不等于桌面实际激活依赖图。
+语音输入与独立 TUI 设置删除完成后，workspace 为 79 个 crate；完整的基线 crate、manifest、
+声明依赖和反向 workspace 引用见 [p0-workspace-graph.json](p0-workspace-graph.json)。该图包含
+optional、target、dev/build 声明，不等于桌面实际激活依赖图。
 
 | 业务边界 | 处置 | 调用与保护边界 |
 |---|---|---|
-| `crates/voice_input` | 删除 | 唯一生产消费者为 app GUI；CPAL 采集、WAV 编码与重采样属于语音业务 |
-| `app/src/voice`、`app/src/ai/voice` | 删除 | Editor → VoiceTranscriber → ServerVoiceTranscriber → `/ai/transcribe` |
-| 编辑器、终端输入栏、RootView 语音分支 | 删除语音部分 | 保留普通键盘事件、选择、光标、PTY 和终端模型锁的实现 |
-| 语音设置、命令面板与工具栏 | 删除 | 同时移除搜索入口、录音按钮和全局模型注册；不以关 feature 代替删除 |
-| 独立 TUI 的设置适配 | 删除 | 接管并行工作留下的 TUI 专用设置删除；共享 WarpUI cell-grid 组件保留 |
+| `crates/voice_input` | 已删除 | 唯一生产消费者为 app GUI；CPAL 采集、WAV 编码与重采样属于语音业务 |
+| `app/src/voice`、`app/src/ai/voice` | 已删除 | Editor → VoiceTranscriber → ServerVoiceTranscriber → `/ai/transcribe` 全链移除 |
+| 编辑器、终端输入栏、RootView 语音分支 | 已删除 | 保留普通键盘事件、选择、光标、PTY 和终端模型锁的实现 |
+| 语音设置、命令面板与工具栏 | 已删除 | 同时移除搜索入口、录音按钮、配额字段、遥测和全局模型注册 |
+| 独立 TUI 的设置适配 | 已删除 | 接管并行工作留下的 TUI 专用设置删除；共享 WarpUI cell-grid 组件保留 |
 | 自动更新 | 删除候选，尚未实施 | `app/src/autoupdate` 同时负责下载、退出前应用更新、子进程重启及版本比较；需保护退出警告和正常关闭 |
 | 云身份和 Drive 模型 | 替换／待确认 | UserUid 同时用于本地 SQLite、对象所有权及云端共享对象，不将云数据自动改归本地用户 |
 | 云 AI/Oz、团队、商业配额 | 删除候选，先解耦 | Pane、Blocklist、编辑器、CLI agent 输入和对象持久化共用类型，不能直接整目录删除 |
 | WarpUI、VT/ANSI、PTY、本地 Shell/IO | 保留 | 本批不重写共享终端基础设施 |
 | 本地配置、日志、SQLite、异步调度 | 保留 | 不清空用户数据，不重建数据库，不升级依赖 |
 
-主人确认已暂停另一处 P0 修改；工作区已有改动将按实际差异合并审查，设计文档和
-`.spec-workflow/` 不纳入源码裁剪提交。
+语音的删除明细、锁文件包和规模对比见 [deletion-report.md](deletion-report.md)；验证结果见
+[validation-report.md](validation-report.md)。
 
 ## 第二批：桌面本地启动与账号/Drive 界面删除
 
@@ -33,7 +33,7 @@ Account 设置页、Drive 侧栏主体/行渲染器/命名及清空回收站对�
 
 | 模块 | 当前处置 | 反向依赖与保留边界 |
 |---|---|---|
-| 桌面 RootView 认证状态机 | 删除，直接构造 Workspace | 保留窗口、热键、多标签/Pane、Quake、语音修饰键释放处理 |
+| 桌面 RootView 认证状态机 | 删除，直接构造 Workspace | 保留窗口、热键、多标签/Pane、Quake；语音修饰键处理已在 P0 续作删除 |
 | GUI 登录/SSO/token/账号设置 | 删除实现、注册、菜单、回调入口 | CLI/TUI 残留适配和 API-key/device flow 尚存；第三方 MCP/ChatGPT OAuth 未混同为 Warp 账号登录 |
 | `warp_server_auth::AuthState` | 最小本地初始化 | 无账户/凭据；保留稳定本地 UUID；既有 UserUid/credentials 类型仍被共享模型使用 |
 | `drive/index.rs`、`panel.rs`、`items/item.rs` | 删除视图及专用测试 | sidebar 通用宽度常量移入 Workspace；保留被对象查询使用的 DriveIndexVariant |
@@ -41,7 +41,7 @@ Account 设置页、Drive 侧栏主体/行渲染器/命名及清空回收站对�
 | 本地侧栏 | 保留项目文件树、全局搜索 | 旧存储的 Drive/云会话页签映射至文件树；保留旧快捷键序列化标识以兼容用户绑定 |
 | 本地 SQLite/会话恢复 | 保留 | 未清空数据库，未篡改云对象所有者；云同步与本地对象存储仍待解耦 |
 | AI onboarding 账号模型转换 | 删除无调用模块 | 通用 onboarding crate 仍被终端 callout/教程数据类型使用，不能整包删除 |
-| 自动更新/语音/云 AI/计费及团队设置 | 未完成裁剪 | 保留实际实现和调用，不将永久禁用开关算作删除 |
+| 自动更新/云 AI/计费及团队设置 | 未完成裁剪 | 保留实际实现和调用，不将永久禁用开关算作删除；语音已在 P0 续作单独删除 |
 
 原始 SHA：`f7fc2f2a08a3aa446baa23960710e630c5defd6e`。完整原始数据见 baseline.json。
 
@@ -107,7 +107,7 @@ Account 设置页、Drive 侧栏主体/行渲染器/命名及清空回收站对�
 | ui_components | `crates/ui_components/Cargo.toml` | 保留 | 9 |
 | vim | `crates/vim/Cargo.toml` | 保留 | 7 |
 | virtual-fs | `crates/virtual_fs/Cargo.toml` | 替换/待确认 | 4 |
-| voice_input | `crates/voice_input/Cargo.toml` | 删除候选（先解耦） | 13 |
+| voice_input | `crates/voice_input/Cargo.toml` | 已删除（P0 续作） | 13 |
 | warp | `app/Cargo.toml` | 替换/待确认 | 294 |
 | warp_assets | `crates/warp_assets/Cargo.toml` | 保留 | 3 |
 | warp_channel_config | `crates/warp_channel_config/Cargo.toml` | 替换/待确认 | 3 |
@@ -247,7 +247,7 @@ Account 设置页、Drive 侧栏主体/行渲染器/命名及清空回收站对�
 | `app/src/util` | 保留 |
 | `app/src/view_components` | 保留 |
 | `app/src/vim_registers.rs` | 替换/待确认 |
-| `app/src/voice` | 删除候选（检查调用链） |
+| `app/src/voice` | 已删除（P0 续作） |
 | `app/src/voltron.rs` | 替换/待确认 |
 | `app/src/warp_managed_paths_watcher.rs` | 替换/待确认 |
 | `app/src/wasm_nux_dialog.rs` | 替换/待确认 |

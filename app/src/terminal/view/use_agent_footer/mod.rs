@@ -783,9 +783,8 @@ impl TerminalView {
 
     /// Inserts `text` into the active CLI agent's input without submitting it.
     ///
-    /// Voice transcription uses this when rich input is closed. Agents that
-    /// require bracketed paste receive one complete paste payload so embedded
-    /// newlines are inserted rather than interpreted as separate submissions.
+    /// Agents that require bracketed paste receive one complete paste payload so
+    /// embedded newlines are inserted rather than interpreted as separate submissions.
     fn insert_text_into_cli_agent_pty(&mut self, text: &str, ctx: &mut ViewContext<Self>) {
         let Some(agent) = CLIAgentSessionsModel::as_ref(ctx)
             .session(self.view_id)
@@ -1119,7 +1118,7 @@ impl TerminalView {
 ///
 /// For regular commands, displays a 'Use agent' keystroke button to enter agent mode.
 /// For CLI agent commands (e.g., Claude Code, Gemini CLI, Codex), displays a specialized
-/// footer with image attachment, voice input, file explorer, view changes, and share buttons.
+/// footer with image attachment, file explorer, view changes, and share buttons.
 pub struct UseAgentToolbar {
     terminal_view_id: EntityId,
     terminal_model: Arc<FairMutex<TerminalModel>>,
@@ -1348,12 +1347,6 @@ impl UseAgentToolbar {
     /// Returns whether the warpify footer is currently active.
     pub(in crate::terminal) fn is_warpify_active(&self, app: &AppContext) -> bool {
         self.warpify_footer_view.as_ref(app).is_active()
-    }
-
-    /// Returns whether there's a current CLI agent (like Claude Code).
-    #[cfg(feature = "voice_input")]
-    pub fn has_cli_agent(&self, app: &AppContext) -> bool {
-        self.cli_agent(app).is_some()
     }
 }
 

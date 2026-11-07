@@ -1,5 +1,6 @@
 pub mod new_session_shell;
 pub mod startup_shell;
+mod toolbar_compat;
 pub mod working_directory_config;
 
 use instant::Duration;
@@ -174,17 +175,7 @@ pub trait ToolbarChipSelection {
     }
 }
 
-#[derive(
-    Clone,
-    Debug,
-    Default,
-    Serialize,
-    Deserialize,
-    PartialEq,
-    Eq,
-    schemars::JsonSchema,
-    settings_value::SettingsValue,
-)]
+#[derive(Clone, Debug, Default, Serialize, PartialEq, Eq, schemars::JsonSchema)]
 #[schemars(
     description = "Agent toolbar layout configuration.",
     rename_all = "snake_case"
@@ -224,17 +215,7 @@ impl ToolbarChipSelection for AgentToolbarChipSelection {
     }
 }
 
-#[derive(
-    Clone,
-    Debug,
-    Default,
-    Serialize,
-    Deserialize,
-    PartialEq,
-    Eq,
-    schemars::JsonSchema,
-    settings_value::SettingsValue,
-)]
+#[derive(Clone, Debug, Default, Serialize, PartialEq, Eq, schemars::JsonSchema)]
 #[schemars(
     description = "CLI agent toolbar layout configuration.",
     rename_all = "snake_case"

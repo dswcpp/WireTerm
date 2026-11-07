@@ -16,16 +16,10 @@ use chrono::{DateTime, Local};
 use parking_lot::FairMutex;
 use pathfinder_color::ColorU;
 use pathfinder_geometry::vector::{Vector2F, vec2f};
-#[cfg(feature = "voice_input")]
-use settings::Setting;
 use settings::ToggleableSetting;
 #[cfg(not(target_family = "wasm"))]
 use tokio::fs;
 use toolbar_item::AgentToolbarItemKind;
-#[cfg(feature = "voice_input")]
-use voice_input::{
-    StartListeningError, VoiceInputLifecycle, VoiceInputLifecycleState, VoiceSessionResult,
-};
 use warp_cli::agent::Harness;
 use warp_core::context_flag::ContextFlag;
 use warp_core::ui::color::ContrastingColor;
@@ -33,7 +27,7 @@ use warp_core::ui::color::blend::Blend;
 use warp_core::ui::color::contrast::MinimumAllowedContrast;
 use warp_core::ui::theme::color::internal_colors;
 use warp_core::ui::theme::{AnsiColorIdentifier, Fill};
-#[cfg(any(not(target_family = "wasm"), feature = "voice_input"))]
+#[cfg(not(target_family = "wasm"))]
 use warp_errors::report_error;
 use warp_errors::report_if_error;
 use warpui::r#async::{SpawnedFutureHandle, Timer};
@@ -71,10 +65,6 @@ use crate::context_chips::{self, ContextChipKind};
 use crate::features::FeatureFlag;
 use crate::network::NetworkStatus;
 use crate::send_telemetry_from_ctx;
-#[cfg(feature = "voice_input")]
-use crate::server::server_api::TranscribeError;
-#[cfg(feature = "voice_input")]
-use crate::server::team_scope::RequestTeamScope;
 #[cfg(not(target_family = "wasm"))]
 use crate::server::telemetry::PluginChipTelemetryAction;
 use crate::server::telemetry::{PluginChipTelemetryKind, TelemetryEvent};
@@ -195,8 +185,7 @@ fn is_conversation_transcript_context(
 /// `UseAgentToolbar`, rendering the appropriate mode in each context.
 pub struct AgentInputFooter {
     terminal_view_id: EntityId,
-    #[cfg_attr(not(feature = "voice_input"), allow(unused))]
-    mic_button: ViewHandle<ActionButton>,
+
     nld_button: ViewHandle<ActionButton>,
     file_button: ViewHandle<ActionButton>,
     start_remote_control_button: ViewHandle<ActionButton>,
@@ -250,13 +239,6 @@ pub struct AgentInputFooter {
     // `Workspace::start_local_to_cloud_handoff`.
     handoff_to_cloud_button: ViewHandle<ActionButton>,
 
-    // CLI agent voice input state (self-contained, bypasses editor voice flow).
-    #[cfg(feature = "voice_input")]
-    cli_voice_input_lifecycle: VoiceInputLifecycle,
-    #[cfg(feature = "voice_input")]
-    cli_recording_handle: Option<SpawnedFutureHandle>,
-    #[cfg(feature = "voice_input")]
-    cli_transcription_handle: Option<SpawnedFutureHandle>,
     v2_model_selector: Option<ViewHandle<ModelSelector>>,
 
     /// Pending one-shot timer that refreshes the context-window button at the
@@ -393,42 +375,6 @@ impl AgentInputFooter {
                 );
             });
         });
-
-        let mic_button = ctx.add_typed_action_view(|_ctx| {
-            let button = ActionButton::new("", ActiveMicButtonTheme)
-                .with_icon(Icon::Microphone)
-                .with_tooltip("Voice input")
-                .with_size(button_size)
-                .with_tooltip_alignment(TooltipAlignment::Left);
-            #[cfg(feature = "voice_input")]
-            let button = button.on_click(|ctx| {
-                ctx.dispatch_typed_action(AgentInputFooterAction::ToggleVoiceInput);
-            });
-            button
-        });
-
-        #[cfg(feature = "voice_input")]
-        {
-            let tooltip = AISettings::as_ref(ctx)
-                .voice_input_toggle_key
-                .value()
-                .tooltip_message();
-            mic_button.update(ctx, |button, ctx| {
-                button.set_tooltip(Some(tooltip), ctx);
-            });
-
-            ctx.subscribe_to_model(&AISettings::handle(ctx), |me, _, event, ctx| {
-                if let AISettingsChangedEvent::VoiceInputToggleKey { .. } = event {
-                    let tooltip = AISettings::as_ref(ctx)
-                        .voice_input_toggle_key
-                        .value()
-                        .tooltip_message();
-                    me.mic_button.update(ctx, |button, ctx| {
-                        button.set_tooltip(Some(tooltip), ctx);
-                    });
-                }
-            });
-        }
 
         let file_button = ctx.add_typed_action_view(|_ctx| {
             ActionButton::new("", AgentInputButtonTheme)
@@ -581,7 +527,6 @@ impl AgentInputFooter {
         });
 
         // Toggle rich input button label when CLI input session opens/closes.
-        // Also reset CLI voice state if the session ends while voice is active.
         ctx.subscribe_to_model(
             &CLIAgentSessionsModel::handle(ctx),
             move |me, _, event, ctx| {
@@ -592,8 +537,6 @@ impl AgentInputFooter {
                 // Reset the debounce when a session ends so the next
                 // session gets a fresh debounce window.
                 if let CLIAgentSessionsModelEvent::Ended { .. } = event {
-                    #[cfg(feature = "voice_input")]
-                    me.stop_cli_voice_and_reset(ctx);
                     me.plugin_chip_ready = false;
                 }
 
@@ -967,7 +910,7 @@ impl AgentInputFooter {
             terminal_view_id,
             ambient_agent_view_model: None,
             nld_button,
-            mic_button,
+
             file_button,
             file_explorer_button,
             rich_input_button,
@@ -997,12 +940,7 @@ impl AgentInputFooter {
             display_chip_config,
             fast_forward_button,
             handoff_to_cloud_button,
-            #[cfg(feature = "voice_input")]
-            cli_voice_input_lifecycle: VoiceInputLifecycle::default(),
-            #[cfg(feature = "voice_input")]
-            cli_recording_handle: None,
-            #[cfg(feature = "voice_input")]
-            cli_transcription_handle: None,
+
             v2_model_selector,
             prompt_cache_expiry_timer_handle: None,
             prompt_cache_expired: false,
@@ -1076,11 +1014,6 @@ impl AgentInputFooter {
     }
 
     fn render_cloud_mode_v2_footer(&self, app: &AppContext) -> Box<dyn Element> {
-        // `app` is only consumed under the `voice_input` cfg below; reference it here so the
-        // parameter doesn't trip the unused-variable lint when the feature is disabled.
-        #[cfg(not(feature = "voice_input"))]
-        let _ = app;
-
         let mut left = Flex::row()
             .with_main_axis_size(MainAxisSize::Min)
             .with_cross_axis_alignment(CrossAxisAlignment::Center)
@@ -1093,13 +1026,6 @@ impl AgentInputFooter {
             .with_main_axis_size(MainAxisSize::Min)
             .with_cross_axis_alignment(CrossAxisAlignment::Center)
             .with_spacing(CLOUD_MODE_V2_FOOTER_GAP);
-
-        // Only show the mic button when voice input is compiled in *and* the
-        // user has voice input enabled in settings, matching V1's behavior.
-        #[cfg(feature = "voice_input")]
-        if AISettings::as_ref(app).is_voice_input_enabled(app) {
-            right = right.with_child(ChildView::new(&self.mic_button).finish());
-        }
 
         right = right.with_child(ChildView::new(&self.file_button).finish());
 
@@ -1602,15 +1528,6 @@ impl AgentInputFooter {
                 .is_enabled()
                 .then(|| ChildView::new(&self.rich_input_button).finish()),
             AgentToolbarItemKind::FileAttach => Some(ChildView::new(&self.file_button).finish()),
-            AgentToolbarItemKind::VoiceInput => {
-                #[cfg(feature = "voice_input")]
-                {
-                    let enabled = AISettings::as_ref(app).is_voice_input_enabled(app);
-                    enabled.then(|| ChildView::new(&self.mic_button).finish())
-                }
-                #[cfg(not(feature = "voice_input"))]
-                None
-            }
             AgentToolbarItemKind::ShareSession => {
                 if is_conversation_transcript_context {
                     return None;
@@ -1859,276 +1776,6 @@ impl AgentInputFooter {
         }
     }
 
-    pub fn set_voice_is_active(&mut self, is_active: bool, ctx: &mut ViewContext<Self>) {
-        self.mic_button.update(ctx, |button, ctx| {
-            button.set_active(is_active, ctx);
-        });
-    }
-
-    #[cfg(feature = "voice_input")]
-    fn stop_cli_voice_and_reset(&mut self, ctx: &mut ViewContext<Self>) {
-        let lifecycle_state = self.cli_voice_input_lifecycle.state();
-        if lifecycle_state == VoiceInputLifecycleState::Idle
-            && self.cli_recording_handle.is_none()
-            && self.cli_transcription_handle.is_none()
-        {
-            return;
-        }
-        if let Some(handle) = self.cli_recording_handle.take() {
-            handle.abort();
-        }
-        if let Some(handle) = self.cli_transcription_handle.take() {
-            handle.abort();
-        }
-        voice_input::VoiceInput::handle(ctx).update(ctx, |voice_input, _| {
-            if voice_input.is_listening() {
-                voice_input.abort_listening();
-            }
-            voice_input.set_transcribing_active(false);
-        });
-
-        self.cli_voice_input_lifecycle.cancel();
-        self.update_cli_mic_button_state(ctx);
-    }
-
-    // ── CLI agent voice input (self-contained, bypasses editor) ──────
-
-    /// Toggle voice input for CLI agent mode. Records audio and writes the
-    /// transcription directly to the PTY, bypassing the editor voice flow.
-    #[cfg(feature = "voice_input")]
-    pub fn toggle_cli_voice_input(
-        &mut self,
-        source: &voice_input::VoiceInputToggledFrom,
-        ctx: &mut ViewContext<Self>,
-    ) {
-        if !UserWorkspaces::as_ref(ctx).is_voice_enabled() {
-            return;
-        }
-
-        if !AISettings::as_ref(ctx).is_voice_input_enabled(ctx) {
-            return;
-        }
-
-        // For key-based toggling, validate the key state against current voice state.
-        if let voice_input::VoiceInputToggledFrom::Key { state } = source {
-            match (self.cli_voice_input_lifecycle.state(), state) {
-                (VoiceInputLifecycleState::Idle, warpui::event::KeyState::Released) => return,
-                (VoiceInputLifecycleState::Listening, warpui::event::KeyState::Pressed) => return,
-                _ => {}
-            }
-        }
-
-        match self.cli_voice_input_lifecycle.state() {
-            VoiceInputLifecycleState::Idle => {
-                if !crate::ai::AIRequestUsageModel::as_ref(ctx).can_request_voice() {
-                    self.show_cli_voice_error_toast("Voice input limit reached", ctx);
-                    return;
-                }
-
-                let session_result = voice_input::VoiceInput::handle(ctx)
-                    .update(ctx, |voice_input, ctx| {
-                        voice_input.start_listening(ctx, source.clone())
-                    });
-
-                match session_result {
-                    Ok(session) => {
-                        if !self.cli_voice_input_lifecycle.start() {
-                            return;
-                        }
-                        self.update_cli_mic_button_state(ctx);
-
-                        if let Some(agent) = self.cli_agent(ctx) {
-                            send_telemetry_from_ctx!(
-                                TelemetryEvent::CLIAgentToolbarVoiceInputUsed { cli_agent: agent },
-                                ctx
-                            );
-                        }
-
-                        if matches!(*source, voice_input::VoiceInputToggledFrom::Button) {
-                            self.maybe_show_first_time_cli_voice_toast(ctx);
-                        }
-
-                        self.cli_recording_handle = Some(ctx.spawn(
-                            async move { session.await_result().await },
-                            AgentInputFooter::handle_cli_voice_session_result,
-                        ));
-                    }
-                    Err(StartListeningError::AccessDenied) => {
-                        self.show_cli_microphone_access_toast(ctx);
-                    }
-                    Err(e) => {
-                        report_error!(
-                            anyhow::Error::new(e).context("Failed to start CLI voice input")
-                        );
-                    }
-                }
-            }
-            VoiceInputLifecycleState::Listening => {
-                voice_input::VoiceInput::handle(ctx).update(ctx, |voice_input, ctx| {
-                    if let Err(e) = anyhow::Context::context(
-                        voice_input.stop_listening(ctx),
-                        "Failed to stop CLI voice input",
-                    ) {
-                        report_error!(e);
-                    }
-                });
-            }
-            VoiceInputLifecycleState::Transcribing => {
-                // Don't allow toggling while transcribing.
-            }
-        }
-        ctx.notify();
-    }
-
-    #[cfg(feature = "voice_input")]
-    fn handle_cli_voice_session_result(
-        &mut self,
-        result: VoiceSessionResult,
-        ctx: &mut ViewContext<Self>,
-    ) {
-        use crate::editor::VoiceTranscriber;
-        self.cli_recording_handle = None;
-
-        match result {
-            VoiceSessionResult::Audio {
-                wav_base64,
-                session_duration_ms: _,
-            } => {
-                let voice_transcriber = VoiceTranscriber::as_ref(ctx);
-                if let Some(transcriber) = voice_transcriber.transcriber() {
-                    let transcriber = transcriber.clone();
-                    let language = AISettings::as_ref(ctx)
-                        .voice_input_language_code()
-                        .map(str::to_owned);
-                    let team_scope = RequestTeamScope::from_scope(
-                        &UserWorkspaces::as_ref(ctx).team_context_for_view(ctx),
-                    );
-                    if !self.cli_voice_input_lifecycle.begin_transcribing() {
-                        return;
-                    }
-
-                    voice_input::VoiceInput::handle(ctx).update(ctx, |voice, _| {
-                        voice.set_transcribing_active(true);
-                    });
-
-                    self.cli_transcription_handle = Some(ctx.spawn(
-                        async move {
-                            transcriber
-                                .transcribe(wav_base64, language, team_scope)
-                                .await
-                        },
-                        AgentInputFooter::apply_cli_transcribed_voice_input,
-                    ));
-                } else {
-                    self.cli_voice_input_lifecycle.fail();
-                }
-            }
-            VoiceSessionResult::Aborted { .. } => {
-                self.cli_voice_input_lifecycle.fail();
-            }
-        }
-        self.update_cli_mic_button_state(ctx);
-        ctx.notify();
-    }
-
-    #[cfg(feature = "voice_input")]
-    fn apply_cli_transcribed_voice_input(
-        &mut self,
-        result: Result<String, TranscribeError>,
-        ctx: &mut ViewContext<Self>,
-    ) {
-        if !self.cli_voice_input_lifecycle.complete() {
-            return;
-        }
-
-        voice_input::VoiceInput::handle(ctx).update(ctx, |voice, _| {
-            voice.set_transcribing_active(false);
-        });
-
-        match result {
-            Ok(transcribed_text) => {
-                if !transcribed_text.is_empty() {
-                    if self.has_active_cli_agent_input_session(ctx) {
-                        ctx.emit(AgentInputFooterEvent::InsertIntoCLIRichInput(
-                            transcribed_text,
-                        ));
-                    } else {
-                        ctx.emit(AgentInputFooterEvent::InsertIntoCLIPty(transcribed_text));
-                    }
-                }
-            }
-            Err(e) => match e {
-                TranscribeError::QuotaLimit => {
-                    self.show_cli_voice_error_toast("Voice input limit reached", ctx);
-                }
-                _ => {
-                    report_error!(
-                        anyhow::Error::new(e).context("Failed to transcribe CLI voice input")
-                    );
-                    self.show_cli_voice_error_toast("Failed to transcribe voice input", ctx);
-                }
-            },
-        }
-
-        self.cli_transcription_handle = None;
-        self.update_cli_mic_button_state(ctx);
-        ctx.notify();
-    }
-
-    #[cfg(feature = "voice_input")]
-    fn update_cli_mic_button_state(&self, ctx: &mut ViewContext<Self>) {
-        let icon = match self.cli_voice_input_lifecycle.state() {
-            VoiceInputLifecycleState::Idle => Icon::Microphone,
-            VoiceInputLifecycleState::Listening => Icon::Stop,
-            VoiceInputLifecycleState::Transcribing => Icon::DotsHorizontal,
-        };
-        let is_transcribing = matches!(
-            self.cli_voice_input_lifecycle.state(),
-            VoiceInputLifecycleState::Transcribing
-        );
-
-        self.mic_button.update(ctx, |button, ctx| {
-            button.set_icon(Some(icon), ctx);
-            button.set_active(is_transcribing, ctx);
-        });
-    }
-
-    #[cfg(feature = "voice_input")]
-    fn show_cli_voice_error_toast(&self, message: &str, ctx: &mut ViewContext<Self>) {
-        let window_id = ctx.window_id();
-        ToastStack::handle(ctx).update(ctx, |toast_stack, ctx| {
-            let toast = DismissibleToast::error(message.to_string());
-            toast_stack.add_ephemeral_toast(toast, window_id, ctx);
-        });
-    }
-
-    #[cfg(feature = "voice_input")]
-    fn show_cli_microphone_access_toast(&self, ctx: &mut ViewContext<Self>) {
-        let window_id = ctx.window_id();
-        ToastStack::handle(ctx).update(ctx, |toast_stack, ctx| {
-            let toast = DismissibleToast::error(String::from(
-                "Failed to start voice input (you may need to enable Microphone access)",
-            ));
-            toast_stack.add_ephemeral_toast(toast, window_id, ctx);
-        });
-    }
-
-    #[cfg(feature = "voice_input")]
-    fn maybe_show_first_time_cli_voice_toast(&self, ctx: &mut ViewContext<Self>) {
-        let window_id = ctx.window_id();
-        AISettings::handle(ctx).update(ctx, |settings, ctx| {
-            if let Some(toggle_key) = settings.maybe_setup_first_time_voice(ctx) {
-                ToastStack::handle(ctx).update(ctx, |toast_stack, ctx| {
-                    let toast = DismissibleToast::success(format!(
-                        "Voice input is enabled. You can also press and hold the `{}` key to activate voice input (configure in Settings > AI > Voice)",
-                        toggle_key.display_name()
-                    ));
-                    toast_stack.add_ephemeral_toast(toast, window_id, ctx);
-                });
-            }
-        });
-    }
-
     fn sync_fast_forward_button(&self, ctx: &mut ViewContext<Self>) {
         // In cloud agent conversations fast forward is force-enabled.
         let terminal_model = self.terminal_model.lock();
@@ -2336,16 +1983,6 @@ impl AgentInputFooter {
                 show.then(|| ChildView::new(&self.model_selector).finish())
             }
             AgentToolbarItemKind::NLDToggle => Some(ChildView::new(&self.nld_button).finish()),
-            AgentToolbarItemKind::VoiceInput => {
-                #[cfg(feature = "voice_input")]
-                {
-                    let enabled =
-                        crate::settings::AISettings::as_ref(app).is_voice_input_enabled(app);
-                    enabled.then(|| ChildView::new(&self.mic_button).finish())
-                }
-                #[cfg(not(feature = "voice_input"))]
-                None
-            }
             AgentToolbarItemKind::FileAttach => Some(ChildView::new(&self.file_button).finish()),
             AgentToolbarItemKind::ContextWindowUsage => {
                 let has_conversation = FeatureFlag::ContextWindowUsageV2.is_enabled()
@@ -2650,8 +2287,6 @@ impl View for AgentInputFooter {
 
 #[derive(Debug, Clone)]
 pub enum AgentInputFooterAction {
-    #[cfg(feature = "voice_input")]
-    ToggleVoiceInput,
     SelectFile,
     InsertFilePath(String),
     ToggleCodeReview,
@@ -2681,18 +2316,6 @@ impl TypedActionView for AgentInputFooter {
 
     fn handle_action(&mut self, action: &Self::Action, ctx: &mut warpui::ViewContext<Self>) {
         match action {
-            #[cfg(feature = "voice_input")]
-            AgentInputFooterAction::ToggleVoiceInput => {
-                // In CLI agent mode, handle voice recording/transcription
-                // directly so text is written to the PTY instead of the editor.
-                if self.is_cli_agent_session_active(ctx) {
-                    self.toggle_cli_voice_input(&voice_input::VoiceInputToggledFrom::Button, ctx);
-                } else {
-                    ctx.emit(AgentInputFooterEvent::ToggleVoiceInput(
-                        voice_input::VoiceInputToggledFrom::Button,
-                    ));
-                }
-            }
             AgentInputFooterAction::SelectFile => {
                 self.select_file(ctx);
             }
@@ -2893,8 +2516,6 @@ impl TypedActionView for AgentInputFooter {
 }
 
 pub enum AgentInputFooterEvent {
-    #[cfg(feature = "voice_input")]
-    ToggleVoiceInput(voice_input::VoiceInputToggledFrom),
     SelectFile,
     WriteToPty(String),
     /// Insert text into the CLI agent's PTY input using its paste strategy.
@@ -3017,44 +2638,6 @@ impl ActionButtonTheme for RemoteControlButtonTheme {
 
     fn should_opt_out_of_contrast_adjustment(&self) -> bool {
         AgentInputButtonTheme.should_opt_out_of_contrast_adjustment()
-    }
-}
-
-/// Theme for the mic button.
-/// Uses a blue icon when active (hovered, listening, or transcribing).
-pub(crate) struct ActiveMicButtonTheme;
-
-impl ActionButtonTheme for ActiveMicButtonTheme {
-    fn background(&self, hovered: bool, appearance: &Appearance) -> Option<Fill> {
-        AgentInputButtonTheme.background(hovered, appearance)
-    }
-
-    fn text_color(
-        &self,
-        hovered: bool,
-        _background: Option<Fill>,
-        appearance: &Appearance,
-    ) -> ColorU {
-        if hovered {
-            appearance.theme().ansi_fg_blue()
-        } else {
-            appearance
-                .theme()
-                .sub_text_color(appearance.theme().surface_1())
-                .into_solid()
-        }
-    }
-
-    fn border(&self, appearance: &Appearance) -> Option<ColorU> {
-        AgentInputButtonTheme.border(appearance)
-    }
-
-    fn should_opt_out_of_contrast_adjustment(&self) -> bool {
-        true
-    }
-
-    fn font_properties(&self) -> Option<warpui::fonts::Properties> {
-        AgentInputButtonTheme.font_properties()
     }
 }
 

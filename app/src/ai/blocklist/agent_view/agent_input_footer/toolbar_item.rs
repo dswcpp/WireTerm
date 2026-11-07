@@ -63,7 +63,6 @@ pub enum AgentToolbarItemKind {
 
     // Both
     FileExplorer,
-    VoiceInput,
     // Renamed from ImageAttach; alias preserves existing user toolbar configs.
     #[serde(alias = "ImageAttach")]
     FileAttach,
@@ -82,11 +81,9 @@ pub enum AgentToolbarItemKind {
 impl AgentToolbarItemKind {
     pub fn available_in(&self) -> ToolbarAvailability {
         match self {
-            Self::ContextChip(_)
-            | Self::VoiceInput
-            | Self::FileAttach
-            | Self::ShareSession
-            | Self::FileExplorer => ToolbarAvailability::Both,
+            Self::ContextChip(_) | Self::FileAttach | Self::ShareSession | Self::FileExplorer => {
+                ToolbarAvailability::Both
+            }
             Self::ModelSelector
             | Self::NLDToggle
             | Self::ContextWindowUsage
@@ -116,8 +113,7 @@ impl AgentToolbarItemKind {
             | Self::NLDToggle
             | Self::ContextWindowUsage
             | Self::UsageSummary
-            | Self::RichInput
-            | Self::VoiceInput => true,
+            | Self::RichInput => true,
         }
     }
 
@@ -126,7 +122,6 @@ impl AgentToolbarItemKind {
             Self::ContextChip(_) => "Context Chip",
             Self::ModelSelector => "Model Selector",
             Self::NLDToggle => "Autodetection",
-            Self::VoiceInput => "Voice Input",
             Self::FileAttach => "Attach File",
             Self::ContextWindowUsage => "Context Usage",
             Self::UsageSummary => "Conversation Usage",
@@ -144,7 +139,6 @@ impl AgentToolbarItemKind {
             Self::ContextChip(kind) => kind.udi_icon(),
             Self::ModelSelector => Some(Icon::Agent),
             Self::NLDToggle => Some(Icon::NLD),
-            Self::VoiceInput => Some(Icon::Microphone),
             Self::FileAttach => Some(Icon::Plus),
             Self::ContextWindowUsage => Some(Icon::ContextRemaining100),
             Self::UsageSummary => Some(Icon::PieChart),
@@ -166,7 +160,7 @@ impl AgentToolbarItemKind {
             Self::ContextChip(
                 ContextChipKind::ShellGitBranch | ContextChipKind::GitBranchStatus,
             ) => true,
-            Self::ModelSelector | Self::VoiceInput | Self::FileAttach => true,
+            Self::ModelSelector | Self::FileAttach => true,
             Self::ContextChip(_)
             | Self::NLDToggle
             | Self::ContextWindowUsage
@@ -250,7 +244,6 @@ impl AgentToolbarItemKind {
         {
             items.push(Self::HandoffToCloud);
         }
-        items.push(Self::VoiceInput);
         items.push(Self::FileAttach);
         items
     }
@@ -264,7 +257,6 @@ impl AgentToolbarItemKind {
         items.extend([
             Self::ModelSelector,
             Self::NLDToggle,
-            Self::VoiceInput,
             Self::FileAttach,
             Self::ContextWindowUsage,
             Self::UsageSummary,
@@ -292,7 +284,6 @@ impl AgentToolbarItemKind {
     pub fn cli_default_left() -> Vec<Self> {
         let mut items = vec![
             Self::FileAttach,
-            Self::VoiceInput,
             Self::ContextChip(ContextChipKind::GitDiffStats),
         ];
         if FeatureFlag::CreatingSharedSessions.is_enabled()
@@ -326,7 +317,6 @@ impl AgentToolbarItemKind {
             Self::FileExplorer,
             Self::RichInput,
             Self::FileAttach,
-            Self::VoiceInput,
             Self::Settings,
         ]);
         if FeatureFlag::CreatingSharedSessions.is_enabled()

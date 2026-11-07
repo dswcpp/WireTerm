@@ -2,15 +2,62 @@
 
 ## P0 续作状态（2026-11-07）
 
-本次从 `59289b39` 继续，独立分支 `codex/p0-source-pruning`。正在执行语音输入完整链路和
-独立 TUI 设置适配删除。最终文件、锁文件包和规模清单将在本批验证后记录；不能将进行中的
-工作视为完整 P0 验收，也不能将历史两批收益再次计入。
+本次从 `59289b393215592d71c133511220da29db2def99` 继续，独立分支
+`codex/p0-source-pruning`。本批实际删除语音输入的完整运行链路以及独立 TUI 遗留的设置适配，
+没有保留 `#[cfg]` 关闭的实现，也没有增加返回空结果的伪服务。
 
-语音的最小本地替代：无。该业务不属于本地终端所需功能，直接删除录音、转写、按钮和请求，
-没有增加返回空字符串的伪服务，没有永久关闭 feature 后保留原实现。普通编辑器／终端继续使用
-原有实现，符合 KISS 和 YAGNI；共享网络与持久化组件继续按反向依赖审计。
+### 语音输入
+
+| 边界 | 删除内容 |
+|---|---|
+| 采集与转写 crate | `crates/voice_input/`（3 文件）：CPAL 采集、WAV 编码、重采样、状态机；workspace 与 app 的依赖和 `gui` feature 绑定 |
+| 应用单例与请求 | `app/src/voice/`、`app/src/ai/voice/`、`app/src/server/voice_transcriber.rs`、`ServerApi::transcribe`、`TranscribeError` 及 `/ai/transcribe` DTO |
+| 编辑器 | `app/src/editor/view/voice.rs`、`EditorAction::ToggleVoiceInput`、`EditorEvent::VoiceStateUpdated`、语音光标图标、输入锁定和提示文本 |
+| 终端与输入栏 | UDI 麦克风按钮、Agent 输入栏麦克风及 CLI 语音状态机、AltScreen/BlockList 语音按键、RootView 按住说话和全局动作 |
+| 设置与入口 | `VoiceInputToggleKey`、`VOICE_INPUT_LANGUAGES`、`voice_input_enabled_internal`、`voice_input_language`、`entered_agent_mode_num_times`、新功能弹窗、`IS_VOICE_INPUT_ENABLED`、命令面板切换项、`/voice` 与 `TuiStatuslineItem::VoiceInput` |
+| 配额、策略与遥测 | `RequestLimitInfo` 语音字段、`can_request_voice`、GraphQL/WarpAiPolicy 的 `is_voice_enabled`、三组语音遥测事件及 payload、Web 端语音入口来源枚举 |
+| 资源 | `app/assets/bundled/svg/microphone.svg`、`Icon::Microphone` 及其路径映射、macOS 麦克风用途说明 |
+
+语音的最小本地替代：无。录音、转写、按钮、快捷键、配额和请求都不属于本地终端必需能力，
+直接删除；普通编辑器、终端输入、PTY 和会话逻辑保持原实现。旧本地 TOML 中的
+`agents.voice.*` 键不再注册并由设置层按默认值忽略，没有清空数据库或改写用户配置。
+
+### 独立 TUI 设置适配
+
+删除 `app/src/settings/tui_autoupdate.rs`、`tui_theme.rs`、`tui_voice.rs`、`tui_zero_state.rs`
+及三个测试文件，并移除 `settings::init`、测试初始化中的注册和 `pub use`。这些设置只服务于已
+删除的独立 TUI 前端；共享的 WarpUI cell-grid 组件、`TuiZeroStateDataSource` 和终端适配保留。
+
+旧 statusline 顺序中的 `voice_input` 序列化值不再合法；TUI 专用设置整体已删除，本地配置由
+设置层按缺失字段回退，没有把云账户或同步状态迁移成本地数据。
 
 用户原有设计文档改动与 `.spec-workflow/` 保留，不纳入本批提交。
+
+### 依赖与规模
+
+本批移除 Cargo 依赖：`voice_input`（workspace 与 app 声明）及 `gui = ["voice_input"]` 绑定；
+新增依赖 0。锁文件删除 18 个包：`alsa`、`alsa-sys`、`coreaudio-rs`、`cpal`、`dasp_sample`、
+`hound`、`mach2`、`objc2-audio-toolbox`、`objc2-avf-audio`、`objc2-core-audio`、
+`objc2-core-audio-types`、`primal-check`、`realfft`、`rubato`、`rustfft`、`strength_reduce`、
+`transpose`、`voice_input`；没有升级或新增包。
+
+| 指标 | `59289b39` 基线 | 本批后 | 减少 |
+|---|---:|---:|---:|
+| Workspace crate | 80 | 79 | 1 |
+| Cargo.lock 包 | 1,567 | 1,549 | 18 |
+| Windows GUI 激活包（不含根 crate） | 1,005 | 994 | 11 |
+| Rust 文件（跟踪，含新增兼容文件） | 3,931 | 3,915 | 16 |
+| Rust 源码行（跟踪，含新增兼容文件） | 1,683,469 | 1,678,681 | 4,788（0.28%） |
+
+文件统计另含 1 个 `Cargo.toml` 与 1 个 SVG，共删除 20 个跟踪文件；同时新增
+`session_settings/toolbar_compat.rs` 及测试（131 行），用于在反序列化时过滤旧工具栏配置中的
+`VoiceInput` 项，避免用户本地设置整份失效。净减少 16 个跟踪文件。行数按 Git blob 换行统计；
+删除 18 个 `.rs` 文件的同时，保留文件内还删除了约 2,750 行语音分支与设置代码（含 rustfmt
+收回的空白行）。Cargo.lock 的 214 行减少与 18 个包一致。
+机器可读数据见 [p0-continuation-current.json](p0-continuation-current.json)、
+[p0-continuation-deleted-files.txt](p0-continuation-deleted-files.txt) 和
+[p0-gui-dependencies.txt](p0-gui-dependencies.txt)。本批未重新生成 debug exe，因此不提供
+可执行文件大小对比，也不将基线 exe 当作裁剪后结果。
 
 ## 第二批实际删除与本地替代
 
@@ -32,12 +79,12 @@
 本批移除 Cargo 依赖：0；新增依赖：0。云客户端 crate 仍有 AI、共享会话、对象持久化和 CLI
 反向依赖，不能因 GUI 登录页已删除就宣称认证及云服务源码/运行时依赖已清零。
 onboarding 资源仍被终端 callout/教程和 DTO 使用，保留并列为后续解耦项。
-自动更新、语音、团队/计费设置、云 AI/Oz 及可选 Sentry 仍未完成裁剪，完整 P0 尚未通过。
+自动更新、团队/计费设置、云 AI/Oz 及可选 Sentry 仍未完成裁剪，完整 P0 尚未通过。
 
 ## 当前结论
 
-本分支完成已确认边界的实际源码删除：远程遥测发送链与独立 TUI 的构建、发布和运行入口。
-**这不是完整 P0 验收交付。账号、Drive、云 AI、团队/计费、GUI 自动更新和语音仍有运行时依赖，
+本分支完成已确认边界的实际源码删除：远程遥测发送链、独立 TUI 与语音输入的构建、发布和运行入口。
+**这不是完整 P0 验收交付。账号、Drive、云 AI、团队/计费及 GUI 自动更新仍有运行时依赖，
 当前工程不能被描述为已完成的纯离线 WireTerm。**
 
 基线：`f7fc2f2a08a3aa446baa23960710e630c5defd6e`。分支：`refactor/p0-local-terminal`。
@@ -101,7 +148,7 @@ onboarding 资源仍被终端 callout/教程和 DTO 使用，保留并列为后�
 | 云 AI / Oz | `ai/`、`ai_assistant/`、`warp_multi_agent_client`、`warp_server_client` 与输入、block list、Pane 视图共用类型。`terminal/view/ambient_agent/view_impl.rs` 仍读取 ServerApi，不能整体删目录 |
 | 团队 / 计费 | `workspaces/`、`billing/`、`pricing/`、Settings 权限枚举和 LLM 可用性互相引用；需先分离本地功能可用性，不能将权限查询伪装为永久成功 |
 | 同步设置 | `settings/cloud_preferences_syncer.rs` 与本地 TOML 写入/迁移共享入口，不能为删除同步而破坏本地配置 |
-| 自动更新 / 语音 | GUI 菜单、退出/重启回调、编辑器、热键和 Settings 持有状态；本批仅删除其中遥测专用路径 |
+| 自动更新 | GUI 菜单、退出/重启回调、热键和 Settings 持有状态尚存；语音输入已在 P0 续作中完整删除，不在此列 |
 | 遥测剩余部分 | 框架事件队列、业务事件参数、PrivacySettings、Sentry 可选集成和 session sharing 中的上下文仍在；OTLP/Rudder 发送器已删除，不能据此宣称所有远程上报已清零 |
 | TUI 适配残留 | `app/src/tui*`、`LaunchMode::Tui`、部分设置/API-key 桥接及 WarpUI cell-grid 能力尚存。本批只完成独立前端/分发删除，未将整个 TUI 相关符号标记为清零 |
 | 共享底层组件 | WarpUI、VT/ANSI、PTY、Shell、异步任务、会话/Pane、本地日志和持久化继续保留；通用 HTTP/WebSocket/MCP 接口在确认未来扩展和当前引用前不整包删除 |

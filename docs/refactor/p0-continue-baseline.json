@@ -10,7 +10,7 @@
   "rust_lines": 1683469,
   "debug_exe_bytes": 399246336,
   "build": "cargo build -p warp --bin warp-oss --features gui: passed before this task, 17m32s; unchanged source SHA 59289b39",
-  "preexisting_changes": [
+  "observed_worktree_changes_at_capture": [
     " M Cargo.toml",
     " M app/Cargo.toml",
     " M app/src/ai/blocklist/agent_view/agent_input_footer/mod.rs",
@@ -69,5 +69,6 @@
     "?? .spec-workflow/",
     "?? docs/refactor/p0-workspace-graph.json",
     ""
-  ]
+  ],
+  "rust_bytes_normalized_lf": 63265125
 }

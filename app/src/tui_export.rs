@@ -11,11 +11,6 @@ pub use ::ai::agent::{
 pub use ai::agent::action::{RunAgentsAgentRunConfig, RunAgentsExecutionMode, RunAgentsRequest};
 pub use ai::agent::orchestration_config::{OrchestrationConfig, OrchestrationConfigStatus};
 pub use repo_metadata::repositories::RepoDetectionSource;
-#[cfg(feature = "voice_input")]
-pub use voice_input::{
-    StartListeningError, VoiceInput, VoiceInputLifecycle, VoiceInputLifecycleState,
-    VoiceInputState, VoiceInputToggledFrom, VoiceSession, VoiceSessionResult,
-};
 pub use warp_cli::agent::Harness;
 use warp_completer::completer::{CompletionContext as _, TopLevelCommandCaseSensitivity};
 use warp_completer::signatures::CommandRegistry;
@@ -189,8 +184,6 @@ pub use crate::search::slash_command_menu::static_commands::{
 pub use crate::search::slash_command_menu::{SlashCommandId, StaticCommand};
 pub use crate::server::ids::{ServerId, SyncId};
 pub use crate::server::server_api::ServerApiProvider;
-#[cfg(feature = "voice_input")]
-pub use crate::server::server_api::TranscribeError;
 pub use crate::server::server_api::ai::{
     AIClient, AgentConfigSnapshot, AttachmentInput, SpawnAgentRequest, SpawnAgentResponse,
 };
@@ -279,8 +272,6 @@ pub use crate::util::image::{
 };
 pub use crate::util::repo_detection::{RepoDetectionSessionType, detect_possible_git_repo};
 pub use crate::util::time_format::format_elapsed_seconds;
-#[cfg(feature = "voice_input")]
-pub use crate::voice::transcriber::{Transcriber, VoiceTranscriber};
 pub use crate::workspaces::update_manager::TeamUpdateManager;
 pub use crate::workspaces::user_workspaces::{
     ResolvedTeamScope, TeamContext, TeamContextForOperation, TeamContextResolver, TeamScope,

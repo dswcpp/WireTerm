@@ -1,0 +1,4192 @@
+warp v0.1.0 (E:\code\WireTerm\app)
+addr v0.15.6
+psl v2.1.4
+psl-types v2.0.11
+psl-types v2.0.11
+aha-reqwest-eventsource v0.1.0
+eventsource-stream v0.2.3
+futures-core v0.3.31
+nom v7.1.3
+memchr v2.7.6
+minimal-lexical v0.2.1
+pin-project-lite v0.2.16
+futures-core v0.3.31
+futures-timer v3.0.2
+mime v0.3.17
+nom v7.1.3 (*)
+pin-project-lite v0.2.16
+reqwest v0.13.5
+base64 v0.23.1
+bytes v1.11.1
+serde v1.0.228
+serde_core v1.0.228
+serde_derive v1.0.228 (proc-macro)
+proc-macro2 v1.0.106
+unicode-ident v1.0.12
+quote v1.0.45
+proc-macro2 v1.0.106 (*)
+syn v2.0.117
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+unicode-ident v1.0.12
+encoding_rs v0.8.35
+cfg-if v1.0.4
+futures-channel v0.3.31
+futures-core v0.3.31
+futures-sink v0.3.31
+futures-core v0.3.31
+futures-util v0.3.31
+futures-channel v0.3.31 (*)
+futures-core v0.3.31
+futures-io v0.3.31
+futures-macro v0.3.31 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+futures-sink v0.3.31
+futures-task v0.3.31
+memchr v2.7.6
+pin-project-lite v0.2.16
+pin-utils v0.1.0
+slab v0.4.9
+autocfg v1.1.0
+h2 v0.4.15
+atomic-waker v1.1.2
+bytes v1.11.1 (*)
+fnv v1.0.7
+futures-core v0.3.31
+futures-sink v0.3.31
+http v1.4.0
+bytes v1.11.1 (*)
+itoa v1.0.18
+indexmap v2.12.0
+equivalent v1.0.1
+hashbrown v0.16.0
+allocator-api2 v0.2.16
+equivalent v1.0.1
+foldhash v0.2.0
+serde_core v1.0.228
+slab v0.4.9 (*)
+tokio v1.50.0
+bytes v1.11.1 (*)
+mio v1.1.1
+log v0.4.29
+serde_core v1.0.228
+windows-sys v0.61.2
+windows-link v0.2.1
+parking_lot v0.12.5
+lock_api v0.4.14
+scopeguard v1.2.0
+serde v1.0.228 (*)
+parking_lot_core v0.9.12
+cfg-if v1.0.4
+smallvec v1.15.1
+windows-link v0.2.1
+pin-project-lite v0.2.16
+socket2 v0.6.0
+windows-sys v0.59.0
+windows-targets v0.52.6
+windows_x86_64_msvc v0.52.6
+tokio-macros v2.6.1 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+windows-sys v0.61.2 (*)
+tokio-util v0.7.18
+bytes v1.11.1 (*)
+futures-core v0.3.31
+futures-sink v0.3.31
+pin-project-lite v0.2.16
+tokio v1.50.0 (*)
+tracing v0.1.44
+log v0.4.29 (*)
+pin-project-lite v0.2.16
+tracing-attributes v0.1.31 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+tracing-core v0.1.36
+once_cell v1.21.3
+http v1.4.0 (*)
+http-body v1.0.1
+bytes v1.11.1 (*)
+http v1.4.0 (*)
+http-body-util v0.1.3
+bytes v1.11.1 (*)
+futures-core v0.3.31
+http v1.4.0 (*)
+http-body v1.0.1 (*)
+pin-project-lite v0.2.16
+hyper v1.8.1
+atomic-waker v1.1.2
+bytes v1.11.1 (*)
+futures-channel v0.3.31 (*)
+futures-core v0.3.31
+h2 v0.4.15 (*)
+http v1.4.0 (*)
+http-body v1.0.1 (*)
+httparse v1.10.1
+httpdate v1.0.3
+itoa v1.0.18
+pin-project-lite v0.2.16
+pin-utils v0.1.0
+smallvec v1.15.1
+tokio v1.50.0 (*)
+want v0.3.1
+try-lock v0.2.4
+hyper-rustls v0.27.7
+http v1.4.0 (*)
+hyper v1.8.1 (*)
+hyper-util v0.1.16
+base64 v0.22.1
+bytes v1.11.1 (*)
+futures-channel v0.3.31 (*)
+futures-core v0.3.31
+futures-util v0.3.31 (*)
+http v1.4.0 (*)
+http-body v1.0.1 (*)
+hyper v1.8.1 (*)
+ipnet v2.11.0
+libc v0.2.186
+percent-encoding v2.3.1
+pin-project-lite v0.2.16
+socket2 v0.6.0 (*)
+tokio v1.50.0 (*)
+tower-service v0.3.3
+tracing v0.1.44 (*)
+windows-registry v0.5.3
+windows-link v0.1.3
+windows-result v0.3.4
+windows-link v0.1.3
+windows-strings v0.4.2
+windows-link v0.1.3
+rustls v0.23.45
+aws-lc-rs v1.18.1
+aws-lc-sys v0.45.0
+cc v1.2.56
+find-msvc-tools v0.1.9
+jobserver v0.1.32
+shlex v1.3.0
+cmake v0.1.58
+cc v1.2.56 (*)
+dunce v1.0.5
+fs_extra v1.3.0
+zeroize v1.8.2
+zeroize_derive v1.4.3 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+log v0.4.29 (*)
+once_cell v1.21.3
+rustls-pki-types v1.12.0
+zeroize v1.8.2 (*)
+rustls-webpki v0.103.16
+aws-lc-rs v1.18.1 (*)
+rustls-pki-types v1.12.0 (*)
+untrusted v0.9.0
+subtle v2.6.1
+zeroize v1.8.2 (*)
+rustls-native-certs v0.8.2
+rustls-pki-types v1.12.0 (*)
+schannel v0.1.28
+windows-sys v0.61.2 (*)
+rustls-pki-types v1.12.0 (*)
+tokio v1.50.0 (*)
+tokio-rustls v0.26.4
+rustls v0.23.45 (*)
+tokio v1.50.0 (*)
+tower-service v0.3.3
+hyper-util v0.1.16 (*)
+log v0.4.29 (*)
+mime v0.3.17
+mime_guess v2.0.4
+mime v0.3.17
+unicase v2.7.0
+version_check v0.9.5
+unicase v2.7.0
+version_check v0.9.5
+percent-encoding v2.3.1
+pin-project-lite v0.2.16
+rustls v0.23.45 (*)
+rustls-pki-types v1.12.0 (*)
+rustls-platform-verifier v0.7.0
+log v0.4.29 (*)
+rustls v0.23.45 (*)
+windows-sys v0.61.2 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150
+itoa v1.0.18
+memchr v2.7.6
+serde_core v1.0.228
+zmij v1.0.21
+serde_urlencoded v0.7.1
+form_urlencoded v1.2.1
+percent-encoding v2.3.1
+itoa v1.0.18
+ryu v1.0.23
+serde v1.0.228 (*)
+sync_wrapper v1.0.1
+futures-core v0.3.31
+tokio v1.50.0 (*)
+tokio-rustls v0.26.4 (*)
+tokio-util v0.7.18 (*)
+tower v0.5.2
+futures-core v0.3.31
+futures-util v0.3.31 (*)
+pin-project-lite v0.2.16
+sync_wrapper v1.0.1 (*)
+tokio v1.50.0 (*)
+tower-layer v0.3.3
+tower-service v0.3.3
+tracing v0.1.44 (*)
+tower-http v0.6.8
+async-compression v0.4.22
+brotli v7.0.0
+alloc-no-stdlib v2.0.4
+alloc-stdlib v0.2.2
+alloc-no-stdlib v2.0.4
+brotli-decompressor v4.0.2
+alloc-no-stdlib v2.0.4
+alloc-stdlib v0.2.2 (*)
+flate2 v1.1.9
+crc32fast v1.5.0
+cfg-if v1.0.4
+miniz_oxide v0.8.8
+adler2 v2.0.0
+simd-adler32 v0.3.7
+futures-core v0.3.31
+memchr v2.7.6
+pin-project-lite v0.2.16
+tokio v1.50.0 (*)
+bitflags v2.13.0
+serde_core v1.0.228
+bytes v1.11.1 (*)
+futures-core v0.3.31
+futures-util v0.3.31 (*)
+http v1.4.0 (*)
+http-body v1.0.1 (*)
+http-body-util v0.1.3 (*)
+iri-string v0.7.8
+pin-project-lite v0.2.16
+tokio v1.50.0 (*)
+tokio-util v0.7.18 (*)
+tower v0.5.2 (*)
+tower-layer v0.3.3
+tower-service v0.3.3
+tracing v0.1.44 (*)
+tower-service v0.3.3
+url v2.5.4
+form_urlencoded v1.2.1 (*)
+idna v1.0.3
+idna_adapter v1.2.0
+icu_normalizer v1.5.0
+displaydoc v0.2.5 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+icu_collections v1.5.0
+displaydoc v0.2.5 (proc-macro) (*)
+yoke v0.7.5
+stable_deref_trait v1.2.0
+yoke-derive v0.7.5 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+synstructure v0.13.1
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+zerofrom v0.1.5
+zerofrom-derive v0.1.5 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+synstructure v0.13.1 (*)
+zerofrom v0.1.5 (*)
+zerovec v0.10.4
+yoke v0.7.5 (*)
+zerofrom v0.1.5 (*)
+zerovec-derive v0.10.3 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+icu_normalizer_data v1.5.0
+icu_properties v1.5.1
+displaydoc v0.2.5 (proc-macro) (*)
+icu_collections v1.5.0 (*)
+icu_locid_transform v1.5.0
+displaydoc v0.2.5 (proc-macro) (*)
+icu_locid v1.5.0
+displaydoc v0.2.5 (proc-macro) (*)
+litemap v0.7.4
+tinystr v0.7.6
+displaydoc v0.2.5 (proc-macro) (*)
+zerovec v0.10.4 (*)
+writeable v0.5.5
+zerovec v0.10.4 (*)
+icu_locid_transform_data v1.5.0
+icu_provider v1.5.0
+displaydoc v0.2.5 (proc-macro) (*)
+icu_locid v1.5.0 (*)
+icu_provider_macros v1.5.0 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+stable_deref_trait v1.2.0
+tinystr v0.7.6 (*)
+writeable v0.5.5
+yoke v0.7.5 (*)
+zerofrom v0.1.5 (*)
+zerovec v0.10.4 (*)
+tinystr v0.7.6 (*)
+zerovec v0.10.4 (*)
+icu_properties_data v1.5.0
+icu_provider v1.5.0 (*)
+tinystr v0.7.6 (*)
+zerovec v0.10.4 (*)
+icu_provider v1.5.0 (*)
+smallvec v1.15.1
+utf16_iter v1.0.5
+utf8_iter v1.0.4
+write16 v1.0.0
+zerovec v0.10.4 (*)
+icu_properties v1.5.1 (*)
+smallvec v1.15.1
+utf8_iter v1.0.4
+percent-encoding v2.3.1
+serde v1.0.228 (*)
+thiserror v1.0.63
+thiserror-impl v1.0.63 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+aho-corasick v1.1.3
+memchr v2.7.6
+ai v0.1.0 (E:\code\WireTerm\crates\ai)
+anyhow v1.0.79
+arborium v2.13.0
+arborium-bash v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-c v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-c-sharp v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-cpp v2.13.0
+arborium-c v2.13.0 (*)
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-css v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-dockerfile v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-elixir v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-go v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-hcl v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-highlight v2.13.0
+arborium-theme v2.13.0
+arborium-tree-sitter v2.13.0
+regex v1.11.1
+aho-corasick v1.1.3 (*)
+memchr v2.7.6
+regex-automata v0.4.9
+aho-corasick v1.1.3 (*)
+memchr v2.7.6
+regex-syntax v0.8.5
+regex-syntax v0.8.5
+regex-syntax v0.8.5
+streaming-iterator v0.1.9
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+streaming-iterator v0.1.9
+arborium-html v2.13.0
+arborium-css v2.13.0 (*)
+arborium-javascript v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-java v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-javascript v2.13.0 (*)
+arborium-jq v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-json v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-kotlin v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-lua v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-markdown v2.13.0
+arborium-html v2.13.0 (*)
+arborium-toml v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-yaml v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-nix v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-objc v2.13.0
+arborium-c v2.13.0 (*)
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-php v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-powershell v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-python v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-ruby v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-rust v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-scala v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-sql v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-starlark v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-swift v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-theme v2.13.0
+arborium-toml v2.13.0 (*)
+arborium-tree-sitter v2.13.0 (*)
+arborium-tsx v2.13.0
+arborium-javascript v2.13.0 (*)
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-typescript v2.13.0
+arborium-javascript v2.13.0 (*)
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-vue v2.13.0
+arborium-css v2.13.0 (*)
+arborium-html v2.13.0 (*)
+arborium-javascript v2.13.0 (*)
+arborium-scss v2.13.0
+arborium-css v2.13.0 (*)
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-typescript v2.13.0 (*)
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-xml v2.13.0
+tree-sitter-language v0.1.2
+cc v1.2.56 (*)
+arborium-yaml v2.13.0 (*)
+async-channel v2.3.1
+concurrent-queue v2.5.0
+crossbeam-utils v0.8.21
+event-listener-strategy v0.5.2
+event-listener v5.4.0
+concurrent-queue v2.5.0 (*)
+parking v2.2.0
+pin-project-lite v0.2.16
+pin-project-lite v0.2.16
+futures-core v0.3.31
+pin-project-lite v0.2.16
+async-fs v2.1.2
+async-lock v3.4.0
+event-listener v5.4.0 (*)
+event-listener-strategy v0.5.2 (*)
+pin-project-lite v0.2.16
+blocking v1.6.2
+async-channel v2.3.1 (*)
+async-task v4.7.1
+futures-io v0.3.31
+futures-lite v2.6.1
+fastrand v2.3.0
+futures-core v0.3.31
+futures-io v0.3.31
+parking v2.2.0
+pin-project-lite v0.2.16
+piper v0.2.1
+atomic-waker v1.1.2
+fastrand v2.3.0
+futures-io v0.3.31
+futures-lite v2.6.1 (*)
+async-trait v0.1.89 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+base16ct v0.2.0
+base64 v0.22.1
+bincode v1.3.3
+serde v1.0.228 (*)
+bytes v1.11.1 (*)
+cfg-if v1.0.4
+chrono v0.4.40
+num-traits v0.2.19
+libm v0.2.15
+autocfg v1.1.0
+serde v1.0.228 (*)
+windows-link v0.1.3
+computer_use v0.0.0 (E:\code\WireTerm\crates\computer_use)
+anyhow v1.0.79
+async-trait v0.1.89 (proc-macro) (*)
+cfg-if v1.0.4
+clap v4.5.48
+clap_builder v4.5.48
+anstream v0.6.21
+anstyle v1.0.13
+anstyle-parse v0.2.3
+utf8parse v0.2.2
+anstyle-query v1.1.5
+windows-sys v0.61.2 (*)
+anstyle-wincon v3.0.11
+anstyle v1.0.13
+once_cell_polyfill v1.70.2
+windows-sys v0.61.2 (*)
+colorchoice v1.0.0
+is_terminal_polyfill v1.70.2
+utf8parse v0.2.2
+anstyle v1.0.13
+clap_lex v0.7.5
+strsim v0.11.1
+clap_derive v4.5.47 (proc-macro)
+heck v0.5.0
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+image v0.25.9
+bytemuck v1.24.0
+bytemuck_derive v1.10.2 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+byteorder-lite v0.1.0
+color_quant v1.1.0
+gif v0.14.1
+color_quant v1.1.0
+weezl v0.1.12
+image-webp v0.2.4
+byteorder-lite v0.1.0
+quick-error v2.0.1
+moxcms v0.7.11
+num-traits v0.2.19 (*)
+pxfm v0.1.28
+num-traits v0.2.19 (*)
+png v0.18.1
+bitflags v2.13.0 (*)
+crc32fast v1.5.0 (*)
+fdeflate v0.3.7
+simd-adler32 v0.3.7
+flate2 v1.1.9 (*)
+miniz_oxide v0.8.8 (*)
+rayon v1.10.0
+either v1.9.0
+rayon-core v1.12.1
+crossbeam-deque v0.8.3
+cfg-if v1.0.4
+crossbeam-epoch v0.9.15
+cfg-if v1.0.4
+crossbeam-utils v0.8.21
+memoffset v0.9.0
+autocfg v1.1.0
+scopeguard v1.2.0
+autocfg v1.1.0
+crossbeam-utils v0.8.21
+crossbeam-utils v0.8.21
+zune-core v0.5.1
+zune-jpeg v0.5.12
+zune-core v0.5.1
+instant v0.1.12
+cfg-if v1.0.4
+log v0.4.29 (*)
+pathfinder_geometry v0.5.1
+log v0.4.29 (*)
+pathfinder_simd v0.5.4 (https://github.com/warpdotdev/pathfinder.git?rev=34128a129ca6aee168fbc5060a4f21b4f7e486a9#34128a12)
+rustc_version v0.4.0
+semver v1.0.20
+serde v1.0.228 (*)
+serde_with v3.21.0
+serde_core v1.0.228
+serde_with_macros v3.21.0 (proc-macro)
+darling v0.23.0
+darling_core v0.23.0
+ident_case v1.0.1
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+strsim v0.11.1
+syn v2.0.117 (*)
+darling_macro v0.23.0 (proc-macro)
+darling_core v0.23.0 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+thiserror v2.0.17
+thiserror-impl v2.0.17 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+tokio v1.50.0 (*)
+uuid v1.19.0
+getrandom v0.3.4
+cfg-if v1.0.4
+serde_core v1.0.228
+sha1_smol v1.0.1
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors)
+anyhow v1.0.79
+http v1.4.0 (*)
+inventory v0.3.20
+log v0.4.29 (*)
+reqwest v0.13.5 (*)
+tokio v1.50.0 (*)
+websocket v0.1.0 (E:\code\WireTerm\crates\websocket)
+anyhow v1.0.79
+async-io v2.6.0
+cfg-if v1.0.4
+concurrent-queue v2.5.0 (*)
+futures-io v0.3.31
+futures-lite v2.6.1 (*)
+parking v2.2.0
+polling v3.11.0
+cfg-if v1.0.4
+concurrent-queue v2.5.0 (*)
+pin-project-lite v0.2.16
+windows-sys v0.61.2 (*)
+rustix v1.1.2
+bitflags v2.13.0 (*)
+errno v0.3.10
+windows-sys v0.59.0 (*)
+windows-sys v0.61.2 (*)
+slab v0.4.9 (*)
+windows-sys v0.61.2 (*)
+autocfg v1.1.0
+async-net v2.0.0
+async-io v2.6.0 (*)
+blocking v1.6.2 (*)
+futures-lite v2.6.1 (*)
+async-tungstenite v0.28.2
+atomic-waker v1.1.2
+futures-core v0.3.31
+futures-io v0.3.31
+futures-task v0.3.31
+futures-util v0.3.31 (*)
+log v0.4.29 (*)
+pin-project-lite v0.2.16
+rustls-pki-types v1.12.0 (*)
+tokio v1.50.0 (*)
+tokio-rustls v0.26.4 (*)
+tungstenite v0.24.0
+byteorder v1.5.0
+bytes v1.11.1 (*)
+data-encoding v2.10.0
+http v1.4.0 (*)
+httparse v1.10.1
+log v0.4.29 (*)
+rand v0.8.6
+rand_chacha v0.3.1
+ppv-lite86 v0.2.17
+rand_core v0.6.4
+getrandom v0.2.16
+cfg-if v1.0.4
+rand_core v0.6.4 (*)
+rustls v0.23.45 (*)
+rustls-pki-types v1.12.0 (*)
+sha1 v0.10.6
+cfg-if v1.0.4
+cpufeatures v0.2.9
+digest v0.10.7
+block-buffer v0.10.4
+generic-array v0.14.7
+typenum v1.20.0
+zeroize v1.8.2 (*)
+version_check v0.9.5
+const-oid v0.9.6
+crypto-common v0.1.6
+generic-array v0.14.7 (*)
+rand_core v0.6.4 (*)
+typenum v1.20.0
+subtle v2.6.1
+thiserror v1.0.63 (*)
+utf-8 v0.7.6
+base64 v0.22.1
+cfg-if v1.0.4
+futures v0.3.31
+futures-channel v0.3.31 (*)
+futures-core v0.3.31
+futures-executor v0.3.31
+futures-core v0.3.31
+futures-task v0.3.31
+futures-util v0.3.31 (*)
+num_cpus v1.16.0
+futures-io v0.3.31
+futures-sink v0.3.31
+futures-task v0.3.31
+futures-util v0.3.31 (*)
+futures-util v0.3.31 (*)
+graphql-ws-client v0.11.1
+async-channel v2.3.1 (*)
+cynic v3.8.0
+cynic-proc-macros v3.8.0 (proc-macro)
+cynic-codegen v3.8.0
+counter v0.5.7
+num-traits v0.2.19
+autocfg v1.1.0
+cynic-parser v0.4.5
+indexmap v2.12.0
+equivalent v1.0.1
+hashbrown v0.16.0
+lalrpop-util v0.20.2
+logos v0.14.1
+logos-derive v0.14.1 (proc-macro)
+logos-codegen v0.14.1
+beef v0.5.2
+fnv v1.0.7
+lazy_static v1.5.0
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+regex-syntax v0.8.5
+syn v2.0.117 (*)
+darling v0.20.8
+darling_core v0.20.8
+fnv v1.0.7
+ident_case v1.0.1
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+strsim v0.10.0
+syn v2.0.117 (*)
+darling_macro v0.20.8 (proc-macro)
+darling_core v0.20.8 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+once_cell v1.21.3
+ouroboros v0.18.0
+aliasable v0.1.3
+ouroboros_macro v0.18.0 (proc-macro)
+heck v0.4.1
+itertools v0.11.0
+either v1.9.0
+proc-macro-error v1.0.4
+proc-macro-error-attr v1.0.4 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+version_check v0.9.5
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v1.0.109
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+unicode-ident v1.0.12
+version_check v0.9.5
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+static_assertions v1.1.0
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+rkyv v0.7.46
+bytecheck v0.6.12
+bytecheck_derive v0.6.12 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v1.0.109 (*)
+ptr_meta v0.1.4
+ptr_meta_derive v0.1.4 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v1.0.109 (*)
+simdutf8 v0.1.5
+hashbrown v0.12.3
+ahash v0.7.8
+getrandom v0.2.16
+cfg-if v1.0.4
+once_cell v1.21.3
+version_check v0.9.5
+ptr_meta v0.1.4 (*)
+rend v0.4.2
+bytecheck v0.6.12 (*)
+rkyv_derive v0.7.46 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v1.0.109 (*)
+seahash v4.1.0
+strsim v0.10.0
+syn v2.0.117 (*)
+thiserror v1.0.63
+thiserror-impl v1.0.63 (proc-macro) (*)
+darling v0.20.8 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+ref-cast v1.0.23
+ref-cast-impl v1.0.23 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+serde v1.0.228 (*)
+static_assertions v1.1.0
+thiserror v1.0.63 (*)
+futures-lite v2.6.1 (*)
+futures-sink v0.3.31
+futures-timer v3.0.2
+pin-project v1.1.3
+pin-project-internal v1.1.3 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+thiserror v1.0.63 (*)
+tungstenite v0.24.0 (*)
+http v1.4.0 (*)
+http-body-util v0.1.3 (*)
+hyper v1.8.1 (*)
+hyper-util v0.1.16 (*)
+itertools v0.14.0
+either v1.9.0
+log v0.4.29 (*)
+percent-encoding v2.3.1
+pin-project v1.1.3 (*)
+rustls v0.23.45 (*)
+rustls-platform-verifier v0.7.0 (*)
+thiserror v2.0.17 (*)
+tokio v1.50.0 (*)
+tokio-rustls v0.26.4 (*)
+url v2.5.4 (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core)
+anyhow v1.0.79
+arboard v3.6.1
+clipboard-win v5.4.1
+error-code v3.3.2
+image v0.25.9 (*)
+log v0.4.29 (*)
+windows-sys v0.59.0 (*)
+async-broadcast v0.7.2
+event-listener v5.4.0 (*)
+event-listener-strategy v0.5.2 (*)
+futures-core v0.3.31
+pin-project-lite v0.2.16
+async-channel v2.3.1 (*)
+async-executor v1.13.1
+async-task v4.7.1
+concurrent-queue v2.5.0 (*)
+fastrand v2.3.0
+futures-lite v2.6.1 (*)
+slab v0.4.9 (*)
+async-fs v2.1.2 (*)
+async-io v2.6.0 (*)
+async-task v4.7.1
+bounded-vec-deque v0.1.1
+bytes v1.11.1 (*)
+cfg-if v1.0.4
+chrono v0.4.40 (*)
+ctrlc v3.4.7
+windows-sys v0.59.0 (*)
+dashmap v6.1.0
+cfg-if v1.0.4
+crossbeam-utils v0.8.21
+hashbrown v0.14.1
+ahash v0.8.11
+cfg-if v1.0.4
+once_cell v1.21.3
+zerocopy v0.7.32
+version_check v0.9.5
+allocator-api2 v0.2.16
+lock_api v0.4.14 (*)
+once_cell v1.21.3
+parking_lot_core v0.9.12 (*)
+derivative v2.2.0 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v1.0.109 (*)
+derive_more v0.99.17 (proc-macro)
+convert_case v0.4.0
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v1.0.109 (*)
+rustc_version v0.4.0 (*)
+dirs v6.0.0
+dirs-sys v0.5.0
+option-ext v0.2.0
+windows-sys v0.61.2 (*)
+enum-iterator v1.4.1
+enum-iterator-derive v1.2.1 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+float-cmp v0.9.0
+num-traits v0.2.19 (*)
+font-kit v0.12.0 (https://github.com/warpdotdev/font-kit?rev=a04b225ecb639bb850f21d05212cfdc7465000f3#a04b225e)
+bitflags v2.13.0 (*)
+byteorder v1.5.0
+dwrote v0.11.5 (https://github.com/warpdotdev/dwrote-rs?rev=a71ce6c0136f7d0954a9a8b181b5b2d8ace5eb9c#a71ce6c0)
+lazy_static v1.5.0
+libc v0.2.186
+winapi v0.3.9
+wio v0.2.2
+winapi v0.3.9
+float-ord v0.3.2
+lazy_static v1.5.0
+libc v0.2.186
+log v0.4.29 (*)
+pathfinder_geometry v0.5.1 (*)
+pathfinder_simd v0.5.4 (https://github.com/warpdotdev/pathfinder.git?rev=34128a129ca6aee168fbc5060a4f21b4f7e486a9#34128a12) (*)
+walkdir v2.4.0
+same-file v1.0.6
+winapi-util v0.1.11
+windows-sys v0.61.2 (*)
+winapi-util v0.1.11 (*)
+winapi v0.3.9
+futures v0.3.31 (*)
+futures-lite v1.13.0
+fastrand v1.9.0
+futures-core v0.3.31
+futures-io v0.3.31
+memchr v2.7.6
+parking v2.2.0
+pin-project-lite v0.2.16
+waker-fn v1.1.1
+futures-util v0.3.31 (*)
+image v0.25.9 (*)
+infer v0.19.0
+cfb v0.7.3
+byteorder v1.5.0
+fnv v1.0.7
+uuid v1.19.0 (*)
+instant v0.1.12 (*)
+itertools v0.14.0 (*)
+lazy_static v1.5.0
+log v0.4.29 (*)
+markdown_parser v0.1.0 (E:\code\WireTerm\crates\markdown_parser)
+anyhow v1.0.79
+enum-iterator v1.4.1 (*)
+html5ever v0.35.0
+log v0.4.29 (*)
+markup5ever v0.35.0
+log v0.4.29 (*)
+tendril v0.4.3
+futf v0.1.5
+mac v0.1.1
+new_debug_unreachable v1.0.4
+mac v0.1.1
+utf-8 v0.7.6
+web_atoms v0.1.3
+phf v0.11.3
+phf_shared v0.11.3
+siphasher v1.0.1
+string_cache v0.8.9
+new_debug_unreachable v1.0.4
+parking_lot v0.12.5 (*)
+phf_shared v0.11.3 (*)
+precomputed-hash v0.1.1
+serde v1.0.228 (*)
+phf_codegen v0.11.3
+phf_generator v0.11.3
+phf_shared v0.11.3
+siphasher v1.0.1
+rand v0.8.6
+rand_chacha v0.3.1
+ppv-lite86 v0.2.17
+rand_core v0.6.4
+getrandom v0.2.16 (*)
+rand_core v0.6.4 (*)
+phf_shared v0.11.3 (*)
+string_cache_codegen v0.5.4
+phf_generator v0.11.3 (*)
+phf_shared v0.11.3 (*)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+match_token v0.35.0 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+itertools v0.14.0 (*)
+markup5ever_rcdom v0.35.0+unofficial
+html5ever v0.35.0 (*)
+markup5ever v0.35.0 (*)
+tendril v0.4.3 (*)
+xml5ever v0.35.0
+log v0.4.29 (*)
+markup5ever v0.35.0 (*)
+nom v7.1.3 (*)
+serde_yaml v0.8.26
+indexmap v1.9.3
+hashbrown v0.12.3
+autocfg v1.1.0
+ryu v1.0.23
+serde v1.0.228 (*)
+yaml-rust v0.4.5 (https://github.com/warpdotdev/yaml-rust.git?rev=51684719d0102ca85ff4b21cec39877a0c669e19#51684719)
+linked-hash-map v0.5.6
+thiserror v2.0.17 (*)
+num-derive v0.4.2 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+num-traits v0.2.19 (*)
+num_cpus v1.16.0
+ordered-float v3.9.2
+num-traits v0.2.19 (*)
+serde v1.0.228 (*)
+parking_lot v0.12.5 (*)
+pathfinder_color v0.5.0
+pathfinder_simd v0.5.4 (https://github.com/warpdotdev/pathfinder.git?rev=34128a129ca6aee168fbc5060a4f21b4f7e486a9#34128a12) (*)
+pathfinder_geometry v0.5.1 (*)
+rand v0.8.6 (*)
+rangemap v1.4.0
+raw-window-handle v0.6.2
+resvg v0.47.0
+gif v0.14.1 (*)
+image-webp v0.2.4 (*)
+log v0.4.29 (*)
+pico-args v0.5.0
+rgb v0.8.50
+bytemuck v1.24.0 (*)
+svgtypes v0.16.1
+kurbo v0.13.0
+arrayvec v0.7.6
+smallvec v1.15.1
+siphasher v1.0.1
+tiny-skia v0.12.0
+arrayref v0.3.9
+arrayvec v0.7.6
+bytemuck v1.24.0 (*)
+cfg-if v1.0.4
+log v0.4.29 (*)
+png v0.18.1 (*)
+tiny-skia-path v0.12.0
+arrayref v0.3.9
+bytemuck v1.24.0 (*)
+strict-num v0.1.1
+float-cmp v0.9.0 (*)
+usvg v0.47.0
+base64 v0.22.1
+data-url v0.3.1
+flate2 v1.1.9 (*)
+fontdb v0.23.0
+log v0.4.29 (*)
+memmap2 v0.9.7
+slotmap v1.0.6
+version_check v0.9.5
+tinyvec v1.6.0
+tinyvec_macros v0.1.1
+ttf-parser v0.25.1
+core_maths v0.1.0
+libm v0.2.15
+imagesize v0.14.0
+kurbo v0.13.0 (*)
+log v0.4.29 (*)
+pico-args v0.5.0
+roxmltree v0.21.1
+memchr v2.7.6
+rustybuzz v0.20.1
+bitflags v2.13.0 (*)
+bytemuck v1.24.0 (*)
+core_maths v0.1.0 (*)
+log v0.4.29 (*)
+smallvec v1.15.1
+ttf-parser v0.25.1 (*)
+unicode-bidi-mirroring v0.4.0
+unicode-ccc v0.4.0
+unicode-properties v0.1.3
+unicode-script v0.5.5
+simplecss v0.2.1
+log v0.4.29 (*)
+siphasher v1.0.1
+strict-num v0.1.1 (*)
+svgtypes v0.16.1 (*)
+tiny-skia-path v0.12.0 (*)
+ttf-parser v0.25.1 (*)
+unicode-bidi v0.3.15
+unicode-script v0.5.5
+unicode-vo v0.1.0
+xmlwriter v0.1.0
+zune-jpeg v0.5.12 (*)
+rstar v0.12.2
+heapless v0.8.0
+hash32 v0.3.1
+byteorder v1.5.0
+stable_deref_trait v1.2.0
+num-traits v0.2.19 (*)
+smallvec v1.15.1
+rustc-hash v2.1.1
+schemars v1.0.4
+chrono v0.4.40 (*)
+dyn-clone v1.0.20
+ref-cast v1.0.23 (*)
+schemars_derive v1.0.4 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+serde_derive_internals v0.29.1
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+syn v2.0.117 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+uuid v1.19.0 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+settings_value v0.1.0 (E:\code\WireTerm\crates\settings_value)
+chrono v0.4.40 (*)
+instant v0.1.12 (*)
+schemars v1.0.4 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+settings_value_derive v0.0.0 (proc-macro) (E:\code\WireTerm\crates\settings_value_derive)
+convert_case v0.7.1
+unicode-segmentation v1.11.0
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+similar v2.7.0
+smallvec v1.15.1
+string-offset v0.0.0 (E:\code\WireTerm\crates\string-offset)
+get-size v0.1.4
+get-size-derive v0.1.3 (proc-macro)
+attribute-derive v0.6.1
+attribute-derive-macro v0.6.1 (proc-macro)
+collection_literals v1.0.1
+interpolator v0.5.0
+proc-macro-error v1.0.4 (*)
+proc-macro-utils v0.8.0
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+smallvec v1.15.1
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+quote-use v0.7.2
+quote v1.0.45 (*)
+quote-use-macros v0.7.2 (proc-macro)
+derive-where v1.2.7 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+syn v2.0.117 (*)
+syn v2.0.117 (*)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+num-traits v0.2.19 (*)
+serde v1.0.228 (*)
+strum v0.27.1
+strum_macros v0.27.1 (proc-macro)
+heck v0.5.0
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+rustversion v1.0.14 (proc-macro)
+syn v2.0.117 (*)
+sum_tree v0.1.0 (E:\code\WireTerm\crates\sum_tree)
+arrayvec v0.7.6
+log v0.4.29 (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+tempfile v3.23.0
+fastrand v2.3.0
+getrandom v0.3.4 (*)
+once_cell v1.21.3
+windows-sys v0.61.2 (*)
+thiserror v2.0.17 (*)
+titlecase v1.1.0
+lazy_static v1.5.0
+regex v1.11.1 (*)
+tokio v1.50.0 (*)
+tracing v0.1.44 (*)
+trait-set v0.3.0 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v1.0.109 (*)
+unicode-segmentation v1.11.0
+vec1 v1.10.1
+serde v1.0.228 (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util)
+anyhow v1.0.79
+command v0.1.0 (E:\code\WireTerm\crates\command)
+anyhow v1.0.79
+async-process v2.5.0
+async-channel v2.3.1 (*)
+async-io v2.6.0 (*)
+async-task v4.7.1
+blocking v1.6.2 (*)
+cfg-if v1.0.4
+event-listener v5.4.0 (*)
+futures-lite v2.6.1 (*)
+futures-lite v1.13.0 (*)
+lazy_static v1.5.0
+log v0.4.29 (*)
+thiserror v2.0.17 (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+win32job v2.0.3
+thiserror v1.0.63 (*)
+windows v0.61.3
+windows-collections v0.2.0
+windows-core v0.61.2
+windows-implement v0.60.2 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+windows-interface v0.59.3 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+windows-link v0.1.3
+windows-result v0.3.4 (*)
+windows-strings v0.4.2 (*)
+windows-core v0.61.2 (*)
+windows-future v0.2.1
+windows-core v0.61.2 (*)
+windows-link v0.1.3
+windows-threading v0.1.0
+windows-link v0.1.3
+windows-link v0.1.3
+windows-numerics v0.2.0
+windows-core v0.61.2 (*)
+windows-link v0.1.3
+windows v0.62.2
+windows-collections v0.3.2
+windows-core v0.62.2
+windows-implement v0.60.2 (proc-macro) (*)
+windows-interface v0.59.3 (proc-macro) (*)
+windows-link v0.2.1
+windows-result v0.4.1
+windows-link v0.2.1
+windows-strings v0.5.1
+windows-link v0.2.1
+windows-core v0.62.2 (*)
+windows-future v0.3.2
+windows-core v0.62.2 (*)
+windows-link v0.2.1
+windows-threading v0.2.1
+windows-link v0.2.1
+windows-numerics v0.3.1
+windows-core v0.62.2 (*)
+windows-link v0.2.1
+content_inspector v0.2.4
+memchr v2.7.6
+directories v6.0.0
+dirs-sys v0.5.0 (*)
+dirs v6.0.0 (*)
+dunce v1.0.5
+event-listener v5.4.0 (*)
+futures-util v0.3.31 (*)
+hex v0.4.3
+is_executable v1.0.1
+winapi v0.3.9
+itertools v0.14.0 (*)
+lazy_static v1.5.0
+log v0.4.29 (*)
+mime_guess v2.0.4 (*)
+parking_lot v0.12.5 (*)
+pathdiff v0.2.1
+pin-project v1.1.3 (*)
+rand v0.8.6 (*)
+regex v1.11.1 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+thiserror v2.0.17 (*)
+typed-path v0.10.0
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+windows v0.62.2 (*)
+cfg_aliases v0.2.1
+windows v0.62.2 (*)
+cfg_aliases v0.2.1
+derivative v2.2.0 (proc-macro) (*)
+dirs v6.0.0 (*)
+dunce v1.0.5
+futures v0.3.31 (*)
+generic-array v0.14.7 (*)
+globset v0.4.18
+aho-corasick v1.1.3 (*)
+bstr v1.9.0
+memchr v2.7.6
+regex-automata v0.4.9 (*)
+log v0.4.29 (*)
+regex-automata v0.4.9 (*)
+regex-syntax v0.8.5
+hex v0.4.3
+http_client v0.0.0 (E:\code\WireTerm\crates\http_client)
+aha-reqwest-eventsource v0.1.0 (*)
+anyhow v1.0.79
+async-compat v0.2.5
+futures-core v0.3.31
+futures-io v0.3.31
+once_cell v1.21.3
+pin-project-lite v0.2.16
+tokio v1.50.0 (*)
+async-stream v0.3.5
+async-stream-impl v0.3.5 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+futures-core v0.3.31
+pin-project-lite v0.2.16
+bytes v1.11.1 (*)
+cfg-if v1.0.4
+futures v0.3.31 (*)
+http v1.4.0 (*)
+log v0.4.29 (*)
+oauth2 v5.0.0
+base64 v0.22.1
+chrono v0.4.40 (*)
+http v1.4.0 (*)
+rand v0.8.6 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+serde_path_to_error v0.1.16
+itoa v1.0.18
+serde v1.0.228 (*)
+sha2 v0.10.9
+cfg-if v1.0.4
+cpufeatures v0.2.9
+digest v0.10.7 (*)
+thiserror v1.0.63 (*)
+url v2.5.4 (*)
+prevent_sleep v0.0.0 (E:\code\WireTerm\crates\prevent_sleep)
+cfg-if v1.0.4
+futures v0.3.31 (*)
+itertools v0.14.0 (*)
+log v0.4.29 (*)
+parking_lot v0.12.5 (*)
+pin-project v1.1.3 (*)
+windows v0.62.2 (*)
+cfg_aliases v0.2.1
+prost v0.14.3
+bytes v1.11.1 (*)
+prost-derive v0.14.3 (proc-macro)
+anyhow v1.0.79
+itertools v0.14.0
+either v1.9.0
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+reqwest v0.13.5 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+serde_urlencoded v0.7.1 (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core)
+anyhow v1.0.79
+async-broadcast v0.7.2 (*)
+cfg-if v1.0.4
+chrono v0.4.40 (*)
+command-corrections v0.0.0 (https://github.com/warpdotdev/command-corrections.git?rev=eae08c8c51d9bc9741fcb17eef2c21f696aebbeb#eae08c8c)
+difflib v0.4.0
+itertools v0.10.5
+either v1.9.0
+lazy_static v1.5.0
+regex v1.11.1 (*)
+shlex v1.3.0
+version-compare v0.1.1
+concat-idents v1.1.5 (proc-macro)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+dashmap v6.1.0 (*)
+directories v6.0.0 (*)
+dirs v6.0.0 (*)
+enum-iterator v1.4.1 (*)
+futures v0.3.31 (*)
+futures-lite v1.13.0 (*)
+getset v0.1.2 (proc-macro)
+proc-macro-error v1.0.4 (*)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v1.0.109 (*)
+http v1.4.0 (*)
+instant v0.1.12 (*)
+inventory v0.3.20
+itertools v0.14.0 (*)
+lazy_static v1.5.0
+line-ending v1.5.1
+log v0.4.29 (*)
+parking_lot v0.12.5 (*)
+pin-project v1.1.3 (*)
+regex v1.11.1 (*)
+reqwest v0.13.5 (*)
+schemars v1.0.4 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+serde_with v3.21.0 (*)
+settings v0.0.0 (E:\code\WireTerm\crates\settings)
+anyhow v1.0.79
+concat-idents v1.1.5 (proc-macro) (*)
+inventory v0.3.20
+log v0.4.29 (*)
+schemars v1.0.4 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+settings_value v0.1.0 (E:\code\WireTerm\crates\settings_value) (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+warp_features v0.0.0 (E:\code\WireTerm\crates\warp_features)
+enum-iterator v1.4.1 (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+warpui_extras v0.0.0 (E:\code\WireTerm\crates\warpui_extras)
+anyhow v1.0.79
+async-channel v2.3.1 (*)
+log v0.4.29 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+sha2 v0.10.9 (*)
+thiserror v2.0.17 (*)
+toml_edit v0.25.6+spec-1.1.0
+indexmap v2.12.0 (*)
+toml_datetime v1.1.0+spec-1.1.0
+toml_parser v1.1.0+spec-1.1.0
+winnow v1.0.0
+toml_writer v1.1.0+spec-1.1.0
+winnow v1.0.0
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+windows v0.62.2 (*)
+windows-registry v0.2.0
+windows-result v0.2.0
+windows-targets v0.52.6 (*)
+windows-strings v0.1.0
+windows-result v0.2.0 (*)
+windows-targets v0.52.6 (*)
+windows-targets v0.52.6 (*)
+windows-result v0.2.0 (*)
+settings_value v0.1.0 (E:\code\WireTerm\crates\settings_value) (*)
+shellexpand v3.1.1
+dirs v6.0.0 (*)
+string-offset v0.0.0 (E:\code\WireTerm\crates\string-offset) (*)
+strum v0.27.1
+strum_macros v0.27.1 (proc-macro) (*)
+sysinfo v0.37.0
+libc v0.2.186
+memchr v2.7.6
+ntapi v0.4.1
+winapi v0.3.9
+rayon v1.10.0 (*)
+windows v0.61.3 (*)
+thiserror v2.0.17 (*)
+tokio v1.50.0 (*)
+tracing v0.1.44 (*)
+url v2.5.4 (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+warp_features v0.0.0 (E:\code\WireTerm\crates\warp_features) (*)
+warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+warpui_extras v0.0.0 (E:\code\WireTerm\crates\warpui_extras) (*)
+websocket v0.1.0 (E:\code\WireTerm\crates\websocket) (*)
+anyhow v1.0.79
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+ignore v0.4.24
+crossbeam-deque v0.8.3 (*)
+globset v0.4.18 (*)
+log v0.4.29 (*)
+memchr v2.7.6
+regex-automata v0.4.9 (*)
+same-file v1.0.6 (*)
+walkdir v2.4.0 (*)
+winapi-util v0.1.11 (*)
+indexmap v2.12.0 (*)
+instant v0.1.12 (*)
+itertools v0.14.0 (*)
+languages v0.0.0 (E:\code\WireTerm\crates\languages)
+arborium v2.13.0 (*)
+lazy_static v1.5.0
+rust-embed v8.7.2
+rust-embed-impl v8.7.2 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+rust-embed-utils v8.7.2
+globset v0.4.18
+aho-corasick v1.1.3
+memchr v2.7.6
+bstr v1.9.0
+memchr v2.7.6
+log v0.4.29
+serde_core v1.0.228
+regex-automata v0.4.9
+aho-corasick v1.1.3 (*)
+memchr v2.7.6
+regex-syntax v0.8.5
+regex-syntax v0.8.5
+sha2 v0.10.9
+cfg-if v1.0.4
+cpufeatures v0.2.9
+digest v0.10.7
+block-buffer v0.10.4
+generic-array v0.14.7
+typenum v1.20.0
+version_check v0.9.5
+crypto-common v0.1.6
+generic-array v0.14.7 (*)
+typenum v1.20.0
+walkdir v2.4.0
+same-file v1.0.6
+winapi-util v0.1.11
+windows-sys v0.61.2
+windows-link v0.2.1
+winapi-util v0.1.11 (*)
+syn v2.0.117 (*)
+walkdir v2.4.0 (*)
+rust-embed-utils v8.7.2
+globset v0.4.18 (*)
+sha2 v0.10.9 (*)
+walkdir v2.4.0 (*)
+walkdir v2.4.0 (*)
+serde v1.0.228 (*)
+serde_yaml v0.8.26 (*)
+warp_editor v0.1.0 (E:\code\WireTerm\crates\editor)
+anyhow v1.0.79
+arrayvec v0.7.6
+asset_cache v0.0.0 (E:\code\WireTerm\crates\asset_cache)
+anyhow v1.0.79
+async-compat v0.2.5 (*)
+async-fs v2.1.2 (*)
+base64 v0.22.1
+bytes v1.11.1 (*)
+cfg-if v1.0.4
+futures v0.3.31 (*)
+log v0.4.29 (*)
+reqwest v0.13.5 (*)
+url v2.5.4 (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+async-channel v2.3.1 (*)
+bytes v1.11.1 (*)
+enum-iterator v1.4.1 (*)
+float-cmp v0.9.0 (*)
+futures-lite v1.13.0 (*)
+html5ever v0.35.0 (*)
+imara-diff v0.2.0
+hashbrown v0.15.2
+foldhash v0.1.5
+memchr v2.7.6
+instant v0.1.12 (*)
+ipynb_parser v0.1.0 (E:\code\WireTerm\crates\ipynb_parser)
+markdown_parser v0.1.0 (E:\code\WireTerm\crates\markdown_parser) (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+thiserror v2.0.17 (*)
+itertools v0.14.0 (*)
+lazy_static v1.5.0
+line-ending v1.5.1
+log v0.4.29 (*)
+markdown_parser v0.1.0 (E:\code\WireTerm\crates\markdown_parser) (*)
+markup5ever v0.35.0 (*)
+mermaid_to_svg v0.1.0 (https://github.com/warpdotdev/mermaid-to-svg.git?rev=8d3f789c2eb49335d7bf247a06bb649f59b6d4ed#8d3f789c)
+dagre_rust v0.0.5 (https://github.com/warpdotdev/mermaid-to-svg.git?rev=8d3f789c2eb49335d7bf247a06bb649f59b6d4ed#8d3f789c)
+graphlib_rust v0.0.2
+ordered_hashmap v0.0.3
+ordered_hashmap v0.0.3
+graphlib_rust v0.0.2 (*)
+petgraph v0.8.3
+fixedbitset v0.5.7
+hashbrown v0.15.2 (*)
+indexmap v2.12.0 (*)
+regex v1.11.1 (*)
+serde_yaml v0.9.34+deprecated
+indexmap v2.12.0 (*)
+itoa v1.0.18
+ryu v1.0.23
+serde v1.0.228 (*)
+unsafe-libyaml v0.2.11
+thiserror v1.0.63 (*)
+unicode-segmentation v1.11.0
+mime_guess v2.0.4 (*)
+num-traits v0.2.19 (*)
+ordered-float v3.9.2 (*)
+parking_lot v0.12.5 (*)
+pathfinder_color v0.5.0 (*)
+rand v0.8.6 (*)
+rangemap v1.4.0
+rayon v1.10.0 (*)
+regex-automata v0.4.9 (*)
+regex-syntax v0.8.5
+serde v1.0.228 (*)
+serde_yaml v0.8.26 (*)
+string-offset v0.0.0 (E:\code\WireTerm\crates\string-offset) (*)
+sum_tree v0.1.0 (E:\code\WireTerm\crates\sum_tree) (*)
+thiserror v2.0.17 (*)
+unicode-linebreak v0.1.5
+unicode-segmentation v1.11.0
+unicode-width v0.1.14
+urlocator v0.1.4
+vec1 v1.10.1 (*)
+vim v0.1.0 (E:\code\WireTerm\crates\vim)
+anyhow v1.0.79
+itertools v0.14.0 (*)
+log v0.4.29 (*)
+string-offset v0.0.0 (E:\code\WireTerm\crates\string-offset) (*)
+unindent v0.2.4
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util) (*)
+lazy_static v1.5.0
+line-span v0.1.5
+log v0.4.29 (*)
+notify-debouncer-full v0.5.0 (https://github.com/warpdotdev/notify?rev=91b719849bc04ef251bcb2cc61076b099204e970#91b71984)
+file-id v0.2.2 (https://github.com/warpdotdev/notify?rev=91b719849bc04ef251bcb2cc61076b099204e970#91b71984)
+windows-sys v0.59.0 (*)
+log v0.4.29 (*)
+notify v8.0.0 (https://github.com/warpdotdev/notify?rev=91b719849bc04ef251bcb2cc61076b099204e970#91b71984)
+filetime v0.2.25
+cfg-if v1.0.4
+windows-sys v0.59.0 (*)
+libc v0.2.186
+log v0.4.29 (*)
+notify-types v2.0.0 (https://github.com/warpdotdev/notify?rev=91b719849bc04ef251bcb2cc61076b099204e970#91b71984)
+walkdir v2.4.0 (*)
+windows-sys v0.59.0 (*)
+notify-types v2.0.0 (https://github.com/warpdotdev/notify?rev=91b719849bc04ef251bcb2cc61076b099204e970#91b71984)
+walkdir v2.4.0 (*)
+persistence v0.0.0 (E:\code\WireTerm\crates\persistence)
+ai_types v0.1.0 (E:\code\WireTerm\crates\ai_types)
+anyhow v1.0.79
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+thiserror v2.0.17 (*)
+uuid v1.19.0 (*)
+chrono v0.4.40 (*)
+diesel v2.3.10
+chrono v0.4.40 (*)
+diesel_derives v2.3.5 (proc-macro)
+diesel_table_macro_syntax v0.3.0
+syn v2.0.117 (*)
+dsl_auto_type v0.2.0
+darling v0.21.3
+darling_core v0.21.3
+fnv v1.0.7
+ident_case v1.0.1
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+strsim v0.11.1
+syn v2.0.117 (*)
+darling_macro v0.21.3 (proc-macro)
+darling_core v0.21.3 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+either v1.9.0
+heck v0.5.0
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+downcast-rs v2.0.2
+libsqlite3-sys v0.33.0
+cc v1.2.56 (*)
+pkg-config v0.3.32
+vcpkg v0.2.15
+diesel_migrations v2.3.1
+diesel v2.3.10 (*)
+migrations_internals v2.3.0
+serde v1.0.228 (*)
+toml v0.9.6
+serde_core v1.0.228
+serde_spanned v1.0.3
+serde_core v1.0.228
+toml_datetime v0.7.3
+serde_core v1.0.228
+toml_parser v1.1.0+spec-1.1.0 (*)
+winnow v0.7.12
+migrations_macros v2.3.0 (proc-macro)
+migrations_internals v2.3.0
+serde v1.0.228
+serde_core v1.0.228
+serde_derive v1.0.228 (proc-macro) (*)
+toml v0.9.6
+serde_core v1.0.228
+serde_spanned v1.0.3
+serde_core v1.0.228
+toml_datetime v0.7.3
+serde_core v1.0.228
+toml_parser v1.1.0+spec-1.1.0
+winnow v1.0.0
+toml_writer v1.1.0+spec-1.1.0
+winnow v0.7.12
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+serde v1.0.228 (*)
+warp_multi_agent_api v0.0.0 (https://github.com/warpdotdev/warp-proto-apis.git?rev=8320a94875bce9e730d9bfc4abda1544279e5db3#8320a948)
+prost v0.14.3 (*)
+prost-reflect v0.16.3
+prost v0.14.3 (*)
+prost-reflect-derive v0.16.0 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+prost-types v0.14.3
+prost v0.14.3 (*)
+prost-types v0.14.3 (*)
+prost-reflect-build v0.16.0
+prost-build v0.14.3
+heck v0.5.0
+itertools v0.14.0 (*)
+log v0.4.29 (*)
+multimap v0.10.1
+petgraph v0.8.3
+fixedbitset v0.5.7
+hashbrown v0.15.2
+foldhash v0.1.5
+indexmap v2.12.0 (*)
+prettyplease v0.2.37
+proc-macro2 v1.0.106 (*)
+syn v2.0.117 (*)
+prost v0.14.3
+bytes v1.11.1
+prost-derive v0.14.3 (proc-macro) (*)
+prost-types v0.14.3
+prost v0.14.3 (*)
+regex v1.11.1
+aho-corasick v1.1.3 (*)
+memchr v2.7.6
+regex-automata v0.4.9 (*)
+regex-syntax v0.8.5
+syn v2.0.117 (*)
+tempfile v3.23.0
+fastrand v2.3.0
+getrandom v0.3.4
+cfg-if v1.0.4
+once_cell v1.21.3
+windows-sys v0.61.2 (*)
+prost-reflect v0.16.3
+prost v0.14.3 (*)
+prost-reflect-derive v0.16.0 (proc-macro) (*)
+prost-types v0.14.3 (*)
+regex v1.11.1 (*)
+priority-queue v2.5.0
+equivalent v1.0.1
+indexmap v2.12.0 (*)
+autocfg v1.1.0
+prost-types v0.14.3 (*)
+rand v0.8.6 (*)
+rayon v1.10.0 (*)
+regex v1.11.1 (*)
+repo_metadata v0.1.0 (E:\code\WireTerm\crates\repo_metadata)
+anyhow v1.0.79
+async-fs v2.1.2 (*)
+cfg-if v1.0.4
+dirs v6.0.0 (*)
+dunce v1.0.5
+futures v0.3.31 (*)
+futures-lite v1.13.0 (*)
+ignore v0.4.24 (*)
+itertools v0.14.0 (*)
+log v0.4.29 (*)
+notify-debouncer-full v0.5.0 (https://github.com/warpdotdev/notify?rev=91b719849bc04ef251bcb2cc61076b099204e970#91b71984) (*)
+once_cell v1.21.3
+parking_lot v0.12.5 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+strum v0.27.1
+strum_macros v0.27.1 (proc-macro) (*)
+tempfile v3.23.0 (*)
+thiserror v2.0.17 (*)
+walkdir v2.4.0 (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+watcher v0.1.0 (E:\code\WireTerm\crates\watcher)
+anyhow v1.0.79
+async-channel v2.3.1 (*)
+futures v0.3.31 (*)
+log v0.4.29 (*)
+notify-debouncer-full v0.5.0 (https://github.com/warpdotdev/notify?rev=91b719849bc04ef251bcb2cc61076b099204e970#91b71984) (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+anyhow v1.0.79
+rmcp v3.5.0
+async-trait v0.1.89 (proc-macro) (*)
+base64 v0.23.1
+bytes v1.11.1 (*)
+chrono v0.4.40 (*)
+futures v0.3.31 (*)
+http v1.4.0 (*)
+indexmap v2.12.0 (*)
+oauth2 v5.0.0 (*)
+pastey v0.2.1 (proc-macro)
+pin-project-lite v0.2.16
+process-wrap v10.0.1
+futures v0.3.31 (*)
+indexmap v2.12.0 (*)
+tokio v1.50.0 (*)
+tracing v0.1.44 (*)
+windows v0.62.2 (*)
+reqwest v0.13.5 (*)
+rmcp-macros v3.5.0 (proc-macro)
+darling v0.24.1
+darling_core v0.24.1
+ident_case v1.0.1
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+strsim v0.11.1
+syn v3.0.6
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+unicode-ident v1.0.12
+darling_macro v0.24.1 (proc-macro)
+darling_core v0.24.1 (*)
+quote v1.0.45 (*)
+syn v3.0.6 (*)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+serde_json v1.0.150
+itoa v1.0.18
+memchr v2.7.6
+serde_core v1.0.228
+zmij v1.0.21
+syn v3.0.6 (*)
+schemars v1.0.4 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+sse-stream v0.2.6
+bytes v1.11.1 (*)
+futures-util v0.3.31 (*)
+http-body v1.0.1 (*)
+http-body-util v0.1.3 (*)
+pin-project-lite v0.2.16
+thiserror v2.0.17 (*)
+tokio v1.50.0 (*)
+tokio-stream v0.1.17
+futures-core v0.3.31
+pin-project-lite v0.2.16
+tokio v1.50.0 (*)
+tokio-util v0.7.18 (*)
+tracing v0.1.44 (*)
+url v2.5.4 (*)
+uuid v1.19.0 (*)
+schemars v1.0.4 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+serde_urlencoded v0.7.1 (*)
+serde_yaml v0.8.26 (*)
+settings_value v0.1.0 (E:\code\WireTerm\crates\settings_value) (*)
+sha2 v0.10.9 (*)
+shellexpand v3.1.1 (*)
+streaming-iterator v0.1.9
+string-offset v0.0.0 (E:\code\WireTerm\crates\string-offset) (*)
+strsim v0.11.1
+strum v0.27.1
+strum_macros v0.27.1 (proc-macro) (*)
+syntax_tree v0.1.0 (E:\code\WireTerm\crates\syntax_tree)
+arborium v2.13.0 (*)
+futures v0.3.31 (*)
+futures-lite v1.13.0 (*)
+languages v0.0.0 (E:\code\WireTerm\crates\languages) (*)
+log v0.4.29 (*)
+parking_lot v0.12.5 (*)
+rangemap v1.4.0
+streaming-iterator v0.1.9
+string-offset v0.0.0 (E:\code\WireTerm\crates\string-offset) (*)
+warp_editor v0.1.0 (E:\code\WireTerm\crates\editor) (*)
+warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+thiserror v2.0.17 (*)
+tokio v1.50.0 (*)
+typed-path v0.10.0
+unicode-width v0.1.14
+url v2.5.4 (*)
+uuid v1.19.0 (*)
+warp_cli v0.0.0 (E:\code\WireTerm\crates\warp_cli)
+anyhow v1.0.79
+cfg-if v1.0.4
+chrono v0.4.40 (*)
+clap v4.5.48 (*)
+clap_complete v4.5.58
+clap v4.5.48 (*)
+color-print v0.3.7
+color-print-proc-macro v0.3.7 (proc-macro)
+nom v7.1.3
+memchr v2.7.6
+minimal-lexical v0.2.1
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+humantime v2.1.0
+jaq-all v0.1.0
+codesnake v0.3.0
+jaq-core v3.0.0
+dyn-clone v1.0.20
+once_cell v1.21.3
+typed-arena v2.0.2
+jaq-fmts v0.1.0
+aho-corasick v1.1.3 (*)
+base64 v0.22.1
+bstr v1.9.0 (*)
+bytes v1.11.1 (*)
+ciborium-io v0.2.2
+ciborium-ll v0.2.2
+ciborium-io v0.2.2
+half v2.6.0
+cfg-if v1.0.4
+num-traits v0.2.19 (*)
+jaq-core v3.0.0 (*)
+jaq-json v2.0.0
+bstr v1.9.0 (*)
+bytes v1.11.1 (*)
+foldhash v0.1.5
+hifijson v0.5.0
+indexmap v2.12.0 (*)
+jaq-core v3.0.0 (*)
+jaq-std v3.0.0
+aho-corasick v1.1.3 (*)
+base64 v0.22.1
+bstr v1.9.0 (*)
+jaq-core v3.0.0 (*)
+jiff v0.2.24
+jiff-tzdb-platform v0.1.3
+jiff-tzdb v0.1.6
+windows-sys v0.61.2 (*)
+libm v0.2.15
+log v0.4.29 (*)
+regex-bites v0.1.6
+urlencoding v2.1.3
+num-bigint v0.4.6
+num-integer v0.1.46
+num-traits v0.2.19 (*)
+num-traits v0.2.19 (*)
+num-traits v0.2.19 (*)
+ryu v1.0.23
+self_cell v1.2.1
+serde_core v1.0.228
+jaq-std v3.0.0 (*)
+memmap2 v0.9.7
+num-bigint v0.4.6 (*)
+saphyr-parser v0.0.6
+arraydeque v0.5.1
+hashlink v0.10.0
+hashbrown v0.15.2 (*)
+toml-span v0.7.1
+smallvec v1.15.1
+xmlparser v0.13.6
+jaq-json v2.0.0 (*)
+jaq-std v3.0.0 (*)
+unicode-width v0.1.14
+local_control v0.0.0 (E:\code\WireTerm\crates\local_control)
+base64 v0.22.1
+chrono v0.4.40 (*)
+command v0.1.0 (E:\code\WireTerm\crates\command) (*)
+rand v0.8.6 (*)
+reqwest v0.13.5 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+thiserror v2.0.17 (*)
+uuid v1.19.0 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+url v2.5.4 (*)
+uuid v1.19.0 (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util) (*)
+windows v0.62.2 (*)
+cfg_aliases v0.2.1
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+warp_graphql v0.1.0 (E:\code\WireTerm\crates\graphql)
+anyhow v1.0.79
+async-channel v2.3.1 (*)
+chrono v0.4.40 (*)
+cynic v3.8.0 (*)
+futures v0.3.31 (*)
+futures-util v0.3.31 (*)
+graphql-ws-client v0.11.1 (*)
+http v1.4.0 (*)
+http_client v0.0.0 (E:\code\WireTerm\crates\http_client) (*)
+instant v0.1.12 (*)
+log v0.4.29 (*)
+persistence v0.0.0 (E:\code\WireTerm\crates\persistence) (*)
+reqwest v0.13.5 (*)
+serde v1.0.228 (*)
+thiserror v2.0.17 (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+warp_graphql_schema v0.0.0 (E:\code\WireTerm\crates\warp_graphql_schema)
+cynic v3.8.0 (*)
+anyhow v1.0.79
+cynic-codegen v3.8.0 (*)
+websocket v0.1.0 (E:\code\WireTerm\crates\websocket) (*)
+anyhow v1.0.79
+cynic-codegen v3.8.0 (*)
+warp_multi_agent_api v0.0.0 (https://github.com/warpdotdev/warp-proto-apis.git?rev=8320a94875bce9e730d9bfc4abda1544279e5db3#8320a948) (*)
+warp_terminal v0.0.0 (E:\code\WireTerm\crates\warp_terminal)
+anyhow v1.0.79
+async-broadcast v0.7.2 (*)
+async-channel v2.3.1 (*)
+async-io v2.6.0 (*)
+base64 v0.22.1
+bimap v0.6.3
+bincode v1.3.3 (*)
+bitflags v2.13.0 (*)
+bitflags-serde-legacy v0.1.1
+bitflags v2.13.0 (*)
+serde v1.0.228 (*)
+bounded-vec-deque v0.1.1
+byte-unit v5.2.0
+rust_decimal v1.35.0
+arrayvec v0.7.6
+num-traits v0.2.19 (*)
+serde v1.0.228 (*)
+utf8-width v0.1.7
+bytemuck v1.24.0 (*)
+cfg-if v1.0.4
+channel_versions v0.1.0 (E:\code\WireTerm\crates\channel_versions)
+anyhow v1.0.79
+chrono v0.4.40 (*)
+lazy_static v1.5.0
+memo-map v0.3.2
+regex v1.11.1 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+command v0.1.0 (E:\code\WireTerm\crates\command) (*)
+command-corrections v0.0.0 (https://github.com/warpdotdev/command-corrections.git?rev=eae08c8c51d9bc9741fcb17eef2c21f696aebbeb#eae08c8c) (*)
+enum-iterator v1.4.1 (*)
+flate2 v1.1.9 (*)
+futures v0.3.31 (*)
+futures-lite v1.13.0 (*)
+get-size v0.1.4 (*)
+gethostname v1.1.0
+windows-link v0.2.1
+hex v0.4.3
+image v0.25.9 (*)
+instant v0.1.12 (*)
+itertools v0.14.0 (*)
+lazy_static v1.5.0
+libc v0.2.186
+log v0.4.29 (*)
+memo-map v0.3.2
+mio v1.1.1 (*)
+ordered-float v3.9.2 (*)
+parking_lot v0.12.5 (*)
+pathfinder_color v0.5.0 (*)
+pathfinder_geometry v0.5.1 (*)
+rand v0.8.6 (*)
+rangemap v1.4.0
+regex v1.11.1 (*)
+regex-automata v0.4.9 (*)
+regex_dfas v0.0.0 (E:\code\WireTerm\crates\regex_dfas)
+regex v1.11.1 (*)
+regex-automata v0.4.9 (*)
+secret_redaction v0.0.0 (E:\code\WireTerm\crates\secret_redaction)
+itertools v0.14.0 (*)
+lazy_static v1.5.0
+log v0.4.29 (*)
+parking_lot v0.12.5 (*)
+regex v1.11.1 (*)
+regex-automata v0.4.9 (*)
+regex_dfas v0.0.0 (E:\code\WireTerm\crates\regex_dfas) (*)
+string-offset v0.0.0 (E:\code\WireTerm\crates\string-offset) (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+session-sharing-protocol v0.0.0 (https://github.com/warpdotdev/session-sharing-protocol.git?rev=f86afe16e65a56ecb9c062c961fcd91167192e9f#f86afe16)
+byte-unit v5.2.0 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+uuid v1.19.0 (*)
+shellexpand v3.1.1 (*)
+smallvec v1.15.1
+smol_str v0.2.2
+static_assertions v1.1.0
+string-offset v0.0.0 (E:\code\WireTerm\crates\string-offset) (*)
+thiserror v2.0.17 (*)
+typed-path v0.10.0
+unicode-general-category v1.1.0
+unicode-width v0.1.14
+urlocator v0.1.4
+uuid v1.19.0 (*)
+vec1 v1.10.1 (*)
+version-compare v0.1.1
+vte v0.13.0 (https://github.com/warpdotdev/vte.git?rev=4b399c87b63ba88f45709edaa6383fc519f6c900#4b399c87)
+utf8parse v0.2.1 (https://github.com/warpdotdev/vte.git?rev=4b399c87b63ba88f45709edaa6383fc519f6c900#4b399c87)
+vte_generate_state_changes v0.1.1 (proc-macro) (https://github.com/warpdotdev/vte.git?rev=4b399c87b63ba88f45709edaa6383fc519f6c900#4b399c87)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+warp_assets v0.0.0 (E:\code\WireTerm\crates\warp_assets)
+anyhow v1.0.79
+rust-embed v8.7.2 (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+warp_cli v0.0.0 (E:\code\WireTerm\crates\warp_cli) (*)
+warp_completer v0.1.0 (E:\code\WireTerm\crates\warp_completer)
+anyhow v1.0.79
+async-recursion v1.1.1 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+async-trait v0.1.89 (proc-macro) (*)
+clap v4.5.48 (*)
+command v0.1.0 (E:\code\WireTerm\crates\command) (*)
+derive-new v0.5.9 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v1.0.109 (*)
+dirs v6.0.0 (*)
+futures v0.3.31 (*)
+fuzzy_match v0.1.0 (E:\code\WireTerm\crates\fuzzy_match)
+fuzzy-matcher v0.3.7
+thread_local v1.1.7
+cfg-if v1.0.4
+once_cell v1.21.3
+getset v0.1.2 (proc-macro) (*)
+instant v0.1.12 (*)
+itertools v0.14.0 (*)
+lazy_static v1.5.0
+log v0.4.29 (*)
+memo-map v0.3.2
+regex v1.11.1 (*)
+serde v1.0.228 (*)
+shellexpand v3.1.1 (*)
+smol_str v0.2.2
+string-offset v0.0.0 (E:\code\WireTerm\crates\string-offset) (*)
+thiserror v2.0.17 (*)
+typed-path v0.10.0
+warp-command-signatures v0.0.0 (https://github.com/warpdotdev/command-signatures.git?rev=48fd7aa5b7b4d99f5db57d1c5a25c47c05567fcf#48fd7aa5)
+cfg-if v1.0.4
+itertools v0.10.5 (*)
+lazy_static v1.5.0
+log v0.4.29 (*)
+rayon v1.10.0 (*)
+regex v1.11.1 (*)
+rust-embed v6.8.1
+rust-embed-impl v6.8.1 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+rust-embed-utils v7.8.1
+globset v0.4.18 (*)
+sha2 v0.10.9 (*)
+walkdir v2.4.0 (*)
+syn v2.0.117 (*)
+walkdir v2.4.0 (*)
+rust-embed-utils v7.8.1
+globset v0.4.18 (*)
+sha2 v0.10.9 (*)
+walkdir v2.4.0 (*)
+walkdir v2.4.0 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+serde_with v3.21.0 (*)
+warp-completion-metadata v0.0.0 (https://github.com/warpdotdev/command-signatures.git?rev=48fd7aa5b7b4d99f5db57d1c5a25c47c05567fcf#48fd7aa5)
+html-escape v0.2.13
+utf8-width v0.1.7
+itertools v0.10.5 (*)
+log v0.4.29 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+serde_with v3.21.0 (*)
+warp_cli v0.0.0 (E:\code\WireTerm\crates\warp_cli) (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+warp_isolation_platform v0.1.0 (E:\code\WireTerm\crates\isolation_platform)
+anyhow v1.0.79
+base64 v0.22.1
+chrono v0.4.40 (*)
+command v0.1.0 (E:\code\WireTerm\crates\command) (*)
+log v0.4.29 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+thiserror v2.0.17 (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+windows v0.62.2 (*)
+windows-registry v0.2.0 (*)
+windows-result v0.2.0 (*)
+winreg v0.55.0
+cfg-if v1.0.4
+windows-sys v0.59.0 (*)
+warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+warpui_extras v0.0.0 (E:\code\WireTerm\crates\warpui_extras) (*)
+watcher v0.1.0 (E:\code\WireTerm\crates\watcher) (*)
+yaml-rust v0.4.5 (https://github.com/warpdotdev/yaml-rust.git?rev=51684719d0102ca85ff4b21cec39877a0c669e19#51684719) (*)
+anyhow v1.0.79
+ai_types v0.1.0 (E:\code\WireTerm\crates\ai_types) (*)
+alphanumeric-sort v1.5.7
+anyhow v1.0.79
+app-installation-detection v0.1.0 (E:\code\WireTerm\crates\app-installation-detection)
+anyhow v1.0.79
+axum v0.8.4
+axum-core v0.5.2
+bytes v1.11.1 (*)
+futures-core v0.3.31
+http v1.4.0 (*)
+http-body v1.0.1 (*)
+http-body-util v0.1.3 (*)
+mime v0.3.17
+pin-project-lite v0.2.16
+rustversion v1.0.14 (proc-macro)
+sync_wrapper v1.0.1 (*)
+tower-layer v0.3.3
+tower-service v0.3.3
+tracing v0.1.44 (*)
+bytes v1.11.1 (*)
+form_urlencoded v1.2.1 (*)
+futures-util v0.3.31 (*)
+http v1.4.0 (*)
+http-body v1.0.1 (*)
+http-body-util v0.1.3 (*)
+hyper v1.8.1 (*)
+hyper-util v0.1.16 (*)
+itoa v1.0.18
+matchit v0.8.4
+memchr v2.7.6
+mime v0.3.17
+percent-encoding v2.3.1
+pin-project-lite v0.2.16
+rustversion v1.0.14 (proc-macro)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+serde_path_to_error v0.1.16 (*)
+serde_urlencoded v0.7.1 (*)
+sync_wrapper v1.0.1 (*)
+tokio v1.50.0 (*)
+tower v0.5.2 (*)
+tower-layer v0.3.3
+tower-service v0.3.3
+tracing v0.1.44 (*)
+axum-extra v0.10.1
+axum v0.8.4 (*)
+axum-core v0.5.2 (*)
+bytes v1.11.1 (*)
+futures-util v0.3.31 (*)
+http v1.4.0 (*)
+http-body v1.0.1 (*)
+http-body-util v0.1.3 (*)
+mime v0.3.17
+pin-project-lite v0.2.16
+rustversion v1.0.14 (proc-macro)
+serde v1.0.228 (*)
+tower v0.5.2 (*)
+tower-layer v0.3.3
+tower-service v0.3.3
+command v0.1.0 (E:\code\WireTerm\crates\command) (*)
+nix v0.26.4
+bitflags v1.3.2
+cfg-if v1.0.4
+libc v0.2.186
+tokio v1.50.0 (*)
+tower v0.5.2 (*)
+tower-http v0.6.8 (*)
+tracing v0.1.44 (*)
+tracing-subscriber v0.3.23
+matchers v0.2.0
+regex-automata v0.4.9 (*)
+nu-ansi-term v0.50.3
+windows-sys v0.61.2 (*)
+once_cell v1.21.3
+regex-automata v0.4.9 (*)
+sharded-slab v0.1.7
+lazy_static v1.5.0
+smallvec v1.15.1
+thread_local v1.1.7 (*)
+tracing v0.1.44 (*)
+tracing-core v0.1.36 (*)
+tracing-log v0.2.0
+log v0.4.29 (*)
+once_cell v1.21.3
+tracing-core v0.1.36 (*)
+win32job v2.0.3 (*)
+arrayvec v0.7.6
+asset_cache v0.0.0 (E:\code\WireTerm\crates\asset_cache) (*)
+asset_macro v0.1.0 (proc-macro) (E:\code\WireTerm\crates\asset_macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+sha2 v0.10.9 (*)
+syn v2.0.117 (*)
+warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util)
+anyhow v1.0.79
+command v0.1.0 (E:\code\WireTerm\crates\command)
+anyhow v1.0.79
+async-process v2.5.0
+async-channel v2.3.1
+concurrent-queue v2.5.0
+crossbeam-utils v0.8.21
+event-listener-strategy v0.5.2
+event-listener v5.4.0
+concurrent-queue v2.5.0 (*)
+parking v2.2.0
+pin-project-lite v0.2.16
+pin-project-lite v0.2.16
+futures-core v0.3.31
+pin-project-lite v0.2.16
+async-io v2.6.0
+cfg-if v1.0.4
+concurrent-queue v2.5.0 (*)
+futures-io v0.3.31
+futures-lite v2.6.1
+fastrand v2.3.0
+futures-core v0.3.31
+futures-io v0.3.31
+parking v2.2.0
+pin-project-lite v0.2.16
+parking v2.2.0
+polling v3.11.0
+cfg-if v1.0.4
+concurrent-queue v2.5.0 (*)
+pin-project-lite v0.2.16
+windows-sys v0.61.2 (*)
+rustix v1.1.2
+bitflags v2.13.0
+errno v0.3.10
+windows-sys v0.59.0
+windows-targets v0.52.6
+windows_x86_64_msvc v0.52.6
+windows-sys v0.61.2 (*)
+slab v0.4.9
+autocfg v1.1.0
+windows-sys v0.61.2 (*)
+autocfg v1.1.0
+async-task v4.7.1
+blocking v1.6.2
+async-channel v2.3.1 (*)
+async-task v4.7.1
+futures-io v0.3.31
+futures-lite v2.6.1 (*)
+piper v0.2.1
+atomic-waker v1.1.2
+fastrand v2.3.0
+futures-io v0.3.31
+cfg-if v1.0.4
+event-listener v5.4.0 (*)
+futures-lite v2.6.1 (*)
+futures-lite v1.13.0
+fastrand v1.9.0
+futures-core v0.3.31
+futures-io v0.3.31
+memchr v2.7.6
+parking v2.2.0
+pin-project-lite v0.2.16
+waker-fn v1.1.1
+lazy_static v1.5.0
+log v0.4.29 (*)
+thiserror v2.0.17
+thiserror-impl v2.0.17 (proc-macro) (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors)
+anyhow v1.0.79
+inventory v0.3.20
+log v0.4.29 (*)
+win32job v2.0.3
+thiserror v1.0.63 (*)
+windows v0.61.3
+windows-collections v0.2.0
+windows-core v0.61.2
+windows-implement v0.60.2 (proc-macro) (*)
+windows-interface v0.59.3 (proc-macro) (*)
+windows-link v0.1.3
+windows-result v0.3.4
+windows-link v0.1.3
+windows-strings v0.4.2
+windows-link v0.1.3
+windows-core v0.61.2 (*)
+windows-future v0.2.1
+windows-core v0.61.2 (*)
+windows-link v0.1.3
+windows-threading v0.1.0
+windows-link v0.1.3
+windows-link v0.1.3
+windows-numerics v0.2.0
+windows-core v0.61.2 (*)
+windows-link v0.1.3
+windows v0.62.2
+windows-collections v0.3.2
+windows-core v0.62.2
+windows-implement v0.60.2 (proc-macro) (*)
+windows-interface v0.59.3 (proc-macro) (*)
+windows-link v0.2.1
+windows-result v0.4.1
+windows-link v0.2.1
+windows-strings v0.5.1
+windows-link v0.2.1
+windows-core v0.62.2 (*)
+windows-future v0.3.2
+windows-core v0.62.2 (*)
+windows-link v0.2.1
+windows-threading v0.2.1
+windows-link v0.2.1
+windows-numerics v0.3.1
+windows-core v0.62.2 (*)
+windows-link v0.2.1
+content_inspector v0.2.4
+memchr v2.7.6
+directories v6.0.0
+dirs-sys v0.5.0
+option-ext v0.2.0
+windows-sys v0.61.2 (*)
+dirs v6.0.0
+dirs-sys v0.5.0 (*)
+dunce v1.0.5
+event-listener v5.4.0 (*)
+futures-util v0.3.31
+futures-core v0.3.31
+futures-task v0.3.31
+pin-project-lite v0.2.16
+pin-utils v0.1.0
+hex v0.4.3
+is_executable v1.0.1
+winapi v0.3.9
+itertools v0.14.0 (*)
+lazy_static v1.5.0
+log v0.4.29 (*)
+mime_guess v2.0.4
+mime v0.3.17
+unicase v2.7.0 (*)
+unicase v2.7.0 (*)
+parking_lot v0.12.5
+lock_api v0.4.14
+scopeguard v1.2.0
+parking_lot_core v0.9.12
+cfg-if v1.0.4
+smallvec v1.15.1
+windows-link v0.2.1
+pathdiff v0.2.1
+pin-project v1.1.3
+pin-project-internal v1.1.3 (proc-macro) (*)
+rand v0.8.6 (*)
+regex v1.11.1 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+thiserror v2.0.17 (*)
+typed-path v0.10.0
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+windows v0.62.2 (*)
+async-broadcast v0.7.2 (*)
+async-channel v2.3.1 (*)
+async-compat v0.2.5 (*)
+async-fs v2.1.2 (*)
+async-io v2.6.0 (*)
+async-recursion v1.1.1 (proc-macro) (*)
+async-stream v0.3.5 (*)
+async-trait v0.1.89 (proc-macro) (*)
+aws-config v1.8.16
+aws-credential-types v1.2.14
+aws-smithy-async v1.2.14
+futures-util v0.3.31 (*)
+pin-project-lite v0.2.16
+tokio v1.50.0 (*)
+aws-smithy-runtime-api v1.12.0
+aws-smithy-async v1.2.14 (*)
+aws-smithy-runtime-api-macros v1.0.0 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+aws-smithy-types v1.4.7
+base64-simd v0.8.0
+outref v0.5.2
+vsimd v0.8.0
+bytes v1.11.1 (*)
+bytes-utils v0.1.4
+bytes v1.11.1 (*)
+either v1.9.0
+futures-core v0.3.31
+http v0.2.12
+bytes v1.11.1 (*)
+fnv v1.0.7
+itoa v1.0.18
+http v1.4.0 (*)
+http-body v0.4.6
+bytes v1.11.1 (*)
+http v0.2.12 (*)
+pin-project-lite v0.2.16
+http-body v1.0.1 (*)
+http-body-util v0.1.3 (*)
+itoa v1.0.18
+num-integer v0.1.46 (*)
+pin-project-lite v0.2.16
+pin-utils v0.1.0
+ryu v1.0.23
+time v0.3.47
+deranged v0.5.5
+powerfmt v0.2.0
+serde_core v1.0.228
+itoa v1.0.18
+num-conv v0.2.0
+powerfmt v0.2.0
+serde_core v1.0.228
+time-core v0.1.8
+tokio v1.50.0 (*)
+tokio-util v0.7.18 (*)
+bytes v1.11.1 (*)
+http v0.2.12 (*)
+http v1.4.0 (*)
+pin-project-lite v0.2.16
+tokio v1.50.0 (*)
+tracing v0.1.44 (*)
+zeroize v1.8.2 (*)
+aws-smithy-types v1.4.7 (*)
+zeroize v1.8.2 (*)
+aws-runtime v1.7.3
+aws-credential-types v1.2.14 (*)
+aws-sigv4 v1.4.3
+aws-credential-types v1.2.14 (*)
+aws-smithy-http v0.63.6
+aws-smithy-runtime-api v1.12.0 (*)
+aws-smithy-types v1.4.7 (*)
+bytes v1.11.1 (*)
+bytes-utils v0.1.4 (*)
+futures-core v0.3.31
+futures-util v0.3.31 (*)
+http v1.4.0 (*)
+http-body v1.0.1 (*)
+http-body-util v0.1.3 (*)
+percent-encoding v2.3.1
+pin-project-lite v0.2.16
+pin-utils v0.1.0
+tracing v0.1.44 (*)
+aws-smithy-runtime-api v1.12.0 (*)
+aws-smithy-types v1.4.7 (*)
+bytes v1.11.1 (*)
+form_urlencoded v1.2.1 (*)
+hex v0.4.3
+hmac v0.13.0
+digest v0.11.3
+block-buffer v0.12.0
+hybrid-array v0.4.11
+typenum v1.20.0
+const-oid v0.10.2
+crypto-common v0.2.1
+hybrid-array v0.4.11 (*)
+ctutils v0.4.2
+cmov v0.5.4
+http v0.2.12 (*)
+http v1.4.0 (*)
+percent-encoding v2.3.1
+sha2 v0.11.0
+cfg-if v1.0.4
+cpufeatures v0.3.0
+digest v0.11.3 (*)
+time v0.3.47 (*)
+tracing v0.1.44 (*)
+aws-smithy-async v1.2.14 (*)
+aws-smithy-http v0.63.6 (*)
+aws-smithy-runtime v1.11.1
+aws-smithy-async v1.2.14 (*)
+aws-smithy-http v0.63.6 (*)
+aws-smithy-http-client v1.1.12
+aws-smithy-async v1.2.14 (*)
+aws-smithy-runtime-api v1.12.0 (*)
+aws-smithy-types v1.4.7 (*)
+h2 v0.4.15 (*)
+http v1.4.0 (*)
+hyper v1.8.1 (*)
+hyper-rustls v0.27.7 (*)
+hyper-util v0.1.16 (*)
+pin-project-lite v0.2.16
+rustls v0.23.45 (*)
+rustls-native-certs v0.8.2 (*)
+rustls-pki-types v1.12.0 (*)
+tokio v1.50.0 (*)
+tokio-rustls v0.26.4 (*)
+tower v0.5.2 (*)
+tracing v0.1.44 (*)
+aws-smithy-observability v0.2.6
+aws-smithy-runtime-api v1.12.0 (*)
+aws-smithy-runtime-api v1.12.0 (*)
+aws-smithy-types v1.4.7 (*)
+bytes v1.11.1 (*)
+fastrand v2.3.0
+http v0.2.12 (*)
+http v1.4.0 (*)
+http-body v0.4.6 (*)
+http-body v1.0.1 (*)
+http-body-util v0.1.3 (*)
+pin-project-lite v0.2.16
+pin-utils v0.1.0
+tokio v1.50.0 (*)
+tracing v0.1.44 (*)
+aws-smithy-runtime-api v1.12.0 (*)
+aws-smithy-types v1.4.7 (*)
+aws-types v1.3.15
+aws-credential-types v1.2.14 (*)
+aws-smithy-async v1.2.14 (*)
+aws-smithy-runtime-api v1.12.0 (*)
+aws-smithy-types v1.4.7 (*)
+tracing v0.1.44 (*)
+rustc_version v0.4.0 (*)
+bytes v1.11.1 (*)
+bytes-utils v0.1.4 (*)
+fastrand v2.3.0
+http v1.4.0 (*)
+http-body v1.0.1 (*)
+percent-encoding v2.3.1
+pin-project-lite v0.2.16
+tracing v0.1.44 (*)
+uuid v1.19.0 (*)
+aws-sdk-signin v1.9.0
+aws-credential-types v1.2.14 (*)
+aws-runtime v1.7.3 (*)
+aws-smithy-async v1.2.14 (*)
+aws-smithy-http v0.63.6 (*)
+aws-smithy-json v0.62.5
+aws-smithy-types v1.4.7 (*)
+aws-smithy-observability v0.2.6 (*)
+aws-smithy-runtime v1.11.1 (*)
+aws-smithy-runtime-api v1.12.0 (*)
+aws-smithy-types v1.4.7 (*)
+aws-types v1.3.15 (*)
+bytes v1.11.1 (*)
+fastrand v2.3.0
+http v0.2.12 (*)
+http v1.4.0 (*)
+regex-lite v0.1.6
+tracing v0.1.44 (*)
+aws-sdk-sso v1.98.0
+aws-credential-types v1.2.14 (*)
+aws-runtime v1.7.3 (*)
+aws-smithy-async v1.2.14 (*)
+aws-smithy-http v0.63.6 (*)
+aws-smithy-json v0.62.5 (*)
+aws-smithy-observability v0.2.6 (*)
+aws-smithy-runtime v1.11.1 (*)
+aws-smithy-runtime-api v1.12.0 (*)
+aws-smithy-types v1.4.7 (*)
+aws-types v1.3.15 (*)
+bytes v1.11.1 (*)
+fastrand v2.3.0
+http v0.2.12 (*)
+http v1.4.0 (*)
+regex-lite v0.1.6
+tracing v0.1.44 (*)
+aws-sdk-ssooidc v1.100.0
+aws-credential-types v1.2.14 (*)
+aws-runtime v1.7.3 (*)
+aws-smithy-async v1.2.14 (*)
+aws-smithy-http v0.63.6 (*)
+aws-smithy-json v0.62.5 (*)
+aws-smithy-observability v0.2.6 (*)
+aws-smithy-runtime v1.11.1 (*)
+aws-smithy-runtime-api v1.12.0 (*)
+aws-smithy-types v1.4.7 (*)
+aws-types v1.3.15 (*)
+bytes v1.11.1 (*)
+fastrand v2.3.0
+http v0.2.12 (*)
+http v1.4.0 (*)
+regex-lite v0.1.6
+tracing v0.1.44 (*)
+aws-sdk-sts v1.103.0
+aws-credential-types v1.2.14 (*)
+aws-runtime v1.7.3 (*)
+aws-smithy-async v1.2.14 (*)
+aws-smithy-http v0.63.6 (*)
+aws-smithy-json v0.62.5 (*)
+aws-smithy-observability v0.2.6 (*)
+aws-smithy-query v0.60.15
+aws-smithy-types v1.4.7 (*)
+urlencoding v2.1.3
+aws-smithy-runtime v1.11.1 (*)
+aws-smithy-runtime-api v1.12.0 (*)
+aws-smithy-types v1.4.7 (*)
+aws-smithy-xml v0.60.15
+xmlparser v0.13.6
+aws-types v1.3.15 (*)
+fastrand v2.3.0
+http v0.2.12 (*)
+http v1.4.0 (*)
+regex-lite v0.1.6
+tracing v0.1.44 (*)
+aws-smithy-async v1.2.14 (*)
+aws-smithy-http v0.63.6 (*)
+aws-smithy-json v0.62.5 (*)
+aws-smithy-runtime v1.11.1 (*)
+aws-smithy-runtime-api v1.12.0 (*)
+aws-smithy-types v1.4.7 (*)
+aws-types v1.3.15 (*)
+base64-simd v0.8.0 (*)
+bytes v1.11.1 (*)
+fastrand v2.3.0
+hex v0.4.3
+http v1.4.0 (*)
+p256 v0.13.2
+ecdsa v0.16.9
+der v0.7.10
+const-oid v0.9.6
+pem-rfc7468 v0.7.0
+base64ct v1.8.0
+zeroize v1.8.2 (*)
+digest v0.10.7 (*)
+elliptic-curve v0.13.8
+base16ct v0.2.0
+crypto-bigint v0.5.5
+generic-array v0.14.7 (*)
+rand_core v0.6.4 (*)
+subtle v2.6.1
+zeroize v1.8.2 (*)
+digest v0.10.7 (*)
+ff v0.13.1
+rand_core v0.6.4 (*)
+subtle v2.6.1
+generic-array v0.14.7 (*)
+group v0.13.0
+ff v0.13.1 (*)
+rand_core v0.6.4 (*)
+subtle v2.6.1
+hkdf v0.12.4
+hmac v0.12.1
+digest v0.10.7 (*)
+pem-rfc7468 v0.7.0 (*)
+pkcs8 v0.10.2
+der v0.7.10 (*)
+spki v0.7.3
+der v0.7.10 (*)
+rand_core v0.6.4 (*)
+sec1 v0.7.3
+base16ct v0.2.0
+der v0.7.10 (*)
+generic-array v0.14.7 (*)
+pkcs8 v0.10.2 (*)
+subtle v2.6.1
+zeroize v1.8.2 (*)
+subtle v2.6.1
+zeroize v1.8.2 (*)
+rfc6979 v0.4.0
+hmac v0.12.1 (*)
+subtle v2.6.1
+signature v2.2.0
+digest v0.10.7 (*)
+rand_core v0.6.4 (*)
+spki v0.7.3 (*)
+elliptic-curve v0.13.8 (*)
+primeorder v0.13.6
+elliptic-curve v0.13.8 (*)
+sha2 v0.10.9 (*)
+rand v0.8.6 (*)
+sha1 v0.10.6 (*)
+sha2 v0.10.9 (*)
+time v0.3.47 (*)
+tokio v1.50.0 (*)
+tracing v0.1.44 (*)
+url v2.5.4 (*)
+uuid v1.19.0 (*)
+zeroize v1.8.2 (*)
+aws-credential-types v1.2.14 (*)
+aws-sdk-sts v1.103.0 (*)
+aws-types v1.3.15 (*)
+axum v0.8.4 (*)
+base64 v0.22.1
+bimap v0.6.3
+bincode v1.3.3 (*)
+bitflags v2.13.0 (*)
+bitflags-serde-legacy v0.1.1 (*)
+blocking v1.6.2 (*)
+bounded-vec-deque v0.1.1
+build_cache v0.1.0 (E:\code\WireTerm\crates\build_cache)
+async-io v2.6.0 (*)
+chrono v0.4.40 (*)
+command v0.1.0 (E:\code\WireTerm\crates\command) (*)
+futures v0.3.31 (*)
+futures-lite v1.13.0 (*)
+hex v0.4.3
+instant v0.1.12 (*)
+is_executable v1.0.1 (*)
+itertools v0.14.0 (*)
+log v0.4.29 (*)
+nix v0.26.4 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+sha2 v0.10.9 (*)
+tempfile v3.23.0 (*)
+thiserror v2.0.17 (*)
+tokio v1.50.0 (*)
+tracing v0.1.44 (*)
+walkdir v2.4.0 (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+byte-unit v5.2.0 (*)
+bytecount v0.6.9
+bytemuck v1.24.0 (*)
+bytes v1.11.1 (*)
+cfg-if v1.0.4
+channel_versions v0.1.0 (E:\code\WireTerm\crates\channel_versions) (*)
+chrono v0.4.40 (*)
+clap v4.5.48 (*)
+cloud_object_client v0.1.0 (E:\code\WireTerm\crates\cloud_object_client)
+anyhow v1.0.79
+async-channel v2.3.1 (*)
+async-trait v0.1.89 (proc-macro) (*)
+chrono v0.4.40 (*)
+cloud_object_models v0.1.0 (E:\code\WireTerm\crates\cloud_object_models)
+ai v0.1.0 (E:\code\WireTerm\crates\ai) (*)
+anyhow v1.0.79
+cfg-if v1.0.4
+chrono v0.4.40 (*)
+cloud_object_persistence v0.1.0 (E:\code\WireTerm\crates\cloud_object_persistence)
+anyhow v1.0.79
+bincode v1.3.3 (*)
+chrono v0.4.40 (*)
+cloud_objects v0.1.0 (E:\code\WireTerm\crates\cloud_objects)
+anyhow v1.0.79
+chrono v0.4.40 (*)
+cynic v3.8.0 (*)
+derivative v2.2.0 (proc-macro) (*)
+itertools v0.14.0 (*)
+lasso v0.7.3
+dashmap v6.1.0 (*)
+hashbrown v0.14.1 (*)
+pathfinder_geometry v0.5.1 (*)
+schemars v1.0.4 (*)
+serde v1.0.228 (*)
+session-sharing-protocol v0.0.0 (https://github.com/warpdotdev/session-sharing-protocol.git?rev=f86afe16e65a56ecb9c062c961fcd91167192e9f#f86afe16) (*)
+settings_value v0.1.0 (E:\code\WireTerm\crates\settings_value) (*)
+thiserror v2.0.17 (*)
+uuid v1.19.0 (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_graphql v0.1.0 (E:\code\WireTerm\crates\graphql) (*)
+warp_server_auth v0.1.0 (E:\code\WireTerm\crates\warp_server_auth)
+anyhow v1.0.79
+chrono v0.4.40 (*)
+cynic v3.8.0 (*)
+lasso v0.7.3 (*)
+log v0.4.29 (*)
+parking_lot v0.12.5 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+thiserror v2.0.17 (*)
+uuid v1.19.0 (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+warp_graphql v0.1.0 (E:\code\WireTerm\crates\graphql) (*)
+warp_managed_secrets v0.1.0 (E:\code\WireTerm\crates\managed_secrets)
+anyhow v1.0.79
+async-trait v0.1.89 (proc-macro) (*)
+base64 v0.22.1
+chrono v0.4.40 (*)
+hpke v0.13.0
+aead v0.5.2
+crypto-common v0.1.6 (*)
+generic-array v0.14.7 (*)
+aes-gcm v0.10.3
+aead v0.5.2 (*)
+aes v0.8.4
+cfg-if v1.0.4
+cipher v0.4.4
+crypto-common v0.1.6 (*)
+inout v0.1.4
+generic-array v0.14.7 (*)
+zeroize v1.8.2 (*)
+cpufeatures v0.2.9
+cipher v0.4.4 (*)
+ctr v0.9.2
+cipher v0.4.4 (*)
+ghash v0.5.1
+opaque-debug v0.3.1
+polyval v0.6.2
+cfg-if v1.0.4
+cpufeatures v0.2.9
+opaque-debug v0.3.1
+universal-hash v0.5.1
+crypto-common v0.1.6 (*)
+subtle v2.6.1
+subtle v2.6.1
+chacha20poly1305 v0.10.1
+aead v0.5.2 (*)
+chacha20 v0.9.1
+cfg-if v1.0.4
+cipher v0.4.4 (*)
+cpufeatures v0.2.9
+cipher v0.4.4 (*)
+poly1305 v0.8.0
+cpufeatures v0.2.9
+opaque-debug v0.3.1
+universal-hash v0.5.1 (*)
+zeroize v1.8.2 (*)
+digest v0.10.7 (*)
+generic-array v0.14.7 (*)
+hkdf v0.12.4 (*)
+hmac v0.12.1 (*)
+rand_core v0.9.3
+getrandom v0.3.4 (*)
+sha2 v0.10.9 (*)
+subtle v2.6.1
+x25519-dalek v2.0.1
+curve25519-dalek v4.1.3
+cfg-if v1.0.4
+cpufeatures v0.2.9
+curve25519-dalek-derive v0.1.1 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+subtle v2.6.1
+rustc_version v0.4.0 (*)
+rand_core v0.6.4 (*)
+zeroize v1.8.2 (*)
+log v0.4.29 (*)
+rand v0.9.4
+rand_chacha v0.9.0
+ppv-lite86 v0.2.17
+rand_core v0.9.3 (*)
+rand_core v0.9.3 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+tempfile v3.23.0 (*)
+thiserror v2.0.17 (*)
+tink-core v0.3.0 (https://github.com/warpdotdev/tink-rust?rev=54b9ac9af93b0c08b446a7bc0582836c9403a71b#54b9ac9a)
+digest v0.10.7 (*)
+hkdf v0.12.4 (*)
+lazy_static v1.5.0
+rand v0.8.6 (*)
+sha-1 v0.10.1
+cfg-if v1.0.4
+cpufeatures v0.2.9
+digest v0.10.7 (*)
+sha2 v0.10.9 (*)
+subtle v2.6.1
+tink-proto v0.3.0 (https://github.com/warpdotdev/tink-rust?rev=54b9ac9af93b0c08b446a7bc0582836c9403a71b#54b9ac9a)
+prost v0.14.3 (*)
+prost-build v0.14.3 (*)
+tink-hybrid v0.3.0 (https://github.com/warpdotdev/tink-rust?rev=54b9ac9af93b0c08b446a7bc0582836c9403a71b#54b9ac9a)
+p256 v0.13.2 (*)
+tink-aead v0.3.0
+aead v0.5.2 (*)
+aes v0.8.4 (*)
+aes-gcm v0.10.3 (*)
+aes-gcm-siv v0.11.1
+aead v0.5.2 (*)
+aes v0.8.4 (*)
+cipher v0.4.4 (*)
+ctr v0.9.2 (*)
+polyval v0.6.2 (*)
+subtle v2.6.1
+zeroize v1.8.2 (*)
+chacha20poly1305 v0.10.1 (*)
+ctr v0.9.2 (*)
+generic-array v0.14.7 (*)
+tink-core v0.3.0 (https://github.com/warpdotdev/tink-rust?rev=54b9ac9af93b0c08b446a7bc0582836c9403a71b#54b9ac9a) (*)
+tink-mac v0.3.0
+tink-core v0.3.0 (https://github.com/warpdotdev/tink-rust?rev=54b9ac9af93b0c08b446a7bc0582836c9403a71b#54b9ac9a) (*)
+tink-prf v0.3.0
+aes v0.8.4 (*)
+cmac v0.7.2
+cipher v0.4.4 (*)
+dbl v0.3.2
+generic-array v0.14.7 (*)
+digest v0.10.7 (*)
+digest v0.10.7 (*)
+hkdf v0.12.4 (*)
+hmac v0.12.1 (*)
+sha-1 v0.10.1 (*)
+sha2 v0.10.9 (*)
+tink-core v0.3.0 (https://github.com/warpdotdev/tink-rust?rev=54b9ac9af93b0c08b446a7bc0582836c9403a71b#54b9ac9a) (*)
+tink-proto v0.3.0 (https://github.com/warpdotdev/tink-rust?rev=54b9ac9af93b0c08b446a7bc0582836c9403a71b#54b9ac9a) (*)
+tink-proto v0.3.0 (https://github.com/warpdotdev/tink-rust?rev=54b9ac9af93b0c08b446a7bc0582836c9403a71b#54b9ac9a) (*)
+tink-proto v0.3.0 (https://github.com/warpdotdev/tink-rust?rev=54b9ac9af93b0c08b446a7bc0582836c9403a71b#54b9ac9a) (*)
+tink-core v0.3.0 (https://github.com/warpdotdev/tink-rust?rev=54b9ac9af93b0c08b446a7bc0582836c9403a71b#54b9ac9a) (*)
+tink-daead v0.3.0
+aead v0.5.2 (*)
+aes-siv v0.7.0
+aead v0.5.2 (*)
+aes v0.8.4 (*)
+cipher v0.4.4 (*)
+cmac v0.7.2 (*)
+ctr v0.9.2 (*)
+dbl v0.3.2 (*)
+digest v0.10.7 (*)
+zeroize v1.8.2 (*)
+tink-core v0.3.0 (https://github.com/warpdotdev/tink-rust?rev=54b9ac9af93b0c08b446a7bc0582836c9403a71b#54b9ac9a) (*)
+tink-proto v0.3.0 (https://github.com/warpdotdev/tink-rust?rev=54b9ac9af93b0c08b446a7bc0582836c9403a71b#54b9ac9a) (*)
+tink-proto v0.3.0 (https://github.com/warpdotdev/tink-rust?rev=54b9ac9af93b0c08b446a7bc0582836c9403a71b#54b9ac9a) (*)
+tink-proto v0.3.0 (https://github.com/warpdotdev/tink-rust?rev=54b9ac9af93b0c08b446a7bc0582836c9403a71b#54b9ac9a) (*)
+tracing v0.1.44 (*)
+vec1 v1.10.1 (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_graphql v0.1.0 (E:\code\WireTerm\crates\graphql) (*)
+warp_isolation_platform v0.1.0 (E:\code\WireTerm\crates\isolation_platform) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+zeroize v1.8.2 (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+warpui_extras v0.0.0 (E:\code\WireTerm\crates\warpui_extras) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+diesel v2.3.10 (*)
+log v0.4.29 (*)
+persistence v0.0.0 (E:\code\WireTerm\crates\persistence) (*)
+serde v1.0.228 (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_graphql v0.1.0 (E:\code\WireTerm\crates\graphql) (*)
+cloud_objects v0.1.0 (E:\code\WireTerm\crates\cloud_objects) (*)
+diesel v2.3.10 (*)
+handlebars v0.0.0 (E:\code\WireTerm\crates\handlebars)
+lazy_static v1.5.0
+log v0.4.29 (*)
+persistence v0.0.0 (E:\code\WireTerm\crates\persistence) (*)
+regex v1.11.1 (*)
+schemars v1.0.4 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+serde_regex v1.1.0
+regex v1.11.1 (*)
+serde v1.0.228 (*)
+session-sharing-protocol v0.0.0 (https://github.com/warpdotdev/session-sharing-protocol.git?rev=f86afe16e65a56ecb9c062c961fcd91167192e9f#f86afe16) (*)
+settings v0.0.0 (E:\code\WireTerm\crates\settings) (*)
+settings_value v0.1.0 (E:\code\WireTerm\crates\settings_value) (*)
+url v2.5.4 (*)
+uuid v1.19.0 (*)
+warp-workflows v0.1.0 (https://github.com/warpdotdev/workflows?rev=793a98ddda6ef19682aed66364faebd2829f0e01#793a98dd)
+warp-workflows-types v0.1.0 (https://github.com/warpdotdev/workflows?rev=793a98ddda6ef19682aed66364faebd2829f0e01#793a98dd)
+serde v1.0.228 (*)
+anyhow v1.0.79
+convert_case v0.4.0
+memmap v0.7.0
+winapi v0.3.9
+serde_yaml v0.8.26
+indexmap v1.9.3
+hashbrown v0.12.3 (*)
+autocfg v1.1.0
+ryu v1.0.23
+serde v1.0.228 (*)
+yaml-rust v0.4.5 (https://github.com/warpdotdev/yaml-rust.git?rev=51684719d0102ca85ff4b21cec39877a0c669e19#51684719)
+linked-hash-map v0.5.6
+uneval v0.2.3 (https://github.com/warpdotdev/uneval?rev=df4d9fad372aedc447e6f93ca0f930fabaf9dd1a#df4d9fad)
+serde v1.0.228 (*)
+thiserror v1.0.63 (*)
+walkdir v2.4.0 (*)
+warp-workflows-types v0.1.0 (https://github.com/warpdotdev/workflows?rev=793a98ddda6ef19682aed66364faebd2829f0e01#793a98dd)
+serde v1.0.228 (*)
+warp_cli v0.0.0 (E:\code\WireTerm\crates\warp_cli) (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+warp_graphql v0.1.0 (E:\code\WireTerm\crates\graphql) (*)
+warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util) (*)
+cloud_objects v0.1.0 (E:\code\WireTerm\crates\cloud_objects) (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+uuid v1.19.0 (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_graphql v0.1.0 (E:\code\WireTerm\crates\graphql) (*)
+cloud_object_models v0.1.0 (E:\code\WireTerm\crates\cloud_object_models) (*)
+cloud_object_persistence v0.1.0 (E:\code\WireTerm\crates\cloud_object_persistence) (*)
+cloud_objects v0.1.0 (E:\code\WireTerm\crates\cloud_objects) (*)
+comfy-table v7.2.1
+crossterm v0.29.0
+bitflags v2.13.0 (*)
+crossterm_winapi v0.9.1
+winapi v0.3.9
+derive_more v2.0.1
+derive_more-impl v2.0.1 (proc-macro)
+convert_case v0.7.1 (*)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+document-features v0.2.12 (proc-macro)
+litrs v1.0.0
+parking_lot v0.12.5 (*)
+winapi v0.3.9
+unicode-segmentation v1.11.0
+unicode-width v0.2.1
+command v0.1.0 (E:\code\WireTerm\crates\command) (*)
+command-corrections v0.0.0 (https://github.com/warpdotdev/command-corrections.git?rev=eae08c8c51d9bc9741fcb17eef2c21f696aebbeb#eae08c8c) (*)
+computer_use v0.0.0 (E:\code\WireTerm\crates\computer_use) (*)
+concat-idents v1.1.5 (proc-macro) (*)
+content_inspector v0.2.4 (*)
+counter v0.6.0
+num-traits v0.2.19 (*)
+crc v3.4.0
+crc-catalog v2.4.0
+csv v1.3.1
+csv-core v0.1.11
+memchr v2.7.6
+itoa v1.0.18
+ryu v1.0.23
+serde v1.0.228 (*)
+cynic v3.8.0 (*)
+dashmap v6.1.0 (*)
+deltae v0.3.2
+derivative v2.2.0 (proc-macro) (*)
+diesel v2.3.10 (*)
+diesel_migrations v2.3.1 (*)
+difflib v0.4.0 (https://github.com/warpdotdev/difflib.git?rev=114177e7d8e1f8017baca397f943e11644b14d63#114177e7)
+rustc-hash v1.1.0
+directories v6.0.0 (*)
+dirs v6.0.0 (*)
+dunce v1.0.5
+email_address v0.2.3 (https://github.com/warpdotdev/rust-email_address?branch=main#b3e5205b)
+serde v1.0.228 (*)
+embed_plist v1.2.2
+enclose v1.1.8
+enum-iterator v1.4.1 (*)
+env_logger v0.10.2
+humantime v2.1.0
+is-terminal v0.4.17
+windows-sys v0.61.2 (*)
+log v0.4.29 (*)
+regex v1.11.1 (*)
+termcolor v1.4.1
+winapi-util v0.1.11 (*)
+event-listener v5.4.0 (*)
+field_mask v0.0.0 (E:\code\WireTerm\crates\field_mask)
+itertools v0.14.0 (*)
+prost v0.14.3 (*)
+prost-reflect v0.16.3 (*)
+prost-types v0.14.3 (*)
+thiserror v2.0.17 (*)
+float-cmp v0.9.0 (*)
+futures v0.3.31 (*)
+futures-lite v1.13.0 (*)
+futures-util v0.3.31 (*)
+fuzzy_match v0.1.0 (E:\code\WireTerm\crates\fuzzy_match) (*)
+getset v0.1.2 (proc-macro) (*)
+git2 v0.20.4
+bitflags v2.13.0 (*)
+libc v0.2.186
+libgit2-sys v0.18.3+1.9.2
+libc v0.2.186
+libz-sys v1.1.25
+libc v0.2.186
+cc v1.2.56 (*)
+pkg-config v0.3.32
+vcpkg v0.2.15
+cc v1.2.56 (*)
+pkg-config v0.3.32
+log v0.4.29 (*)
+url v2.5.4 (*)
+globset v0.4.18 (*)
+handlebars v0.0.0 (E:\code\WireTerm\crates\handlebars)
+hashbrown v0.17.1
+allocator-api2 v0.2.16
+equivalent v1.0.1
+foldhash v0.2.0
+hex v0.4.3
+http v1.4.0 (*)
+http_client v0.0.0 (E:\code\WireTerm\crates\http_client) (*)
+http_server v0.0.0 (E:\code\WireTerm\crates\http_server)
+anyhow v1.0.79
+axum v0.8.4 (*)
+log v0.4.29 (*)
+tokio v1.50.0 (*)
+tower v0.5.2 (*)
+tower-http v0.6.8 (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+hyper v1.8.1 (*)
+image v0.25.9 (*)
+indexmap v2.12.0 (*)
+infer v0.19.0 (*)
+input_classifier v0.0.0 (E:\code\WireTerm\crates\input_classifier)
+anyhow v1.0.79
+async-trait v0.1.89 (proc-macro) (*)
+cfg-if v1.0.4
+clap v4.5.48 (*)
+futures v0.3.31 (*)
+futures-lite v1.13.0 (*)
+instant v0.1.12 (*)
+itertools v0.14.0 (*)
+lazy_static v1.5.0
+log v0.4.29 (*)
+natural_language_detection v0.1.0 (E:\code\WireTerm\crates\natural_language_detection)
+lazy_static v1.5.0
+regex v1.11.1 (*)
+rust-stemmers v1.2.0
+serde v1.0.228 (*)
+serde_derive v1.0.228 (proc-macro) (*)
+serde v1.0.228 (*)
+smol_str v0.2.2
+warp_completer v0.1.0 (E:\code\WireTerm\crates\warp_completer) (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+inquire v0.9.1
+bitflags v2.13.0 (*)
+crossterm v0.29.0 (*)
+dyn-clone v1.0.20
+fuzzy-matcher v0.3.7 (*)
+unicode-segmentation v1.11.0
+unicode-width v0.2.1
+instant v0.1.12 (*)
+inventory v0.3.20
+ipc v0.1.0 (E:\code\WireTerm\crates\ipc)
+async-channel v2.3.1 (*)
+async-compat v0.2.5 (*)
+async-trait v0.1.89 (proc-macro) (*)
+bincode v1.3.3 (*)
+futures v0.3.31 (*)
+interprocess v1.2.1
+blocking v1.6.2 (*)
+cfg-if v1.0.4
+futures-core v0.3.31
+futures-io v0.3.31
+intmap v0.7.1
+libc v0.2.186
+once_cell v1.21.3
+spinning v0.1.0
+lock_api v0.4.14 (*)
+thiserror v1.0.63 (*)
+to_method v1.1.0
+tokio v1.50.0 (*)
+winapi v0.3.9
+rustc_version v0.4.0 (*)
+itertools v0.14.0 (*)
+log v0.4.29 (*)
+rand v0.8.6 (*)
+serde v1.0.228 (*)
+thiserror v2.0.17 (*)
+uuid v1.19.0 (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+is_executable v1.0.1 (*)
+iso8601-duration v0.2.0
+chrono v0.4.40 (*)
+nom v7.1.3 (*)
+serde v1.0.228 (*)
+itertools v0.14.0 (*)
+jaq-all v0.1.0 (*)
+jaq-json v2.0.0 (*)
+kmeans_colors v0.5.0
+palette v0.6.1
+approx v0.5.1
+num-traits v0.2.19 (*)
+num-traits v0.2.19 (*)
+palette_derive v0.6.1 (proc-macro)
+find-crate v0.6.3
+toml v0.5.11
+serde v1.0.228 (*)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v1.0.109 (*)
+rand v0.8.6 (*)
+rand_chacha v0.3.1 (*)
+languages v0.0.0 (E:\code\WireTerm\crates\languages) (*)
+lasso v0.7.3 (*)
+lazy_static v1.5.0
+libc v0.2.186
+libsqlite3-sys v0.33.0 (*)
+line-ending v1.5.1
+local_control v0.0.0 (E:\code\WireTerm\crates\local_control) (*)
+log v0.4.29 (*)
+log-panics v2.1.0
+backtrace v0.3.76
+cfg-if v1.0.4
+rustc-demangle v0.1.27
+windows-link v0.2.1
+log v0.4.29 (*)
+lsp v0.1.0 (E:\code\WireTerm\crates\lsp)
+anyhow v1.0.79
+async-channel v2.3.1 (*)
+async-fs v2.1.2 (*)
+async-process v2.5.0 (*)
+async-trait v0.1.89 (proc-macro) (*)
+cfg-if v1.0.4
+chrono v0.4.40 (*)
+command v0.1.0 (E:\code\WireTerm\crates\command) (*)
+env_logger v0.10.2 (*)
+futures v0.3.31 (*)
+globset v0.4.18 (*)
+http_client v0.0.0 (E:\code\WireTerm\crates\http_client) (*)
+instant v0.1.12 (*)
+itertools v0.14.0 (*)
+jsonrpc v0.1.0 (E:\code\WireTerm\crates\jsonrpc)
+anyhow v1.0.79
+async-channel v2.3.1 (*)
+async-trait v0.1.89 (proc-macro) (*)
+futures v0.3.31 (*)
+log v0.4.29 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+log v0.4.29 (*)
+lsp-types v0.97.0
+bitflags v1.3.2
+fluent-uri v0.1.4
+bitflags v1.3.2
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+serde_repr v0.1.20 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+nix v0.26.4 (*)
+node_runtime v0.1.0 (E:\code\WireTerm\crates\node_runtime)
+anyhow v1.0.79
+async-fs v2.1.2 (*)
+async-trait v0.1.89 (proc-macro) (*)
+cfg-if v1.0.4
+command v0.1.0 (E:\code\WireTerm\crates\command) (*)
+flate2 v1.1.9 (*)
+futures v0.3.31 (*)
+http_client v0.0.0 (E:\code\WireTerm\crates\http_client) (*)
+log v0.4.29 (*)
+semver v1.0.20
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+sha2 v0.10.9 (*)
+tar v0.4.46
+filetime v0.2.25 (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+zip v2.4.2
+aes v0.8.4 (*)
+bzip2 v0.5.2
+bzip2-sys v0.1.13+1.0.8
+cc v1.2.56 (*)
+pkg-config v0.3.32
+constant_time_eq v0.3.1
+crc32fast v1.5.0 (*)
+deflate64 v0.1.10
+displaydoc v0.2.5 (proc-macro) (*)
+flate2 v1.1.9 (*)
+getrandom v0.3.4 (*)
+hmac v0.12.1 (*)
+indexmap v2.12.0 (*)
+lzma-rs v0.3.0
+byteorder v1.5.0
+crc v3.4.0 (*)
+memchr v2.7.6
+pbkdf2 v0.12.2
+digest v0.10.7 (*)
+hmac v0.12.1 (*)
+sha1 v0.10.6 (*)
+thiserror v2.0.17 (*)
+time v0.3.47 (*)
+xz2 v0.1.7
+lzma-sys v0.1.20
+libc v0.2.186
+cc v1.2.56 (*)
+pkg-config v0.3.32
+zeroize v1.8.2 (*)
+zopfli v0.8.3
+bumpalo v3.19.1
+crc32fast v1.5.0 (*)
+log v0.4.29 (*)
+simd-adler32 v0.3.7
+zstd v0.13.3
+zstd-safe v7.2.4
+zstd-sys v2.0.15+zstd.1.5.7
+cc v1.2.56 (*)
+pkg-config v0.3.32
+anyhow v1.0.79
+repo_metadata v0.1.0 (E:\code\WireTerm\crates\repo_metadata) (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+sha2 v0.10.9 (*)
+simple_logger v0.1.0 (E:\code\WireTerm\crates\simple_logger)
+async-channel v2.3.1 (*)
+async-fs v2.1.2 (*)
+chrono v0.4.40 (*)
+futures v0.3.31 (*)
+log v0.4.29 (*)
+thiserror v2.0.17 (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+strum v0.27.1
+strum_macros v0.27.1 (proc-macro) (*)
+tokio v1.50.0 (*)
+url v2.5.4 (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+anyhow v1.0.79
+lsp-types v0.97.0 (*)
+lz4_flex v0.11.6
+twox-hash v2.1.2
+markdown_parser v0.1.0 (E:\code\WireTerm\crates\markdown_parser) (*)
+mcp v0.1.0 (E:\code\WireTerm\crates\mcp)
+anyhow v1.0.79
+async-channel v2.3.1 (*)
+async-trait v0.1.89 (proc-macro) (*)
+cfg-if v1.0.4
+cloud_object_models v0.1.0 (E:\code\WireTerm\crates\cloud_object_models) (*)
+futures v0.3.31 (*)
+handlebars v0.0.0 (E:\code\WireTerm\crates\handlebars)
+http v1.4.0 (*)
+instant v0.1.12 (*)
+log v0.4.29 (*)
+oauth2 v5.0.0 (*)
+pin-project-lite v0.2.16
+reqwest v0.13.5 (*)
+rmcp v3.5.0 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+simple_logger v0.1.0 (E:\code\WireTerm\crates\simple_logger) (*)
+sse-stream v0.2.6 (*)
+thiserror v2.0.17 (*)
+tokio v1.50.0 (*)
+tracing v0.1.44 (*)
+url v2.5.4 (*)
+uuid v1.19.0 (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+warpui v0.0.0 (E:\code\WireTerm\crates\warpui)
+anyhow v1.0.79
+arboard v3.6.1 (*)
+async-io v2.6.0 (*)
+async-task v4.7.1
+bimap v0.6.3
+bytemuck v1.24.0 (*)
+cfg-if v1.0.4
+command v0.1.0 (E:\code\WireTerm\crates\command) (*)
+cosmic-text v0.12.0 (https://github.com/warpdotdev/cosmic-text.git?rev=a7c7b71497542758e08f77390b8efce543b3181f#a7c7b714)
+bitflags v2.13.0 (*)
+fontdb v0.23.0 (*)
+log v0.4.29 (*)
+rangemap v1.4.0
+rayon v1.10.0 (*)
+rustc-hash v1.1.0
+rustybuzz v0.20.1 (*)
+self_cell v1.2.1
+swash v0.1.19
+skrifa v0.22.3
+bytemuck v1.24.0 (*)
+read-fonts v0.22.7
+bytemuck v1.24.0 (*)
+font-types v0.7.3
+bytemuck v1.24.0 (*)
+yazi v0.1.6
+zeno v0.2.3
+sys-locale v0.3.2
+ttf-parser v0.25.1 (*)
+unicode-bidi v0.3.15
+unicode-linebreak v0.1.5
+unicode-script v0.5.5
+unicode-segmentation v1.11.0
+ctrlc v3.4.7 (*)
+dashmap v6.1.0 (*)
+derivative v2.2.0 (proc-macro) (*)
+derive_more v0.99.17 (proc-macro) (*)
+dwrote v0.11.5 (https://github.com/warpdotdev/dwrote-rs?rev=a71ce6c0136f7d0954a9a8b181b5b2d8ace5eb9c#a71ce6c0) (*)
+font-kit v0.12.0 (https://github.com/warpdotdev/font-kit?rev=a04b225ecb639bb850f21d05212cfdc7465000f3#a04b225e) (*)
+fontdb v0.23.0 (*)
+futures v0.3.31 (*)
+futures-util v0.3.31 (*)
+global-hotkey v0.7.0
+crossbeam-channel v0.5.8
+cfg-if v1.0.4
+crossbeam-utils v0.8.21
+keyboard-types v0.7.0
+bitflags v2.13.0 (*)
+serde v1.0.228 (*)
+unicode-segmentation v1.11.0
+once_cell v1.21.3
+thiserror v2.0.17 (*)
+windows-sys v0.59.0 (*)
+instant v0.1.12 (*)
+itertools v0.14.0 (*)
+lazy_static v1.5.0
+log v0.4.29 (*)
+markdown_parser v0.1.0 (E:\code\WireTerm\crates\markdown_parser) (*)
+memmap2 v0.9.7
+native-dialog v0.7.0
+dirs-next v2.0.0
+cfg-if v1.0.4
+dirs-sys-next v0.1.2
+winapi v0.3.9
+raw-window-handle v0.5.2
+thiserror v1.0.63 (*)
+wfd v0.1.8
+libc v0.2.186
+winapi v0.3.9
+winapi v0.3.9
+num-traits v0.2.19 (*)
+open v5.3.3
+ordered-float v3.9.2 (*)
+owned_ttf_parser v0.25.0
+ttf-parser v0.25.1 (*)
+parking_lot v0.12.5 (*)
+pathfinder_color v0.5.0 (*)
+pathfinder_geometry v0.5.1 (*)
+resvg v0.47.0 (*)
+serde v1.0.228 (*)
+sum_tree v0.1.0 (E:\code\WireTerm\crates\sum_tree) (*)
+takecell v0.1.1
+tauri-winrt-notification v0.7.2
+quick-xml v0.37.4
+memchr v2.7.6
+thiserror v2.0.17 (*)
+windows v0.61.3 (*)
+windows-version v0.1.7
+windows-link v0.2.1
+thiserror v2.0.17 (*)
+url v2.5.4 (*)
+vec1 v1.10.1 (*)
+version-compare v0.1.1
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+wgpu v30.0.0
+arrayvec v0.7.6
+bitflags v2.13.0 (*)
+bytemuck v1.24.0 (*)
+cfg-if v1.0.4
+document-features v0.2.12 (proc-macro) (*)
+hashbrown v0.17.1 (*)
+log v0.4.29 (*)
+parking_lot v0.12.5 (*)
+profiling v1.0.11
+raw-window-handle v0.6.2
+smallvec v1.15.1
+static_assertions v1.1.0
+wgpu-core v30.0.0
+arrayvec v0.7.6
+bit-set v0.10.0
+bit-vec v0.9.1
+bit-vec v0.9.1
+bitflags v2.13.0 (*)
+bytemuck v1.24.0 (*)
+document-features v0.2.12 (proc-macro) (*)
+hashbrown v0.17.1 (*)
+indexmap v2.12.0 (*)
+log v0.4.29 (*)
+naga v30.0.0
+arrayvec v0.7.6
+bit-set v0.10.0 (*)
+bitflags v2.13.0 (*)
+cfg-if v1.0.4
+codespan-reporting v0.13.1
+unicode-width v0.2.1
+half v2.6.0 (*)
+hashbrown v0.17.1 (*)
+indexmap v2.12.0 (*)
+libm v0.2.15
+log v0.4.29 (*)
+naga-types v30.0.0
+hashbrown v0.17.1 (*)
+indexmap v2.12.0 (*)
+rustc-hash v1.1.0
+thiserror v2.0.17 (*)
+num-traits v0.2.19 (*)
+once_cell v1.21.3
+rustc-hash v1.1.0
+spirv v0.4.0+sdk-1.4.341.0
+bitflags v2.13.0 (*)
+thiserror v2.0.17 (*)
+unicode-ident v1.0.12
+cfg_aliases v0.2.1
+naga-types v30.0.0 (*)
+once_cell v1.21.3
+parking_lot v0.12.5 (*)
+profiling v1.0.11
+raw-window-handle v0.6.2
+rustc-hash v1.1.0
+smallvec v1.15.1
+thiserror v2.0.17 (*)
+wgpu-core-deps-windows-linux-android v30.0.0
+wgpu-hal v30.0.0
+arrayvec v0.7.6
+ash v0.38.0+1.3.281
+libloading v0.8.9
+windows-link v0.2.1
+bit-set v0.10.0 (*)
+bitflags v2.13.0 (*)
+bytemuck v1.24.0 (*)
+cfg-if v1.0.4
+glow v0.17.0
+glutin_wgl_sys v0.6.0
+gl_generator v0.14.0
+khronos_api v3.1.0
+log v0.4.29 (*)
+xml-rs v0.8.19
+gpu-allocator v0.28.0
+ash v0.38.0+1.3.281 (*)
+hashbrown v0.16.0 (*)
+log v0.4.29 (*)
+presser v0.3.1
+thiserror v2.0.17 (*)
+windows v0.62.2 (*)
+hashbrown v0.17.1 (*)
+khronos-egl v6.0.0
+libc v0.2.186
+libloading v0.8.9 (*)
+libloading v0.8.9 (*)
+log v0.4.29 (*)
+naga v30.0.0 (*)
+naga-types v30.0.0 (*)
+once_cell v1.21.3
+ordered-float v5.3.0
+num-traits v0.2.19 (*)
+parking_lot v0.12.5 (*)
+profiling v1.0.11
+range-alloc v0.1.3
+raw-window-handle v0.6.2
+renderdoc-sys v1.1.0
+smallvec v1.15.1
+static_assertions v1.1.0
+thiserror v2.0.17 (*)
+wgpu-naga-bridge v30.0.0
+naga v30.0.0 (*)
+wgpu-types v30.0.0
+bitflags v2.13.0 (*)
+bytemuck v1.24.0 (*)
+log v0.4.29 (*)
+naga-types v30.0.0 (*)
+raw-window-handle v0.6.2
+static_assertions v1.1.0
+wgpu-types v30.0.0 (*)
+windows v0.62.2 (*)
+windows-core v0.62.2 (*)
+windows-result v0.4.1 (*)
+cfg_aliases v0.2.1
+wgpu-hal v30.0.0 (*)
+wgpu-naga-bridge v30.0.0 (*)
+wgpu-types v30.0.0 (*)
+cfg_aliases v0.2.1
+wgpu-hal v30.0.0 (*)
+wgpu-types v30.0.0 (*)
+cfg_aliases v0.2.1
+windows v0.62.2 (*)
+windows-core v0.62.2 (*)
+windows-version v0.1.7 (*)
+winit v0.30.13 (https://github.com/warpdotdev/winit.git?rev=14db95a686387211d57cf2afd1d908b2d82a20fe#14db95a6)
+bitflags v2.13.0 (*)
+cursor-icon v1.1.0
+dpi v0.1.1 (https://github.com/warpdotdev/winit.git?rev=14db95a686387211d57cf2afd1d908b2d82a20fe#14db95a6)
+raw-window-handle v0.6.2
+smol_str v0.2.2
+tracing v0.1.44 (*)
+unicode-segmentation v1.11.0
+windows-sys v0.52.0
+windows-targets v0.52.6 (*)
+windows-version v0.1.7 (*)
+cfg_aliases v0.2.1
+winreg v0.55.0 (*)
+bindgen v0.70.1
+bitflags v2.13.0
+cexpr v0.6.0
+nom v7.1.3 (*)
+clang-sys v1.8.1
+glob v0.3.1
+libc v0.2.186
+libloading v0.8.9
+windows-link v0.2.1
+glob v0.3.1
+itertools v0.13.0
+either v1.9.0
+log v0.4.29 (*)
+prettyplease v0.2.37 (*)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+regex v1.11.1 (*)
+rustc-hash v1.1.0
+shlex v1.3.0
+syn v2.0.117 (*)
+cc v1.2.56 (*)
+cfg_aliases v0.2.1
+warpui_extras v0.0.0 (E:\code\WireTerm\crates\warpui_extras) (*)
+windows v0.62.2 (*)
+memchr v2.7.6
+memo-map v0.3.2
+mermaid_to_svg v0.1.0 (https://github.com/warpdotdev/mermaid-to-svg.git?rev=8d3f789c2eb49335d7bf247a06bb649f59b6d4ed#8d3f789c) (*)
+mime_guess v2.0.4 (*)
+mio v1.1.1 (*)
+natural_language_detection v0.1.0 (E:\code\WireTerm\crates\natural_language_detection) (*)
+notify-debouncer-full v0.5.0 (https://github.com/warpdotdev/notify?rev=91b719849bc04ef251bcb2cc61076b099204e970#91b71984) (*)
+num-traits v0.2.19 (*)
+num_cpus v1.16.0
+oauth2 v5.0.0 (*)
+onboarding v0.1.0 (E:\code\WireTerm\crates\onboarding)
+ai v0.1.0 (E:\code\WireTerm\crates\ai) (*)
+anyhow v1.0.79
+cfg-if v1.0.4
+instant v0.1.12 (*)
+log v0.4.29 (*)
+pathfinder_color v0.5.0 (*)
+pathfinder_geometry v0.5.1 (*)
+rust-embed v8.7.2 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+strum v0.27.1
+strum_macros v0.27.1 (proc-macro) (*)
+ui_components v0.0.0 (E:\code\WireTerm\crates\ui_components)
+pathfinder_color v0.5.0 (*)
+pathfinder_geometry v0.5.1 (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+uuid v1.19.0 (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+warp_logging v0.0.0 (E:\code\WireTerm\crates\warp_logging)
+anyhow v1.0.79
+cfg-if v1.0.4
+chrono v0.4.40 (*)
+dirs v6.0.0 (*)
+env_logger v0.10.2 (*)
+log v0.4.29 (*)
+log-panics v2.1.0 (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+zip v2.4.2 (*)
+warpui v0.0.0 (E:\code\WireTerm\crates\warpui) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+once_cell v1.21.3
+ordered-float v3.9.2 (*)
+os_info v3.7.0
+log v0.4.29 (*)
+winapi v0.3.9
+palette v0.6.1 (*)
+parking_lot v0.12.5 (*)
+pathfinder_color v0.5.0 (*)
+pathfinder_geometry v0.5.1 (*)
+persistence v0.0.0 (E:\code\WireTerm\crates\persistence) (*)
+pin-project v1.1.3 (*)
+plist v1.5.1
+base64 v0.21.7
+indexmap v1.9.3 (*)
+line-wrap v0.1.1
+safemem v0.3.3
+quick-xml v0.30.0
+memchr v2.7.6
+serde v1.0.228 (*)
+time v0.3.47 (*)
+prost v0.14.3 (*)
+prost-types v0.14.3 (*)
+qrcode v0.14.1
+rand v0.8.6 (*)
+rangemap v1.4.0
+rayon v1.10.0 (*)
+regex v1.11.1 (*)
+regex-automata v0.4.9 (*)
+remote_server v0.1.0 (E:\code\WireTerm\crates\remote_server)
+anyhow v1.0.79
+async-channel v2.3.1 (*)
+async-io v2.6.0 (*)
+async-process v2.5.0 (*)
+bounded-vec-deque v0.1.1
+command v0.1.0 (E:\code\WireTerm\crates\command) (*)
+dashmap v6.1.0 (*)
+futures v0.3.31 (*)
+futures-lite v1.13.0 (*)
+log v0.4.29 (*)
+prost v0.14.3 (*)
+repo_metadata v0.1.0 (E:\code\WireTerm\crates\repo_metadata) (*)
+serde v1.0.228 (*)
+thiserror v2.0.17 (*)
+uuid v1.19.0 (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+prost-build v0.14.3 (*)
+repo_metadata v0.1.0 (E:\code\WireTerm\crates\repo_metadata) (*)
+reqwest v0.13.5 (*)
+rmcp v3.5.0 (*)
+rust-embed v8.7.2 (*)
+rustc-hash v2.1.1
+rustls v0.23.45 (*)
+schemars v1.0.4 (*)
+secret_redaction v0.0.0 (E:\code\WireTerm\crates\secret_redaction) (*)
+serde v1.0.228 (*)
+serde-bytes-repr v0.3.0
+base64 v0.22.1
+hex v0.4.3
+serde v1.0.228 (*)
+serde_bytes v0.11.19
+serde_core v1.0.228
+serde_json v1.0.150 (*)
+serde_regex v1.1.0 (*)
+serde_urlencoded v0.7.1 (*)
+serde_with v3.21.0 (*)
+serde_yaml v0.8.26 (*)
+session-sharing-protocol v0.0.0 (https://github.com/warpdotdev/session-sharing-protocol.git?rev=f86afe16e65a56ecb9c062c961fcd91167192e9f#f86afe16) (*)
+settings v0.0.0 (E:\code\WireTerm\crates\settings) (*)
+settings_value v0.1.0 (E:\code\WireTerm\crates\settings_value) (*)
+sha2 v0.10.9 (*)
+shell-words v1.1.0
+shellexpand v3.1.1 (*)
+shlex v1.3.0
+similar v2.7.0
+simple_logger v0.1.0 (E:\code\WireTerm\crates\simple_logger) (*)
+siphasher v0.3.11
+smallvec v1.15.1
+smol_str v0.2.2
+static_assertions v1.1.0
+string-offset v0.0.0 (E:\code\WireTerm\crates\string-offset) (*)
+strum v0.27.1
+strum_macros v0.27.1 (proc-macro) (*)
+sum_tree v0.1.0 (E:\code\WireTerm\crates\sum_tree) (*)
+syntax_tree v0.1.0 (E:\code\WireTerm\crates\syntax_tree) (*)
+syntect v5.2.0
+bincode v1.3.3 (*)
+bitflags v1.3.2
+flate2 v1.1.9 (*)
+fnv v1.0.7
+once_cell v1.21.3
+onig v6.5.1
+bitflags v2.13.0 (*)
+libc v0.2.186
+once_cell v1.21.3
+onig_sys v69.9.1
+cc v1.2.56 (*)
+pkg-config v0.3.32
+plist v1.5.1 (*)
+regex-syntax v0.8.5
+serde v1.0.228 (*)
+serde_derive v1.0.228 (proc-macro) (*)
+serde_json v1.0.150 (*)
+thiserror v1.0.63 (*)
+walkdir v2.4.0 (*)
+yaml-rust v0.4.5 (https://github.com/warpdotdev/yaml-rust.git?rev=51684719d0102ca85ff4b21cec39877a0c669e19#51684719) (*)
+sysinfo v0.37.0 (*)
+tabwriter v1.4.1
+unicode-width v0.2.1
+tempfile v3.23.0 (*)
+thiserror v2.0.17 (*)
+thousands v0.2.0
+tokio v1.50.0 (*)
+tokio-util v0.7.18 (*)
+toml v0.8.23
+serde v1.0.228 (*)
+serde_spanned v0.6.9
+serde v1.0.228 (*)
+toml_datetime v0.6.11
+serde v1.0.228 (*)
+toml_edit v0.22.27
+indexmap v2.12.0 (*)
+serde v1.0.228 (*)
+serde_spanned v0.6.9 (*)
+toml_datetime v0.6.11 (*)
+toml_write v0.1.2
+winnow v0.7.12
+toml_edit v0.25.6+spec-1.1.0 (*)
+tracing v0.1.44 (*)
+tracing-futures v0.2.5
+futures v0.3.31 (*)
+futures-task v0.3.31
+pin-project v1.1.3 (*)
+tracing v0.1.44 (*)
+typed-path v0.10.0
+ui_components v0.0.0 (E:\code\WireTerm\crates\ui_components) (*)
+unicase v2.7.0 (*)
+unicode-general-category v1.1.0
+unicode-width v0.1.14
+unindent v0.1.11
+url v2.5.4 (*)
+urlencoding v2.1.3
+urlocator v0.1.4
+uuid v1.19.0 (*)
+validator v0.19.0
+idna v1.0.3 (*)
+once_cell v1.21.3
+regex v1.11.1 (*)
+serde v1.0.228 (*)
+serde_derive v1.0.228 (proc-macro) (*)
+serde_json v1.0.150 (*)
+url v2.5.4 (*)
+variant_count v1.1.0 (proc-macro)
+quote v1.0.45 (*)
+syn v1.0.109 (*)
+vec1 v1.10.1 (*)
+version-compare v0.1.1
+vim v0.1.0 (E:\code\WireTerm\crates\vim) (*)
+vte v0.13.0 (https://github.com/warpdotdev/vte.git?rev=4b399c87b63ba88f45709edaa6383fc519f6c900#4b399c87) (*)
+walkdir v2.4.0 (*)
+warp-command-signatures v0.0.0 (https://github.com/warpdotdev/command-signatures.git?rev=48fd7aa5b7b4d99f5db57d1c5a25c47c05567fcf#48fd7aa5) (*)
+warp-workflows v0.1.0 (https://github.com/warpdotdev/workflows?rev=793a98ddda6ef19682aed66364faebd2829f0e01#793a98dd) (*)
+warp_assets v0.0.0 (E:\code\WireTerm\crates\warp_assets) (*)
+warp_channel_config v0.0.0 (E:\code\WireTerm\crates\warp_channel_config)
+command v0.1.0 (E:\code\WireTerm\crates\command) (*)
+serde_json v1.0.150 (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_cli v0.0.0 (E:\code\WireTerm\crates\warp_cli) (*)
+warp_completer v0.1.0 (E:\code\WireTerm\crates\warp_completer) (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_editor v0.1.0 (E:\code\WireTerm\crates\editor) (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+warp_files v0.1.0 (E:\code\WireTerm\crates\warp_files)
+anyhow v1.0.79
+async-channel v2.3.1 (*)
+async-fs v2.1.2 (*)
+futures v0.3.31 (*)
+log v0.4.29 (*)
+notify-debouncer-full v0.5.0 (https://github.com/warpdotdev/notify?rev=91b719849bc04ef251bcb2cc61076b099204e970#91b71984) (*)
+remote_server v0.1.0 (E:\code\WireTerm\crates\remote_server) (*)
+repo_metadata v0.1.0 (E:\code\WireTerm\crates\repo_metadata) (*)
+same-file v1.0.6 (*)
+thiserror v2.0.17 (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+watcher v0.1.0 (E:\code\WireTerm\crates\watcher) (*)
+warp_graphql v0.1.0 (E:\code\WireTerm\crates\graphql) (*)
+warp_harness_usage v0.0.0 (E:\code\WireTerm\crates\warp_harness_usage)
+chrono v0.4.40 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+warp_isolation_platform v0.1.0 (E:\code\WireTerm\crates\isolation_platform) (*)
+warp_logging v0.0.0 (E:\code\WireTerm\crates\warp_logging) (*)
+warp_managed_secrets v0.1.0 (E:\code\WireTerm\crates\managed_secrets) (*)
+warp_multi_agent_api v0.0.0 (https://github.com/warpdotdev/warp-proto-apis.git?rev=8320a94875bce9e730d9bfc4abda1544279e5db3#8320a948) (*)
+warp_multi_agent_client v0.1.0 (E:\code\WireTerm\crates\warp_multi_agent_client)
+aha-reqwest-eventsource v0.1.0 (*)
+anyhow v1.0.79
+base64 v0.22.1
+cfg-if v1.0.4
+futures v0.3.31 (*)
+prost v0.14.3 (*)
+thiserror v2.0.17 (*)
+tracing v0.1.44 (*)
+tracing-futures v0.2.5 (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_multi_agent_api v0.0.0 (https://github.com/warpdotdev/warp-proto-apis.git?rev=8320a94875bce9e730d9bfc4abda1544279e5db3#8320a948) (*)
+warp_server_client v0.1.0 (E:\code\WireTerm\crates\warp_server_client)
+aha-reqwest-eventsource v0.1.0 (*)
+anyhow v1.0.79
+async-channel v2.3.1 (*)
+async-trait v0.1.89 (proc-macro) (*)
+base64 v0.22.1
+bincode v1.3.3 (*)
+blocking v1.6.2 (*)
+bounded-vec-deque v0.1.1
+bytes v1.11.1 (*)
+cfg-if v1.0.4
+chrono v0.4.40 (*)
+cloud_object_client v0.1.0 (E:\code\WireTerm\crates\cloud_object_client) (*)
+cloud_object_models v0.1.0 (E:\code\WireTerm\crates\cloud_object_models) (*)
+cloud_objects v0.1.0 (E:\code\WireTerm\crates\cloud_objects) (*)
+command v0.1.0 (E:\code\WireTerm\crates\command) (*)
+cynic v3.8.0 (*)
+derivative v2.2.0 (proc-macro) (*)
+diesel v2.3.10 (*)
+firebase v0.1.0 (E:\code\WireTerm\crates\firebase)
+anyhow v1.0.79
+serde v1.0.228 (*)
+futures v0.3.31 (*)
+http v1.4.0 (*)
+http_client v0.0.0 (E:\code\WireTerm\crates\http_client) (*)
+instant v0.1.12 (*)
+itertools v0.14.0 (*)
+lasso v0.7.3 (*)
+log v0.4.29 (*)
+oauth2 v5.0.0 (*)
+parking_lot v0.12.5 (*)
+pathfinder_geometry v0.5.1 (*)
+reqwest v0.13.5 (*)
+schemars v1.0.4 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+session-sharing-protocol v0.0.0 (https://github.com/warpdotdev/session-sharing-protocol.git?rev=f86afe16e65a56ecb9c062c961fcd91167192e9f#f86afe16) (*)
+settings_value v0.1.0 (E:\code\WireTerm\crates\settings_value) (*)
+tempfile v3.23.0 (*)
+thiserror v2.0.17 (*)
+url v2.5.4 (*)
+uuid v1.19.0 (*)
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+warp_graphql v0.1.0 (E:\code\WireTerm\crates\graphql) (*)
+warp_isolation_platform v0.1.0 (E:\code\WireTerm\crates\isolation_platform) (*)
+warp_server_auth v0.1.0 (E:\code\WireTerm\crates\warp_server_auth) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+websocket v0.1.0 (E:\code\WireTerm\crates\websocket) (*)
+warp_ripgrep v0.1.0 (E:\code\WireTerm\crates\warp_ripgrep)
+anyhow v1.0.79
+async-process v2.5.0 (*)
+command v0.1.0 (E:\code\WireTerm\crates\command) (*)
+futures v0.3.31 (*)
+grep v0.4.1
+grep-cli v0.1.12
+bstr v1.9.0 (*)
+globset v0.4.18 (*)
+log v0.4.29 (*)
+termcolor v1.4.1 (*)
+winapi-util v0.1.11 (*)
+grep-matcher v0.1.8
+memchr v2.7.6
+grep-printer v0.3.1
+bstr v1.9.0 (*)
+grep-matcher v0.1.8 (*)
+grep-searcher v0.1.16
+bstr v1.9.0 (*)
+encoding_rs v0.8.35 (*)
+encoding_rs_io v0.1.7
+encoding_rs v0.8.35 (*)
+grep-matcher v0.1.8 (*)
+log v0.4.29 (*)
+memchr v2.7.6
+memmap2 v0.9.7
+log v0.4.29 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+termcolor v1.4.1 (*)
+grep-regex v0.1.14
+bstr v1.9.0 (*)
+grep-matcher v0.1.8 (*)
+log v0.4.29 (*)
+regex-automata v0.4.9 (*)
+regex-syntax v0.8.5
+grep-searcher v0.1.16 (*)
+ignore v0.4.24 (*)
+instant v0.1.12 (*)
+log v0.4.29 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+string-offset v0.0.0 (E:\code\WireTerm\crates\string-offset) (*)
+warp_cli v0.0.0 (E:\code\WireTerm\crates\warp_cli) (*)
+warp_search_core v0.1.0 (E:\code\WireTerm\crates\warp_search_core)
+anyhow v1.0.79
+async-channel v2.3.1 (*)
+async-trait v0.1.89 (proc-macro) (*)
+enum-iterator v1.4.1 (*)
+futures v0.3.31 (*)
+futures-util v0.3.31 (*)
+instant v0.1.12 (*)
+itertools v0.14.0 (*)
+lazy_static v1.5.0
+log v0.4.29 (*)
+ordered-float v3.9.2 (*)
+parking_lot v0.12.5 (*)
+paste v1.0.14 (proc-macro)
+pathfinder_color v0.5.0 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+sha2 v0.10.9 (*)
+string-offset v0.0.0 (E:\code\WireTerm\crates\string-offset) (*)
+strum v0.27.1
+strum_macros v0.27.1 (proc-macro) (*)
+tantivy v0.26.0
+aho-corasick v1.1.3 (*)
+arc-swap v1.7.1
+base64 v0.22.1
+bitpacking v0.9.3
+crunchy v0.2.2
+bon v3.7.1
+bon-macros v3.7.1 (proc-macro)
+darling v0.21.3 (*)
+ident_case v1.0.1
+prettyplease v0.2.37 (*)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+rustversion v1.0.14 (proc-macro)
+syn v2.0.117 (*)
+rustversion v1.0.14 (proc-macro)
+byteorder v1.5.0
+census v0.4.2
+crc32fast v1.5.0 (*)
+crossbeam-channel v0.5.8 (*)
+datasketches v0.2.0
+downcast-rs v2.0.2
+fastdivide v0.4.2
+fnv v1.0.7
+fs4 v0.13.1
+windows-sys v0.59.0 (*)
+htmlescape v0.3.1
+itertools v0.14.0 (*)
+levenshtein_automata v0.2.1
+log v0.4.29 (*)
+lru v0.16.3
+hashbrown v0.16.0 (*)
+lz4_flex v0.13.0
+measure_time v0.9.0
+log v0.4.29 (*)
+memmap2 v0.9.7
+once_cell v1.21.3
+oneshot v0.1.13
+rayon v1.10.0 (*)
+regex v1.11.1 (*)
+rust-stemmers v1.2.0 (*)
+rustc-hash v2.1.1
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+sketches-ddsketch v0.4.0
+serde v1.0.228 (*)
+smallvec v1.15.1
+tantivy-bitpacker v0.10.0
+bitpacking v0.9.3 (*)
+tantivy-columnar v0.7.0
+downcast-rs v2.0.2
+fastdivide v0.4.2
+itertools v0.14.0 (*)
+serde v1.0.228 (*)
+tantivy-bitpacker v0.10.0 (*)
+tantivy-common v0.11.0
+async-trait v0.1.89 (proc-macro) (*)
+byteorder v1.5.0
+ownedbytes v0.9.0
+stable_deref_trait v1.2.0
+serde v1.0.228 (*)
+time v0.3.47 (*)
+tantivy-sstable v0.7.0
+futures-util v0.3.31 (*)
+itertools v0.14.0 (*)
+tantivy-bitpacker v0.10.0 (*)
+tantivy-common v0.11.0 (*)
+tantivy-fst v0.5.0
+byteorder v1.5.0
+regex-syntax v0.8.5
+utf8-ranges v1.0.5
+zstd v0.13.3 (*)
+tantivy-stacker v0.7.0
+murmurhash32 v0.3.1
+tantivy-common v0.11.0 (*)
+tantivy-common v0.11.0 (*)
+tantivy-fst v0.5.0 (*)
+tantivy-query-grammar v0.26.0
+fnv v1.0.7
+nom v7.1.3 (*)
+ordered-float v5.3.0 (*)
+serde v1.0.228 (*)
+serde_json v1.0.150 (*)
+tantivy-stacker v0.7.0 (*)
+tantivy-tokenizer-api v0.7.0
+serde v1.0.228 (*)
+tempfile v3.23.0 (*)
+thiserror v2.0.17 (*)
+time v0.3.47 (*)
+typetag v0.2.21
+erased-serde v0.4.10
+serde_core v1.0.228
+typeid v1.0.3
+inventory v0.3.20
+once_cell v1.21.3
+serde v1.0.228 (*)
+typetag-impl v0.2.21 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+uuid v1.19.0 (*)
+winapi v0.3.9
+warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+warp_server_auth v0.1.0 (E:\code\WireTerm\crates\warp_server_auth) (*)
+warp_server_client v0.1.0 (E:\code\WireTerm\crates\warp_server_client) (*)
+warp_terminal v0.0.0 (E:\code\WireTerm\crates\warp_terminal) (*)
+warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util) (*)
+warpui v0.0.0 (E:\code\WireTerm\crates\warpui) (*)
+warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+warpui_extras v0.0.0 (E:\code\WireTerm\crates\warpui_extras) (*)
+watcher v0.1.0 (E:\code\WireTerm\crates\watcher) (*)
+websocket v0.1.0 (E:\code\WireTerm\crates\websocket) (*)
+wgpu v30.0.0 (*)
+windows v0.62.2 (*)
+windows-registry v0.2.0 (*)
+windows-result v0.2.0 (*)
+winit v0.30.13 (https://github.com/warpdotdev/winit.git?rev=14db95a686387211d57cf2afd1d908b2d82a20fe#14db95a6) (*)
+winreg v0.55.0 (*)
+anyhow v1.0.79
+cc v1.2.56 (*)
+cfg_aliases v0.2.1
+embed-resource v3.0.6
+cc v1.2.56 (*)
+rustc_version v0.4.0 (*)
+toml v0.9.6 (*)
+vswhom v0.1.0
+libc v0.2.186
+vswhom-sys v0.1.3
+libc v0.2.186
+cc v1.2.56 (*)
+winreg v0.55.0
+cfg-if v1.0.4
+windows-sys v0.59.0 (*)
+prost-build v0.14.3 (*)
+sha2 v0.10.9 (*)
+tempfile v3.23.0 (*)
+walkdir v2.4.0 (*)
+warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util) (*)

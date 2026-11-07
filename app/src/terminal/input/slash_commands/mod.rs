@@ -1340,7 +1340,6 @@ impl Input {
             | SlashCommandKind::Upgrade
             | SlashCommandKind::ManageBilling
             | SlashCommandKind::ViewLogs
-            | SlashCommandKind::Voice
             | SlashCommandKind::NaturalLanguageDetection
             | SlashCommandKind::Theme
             | SlashCommandKind::VimMode

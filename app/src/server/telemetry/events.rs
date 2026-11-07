@@ -2157,11 +2157,6 @@ pub enum TelemetryEvent {
         is_git_operations_autogen_enabled: bool,
     },
 
-    /// Emitted when the user toggles the "Voice Input" setting in the AI settings page.
-    ToggleVoiceInputSetting {
-        is_voice_input_enabled: bool,
-    },
-
     /// Emitted when the user toggles the "Show Agent Tips" setting in the AI settings page.
     ToggleShowAgentTips {
         is_enabled: bool,
@@ -2434,16 +2429,6 @@ pub enum TelemetryEvent {
         is_udi_enabled: bool,
         origin: InputUXChangeOrigin,
     },
-    /// User used voice input functionality
-    VoiceInputUsed {
-        action: String, // "start", "stop", "cancel"
-        /// Duration of voice session in milliseconds (for stop action)
-        session_duration_ms: Option<u64>,
-        /// Whether or not Universal Developer Input mode is enabled
-        is_udi_enabled: bool,
-        /// Current input mode when voice was used
-        current_input_mode: InputType,
-    },
     /// User interacted with @-menu for context attachment
     AtMenuInteracted {
         /// Length of the query string
@@ -2651,11 +2636,6 @@ pub enum TelemetryEvent {
         duration_ms: Option<u32>,
         used_fallback_directory: Option<bool>,
         failure_class: Option<CloudAgentShellRecoveryFailureClass>,
-    },
-    /// Emitted when the user uses voice input from the CLI agent footer.
-    CLIAgentToolbarVoiceInputUsed {
-        /// The CLI agent being used.
-        cli_agent: CLIAgent,
     },
     /// Emitted when the user attaches an image from the CLI agent footer.
     CLIAgentToolbarImageAttached {
@@ -3555,9 +3535,6 @@ impl TelemetryEvent {
             } => Some(
                 json!({"is_git_operations_autogen_enabled": is_git_operations_autogen_enabled}),
             ),
-            TelemetryEvent::ToggleVoiceInputSetting {
-                is_voice_input_enabled,
-            } => Some(json!({"is_voice_input_enabled": is_voice_input_enabled})),
             TelemetryEvent::AgentModePotentialAutoDetectionFalsePositive(
                 AgentModeAutoDetectionFalsePositivePayload::InternalDogfoodUsers { input_text },
             ) => Some(json!({"input_text": input_text})),
@@ -4013,17 +3990,6 @@ impl TelemetryEvent {
             } => Some(json!({
                 "is_udi_enabled": is_udi_enabled,
                 "origin": origin,
-            })),
-            TelemetryEvent::VoiceInputUsed {
-                action,
-                session_duration_ms,
-                is_udi_enabled,
-                current_input_mode,
-            } => Some(json!({
-                "action": action,
-                "session_duration_ms": session_duration_ms,
-                "is_udi_enabled": is_udi_enabled,
-                "current_input_mode": current_input_mode,
             })),
             TelemetryEvent::AtMenuInteracted {
                 action,
@@ -4600,9 +4566,6 @@ impl TelemetryEvent {
                 "used_fallback_directory": used_fallback_directory,
                 "failure_class": failure_class,
             })),
-            TelemetryEvent::CLIAgentToolbarVoiceInputUsed { cli_agent } => Some(json!({
-                "agent_name": cli_agent.telemetry_name(),
-            })),
             TelemetryEvent::CLIAgentToolbarImageAttached { cli_agent } => Some(json!({
                 "agent_name": cli_agent.telemetry_name(),
             })),
@@ -5041,7 +5004,6 @@ impl TelemetryEvent {
             | TelemetryEvent::ToggleActiveAI { .. }
             | TelemetryEvent::TogglePromptSuggestionsSetting { .. }
             | TelemetryEvent::ToggleCodeSuggestionsSetting { .. }
-            | TelemetryEvent::ToggleVoiceInputSetting { .. }
             | TelemetryEvent::TierLimitHit(_)
             | TelemetryEvent::SharedObjectLimitHitBannerViewPlansButtonClicked
             | TelemetryEvent::ResourceUsageStats { .. }
@@ -5107,7 +5069,6 @@ impl TelemetryEvent {
             | TelemetryEvent::SearchCodebaseRequested { .. }
             | TelemetryEvent::SearchCodebaseRepoUnavailable { .. }
             | TelemetryEvent::InputUXModeChanged { .. }
-            | TelemetryEvent::VoiceInputUsed { .. }
             | TelemetryEvent::AtMenuInteracted { .. }
             | TelemetryEvent::UserMenuUpgradeClicked
             | TelemetryEvent::TabCloseButtonPositionUpdated { .. }
@@ -5165,7 +5126,6 @@ impl TelemetryEvent {
             | TelemetryEvent::AgentTipClicked { .. }
             | TelemetryEvent::ToggleShowAgentTips { .. }
             | TelemetryEvent::CloudAgentShellRecovery { .. }
-            | TelemetryEvent::CLIAgentToolbarVoiceInputUsed { .. }
             | TelemetryEvent::CLIAgentToolbarImageAttached { .. }
             | TelemetryEvent::CLIAgentToolbarShown { .. }
             | TelemetryEvent::CLIAgentPluginChipClicked { .. }
@@ -5603,7 +5563,6 @@ impl TelemetryEventDesc for TelemetryEventDiscriminants {
                 EnablementState::Flag(FeatureFlag::GitOperationsInCodeReview)
             }
             Self::ZeroStatePromptSuggestionUsed => EnablementState::Always,
-            Self::ToggleVoiceInputSetting => EnablementState::Always,
             Self::AgentModeCodeSuggestionEditedByUser
             | Self::AgentModeCodeFilesNavigated
             | Self::AgentModeCodeDiffHunksNavigated => EnablementState::Always,
@@ -5653,7 +5612,6 @@ impl TelemetryEventDesc for TelemetryEventDiscriminants {
             Self::FileGlobToolFailed { .. } => EnablementState::Always,
             Self::ShellTerminatedPrematurely { .. } => EnablementState::Always,
             Self::InputUXModeChanged { .. } => EnablementState::Always,
-            Self::VoiceInputUsed { .. } => EnablementState::Always,
             Self::AtMenuInteracted { .. } => EnablementState::Always,
             Self::UserMenuUpgradeClicked => EnablementState::Always,
             Self::TabCloseButtonPositionUpdated { .. } => EnablementState::Always,
@@ -5707,7 +5665,6 @@ impl TelemetryEventDesc for TelemetryEventDiscriminants {
             Self::CloudAgentShellRecovery { .. } => {
                 EnablementState::Flag(FeatureFlag::CloudAgentShellRespawn)
             }
-            Self::CLIAgentToolbarVoiceInputUsed { .. } => EnablementState::Always,
             Self::CLIAgentToolbarImageAttached { .. } => EnablementState::Always,
             Self::CLIAgentToolbarShown { .. } => EnablementState::Always,
             Self::CLIAgentPluginChipClicked { .. }
@@ -6097,7 +6054,6 @@ impl TelemetryEventDesc for TelemetryEventDiscriminants {
             Self::ToggleIntelligentAutosuggestionsSetting => {
                 "Toggle Intelligent Autosuggestions Setting"
             }
-            Self::ToggleVoiceInputSetting => "Toggle Voice Input Setting",
             Self::EnvVarCollectionInvoked => "Invoked Environment Variables",
             Self::EnvVarWorkflowParameterization => {
                 "Parameterized Workflow With Environment Variables"
@@ -6201,7 +6157,6 @@ impl TelemetryEventDesc for TelemetryEventDiscriminants {
                 "AgentMode.SearchCodebase.RepoUnavailable"
             }
             Self::InputUXModeChanged { .. } => "Input.InputUXModeChanged",
-            Self::VoiceInputUsed { .. } => "Input.VoiceInputUsed",
             Self::AtMenuInteracted { .. } => "Input.AtMenuInteracted",
             Self::UserMenuUpgradeClicked => "User Menu Upgrade Clicked",
             Self::TabCloseButtonPositionUpdated { .. } => "Update Tab Close Button Position",
@@ -6265,7 +6220,6 @@ impl TelemetryEventDesc for TelemetryEventDiscriminants {
             Self::ToggleShowAgentTips => "Toggle Show Agent Tips",
             Self::AgentExitedShellProcess => "AgentMode.ExitedShellProcess",
             Self::CloudAgentShellRecovery { .. } => "AgentMode.CloudShellRecovery",
-            Self::CLIAgentToolbarVoiceInputUsed { .. } => "CLIAgentFooter.VoiceInputUsed",
             Self::CLIAgentToolbarImageAttached { .. } => "CLIAgentFooter.ImageAttached",
             Self::CLIAgentToolbarShown { .. } => "CLIAgentFooter.Shown",
             Self::CLIAgentPluginChipClicked { .. } => "CLIAgentPlugin.ChipClicked",
@@ -6809,7 +6763,6 @@ impl TelemetryEventDesc for TelemetryEventDiscriminants {
             Self::ToggleGitOperationsAutogenSetting => {
                 "Toggled on/off the git operations autogen setting"
             }
-            Self::ToggleVoiceInputSetting => "Toggled on/off the voice input setting",
             Self::UnitTestSuggestionShown { .. } => "Suggested prompt shown",
             Self::UnitTestSuggestionAccepted { .. } => "Suggested prompt accepted",
             Self::UnitTestSuggestionCancelled { .. } => "Suggested prompt cancelled",
@@ -6981,7 +6934,6 @@ impl TelemetryEventDesc for TelemetryEventDiscriminants {
                 "Tried to use the Search Codebase tool on a repo that is unavailable"
             }
             Self::InputUXModeChanged { .. } => "Changed the input UX mode",
-            Self::VoiceInputUsed { .. } => "Used voice input",
             Self::AtMenuInteracted { .. } => "Interacted with the @ menu",
             Self::UserMenuUpgradeClicked => "Clicked the 'Upgrade' menu item in the user menu",
             Self::TabCloseButtonPositionUpdated { .. } => "Updated the tab close button position",
@@ -7070,9 +7022,6 @@ impl TelemetryEventDesc for TelemetryEventDiscriminants {
             }
             Self::CloudAgentShellRecovery { .. } => {
                 "A cloud agent persistent shell recovery changed state"
-            }
-            Self::CLIAgentToolbarVoiceInputUsed { .. } => {
-                "User used voice input from the CLI agent footer"
             }
             Self::CLIAgentToolbarImageAttached { .. } => {
                 "User attached an image from the CLI agent footer"

@@ -10,16 +10,12 @@ use super::{
     InlineItem, SlashCommandDataSource, SlashCommandDataSourceState, UpdatedActiveCommands,
 };
 use crate::ai::blocklist::block::cli_controller::CLISubagentController;
-#[cfg(feature = "voice_input")]
-use crate::ai::{AIRequestUsageModel, AIRequestUsageModelEvent};
 use crate::auth::AuthStateProvider;
 use crate::search::SyncDataSource;
 use crate::search::data_source::{Query, QueryResult};
 use crate::search::mixer::DataSourceRunErrorWrapper;
-use crate::search::slash_command_menu::static_commands::commands::{COMMAND_REGISTRY, VOICE};
+use crate::search::slash_command_menu::static_commands::commands::COMMAND_REGISTRY;
 use crate::search::slash_command_menu::static_commands::{Availability, SlashCommandKind};
-#[cfg(feature = "voice_input")]
-use crate::settings::{AISettings, AISettingsChangedEvent};
 use crate::terminal::TerminalModel;
 use crate::terminal::input::slash_commands::AcceptSlashCommandOrSavedPrompt;
 use crate::terminal::model::session::active_session::ActiveSession;
@@ -58,20 +54,6 @@ impl TuiSlashCommandDataSource {
             Self::recompute_active_commands,
             ctx,
         );
-
-        #[cfg(feature = "voice_input")]
-        {
-            ctx.subscribe_to_model(&AISettings::handle(ctx), |me, _, event, ctx| {
-                if matches!(event, AISettingsChangedEvent::VoiceInputEnabled { .. }) {
-                    me.recompute_active_commands(ctx);
-                }
-            });
-            ctx.subscribe_to_model(&AIRequestUsageModel::handle(ctx), |me, _, event, ctx| {
-                if matches!(event, AIRequestUsageModelEvent::RequestUsageUpdated) {
-                    me.recompute_active_commands(ctx);
-                }
-            });
-        }
 
         let mut me = Self {
             state: SlashCommandDataSourceState::new(
@@ -112,19 +94,11 @@ impl TuiSlashCommandDataSource {
     fn recompute_active_commands(&mut self, ctx: &mut ModelContext<Self>) {
         let availability = self.availability(ctx);
         let gates = self.common_command_gates(ctx);
-        #[cfg(feature = "voice_input")]
-        let voice_command_is_available = AISettings::as_ref(ctx).is_voice_input_enabled(ctx)
-            && UserWorkspaces::as_ref(ctx).is_voice_enabled()
-            && AIRequestUsageModel::as_ref(ctx).can_request_voice()
-            && self.local_skills_available(ctx);
-        #[cfg(not(feature = "voice_input"))]
-        let voice_command_is_available = false;
         let commands = HashMap::from_iter(
             COMMAND_REGISTRY
                 .all_commands_by_id()
                 .filter(|(_, command)| {
                     command.supports_tui()
-                        && (command.name != VOICE.name || voice_command_is_available)
                         && (command.kind != SlashCommandKind::ManageBilling
                             || self.manage_billing_url(ctx).is_some())
                         && self.command_passes_common_gates(command, availability, &gates)

@@ -12,9 +12,31 @@
 - 机器可读数据：[p0-continue-baseline.json](p0-continue-baseline.json)。
 - 原始构建通过不等于断网、多标签、分屏、干净配置启动或性能通过；这些必须单独记录。
 - 工作区原先已有 TUI 设置删除、设计文档修改及 `.spec-workflow/`。并行修改已由主人确认暂停。
-- 本批定向检查正在运行；等待构建目录锁退出的检查未产生诊断，未记作通过或源码失败。
+- 隔离目标目录的 GUI 检查通过：`cargo check -p warp --bin warp-oss --features gui --offline`
+  2m35s，0 warning。共享 target 目录中的同类检查在 `warp` crate 阶段被环境终止（exit 127，
+  无编译器诊断），不作为源码失败；隔离目录复跑确认通过。该检查在关闭沙箱后执行。
+- 定向测试、GUI Clippy 与变更 crate Clippy 均通过；最终格式化后未再改语义代码。
 
 完整 P0 尚未通过验收；下文历史结果不替代本批结果。
+
+## 第三批：语音输入与 TUI 设置删除（2026-11-07）
+
+范围：`crates/voice_input`、`app/src/voice`、`app/src/ai/voice`、`server/voice_transcriber.rs`、
+编辑器/终端输入栏/RootView 的语音入口、语音设置与命令面板项、配额与 GraphQL 策略字段、
+语音遥测，以及 `settings/tui_*` 四个独立 TUI 设置模块。删除明细见
+[deletion-report.md](deletion-report.md)。
+
+| 检查 | 结果 |
+|---|---|
+| 残留符号 | `voice_input`/`VoiceInput`/`Transcribe` 在源码、manifest 中仅剩旧工具栏配置的兼容过滤；`Tui*Settings` 引用为 0 |
+| GUI `cargo check` | 通过，0 warning，2m35s（隔离 target，关闭沙箱） |
+| 定向测试 | `cargo test -p warp --lib --features gui` 二进制按过滤器执行：toolbar 16、use_agent_footer 11、slash_command 125、settings::ai 30，共 182 通过，0 失败；agent_tips 无独立用例 |
+| Clippy | `cargo clippy -p warp --bin warp-oss --features gui -- -D warnings` 通过（5m34s，0 warning）；`warp_graphql`、`warp_core` 的 `--all-targets --tests -D warnings` 通过（1m28s） |
+| 格式化 | `./script/format` 后对提交中 Rust 文件再次执行 rustfmt（edition 2024、Module 导入分组）；`git diff --cached --check` 无空白错误；`toast_message.rs` 的既有空白行不是本批引入 |
+| 启动 | 本批未重新生成可执行文件，未做 GUI smoke |
+
+测试与 Clippy 结果补充在本节，未通过则不写入通过结论。历史上首批/第二批的运行证据仍然有效，
+但不覆盖本批新增删除。
 
 ## 第二批验证范围
 

@@ -41,7 +41,6 @@ mutation CreateTeam($input: CreateTeamInput!, $request_context: RequestContext!)
               isPromptSuggestionsToggleable
               isNextCommandEnabled
               isGitOperationsAiEnabled
-              isVoiceEnabled
             }
             teamSizePolicy {
               isUnlimited

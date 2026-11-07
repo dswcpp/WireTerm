@@ -14679,7 +14679,7 @@ impl TerminalView {
         object_id: CloudObjectTypeAndId,
         ctx: &mut ViewContext<Self>,
     ) {
-        self.reset_onboarding_blocks(ctx);
+        self.reset_onboarding_blocks();
 
         WarpDriveSettings::handle(ctx).update(ctx, |settings, ctx| {
             report_if_error!(settings.sharing_onboarding_block_shown.set_value(true, ctx));
@@ -14785,11 +14785,6 @@ impl TerminalView {
             },
             ctx,
         );
-
-        #[cfg(feature = "voice_input")]
-        voice_input::VoiceInput::handle(ctx).update(ctx, |voice_input, _| {
-            voice_input.should_suppress_new_feature_popup = true;
-        });
     }
 
     #[cfg_attr(not(feature = "local_fs"), allow(dead_code))]
@@ -14809,14 +14804,7 @@ impl TerminalView {
             ctx,
         );
 
-        if self.block_onboarding_active {
-            #[cfg(feature = "voice_input")]
-            {
-                voice_input::VoiceInput::handle(ctx).update(ctx, |voice_input, _| {
-                    voice_input.should_suppress_new_feature_popup = true;
-                });
-            }
-        }
+        if self.block_onboarding_active {}
     }
 
     pub fn interrupt_onboarding_blocks(&mut self, ctx: &mut ViewContext<Self>) {
@@ -14834,7 +14822,7 @@ impl TerminalView {
             })
         }
 
-        self.reset_onboarding_blocks(ctx);
+        self.reset_onboarding_blocks();
     }
 
     /// Opens a folder that the user may or may not have opened in the past
@@ -15485,16 +15473,10 @@ impl TerminalView {
         });
     }
 
-    fn reset_onboarding_blocks(&mut self, ctx: &mut ViewContext<Self>) {
+    fn reset_onboarding_blocks(&mut self) {
         self.block_onboarding_active = false;
         self.onboarding_prompt_block = None;
         self.settings_import_onboarding_block = None;
-
-        #[cfg(feature = "voice_input")]
-        voice_input::VoiceInput::handle(ctx).update(ctx, |voice_input, _| {
-            voice_input.should_suppress_new_feature_popup = false;
-        });
-        let _ = ctx;
     }
 
     /// Returns the save position ID for the agent view zero state, if one exists.
@@ -20005,7 +19987,7 @@ impl TerminalView {
         ctx.notify();
 
         if self.block_onboarding_active {
-            self.reset_onboarding_blocks(ctx);
+            self.reset_onboarding_blocks();
         }
     }
 
@@ -22178,7 +22160,6 @@ impl TerminalView {
             .get()
             .is_anonymous_or_logged_out()
         {
-            
             return;
         }
 
@@ -25251,18 +25232,6 @@ impl TerminalView {
         alt_screen_element =
             alt_screen_element.with_shared_session_presence(self.shared_session_presence_manager());
 
-        // Pass voice input toggle key if the CLI agent footer should be rendered
-        #[cfg(feature = "voice_input")]
-        if self.should_render_use_agent_footer(model, app)
-            && self.use_agent_footer.as_ref(app).has_cli_agent(app)
-        {
-            let voice_key = AISettings::as_ref(app)
-                .voice_input_toggle_key
-                .value()
-                .to_key_code();
-            alt_screen_element = alt_screen_element.with_voice_input_toggle_key(voice_key);
-        }
-
         let required_terminal_height = self.size_info.cell_height_px.as_f32() * (rows as f32)
             + 2. * self.size_info.padding_y_px().as_f32();
         let pane_height = self.content_element_height_px(app);
@@ -25517,18 +25486,6 @@ impl TerminalView {
 
         if self.should_hide_cli_agent_cursor_cell(app) {
             element = element.with_hide_cursor_cell();
-        }
-
-        // Pass voice input toggle key if the CLI agent footer should be rendered
-        #[cfg(feature = "voice_input")]
-        if self.should_render_use_agent_footer(model, app)
-            && self.use_agent_footer.as_ref(app).has_cli_agent(app)
-        {
-            let voice_key = AISettings::as_ref(app)
-                .voice_input_toggle_key
-                .value()
-                .to_key_code();
-            element = element.with_voice_input_toggle_key(voice_key);
         }
 
         element = element.with_filtered_blocks(filtered_blocks);
@@ -27735,8 +27692,7 @@ impl TypedActionView for TerminalView {
                 "Use file picker to select a git repository".to_owned(),
                 WarpA11yRole::PopoverRole,
             )),
-            #[cfg(feature = "voice_input")]
-            ToggleCLIAgentVoiceInput(_) => Empty,
+
             // Below are actions that are most likely irrelevant to users or are very noisy and the
             // debug version shouldn't be announced.
             Scroll { .. }
@@ -28356,29 +28312,11 @@ impl TypedActionView for TerminalView {
                 }
                 ctx.notify();
             }
-            #[cfg(feature = "voice_input")]
-            ToggleCLIAgentVoiceInput(source) => {
-                // For CLI agents, route through the footer's self-contained
-                // voice flow (records + writes transcription to PTY). For
-                // the regular editor, fall back to the editor-based flow.
-                let has_cli_agent = self.use_agent_footer.as_ref(ctx).has_cli_agent(ctx);
-                if has_cli_agent {
-                    let footer = self.input.as_ref(ctx).agent_input_footer().clone();
-                    footer.update(ctx, |footer, ctx| {
-                        footer.toggle_cli_voice_input(source, ctx);
-                    });
-                } else {
-                    self.input.update(ctx, |input, ctx| {
-                        input.toggle_voice_input(source, ctx);
-                    });
-                }
-            }
+
             HyperlinkClick(hyperlink) => {
                 self.open_hyperlink_uri(&hyperlink.url, ctx);
             }
-            AttemptLoginGatedFeature => {
-                
-            }
+            AttemptLoginGatedFeature => {}
             StartFileDropTarget => {
                 let Some(session) = self
                     .active_block_session_id()

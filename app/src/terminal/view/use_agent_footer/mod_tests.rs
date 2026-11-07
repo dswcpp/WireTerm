@@ -472,7 +472,7 @@ fn test_rich_input_submit_strategy_for_hermes_uses_bracketed_paste() {
 }
 
 #[test]
-fn insert_cli_agent_voice_text_hermes_multiline_uses_bracketed_paste_without_submitting() {
+fn insert_cli_agent_text_hermes_multiline_uses_bracketed_paste_without_submitting() {
     App::test((), |mut app| async move {
         initialize_app_for_terminal_view(&mut app);
 
@@ -518,7 +518,7 @@ fn insert_cli_agent_voice_text_hermes_multiline_uses_bracketed_paste_without_sub
         assert_eq!(
             writes.len(),
             1,
-            "voice transcription should be inserted without a separate submit"
+            "text should be inserted without a separate submit"
         );
 
         let mut expected_paste =

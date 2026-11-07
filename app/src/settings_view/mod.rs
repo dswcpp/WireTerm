@@ -625,7 +625,6 @@ pub mod flags {
     pub const ALLOW_NATIVE_WAYLAND: &str = "Allow_Native_Wayland";
     pub const IS_ANY_AI_ENABLED: &str = "IsAnyAIEnabled";
     pub const IS_ACTIVE_AI_ENABLED: &str = "IsActiveAIEnabled";
-    pub const IS_VOICE_INPUT_ENABLED: &str = "IsVoiceInputEnabled";
     pub const IS_BLOCK_AI_SUMMARIES_ENABLED: &str = "IsBlockAISummariesEnabled";
     pub const IS_CODEBASE_INDEXING_ENABLED: &str = "IsCodebaseIndexingEnabled";
     pub const IS_AUTOINDEXING_ENABLED: &str = "IsAutoIndexingEnabled";
@@ -1719,8 +1718,6 @@ impl SettingsView {
             .collect();
     }
 
-    
-
     fn handle_billing_and_usage_page_event(
         &mut self,
         event: &BillingAndUsagePageEvent,
@@ -2706,7 +2703,7 @@ impl TypedActionView for SettingsView {
                     ctx.notify();
                 }
             }
-            
+
             SettingsAction::AppearancePageToggle(appearance_action) => {
                 if let Some(appearance_page) = self.settings_page(SettingsSection::Appearance)
                     && let SettingsPageViewHandle::Appearance(view) = &appearance_page.view_handle

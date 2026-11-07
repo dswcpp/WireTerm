@@ -43,12 +43,8 @@ use crate::server::experiments::ServerExperiments;
 use crate::server::ids::ServerId;
 use crate::server::server_api::ServerApiProvider;
 use crate::server::sync_queue::SyncQueue;
-#[cfg(feature = "voice_input")]
-use crate::server::voice_transcriber::ServerVoiceTranscriber;
 use crate::settings::manager::SettingsManager;
-use crate::settings::{
-    AISettings, PrivacySettings, TuiVoiceSettings, init_and_register_user_preferences,
-};
+use crate::settings::{AISettings, PrivacySettings, init_and_register_user_preferences};
 use crate::terminal::cli_agent_sessions::CLIAgentSessionsModel;
 use crate::terminal::event::Event;
 use crate::terminal::model::session::active_session::ActiveSession;
@@ -64,8 +60,6 @@ use crate::terminal::shell::{Shell, ShellType};
 use crate::terminal::{History, HistoryEntry, HistoryEvent};
 use crate::tui_onboarding_markers::TuiOnboardingMarkers;
 use crate::user_config::WarpConfig;
-#[cfg(feature = "voice_input")]
-use crate::voice::transcriber::VoiceTranscriber;
 use crate::workspaces::team::{MembershipRole, Team, TeamMember};
 use crate::workspaces::user_workspaces::{TeamScope, UserWorkspaces};
 use crate::workspaces::workspace::Workspace;
@@ -351,7 +345,6 @@ pub fn register_tui_session_view_test_singletons(app: &mut warpui::App) {
         warpui_extras::secure_storage::register_noop("test", ctx);
     });
     app.update(AISettings::register_and_subscribe_to_events);
-    app.update(TuiVoiceSettings::register);
     CloudAgentSettings::register(app);
     app.add_singleton_model(ApiKeyManager::new);
 
@@ -384,15 +377,6 @@ pub fn register_tui_session_view_test_singletons(app: &mut warpui::App) {
     app.add_singleton_model(|ctx| {
         AIRequestUsageModel::new(ServerApiProvider::as_ref(ctx).get_ai_client(), ctx)
     });
-    #[cfg(feature = "voice_input")]
-    {
-        app.add_singleton_model(voice_input::VoiceInput::new);
-        app.add_singleton_model(|ctx| {
-            VoiceTranscriber::new(Arc::new(ServerVoiceTranscriber::new(
-                ServerApiProvider::as_ref(ctx).get(),
-            )))
-        });
-    }
     app.add_singleton_model(|_| {
         crate::ai::document::ai_document_model::AIDocumentModel::new_for_test()
     });
@@ -424,8 +408,6 @@ pub fn register_tui_session_view_test_singletons(app: &mut warpui::App) {
         crate::changelog_model::ChangelogModel::new(ServerApiProvider::as_ref(ctx).get())
     });
     app.add_singleton_model(|_| ai::project_context::model::ProjectContextModel::default());
-    app.update(crate::settings::TuiAutoupdateSettings::register);
-    app.update(crate::settings::TuiThemeSettings::register);
     app.update(crate::settings::CodeSettings::register);
     app.update(crate::settings::FontSettings::register);
     app.update(crate::settings::InputSettings::register);

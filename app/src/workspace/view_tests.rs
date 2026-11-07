@@ -56,7 +56,6 @@ use crate::pane_group::{Direction, PaneGroupAction, PaneId};
 use crate::pricing::PricingInfoModel;
 #[cfg(not(target_family = "wasm"))]
 use crate::remote_server::codebase_index_model::RemoteCodebaseIndexModel;
-use crate::resource_center::Tip;
 use crate::server::cloud_objects::listener::Listener;
 use crate::server::cloud_objects::update_manager::UpdateManager;
 use crate::server::experiments::ServerExperiments;
@@ -197,8 +196,7 @@ pub(crate) fn initialize_app_with_team_client(app: &mut App, team_client: Arc<dy
         AIExecutionProfilesModel::new(&crate::LaunchMode::new_for_unit_test(), ctx)
     });
     app.add_singleton_model(RepoOutlines::new_for_test);
-    #[cfg(feature = "voice_input")]
-    app.add_singleton_model(voice_input::VoiceInput::new);
+
     app.add_singleton_model(BlocklistAIPermissions::new);
     app.add_singleton_model(|_| GPUState::new());
     // Register IapManager in a disabled state (no IapState). The settings
@@ -582,8 +580,6 @@ fn test_theme_chooser_does_not_suppress_tab_bar_traffic_light_padding() {
         });
     });
 }
-
-
 
 fn assert_vertical_tabs_tools_panel_preserves_padding(config: HeaderToolbarChipSelection) {
     App::test((), |mut app| async move {
@@ -2807,8 +2803,6 @@ fn test_terminal_model_isnt_leaked() {
         )
     });
 }
-
-
 
 #[test]
 fn test_stop_sharing_session() {
@@ -5145,8 +5139,6 @@ fn test_pin_tab_on_grouped_tab_extracts_then_pins() {
         });
     });
 }
-
-
 
 #[cfg(target_family = "wasm")]
 mod simplified_wasm_tab_bar {

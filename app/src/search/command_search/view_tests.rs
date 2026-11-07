@@ -2,6 +2,7 @@ use warpui::App;
 use warpui::platform::WindowStyle;
 
 use super::*;
+use crate::auth::AuthManager;
 use crate::cloud_object::model::persistence::CloudModel;
 use crate::network::NetworkStatus;
 use crate::server::cloud_objects::listener::Listener;
@@ -35,8 +36,6 @@ fn initialize_app(app: &mut App) {
     app.add_singleton_model(|_| Appearance::mock());
     app.add_singleton_model(|_| ResizableData::default());
     app.add_singleton_model(|_| KeybindingChangedNotifier::mock());
-    #[cfg(feature = "voice_input")]
-    app.add_singleton_model(voice_input::VoiceInput::new);
 }
 
 #[test]
