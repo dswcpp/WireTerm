@@ -33,6 +33,7 @@
 | 定向测试 | `cargo test -p warp --lib --features gui` 二进制按过滤器执行：toolbar 16、use_agent_footer 11、slash_command 125、settings::ai 30，共 182 通过，0 失败；agent_tips 无独立用例 |
 | Clippy | `cargo clippy -p warp --bin warp-oss --features gui -- -D warnings` 通过（5m34s，0 warning）；`warp_graphql`、`warp_core` 的 `--all-targets --tests -D warnings` 通过（1m28s） |
 | 格式化 | `./script/format` 后对提交中 Rust 文件再次执行 rustfmt（edition 2024、Module 导入分组）；`git diff --cached --check` 无空白错误；`toast_message.rs` 的既有空白行不是本批引入 |
+| 提交 | `9a5596e1`；100 个文件，提交树中的源码与上述检查一致 |
 | 启动 | 本批未重新生成可执行文件，未做 GUI smoke |
 
 测试与 Clippy 结果补充在本节，未通过则不写入通过结论。历史上首批/第二批的运行证据仍然有效，

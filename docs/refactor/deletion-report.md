@@ -54,6 +54,8 @@
 `VoiceInput` 项，避免用户本地设置整份失效。净减少 16 个跟踪文件。行数按 Git blob 换行统计；
 删除 18 个 `.rs` 文件的同时，保留文件内还删除了约 2,750 行语音分支与设置代码（含 rustfmt
 收回的空白行）。Cargo.lock 的 214 行减少与 18 个包一致。
+本批提交：`9a5596e1`，100 个文件，4,802 插入、5,423 删除。提交只包含本批路径；
+工作树中与本批无关的并行格式化改动未纳入。
 机器可读数据见 [p0-continuation-current.json](p0-continuation-current.json)、
 [p0-continuation-deleted-files.txt](p0-continuation-deleted-files.txt) 和
 [p0-gui-dependencies.txt](p0-gui-dependencies.txt)。本批未重新生成 debug exe，因此不提供
