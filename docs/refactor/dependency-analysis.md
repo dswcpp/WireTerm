@@ -1,5 +1,32 @@
 # 依赖分析
 
+## 第三批：语音输入与 TUI 设置残留
+
+语音输入在删除前有两条独立链路，因此分两处解除：
+
+- 录音链路：`crates/voice_input`（cpal/alsa 等平台音频依赖）→ `app/src/voice/transcriber.rs`
+  → `server/voice_transcriber.rs`（调用 `ServerApi::transcribe`，即 Warp `/ai/transcribe`）
+  → 编辑器/CLI footer 的语音状态。
+- UI 链路：`AISettings` 的 voice 设置组 → Warp AI 设置页下拉框、UDI 麦克风按钮、
+  agent toolbar 的 `VoiceInput` 项、`/voice` 斜杠命令、编辑器语音图标与修饰键热键。
+
+两链路的消费者（`EditorView`、`Input`、`UniversalDeveloperInputButtonBar`、`RootView`、
+`AgentInputFooter`、`agent_tips`）先移除调用与状态字段，再删除模块文件与 crate。
+`app/src/ai/voice/`（转录请求 DTO）仅被 `ServerApi::transcribe` 与 `VoiceTranscriber` 使用，
+一并删除。`ServerApi` 的其余网络客户端保留，不能把本批视为云 AI 已清零。
+
+`crates/voice_input` 的 Cargo.lock 反向依赖为空；从 app 移除后，锁文件同时删除
+`alsa`、`alsa-sys`、`coreaudio-rs`、`cpal`、`dasp_sample`、`hound`、`mach2`、
+`objc2-audio-toolbox`、`objc2-avf-audio`、`objc2-core-audio`、`objc2-core-audio-types`、
+`primal-check`、`realfft`、`rubato`、`rustfft`、`strength_reduce`、`transpose`、
+`voice_input` 共 18 个包。GUI feature 原先把 `voice_input` 作为传播依赖（`gui = ["voice_input"]`），
+该 feature 边与 TUI-only 状态栏项一并删除。
+
+TUI 设置残留（`tui_autoupdate`、`tui_theme`、`tui_voice`、`tui_zero_state`）的导出符号在
+`app/src` 内没有外部消费者，只有设置注册与测试初始化引用；删除这些引用后整文件删除。
+共享 cell-grid 框架（`warpui_core::elements::tui`）与 `TuiZeroStateDataSource` 等业务数据源
+不受影响，未把它们误删为“TUI 适配残留”。
+
 ## 第二批依赖边界与当前启动链
 
 原始启动链记于下节；当前桌面启动为：`run_internal` → `initialize_app` → 本地 Settings / secure
@@ -174,3 +201,35 @@ gui-dependency-comparison.json。减少的 6 个包全部属于 OTLP；删除的
 | warpui_extras | warp_errors, warpui_core, warpui_extras | ai, integration, mcp, settings, warp, warp_core, warp_server_auth, warpui_extras |
 | watcher | warp_errors, warpui_core | ai, repo_metadata, warp, warp_files |
 | websocket | — | warp, warp_core, warp_errors, warp_graphql, warp_server_client |
+# P0 续作依赖审计（2026-11-07）
+
+续作 SHA：`59289b393215592d71c133511220da29db2def99`；分支：`codex/p0-source-pruning`。
+完整声明依赖／反向引用见 [p0-workspace-graph.json](p0-workspace-graph.json)。
+
+桌面启动链：`app/src/bin/oss.rs` → `initialize_app` → `AuthInitialization::Local` →
+`RootView::new` → `Workspace::new` → Pane／TerminalView → TerminalModel／PTY。
+历史两批已经删除 GUI 登录和 Drive 侧栏，但共享服务模型仍由初始化链注册。
+
+本批语音调用链：GUI feature → `VoiceInput` 单例 → EditorView／AgentInputFooter／UDI →
+`VoiceTranscriber` → `ServerVoiceTranscriber` → `ServerApi::transcribe` → `/ai/transcribe`。
+删除时同时解除 singleton、输入事件、光标图标、设置搜索、命令面板和专用测试，
+随后从 app 与 workspace manifest 删除 voice_input，最后由 Cargo 重新计算锁文件。
+
+仍需审计的外部服务入口：
+
+| 路径 | 实际用途／阻塞边界 |
+|---|---|
+| `app/src/server/server_api.rs` | Warp HTTP API、云 AI 与配额；删除语音接口不等于删除全部 ServerApi |
+| `crates/graphql`、`crates/warp_server_client` | GraphQL、WebSocket、会话及云对象客户端；仍有保留模型反向引用 |
+| `crates/warp_server_auth`、`app/src/auth` | 账号 token、CLI/device flow；UserUid 与本地对象键共用 |
+| `app/src/settings/cloud_preferences_syncer.rs` | 云偏好同步，与本地设置存储及迁移共享调用链 |
+| `app/src/server/cloud_objects/update_manager.rs` | 远端对象更新与本地对象恢复混合，需明确本地对象迁移契约 |
+| `app/src/autoupdate/channel_versions.rs` | Warp 版本接口及 GCP 回退下载，不应保留于最终离线产品 |
+| `app/src/workspaces`、`billing`、`pricing` | 团队策略、商业权限和配额，与云 Agent 功能可用性共同引用 |
+| `app/src/crash_reporting` | 可选远端错误报告，尚不能声称遥测全部清零 |
+
+共享 HTTP/WebSocket、MCP、第三方 OAuth 和本地远程文件接口不能仅凭名字删除；
+其网络能力和 Warp 云业务应按调用方分别处理。保留原始版权、许可证和通用异步执行器。
+
+---
+
