@@ -871,6 +871,10 @@ CLI 和 GUI 共用 application service，而不是让 CLI 直接操作 UI 内部
 
 ### Sprint 2：串口核心
 
+实现与验收记录见 [串口与普通 SSH 会话实现](serial-ssh-implementation.md)。当前已有独立连接模块、
+工作区入口、参数配置、文本/HEX、模板及日志实现；真实 MCU 回环、拔插和吞吐验收尚未完成，以下验收项
+不因代码落地而自动勾选。
+
 - [ ] Port 枚举、设备档案
 - [ ] `SerialTransport` 适配
 - [ ] 连接/断开/错误/取消状态机

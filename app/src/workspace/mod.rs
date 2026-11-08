@@ -736,6 +736,20 @@ pub fn init(app: &mut AppContext) {
         .with_context_predicate(id!("Workspace") & !id!("Workspace_PaneDragging"))
         .with_custom_action(CustomAction::NewTerminalTab)
         .with_enabled(|| ContextFlag::CreateNewSession.is_enabled()),
+        #[cfg(not(target_family = "wasm"))]
+        EditableBinding::new(
+            "workspace:new_serial_connection",
+            BindingDescription::new("New Serial Connection"),
+            WorkspaceAction::SelectNewSessionMenuItem(NewSessionMenuItem::SerialConnection),
+        )
+        .with_context_predicate(id!("Workspace")),
+        #[cfg(not(target_family = "wasm"))]
+        EditableBinding::new(
+            "workspace:new_ssh_connection",
+            BindingDescription::new("New SSH Connection"),
+            WorkspaceAction::SelectNewSessionMenuItem(NewSessionMenuItem::SshConnection),
+        )
+        .with_context_predicate(id!("Workspace")),
         EditableBinding::new(
             NEW_AGENT_TAB_BINDING_NAME,
             BindingDescription::new("New Agent Tab"),

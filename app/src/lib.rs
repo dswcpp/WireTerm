@@ -764,6 +764,20 @@ fn apply_scroll_multiplier(event: &mut Event, app: &AppContext) {
 /// parser and therefore do not require a separate mode flag.
 #[::tracing::instrument(skip_all, fields(tags.cloud_agent = true))]
 pub fn run() -> Result<()> {
+    #[cfg(not(target_family = "wasm"))]
+    if std::env::args_os().nth(1).as_deref() == Some(std::ffi::OsStr::new("--wireterm")) {
+        #[cfg(windows)]
+        warp_util::windows::attach_to_parent_console();
+        let code = match wireterm_connections::run(std::env::args_os().skip(2)) {
+            Ok(code) => code,
+            Err(error) => {
+                eprintln!("WireTerm connection: {error:#}");
+                1
+            }
+        };
+        std::process::exit(code);
+    }
+
     // Perform any necessary platform-specific initialization.
     platform::init();
 

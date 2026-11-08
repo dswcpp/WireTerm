@@ -6931,6 +6931,18 @@ impl Workspace {
             menu_items.push(docker_item.into_item());
         }
 
+        #[cfg(all(feature = "local_tty", not(target_family = "wasm")))]
+        for (label, item) in [
+            ("Serial Connection", NewSessionMenuItem::SerialConnection),
+            ("SSH Connection", NewSessionMenuItem::SshConnection),
+        ] {
+            menu_items.push(
+                MenuItemFields::new(label)
+                    .with_on_select_action(WorkspaceAction::SelectNewSessionMenuItem(item))
+                    .into_item(),
+            );
+        }
+
         // 4. User tab configs
         if FeatureFlag::TabConfigs.is_enabled() {
             let tab_configs = WarpConfig::as_ref(ctx).tab_configs().to_vec();
@@ -7151,6 +7163,10 @@ impl Workspace {
         ctx: &mut ViewContext<Self>,
     ) {
         match new_session_menu_item {
+            #[cfg(not(target_family = "wasm"))]
+            NewSessionMenuItem::SerialConnection => self.open_wireterm_connection("serial", ctx),
+            #[cfg(not(target_family = "wasm"))]
+            NewSessionMenuItem::SshConnection => self.open_wireterm_connection("ssh", ctx),
             NewSessionMenuItem::OpenLaunchConfig(launch_config) => ctx.dispatch_global_action(
                 "root_view:open_launch_config",
                 OpenLaunchConfigArg {
@@ -7174,6 +7190,31 @@ impl Workspace {
                 }
             }
         }
+    }
+
+    #[cfg(not(target_family = "wasm"))]
+    fn open_wireterm_connection(&mut self, transport: &str, ctx: &mut ViewContext<Self>) {
+        use crate::launch_configs::launch_config::{CommandTemplate, PaneMode, PaneTemplateType};
+
+        let Ok(executable) = std::env::current_exe() else { return; };
+        let path = executable.to_string_lossy();
+        let (shell, command) = if cfg!(windows) {
+            ("powershell", format!("$wireTermConnection = [System.Diagnostics.Process]::Start([System.Diagnostics.ProcessStartInfo]@{{ FileName = '{}'; Arguments = '--wireterm wizard {transport}'; UseShellExecute = $false }}); $wireTermConnection.WaitForExit(); $global:LASTEXITCODE = $wireTermConnection.ExitCode", path.replace('\'', "''")))
+        } else {
+            ("bash", format!("'{}' --wireterm wizard {transport}", path.replace('\'', "'\\''")))
+        };
+        self.add_tab_with_pane_layout(
+            PanesLayout::Template(PaneTemplateType::PaneTemplate {
+                cwd: dirs::home_dir().unwrap_or_default(),
+                commands: vec![CommandTemplate { exec: command }],
+                is_focused: Some(true),
+                pane_mode: PaneMode::Terminal,
+                shell: Some(shell.into()),
+            }),
+            Arc::new(HashMap::new()),
+            Some(format!("WireTerm {transport}")),
+            ctx,
+        );
     }
 
     /// Opens a tab config after the user has filled in (or confirmed) param values.

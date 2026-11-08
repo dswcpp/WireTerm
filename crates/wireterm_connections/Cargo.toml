@@ -1,0 +1,24 @@
+[package]
+name = "wireterm_connections"
+version = "0.1.0"
+edition = "2024"
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+clap.workspace = true
+crossterm = "0.29"
+dirs.workspace = true
+encoding_rs = "0.8"
+serde.workspace = true
+serde_json.workspace = true
+tokio = { workspace = true, features = ["rt-multi-thread", "sync", "io-util", "fs", "time", "macros"] }
+tokio-util = { workspace = true, features = ["rt"] }
+tokio-serial = "5.4.5"
+tempfile.workspace = true
+uuid = { workspace = true, features = ["v4", "serde"] }
+
+[[bin]]
+name = "wireterm-connect"
+path = "src/main.rs"

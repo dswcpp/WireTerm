@@ -302,6 +302,7 @@ winit = { workspace = true }
 wgpu.workspace = true
 
 [target.'cfg(not(target_family = "wasm"))'.dependencies]
+wireterm_connections = { path = "../crates/wireterm_connections" }
 app-installation-detection.workspace = true
 async-io.workspace = true
 axum.workspace = true

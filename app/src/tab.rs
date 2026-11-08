@@ -329,6 +329,10 @@ pub enum TabTelemetryAction {
 }
 #[derive(Debug, Clone)]
 pub enum NewSessionMenuItem {
+    #[cfg(not(target_family = "wasm"))]
+    SerialConnection,
+    #[cfg(not(target_family = "wasm"))]
+    SshConnection,
     OpenLaunchConfig(LaunchConfig),
     OpenLaunchConfigDocs,
     CreateNewTabConfig,
