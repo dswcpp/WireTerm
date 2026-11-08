@@ -973,6 +973,11 @@ impl BlocklistAIActionExecutor {
     }
 
     fn should_autoexecute(&self, input: ExecuteActionInput, ctx: &mut ModelContext<Self>) -> bool {
+        if ::ai::api_keys::uses_direct_inference()
+            && matches!(input.action.action, AIAgentActionType::RequestCommandOutput { .. })
+        {
+            return false;
+        }
         let team_context_resolver = self.team_context_resolver.clone();
         match input.action.action {
             AIAgentActionType::RequestCommandOutput { .. }

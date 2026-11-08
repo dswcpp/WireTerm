@@ -20442,11 +20442,17 @@ impl TerminalView {
         {
             self.enter_agent_view_for_new_conversation(
                 None,
-                AgentViewEntryOrigin::Input { was_prompt_autodetected: false },
+                AgentViewEntryOrigin::Input {
+                    was_prompt_autodetected: false,
+                },
                 ctx,
             );
             if self.agent_view_controller.as_ref(ctx).is_fullscreen() {
-                let prompt = format!("What is the command to: {}", query.trim());
+                let prompt = if ai::api_keys::uses_direct_inference() {
+                    query.trim().to_string()
+                } else {
+                    format!("What is the command to: {}", query.trim())
+                };
                 self.set_ai_input_mode_with_query(Some(&prompt), ctx);
             }
             return;
@@ -20478,8 +20484,12 @@ impl TerminalView {
             }
 
             AskAIType::FromAICommandSearch { query } => {
-                let query_prefix = "What is the command to: ";
-                (Some(format!("{}{}", query_prefix, query.trim())), None)
+                let prompt = if ai::api_keys::uses_direct_inference() {
+                    query.trim().to_string()
+                } else {
+                    format!("What is the command to: {}", query.trim())
+                };
+                (Some(prompt), None)
             }
         };
 

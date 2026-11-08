@@ -5208,7 +5208,7 @@ impl ApiKeysWidget {
         if show_custom_endpoints {
             add_paragraph(vec![FormattedTextFragment::plain_text(
                 if ai::api_keys::uses_direct_inference() {
-                    "Connect directly to an OpenAI-compatible model. Enter its Base URL, model ID and API key, then select the model in Agent. Prompts, selected text and conversation history are sent to this endpoint. This version supports text conversations only; commands, files and tools are not executed."
+                    "Connect directly to an OpenAI-compatible model. Enter its Base URL, model ID and API key, then select the model in Agent. Prompts, selected text and conversation history are sent to this endpoint. Agent can request commands in the current terminal. Each command requires your approval; results are sent back to the model. Other tools and image inputs are not supported."
                 } else {
                     "Add custom endpoints to use third-party models. Custom endpoints must support OpenAI Chat Completions, OpenAI Responses, or Anthropic Messages."
                 },

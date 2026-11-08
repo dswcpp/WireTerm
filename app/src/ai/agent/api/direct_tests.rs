@@ -83,7 +83,8 @@ fn request_uses_selected_model_history_and_explicit_text_only() {
             .unwrap()
             .contains("device ready")
     );
-    assert!(body.get("tools").is_none());
+    assert_eq!(body["tools"][0]["function"]["name"], "run_shell_command");
+    assert_eq!(body["parallel_tool_calls"], false);
     assert!(body.get("api_keys").is_none());
     assert!(!prepared.new_task);
     assert_eq!(prepared.task_id, "existing-task");
@@ -113,7 +114,7 @@ fn remote_endpoint_requires_key_and_request_size_is_bounded() {
 }
 
 #[test]
-fn parses_sse_text_and_rejects_tools_and_malformed_events() {
+fn parses_sse_text_and_tool_completion_and_rejects_malformed_events() {
     assert_eq!(parse_event(b": keepalive").unwrap(), None);
     assert_eq!(
         parse_event(b"data: [DONE]").unwrap(),
@@ -122,7 +123,7 @@ fn parses_sse_text_and_rejects_tools_and_malformed_events() {
     let event =
         br#"data: {"choices":[{"index":0,"delta":{"content":"hello"},"finish_reason":null}]}"#;
     assert_eq!(parse_event(event).unwrap(), Some(("hello".into(), None)));
-    assert!(parse_event(br#"data: {"choices":[{"index":0,"delta":{"tool_calls":[{}]},"finish_reason":"tool_calls"}]}"#).is_err());
+    assert!(parse_event(br#"data: {"choices":[{"index":0,"delta":{"tool_calls":[]},"finish_reason":"tool_calls"}]}"#).is_ok());
     assert!(parse_event(b"data: not json").is_err());
 }
 
@@ -214,21 +215,97 @@ fn command_suggestions_connect_without_an_existing_tokio_runtime() {
             "finish_reason": "stop",
             "message": { "content": r#"[{"command":"Get-ChildItem","description":"List files"}]"# }
         }]
-    }).to_string();
-    let response = format!("HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}", body.len());
+    })
+    .to_string();
+    let response = format!(
+        "HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}",
+        body.len()
+    );
     let (url, server) = serve(response);
     let endpoint = ai::api_keys::CustomEndpoint {
-        name: "test".into(), url, api_key: String::new(),
+        name: "test".into(),
+        url,
+        api_key: String::new(),
         schema: ai::api_keys::CustomEndpointSchema::OpenaiChatCompletions,
         models: Vec::new(),
     };
     let suggestions = futures_lite::future::block_on(generate_commands(
-        endpoint, "model".into(), "list files".into(), None,
-    )).unwrap();
+        endpoint,
+        "model".into(),
+        "list files".into(),
+        None,
+    ))
+    .unwrap();
     assert_eq!(suggestions.len(), 1);
     let request = server.join().unwrap();
     assert!(request.starts_with("POST /v1/chat/completions "));
     assert!(request.contains("\"stream\":false"));
+}
+
+#[test]
+#[cfg(not(target_family = "wasm"))]
+fn streamed_command_is_proposed_as_a_native_action_without_execution() {
+    let body = concat!(
+        "data: {\"choices\":[{\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"name\":\"run_shell_command\",\"arguments\":\"{\\\"command\\\":\\\"Get-ChildItem\\\"}\"}}]},\"finish_reason\":null}]}\n\n",
+        "data: {\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"tool_calls\"}]}\n\n"
+    );
+    let response = format!("HTTP/1.1 200 OK\r\nContent-Type: text/event-stream\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}", body.len());
+    let (url, server) = serve(response);
+    let (_cancel, receiver) = oneshot::channel();
+    let events = futures_lite::future::block_on(generate(params(&url), receiver).collect::<Vec<_>>());
+    assert!(events.iter().all(Result::is_ok), "{events:?}");
+    let proposed = events.into_iter().filter_map(|event| event.ok())
+        .filter_map(|event| match event.r#type {
+            Some(response_event::Type::ClientActions(actions)) => Some(actions.actions),
+            _ => None,
+        }).flatten().filter_map(|action| match action.action {
+            Some(client_action::Action::AddMessagesToTask(add)) => Some(add.messages),
+            _ => None,
+        }).flatten().find_map(|message| match message.message {
+            Some(message::Message::ToolCall(call)) => Some(call),
+            _ => None,
+        }).expect("The model command must be exposed as an approval-controlled native tool call");
+    assert!(matches!(proposed.tool, Some(message::tool_call::Tool::RunShellCommand(command)) if command.command == "Get-ChildItem"));
+    let request = server.join().unwrap();
+    assert!(request.contains("run_shell_command"));
+}
+
+#[test]
+#[cfg(not(target_family = "wasm"))]
+fn rejected_command_returns_to_model_without_more_tool_authority() {
+    use crate::ai::agent::{AIAgentActionResult, AIAgentActionResultType, RequestCommandOutputResult};
+    let body = "data: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"Cancelled\"},\"finish_reason\":\"stop\"}]}\n\n";
+    let response = format!("HTTP/1.1 200 OK\r\nContent-Type: text/event-stream\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}", body.len());
+    let (url, server) = serve(response);
+    let mut params = params(&url);
+    let call_id = "approved-target-id";
+    params.tasks = vec![api::Task {
+        id: "task".into(),
+        messages: vec![api::Message {
+            message: Some(message::Message::ToolCall(message::ToolCall {
+                tool_call_id: call_id.into(),
+                tool: Some(message::tool_call::Tool::RunShellCommand(message::tool_call::RunShellCommand {
+                    command: "Get-ChildItem".into(), ..Default::default()
+                })),
+            })), ..Default::default()
+        }], ..Default::default()
+    }];
+    params.input = vec![AIAgentInput::ActionResult {
+        result: AIAgentActionResult {
+            id: call_id.to_string().into(),
+            task_id: crate::ai::agent::task::TaskId::new("task".into()),
+            result: AIAgentActionResultType::RequestCommandOutput(RequestCommandOutputResult::CancelledBeforeExecution),
+        }, context: Arc::from([]),
+    }];
+    let (_cancel, receiver) = oneshot::channel();
+    let events = futures_lite::future::block_on(generate(params, receiver).collect::<Vec<_>>());
+    assert!(events.iter().all(Result::is_ok), "{events:?}");
+    let request = server.join().unwrap();
+    let body: serde_json::Value = serde_json::from_str(request.split("\r\n\r\n").nth(1).unwrap()).unwrap();
+    assert_eq!(body["tool_choice"], "none");
+    assert_eq!(body["messages"][2]["role"], "tool");
+    assert_eq!(body["messages"][2]["tool_call_id"], "approved-target-id");
+    assert!(body["messages"][2]["content"].as_str().unwrap().contains("CancelledBeforeExecution"));
 }
 
 #[test]

@@ -181,7 +181,9 @@ fn command_search_prompt_enters_agent_view_and_locks_ai_input() {
         let terminal = add_window_with_terminal(&mut app, None);
         terminal.update(&mut app, |view, ctx| {
             view.ask_blocklist_ai(
-                &AskAIType::FromAICommandSearch { query: Arc::new("hello".into()) },
+                &AskAIType::FromAICommandSearch {
+                    query: Arc::new("hello".into()),
+                },
                 ctx,
             );
         });
@@ -191,7 +193,10 @@ fn command_search_prompt_enters_agent_view_and_locks_ai_input() {
             assert_eq!(input.input_type(), InputType::AI);
             assert!(input.is_input_type_locked());
             assert!(!input.should_run_input_autodetection(ctx));
-            assert_eq!(view.input().as_ref(ctx).buffer_text(ctx), "What is the command to: hello");
+            assert_eq!(
+                view.input().as_ref(ctx).buffer_text(ctx),
+                "What is the command to: hello"
+            );
         });
     });
 }
