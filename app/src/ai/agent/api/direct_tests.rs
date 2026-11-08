@@ -244,68 +244,144 @@ fn command_suggestions_connect_without_an_existing_tokio_runtime() {
 
 #[test]
 #[cfg(not(target_family = "wasm"))]
-fn streamed_command_is_proposed_as_a_native_action_without_execution() {
-    let body = concat!(
-        "data: {\"choices\":[{\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"name\":\"run_shell_command\",\"arguments\":\"{\\\"command\\\":\\\"Get-ChildItem\\\"}\"}}]},\"finish_reason\":null}]}\n\n",
-        "data: {\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"tool_calls\"}]}\n\n"
-    );
-    let response = format!("HTTP/1.1 200 OK\r\nContent-Type: text/event-stream\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}", body.len());
-    let (url, server) = serve(response);
-    let (_cancel, receiver) = oneshot::channel();
-    let events = futures_lite::future::block_on(generate(params(&url), receiver).collect::<Vec<_>>());
-    assert!(events.iter().all(Result::is_ok), "{events:?}");
-    let proposed = events.into_iter().filter_map(|event| event.ok())
-        .filter_map(|event| match event.r#type {
-            Some(response_event::Type::ClientActions(actions)) => Some(actions.actions),
-            _ => None,
-        }).flatten().filter_map(|action| match action.action {
-            Some(client_action::Action::AddMessagesToTask(add)) => Some(add.messages),
-            _ => None,
-        }).flatten().find_map(|message| match message.message {
-            Some(message::Message::ToolCall(call)) => Some(call),
-            _ => None,
-        }).expect("The model command must be exposed as an approval-controlled native tool call");
-    assert!(matches!(proposed.tool, Some(message::tool_call::Tool::RunShellCommand(command)) if command.command == "Get-ChildItem"));
-    let request = server.join().unwrap();
-    assert!(request.contains("run_shell_command"));
+fn streamed_commands_require_complete_arguments_and_a_successful_finish() {
+    for (legacy, reason, arguments, succeeds) in [
+        (false, "tool_calls", r#"{"command":"Get-ChildItem"}"#, true),
+        (false, "stop", r#"{"command":"Get-ChildItem"}"#, true),
+        (false, "done", r#"{"command":"Get-ChildItem"}"#, true),
+        (
+            true,
+            "function_call",
+            r#"{"command":"Get-ChildItem"}"#,
+            true,
+        ),
+        (false, "length", r#"{"command":"Get-ChildItem"}"#, false),
+        (false, "stop", r#"{"command":"Get-"#, false),
+    ] {
+        let function = serde_json::json!({"name":"run_shell_command", "arguments":arguments});
+        let delta = if legacy {
+            serde_json::json!({"function_call":function})
+        } else {
+            serde_json::json!({"tool_calls":[{"index":0,"function":function}]})
+        };
+        let first = serde_json::json!({"choices":[{"index":0,"delta":delta,"finish_reason":null}]});
+        let last = serde_json::json!({"choices":[{"index":0,"delta":{},"finish_reason":reason}]});
+        let body = format!("data: {first}\n\ndata: {last}\n\n");
+        let response = format!(
+            "HTTP/1.1 200 OK\r\nContent-Type: text/event-stream\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}",
+            body.len()
+        );
+        let (url, server) = serve(response);
+        let (_cancel, receiver) = oneshot::channel();
+        let events =
+            futures_lite::future::block_on(generate(params(&url), receiver).collect::<Vec<_>>());
+        assert_eq!(
+            events.iter().all(Result::is_ok),
+            succeeds,
+            "legacy={legacy}, reason={reason}: {events:?}"
+        );
+        let proposed = events
+            .into_iter()
+            .filter_map(Result::ok)
+            .filter_map(|event| match event.r#type {
+                Some(response_event::Type::ClientActions(actions)) => Some(actions.actions),
+                _ => None,
+            })
+            .flatten()
+            .filter_map(|action| match action.action {
+                Some(client_action::Action::AddMessagesToTask(add)) => Some(add.messages),
+                _ => None,
+            })
+            .flatten()
+            .find_map(|message| match message.message {
+                Some(message::Message::ToolCall(call)) => Some(call),
+                _ => None,
+            });
+        if succeeds {
+            assert!(
+                matches!(proposed.unwrap().tool, Some(message::tool_call::Tool::RunShellCommand(command))
+                if command.command == "Get-ChildItem" && command.is_risky)
+            );
+        } else {
+            assert!(proposed.is_none());
+        }
+        assert!(server.join().unwrap().contains("run_shell_command"));
+    }
 }
 
 #[test]
 #[cfg(not(target_family = "wasm"))]
-fn rejected_command_returns_to_model_without_more_tool_authority() {
-    use crate::ai::agent::{AIAgentActionResult, AIAgentActionResultType, RequestCommandOutputResult};
-    let body = "data: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"Cancelled\"},\"finish_reason\":\"stop\"}]}\n\n";
-    let response = format!("HTTP/1.1 200 OK\r\nContent-Type: text/event-stream\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}", body.len());
-    let (url, server) = serve(response);
-    let mut params = params(&url);
-    let call_id = "approved-target-id";
-    params.tasks = vec![api::Task {
-        id: "task".into(),
-        messages: vec![api::Message {
-            message: Some(message::Message::ToolCall(message::ToolCall {
-                tool_call_id: call_id.into(),
-                tool: Some(message::tool_call::Tool::RunShellCommand(message::tool_call::RunShellCommand {
-                    command: "Get-ChildItem".into(), ..Default::default()
+fn command_results_continue_the_conversation_with_matching_tool_authority() {
+    use crate::ai::agent::{
+        AIAgentActionResult, AIAgentActionResultType, RequestCommandOutputResult,
+    };
+    for (result, tool_choice, expected_output) in [
+        (
+            RequestCommandOutputResult::CancelledBeforeExecution,
+            "none",
+            "CancelledBeforeExecution",
+        ),
+        (
+            RequestCommandOutputResult::Completed {
+                block_id: "directory-listing".to_owned().into(),
+                command: "Get-ChildItem".into(),
+                output: "Cargo.toml".into(),
+                exit_code: Default::default(),
+                start_ts: None,
+                completed_ts: None,
+            },
+            "auto",
+            "Cargo.toml",
+        ),
+    ] {
+        let body = "data: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"Cancelled\"},\"finish_reason\":\"stop\"}]}\n\n";
+        let response = format!(
+            "HTTP/1.1 200 OK\r\nContent-Type: text/event-stream\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}",
+            body.len()
+        );
+        let (url, server) = serve(response);
+        let mut params = params(&url);
+        let call_id = "approved-target-id";
+        params.tasks = vec![api::Task {
+            id: "task".into(),
+            messages: vec![api::Message {
+                message: Some(message::Message::ToolCall(message::ToolCall {
+                    tool_call_id: call_id.into(),
+                    tool: Some(message::tool_call::Tool::RunShellCommand(
+                        message::tool_call::RunShellCommand {
+                            command: "Get-ChildItem".into(),
+                            ..Default::default()
+                        },
+                    )),
                 })),
-            })), ..Default::default()
-        }], ..Default::default()
-    }];
-    params.input = vec![AIAgentInput::ActionResult {
-        result: AIAgentActionResult {
-            id: call_id.to_string().into(),
-            task_id: crate::ai::agent::task::TaskId::new("task".into()),
-            result: AIAgentActionResultType::RequestCommandOutput(RequestCommandOutputResult::CancelledBeforeExecution),
-        }, context: Arc::from([]),
-    }];
-    let (_cancel, receiver) = oneshot::channel();
-    let events = futures_lite::future::block_on(generate(params, receiver).collect::<Vec<_>>());
-    assert!(events.iter().all(Result::is_ok), "{events:?}");
-    let request = server.join().unwrap();
-    let body: serde_json::Value = serde_json::from_str(request.split("\r\n\r\n").nth(1).unwrap()).unwrap();
-    assert_eq!(body["tool_choice"], "none");
-    assert_eq!(body["messages"][2]["role"], "tool");
-    assert_eq!(body["messages"][2]["tool_call_id"], "approved-target-id");
-    assert!(body["messages"][2]["content"].as_str().unwrap().contains("CancelledBeforeExecution"));
+                ..Default::default()
+            }],
+            ..Default::default()
+        }];
+        params.input = vec![AIAgentInput::ActionResult {
+            result: AIAgentActionResult {
+                id: call_id.to_string().into(),
+                task_id: crate::ai::agent::task::TaskId::new("task".into()),
+                result: AIAgentActionResultType::RequestCommandOutput(result),
+            },
+            context: Arc::from([]),
+        }];
+        let (_cancel, receiver) = oneshot::channel();
+        let events = futures_lite::future::block_on(generate(params, receiver).collect::<Vec<_>>());
+        assert!(events.iter().all(Result::is_ok), "{events:?}");
+        let request = server.join().unwrap();
+        let body: serde_json::Value =
+            serde_json::from_str(request.split("\r\n\r\n").nth(1).unwrap()).unwrap();
+        assert_eq!(body["tool_choice"], tool_choice);
+        assert_eq!(body["messages"][2]["role"], "tool");
+        assert_eq!(body["messages"][2]["tool_call_id"], "approved-target-id");
+        assert!(
+            body["messages"][2]["content"]
+                .as_str()
+                .unwrap()
+                .contains(expected_output)
+        );
+    }
 }
 
 #[test]

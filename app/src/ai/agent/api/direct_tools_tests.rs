@@ -3,11 +3,15 @@ use super::*;
 #[test]
 fn command_fragments_become_a_native_tool_action() {
     let mut command = PendingCommand::default();
-    command.extend(br#"data: {"choices":[{"delta":{"tool_calls":[{"index":0,"function":{"name":"run_shell_command","arguments":"{\"command\":\"Get-"}}]}}]}"#).unwrap();
-    command.extend(br#"data: {"choices":[{"delta":{"tool_calls":[{"index":0,"function":{"arguments":"ChildItem\"}"}}]}}]}"#).unwrap();
+    command.extend(br#"data: {"choices":[{"index":0,"delta":{"tool_calls":[{"index":0,"function":{"name":"run_shell_command","arguments":"{\"command\":\"Get-"}}]}}]}"#).unwrap();
+    command.extend(br#"data: {"choices":[{"index":0,"delta":{"tool_calls":[{"index":0,"function":{"arguments":"ChildItem\"}"}}]}}]}"#).unwrap();
     let native = command.message("task", "request").unwrap();
-    let Some(message::Message::ToolCall(call)) = native.message else { panic!("Expected a tool call"); };
-    let Some(message::tool_call::Tool::RunShellCommand(command)) = call.tool else { panic!("Expected a shell command"); };
+    let Some(message::Message::ToolCall(call)) = native.message else {
+        panic!("Expected a tool call");
+    };
+    let Some(message::tool_call::Tool::RunShellCommand(command)) = call.tool else {
+        panic!("Expected a shell command");
+    };
     assert_eq!(command.command, "Get-ChildItem");
     assert!(!command.is_read_only);
     assert!(command.is_risky);
@@ -24,15 +28,26 @@ fn tool_round_limit_requires_a_new_user_request() {
 #[test]
 fn parallel_and_unknown_tools_are_rejected() {
     let mut command = PendingCommand::default();
-    assert!(command.extend(br#"data: {"choices":[{"delta":{"tool_calls":[{"index":1}]}}]}"#).is_err());
-    let unknown = PendingCommand { name: "delete_files".into(), arguments: "{}".into(), received: true };
+    assert!(
+        command
+            .extend(br#"data: {"choices":[{"index":0,"delta":{"tool_calls":[{"index":1}]}}]}"#)
+            .is_err()
+    );
+    let unknown = PendingCommand {
+        name: "delete_files".into(),
+        arguments: "{}".into(),
+        received: true,
+    };
     assert!(unknown.message("task", "request").is_err());
 }
 
 #[test]
 fn extra_arguments_cannot_change_the_execution_target() {
-    let command = PendingCommand { name: "run_shell_command".into(),
-        arguments: r#"{"command":"dir","cwd":"C:/Windows"}"#.into(), received: true };
+    let command = PendingCommand {
+        name: "run_shell_command".into(),
+        arguments: r#"{"command":"dir","cwd":"C:/Windows"}"#.into(),
+        received: true,
+    };
     assert!(command.message("task", "request").is_err());
 }
 
@@ -49,13 +64,45 @@ fn tool_results_are_returned_as_untrusted_tool_messages() {
     let mut params = RequestParams::new_for_test();
     params.input.push(AIAgentInput::ActionResult {
         result: AIAgentActionResult {
-            id: "call-id".to_string().into(), task_id: crate::ai::agent::task::TaskId::new("task".into()), result: AIAgentActionResultType::RequestCommandOutput(RequestCommandOutputResult::CancelledBeforeExecution),
-        }, context: std::sync::Arc::from([]),
+            id: "call-id".to_string().into(),
+            task_id: crate::ai::agent::task::TaskId::new("task".into()),
+            result: AIAgentActionResultType::RequestCommandOutput(
+                RequestCommandOutputResult::CancelledBeforeExecution,
+            ),
+        },
+        context: std::sync::Arc::from([]),
     });
     let mut messages = Vec::new();
     history(&params, &mut messages).unwrap();
     assert_eq!(messages[0]["role"], "tool");
     assert_eq!(messages[0]["tool_call_id"], "call-id");
-    assert!(messages[0]["content"].as_str().unwrap().contains("CancelledBeforeExecution"));
+    assert!(
+        messages[0]["content"]
+            .as_str()
+            .unwrap()
+            .contains("CancelledBeforeExecution")
+    );
     assert!(!may_request_command(&params, 1));
+}
+
+#[test]
+fn legacy_function_call_becomes_an_approval_controlled_command() {
+    let mut command = PendingCommand::default();
+    command.extend(br#"data: {"choices":[{"index":0,"delta":{"function_call":{"name":"run_shell_command","arguments":"{\"command\":\"cmd.exe /c dir\"}"}}}]}"#).unwrap();
+    let native = command.message("task", "request").unwrap();
+    let Some(message::Message::ToolCall(call)) = native.message else {
+        panic!("Expected a tool call");
+    };
+    let Some(message::tool_call::Tool::RunShellCommand(command)) = call.tool else {
+        panic!("Expected a command");
+    };
+    assert_eq!(command.command, "cmd.exe /c dir");
+    assert!(command.is_risky);
+}
+
+#[test]
+fn other_choices_cannot_supply_a_command() {
+    let mut command = PendingCommand::default();
+    command.extend(br#"data: {"choices":[{"index":1,"delta":{"tool_calls":[{"index":0,"function":{"name":"run_shell_command","arguments":"{}"}}]}}]}"#).unwrap();
+    assert!(!command.has_call());
 }

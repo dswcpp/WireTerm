@@ -14,15 +14,18 @@ const MAX_TOOL_OUTPUT: usize = 32 * 1024;
 
 pub(super) fn may_request_command(params: &RequestParams, rounds: usize) -> bool {
     use crate::ai::agent::RequestCommandOutputResult;
-    rounds < MAX_TOOL_ROUNDS && !params.input.iter().any(|input| matches!(input,
-        AIAgentInput::ActionResult { result, .. }
-        if matches!(result.result, AIAgentActionResultType::RequestCommandOutput(
-            RequestCommandOutputResult::CancelledBeforeExecution
-            | RequestCommandOutputResult::Denylisted { .. }
-            | RequestCommandOutputResult::TerminalBusy { .. }
-            | RequestCommandOutputResult::LongRunningCommandSnapshot { .. }
-        ))
-    ))
+    rounds < MAX_TOOL_ROUNDS
+        && !params.input.iter().any(|input| {
+            matches!(input,
+                AIAgentInput::ActionResult { result, .. }
+                if matches!(result.result, AIAgentActionResultType::RequestCommandOutput(
+                    RequestCommandOutputResult::CancelledBeforeExecution
+                    | RequestCommandOutputResult::Denylisted { .. }
+                    | RequestCommandOutputResult::TerminalBusy { .. }
+                    | RequestCommandOutputResult::LongRunningCommandSnapshot { .. }
+                ))
+            )
+        })
 }
 
 pub(super) fn definitions() -> Value {
@@ -37,7 +40,9 @@ fn bounded(mut text: String) -> String {
     secret_redaction::redact_secrets(&mut text);
     if text.len() > MAX_TOOL_OUTPUT {
         let mut end = MAX_TOOL_OUTPUT;
-        while !text.is_char_boundary(end) { end -= 1; }
+        while !text.is_char_boundary(end) {
+            end -= 1;
+        }
         text.truncate(end);
         text.push_str("\n[Output truncated by WireTerm]");
     }
@@ -45,8 +50,11 @@ fn bounded(mut text: String) -> String {
 }
 
 pub(super) fn history(params: &RequestParams, messages: &mut Vec<Value>) -> anyhow::Result<usize> {
-    let root = params.tasks.iter().find(|task| task.dependencies.as_ref()
-        .is_none_or(|dependencies| dependencies.parent_task_id.is_empty()));
+    let root = params.tasks.iter().find(|task| {
+        task.dependencies
+            .as_ref()
+            .is_none_or(|dependencies| dependencies.parent_task_id.is_empty())
+    });
     let mut rounds = 0;
     let mut resolved = std::collections::HashSet::new();
     if let Some(root) = root {
@@ -56,10 +64,15 @@ pub(super) fn history(params: &RequestParams, messages: &mut Vec<Value>) -> anyh
                     rounds = 0;
                     messages.push(json!({"role":"user","content":query.query}));
                 }
-                Some(message::Message::AgentOutput(output)) => messages.push(json!({"role":"assistant","content":output.text})),
+                Some(message::Message::AgentOutput(output)) => {
+                    messages.push(json!({"role":"assistant","content":output.text}))
+                }
                 Some(message::Message::ToolCall(call)) => {
-                    let Some(message::tool_call::Tool::RunShellCommand(command)) = &call.tool else {
-                        anyhow::bail!("This conversation contains unsupported tools. Start a new conversation.");
+                    let Some(message::tool_call::Tool::RunShellCommand(command)) = &call.tool
+                    else {
+                        anyhow::bail!(
+                            "This conversation contains unsupported tools. Start a new conversation."
+                        );
                     };
                     rounds += 1;
                     messages.push(json!({"role":"assistant","content":"","tool_calls":[{
@@ -79,10 +92,17 @@ pub(super) fn history(params: &RequestParams, messages: &mut Vec<Value>) -> anyh
     }
     for input in &params.input {
         match input {
-            AIAgentInput::UserQuery { .. } => { rounds = 0; }
+            AIAgentInput::UserQuery { .. } => {
+                rounds = 0;
+            }
             AIAgentInput::ActionResult { result, .. } => {
-                anyhow::ensure!(matches!(result.result, AIAgentActionResultType::RequestCommandOutput(_)),
-                    "Direct Agent received an unsupported tool result.");
+                anyhow::ensure!(
+                    matches!(
+                        result.result,
+                        AIAgentActionResultType::RequestCommandOutput(_)
+                    ),
+                    "Direct Agent received an unsupported tool result."
+                );
                 let id = result.id.to_string();
                 if resolved.insert(id.clone()) {
                     messages.push(json!({"role":"tool","tool_call_id":id,
@@ -105,42 +125,100 @@ pub(super) struct PendingCommand {
 impl PendingCommand {
     pub(super) fn extend(&mut self, frame: &[u8]) -> anyhow::Result<()> {
         let frame = std::str::from_utf8(frame)?;
-        let data = frame.lines().filter_map(|line| line.strip_prefix("data:").map(str::trim_start))
-            .collect::<Vec<_>>().join("\n");
-        if data.is_empty() || data.trim() == "[DONE]" { return Ok(()); }
+        let data = frame
+            .lines()
+            .filter_map(|line| line.strip_prefix("data:").map(str::trim_start))
+            .collect::<Vec<_>>()
+            .join("\n");
+        if data.is_empty() || data.trim() == "[DONE]" {
+            return Ok(());
+        }
         let chunk: Value = serde_json::from_str(&data)
             .map_err(|_| anyhow::anyhow!("Model returned invalid tool data."))?;
-        let Some(calls) = chunk["choices"][0]["delta"]["tool_calls"].as_array() else { return Ok(()); };
-        for call in calls {
-            anyhow::ensure!(call["index"].as_u64() == Some(0), "Only one command may be requested per turn.");
+        let Some(choice) = chunk["choices"].as_array().and_then(|choices| {
+            choices
+                .iter()
+                .find(|choice| choice["index"].as_u64() == Some(0))
+        }) else {
+            return Ok(());
+        };
+        let delta = &choice["delta"];
+        if let Some(function) = delta.get("function_call").filter(|value| !value.is_null()) {
+            anyhow::ensure!(
+                delta.get("tool_calls").is_none_or(Value::is_null),
+                "Model mixed legacy and modern tool calls."
+            );
             self.received = true;
-            if let Some(name) = call["function"]["name"].as_str() { self.name.push_str(name); }
-            if let Some(arguments) = call["function"]["arguments"].as_str() { self.arguments.push_str(arguments); }
-            anyhow::ensure!(self.name.len() <= 64 && self.arguments.len() <= 16384, "Model tool request exceeded the size limit.");
+            self.extend_function(function)?;
+            return Ok(());
+        }
+        let Some(calls) = delta["tool_calls"].as_array() else {
+            return Ok(());
+        };
+        for call in calls {
+            anyhow::ensure!(
+                call["index"].as_u64() == Some(0),
+                "Only one command may be requested per turn."
+            );
+            self.received = true;
+            self.extend_function(&call["function"])?;
         }
         Ok(())
     }
 
-    pub(super) fn has_call(&self) -> bool { self.received }
+    fn extend_function(&mut self, function: &Value) -> anyhow::Result<()> {
+        if let Some(name) = function["name"].as_str() {
+            self.name.push_str(name);
+        }
+        if let Some(arguments) = function["arguments"].as_str() {
+            self.arguments.push_str(arguments);
+        }
+        anyhow::ensure!(
+            self.name.len() <= 64 && self.arguments.len() <= 16384,
+            "Model tool request exceeded the size limit."
+        );
+        Ok(())
+    }
+
+    pub(super) fn has_call(&self) -> bool {
+        self.received
+    }
 
     pub(super) fn message(self, task_id: &str, request_id: &str) -> anyhow::Result<api::Message> {
         #[derive(Deserialize)]
         #[serde(deny_unknown_fields)]
-        struct Arguments { command: String }
-        anyhow::ensure!(self.received && self.name == "run_shell_command", "Model requested an unsupported tool.");
+        struct Arguments {
+            command: String,
+        }
+        anyhow::ensure!(
+            self.received && self.name == "run_shell_command",
+            "Model requested an unsupported tool."
+        );
         let args: Arguments = serde_json::from_str(&self.arguments)
             .map_err(|_| anyhow::anyhow!("Model returned invalid command arguments."))?;
-        anyhow::ensure!(!args.command.trim().is_empty() && !args.command.contains('\0') && args.command.len() <= 8192,
-            "Model returned an invalid command.");
+        anyhow::ensure!(
+            !args.command.trim().is_empty()
+                && !args.command.contains('\0')
+                && args.command.len() <= 8192,
+            "Model returned an invalid command."
+        );
         let id = Uuid::new_v4().to_string();
         #[allow(deprecated)]
         let command = message::tool_call::RunShellCommand {
-            command: args.command, is_read_only: false, is_risky: true,
+            command: args.command,
+            is_read_only: false,
+            is_risky: true,
             ..Default::default()
         };
-        Ok(api::Message { id: Uuid::new_v4().to_string(), task_id: task_id.into(), request_id: request_id.into(),
+        Ok(api::Message {
+            id: Uuid::new_v4().to_string(),
+            task_id: task_id.into(),
+            request_id: request_id.into(),
             message: Some(message::Message::ToolCall(message::ToolCall {
-                tool_call_id: id, tool: Some(message::tool_call::Tool::RunShellCommand(command)),
-            })), ..Default::default() })
+                tool_call_id: id,
+                tool: Some(message::tool_call::Tool::RunShellCommand(command)),
+            })),
+            ..Default::default()
+        })
     }
 }
