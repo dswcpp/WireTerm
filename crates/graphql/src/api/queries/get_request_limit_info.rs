@@ -100,3 +100,7 @@ pub enum UserResult {
     #[cynic(fallback)]
     Unknown,
 }
+
+#[cfg(test)]
+#[path = "request_limit_info_tests.rs"]
+mod tests;

@@ -1,4 +1,4 @@
-//! The "Warp Agent" settings page, shown under the Agents umbrella.
+//! The "Agent" settings page, shown under the Agents umbrella.
 //!
 //! Covers Warp's own AI: the global toggle, Active AI suggestions, agent
 //! input behavior, credentials (BYO keys, Bedrock, Gemini
@@ -2153,6 +2153,34 @@ impl WarpAgentPageView {
     }
 
     fn build_page(ctx: &mut ViewContext<Self>) -> PageType<Self> {
+        if ai::api_keys::uses_direct_inference() {
+            let switch = SwitchStateHandle::default();
+            let sign_up = MouseStateHandle::default();
+            return PageType::new_categorized(
+                vec![
+                    Category::with_header(
+                        CategoryHeader::new("Custom Models").with_trailing_element(
+                            |view: &Self, _appearance, app| {
+                                view.custom_inference_add_button.as_ref(app).render(app)
+                            },
+                        ),
+                        vec![Box::new(ApiKeysWidget::new(ctx))],
+                    ),
+                    Category::new(
+                        "Conversation",
+                        vec![
+                            Box::new(ShowConversationHistoryWidget::default()),
+                            Box::new(ThinkingDisplayModeWidget),
+                        ],
+                    ),
+                ],
+                Some(PageTitle::new("Agent").with_trailing_element(
+                    move |_view, appearance, app| {
+                        render_global_ai_toggle(&switch, &sign_up, appearance, app)
+                    },
+                )),
+            );
+        }
         let ai_settings = AISettings::as_ref(ctx);
 
         let mut categories: Vec<Category<Self>> = Vec::new();
@@ -2284,16 +2312,16 @@ impl WarpAgentPageView {
         let global_ai_sign_up_button = MouseStateHandle::default();
         PageType::new_categorized(
             categories,
-            Some(PageTitle::new("Warp Agent").with_trailing_element(
-                move |_view, appearance, app| {
+            Some(
+                PageTitle::new("Agent").with_trailing_element(move |_view, appearance, app| {
                     render_global_ai_toggle(
                         &global_ai_switch_state,
                         &global_ai_sign_up_button,
                         appearance,
                         app,
                     )
-                },
-            )),
+                }),
+            ),
         )
     }
 
@@ -3070,7 +3098,7 @@ fn render_global_ai_toggle(
     }
 
     // Show sign-up button for anonymous users, toggle for logged-in users
-    if is_anonymous {
+    if is_anonymous && !ai::api_keys::uses_direct_inference() {
         row.add_child(
             Flex::row()
                 .with_cross_axis_alignment(CrossAxisAlignment::Center)
@@ -5179,7 +5207,11 @@ impl ApiKeysWidget {
 
         if show_custom_endpoints {
             add_paragraph(vec![FormattedTextFragment::plain_text(
-                "Add custom endpoints to use third-party models. Custom endpoints must support OpenAI Chat Completions, OpenAI Responses, or Anthropic Messages.",
+                if ai::api_keys::uses_direct_inference() {
+                    "Connect directly to an OpenAI-compatible model. Enter its Base URL, model ID and API key, then select the model in Agent. Prompts, selected text and conversation history are sent to this endpoint. This version supports text conversations only; commands, files and tools are not executed."
+                } else {
+                    "Add custom endpoints to use third-party models. Custom endpoints must support OpenAI Chat Completions, OpenAI Responses, or Anthropic Messages."
+                },
             )]);
         }
 
@@ -5187,10 +5219,12 @@ impl ApiKeysWidget {
             add_paragraph(vec![FormattedTextFragment::plain_text(
                 "API keys added here are stored only on this device, not on Warp's servers.",
             )]);
-            add_paragraph(vec![FormattedTextFragment::hyperlink(
-                "Learn more",
-                CUSTOM_INFERENCE_LEARN_MORE_URL,
-            )]);
+            if !ai::api_keys::uses_direct_inference() {
+                add_paragraph(vec![FormattedTextFragment::hyperlink(
+                    "Learn more",
+                    CUSTOM_INFERENCE_LEARN_MORE_URL,
+                )]);
+            }
         }
         let description = FormattedTextElement::new(
             FormattedText::new(lines),
@@ -5587,6 +5621,17 @@ impl CustomInferenceVisibility {
     fn compute(team_scope: &TeamContext<'_>, app: &AppContext) -> Self {
         let workspaces = UserWorkspaces::as_ref(app);
         let is_any_ai_enabled = AISettings::as_ref(app).is_any_ai_enabled(app);
+        if ai::api_keys::uses_direct_inference() {
+            return Self {
+                is_any_ai_enabled,
+                is_byo_enabled: false,
+                show_provider_keys: false,
+                provider_keys_enabled: false,
+                show_custom_inference: true,
+                custom_inference_controls_enabled: is_any_ai_enabled,
+                managed_byok_byoe_enabled: false,
+            };
+        }
         let is_byo_enabled = workspaces.is_byo_api_key_enabled(app);
         let is_custom_inference_enabled = workspaces.is_byo_endpoint_enabled(app);
         let member_byo_keys_allowed = workspaces.are_member_byo_keys_allowed(team_scope);

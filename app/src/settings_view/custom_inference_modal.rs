@@ -151,7 +151,10 @@ impl CustomEndpointModal {
                 ..Default::default()
             };
             let mut editor = EditorView::single_line(options, ctx);
-            editor.set_placeholder_text("Please include 'https://'", ctx);
+            editor.set_placeholder_text(
+                "https://provider.example/v1 or http://localhost:11434/v1",
+                ctx,
+            );
             if let Some(ep) = endpoint {
                 editor.set_buffer_text(&ep.url, ctx);
             }
@@ -172,7 +175,7 @@ impl CustomEndpointModal {
                 ..Default::default()
             };
             let mut editor = EditorView::single_line(options, ctx);
-            editor.set_placeholder_text("e.g., sk-...", ctx);
+            editor.set_placeholder_text("API key (optional for localhost)", ctx);
             if let Some(ep) = endpoint {
                 editor.set_buffer_text(&ep.api_key, ctx);
             }
@@ -193,6 +196,10 @@ impl CustomEndpointModal {
                     CustomEndpointSchema::AnthropicMessages,
                 ]
                 .into_iter()
+                .filter(|schema| {
+                    !ai::api_keys::uses_direct_inference()
+                        || *schema == CustomEndpointSchema::OpenaiChatCompletions
+                })
                 .map(|schema| {
                     DropdownItem::new(
                         schema.display_name(),
@@ -1085,7 +1092,8 @@ fn validate_url(url: &str) -> Result<(), &'static str> {
 fn is_endpoint_form_valid(name: &str, url: &str, api_key: &str, has_models: bool) -> bool {
     !name.trim().is_empty()
         && !url.trim().is_empty()
-        && !api_key.trim().is_empty()
+        && (!api_key.trim().is_empty()
+            || (ai::api_keys::uses_direct_inference() && ai::api_keys::is_loopback_endpoint(url)))
         && has_models
         && validate_url(url).is_ok()
 }

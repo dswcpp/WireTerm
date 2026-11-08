@@ -6,6 +6,7 @@ use warp_errors::report_error;
 use warpui::windowing::WindowManager;
 use warpui::{AppContext, SingletonEntity, TypedActionView};
 
+use crate::GlobalResourceHandlesProvider;
 use crate::ai::agent::AIAgentExchangeId;
 use crate::ai::agent::conversation::AIConversationId;
 use crate::app_state::get_app_state;
@@ -17,7 +18,6 @@ use crate::terminal::general_settings::GeneralSettings;
 use crate::undo_close::UndoCloseStack;
 use crate::workspace::cross_window_tab_drag::CrossWindowTabDrag;
 use crate::workspace::{Workspace, WorkspaceAction};
-use crate::GlobalResourceHandlesProvider;
 
 /// Specifies where a forked conversation should be opened.
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
@@ -91,11 +91,9 @@ pub fn init_global_actions(app: &mut AppContext) {
         "workspace:toggle_debug_network_status",
         toggle_debug_network_status,
     );
-    
+
     app.add_global_action("workspace:open_repository", open_repository);
     app.add_global_action("app:undo_close", undo_close);
-    
-    
 }
 
 fn toggle_mouse_reporting(_: &(), ctx: &mut AppContext) {
@@ -176,16 +174,12 @@ fn toggle_debug_network_status(_: &(), ctx: &mut AppContext) {
     });
 }
 
-
-
 /// Reopens the last closed item (window or tab).
 fn undo_close(_: &(), ctx: &mut AppContext) {
     UndoCloseStack::handle(ctx).update(ctx, |stack, ctx| {
         stack.undo_close(ctx);
     });
 }
-
-
 
 /// Dispatches an action to the active workspace, if one exists.
 fn dispatch_to_active_workspace(ctx: &mut AppContext, action: WorkspaceAction) {
@@ -239,5 +233,3 @@ fn summarize_ai_conversation(prompt: &Option<String>, ctx: &mut AppContext) {
         },
     );
 }
-
-

@@ -7,7 +7,7 @@ use warpui::{App, SingletonEntity};
 
 use super::{AuthManager, AuthManagerEvent, request_device_code_with_timeout};
 use crate::ServerApiProvider;
-use crate::auth::credentials::{Credentials, LoginToken, RefreshToken};
+use crate::auth::credentials::{Credentials, LoginToken};
 use crate::auth::user::{FirebaseAuthTokens, TEST_USER_UID, User};
 use crate::auth::{AuthStateProvider, UserUid};
 use crate::server::server_api::auth::{MockAuthClient, UserAuthenticationError};
@@ -17,10 +17,6 @@ fn initialize_app(app: &mut App) {
     app.add_singleton_model(|_| AuthStateProvider::new_for_test());
     app.add_singleton_model(AuthManager::new_for_test);
 }
-
-
-
-
 
 #[test]
 fn pending_api_key_failure_leaves_auth_state_logged_out() {
@@ -123,12 +119,6 @@ fn test_device_code_request_retries_then_times_out() {
         );
     });
 }
-
-
-
-
-
-
 
 // These two tests verify that `persist` skips writing to secure storage under certain conditions.
 // They rely on the fact that no secure storage singleton is registered in the test app: if

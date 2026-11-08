@@ -19,6 +19,9 @@ pub async fn generate_multi_agent_output(
     team_scope: RequestTeamScope,
     cancellation_rx: futures::channel::oneshot::Receiver<()>,
 ) -> Result<ResponseStream, ConvertToAPITypeError> {
+    if ai::api_keys::uses_direct_inference() {
+        return Ok(super::direct::generate(params, cancellation_rx));
+    }
     let supported_tools = params
         .supported_tools_override
         .take()

@@ -342,11 +342,7 @@ impl TerminalManager {
         let terminal_view_id = view.id();
         let agent_view_controller = view.as_ref(ctx).agent_view_controller().clone();
         ActiveAgentViewsModel::handle(ctx).update(ctx, |model, ctx| {
-            model.register_agent_view_controller(
-                &agent_view_controller,
-                terminal_view_id,
-                ctx,
-            );
+            model.register_agent_view_controller(&agent_view_controller, terminal_view_id, ctx);
         });
 
         let terminal_view = view.clone();

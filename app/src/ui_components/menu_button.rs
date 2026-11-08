@@ -87,10 +87,6 @@ where
     button_with_menu
 }
 
-
-
-
-
 fn offset_positioning(menu_direction: MenuDirection) -> OffsetPositioning {
     match menu_direction {
         MenuDirection::Left => OffsetPositioning::offset_from_parent(

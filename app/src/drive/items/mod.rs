@@ -53,7 +53,6 @@ pub trait WarpDriveItem {
     fn clone_box(&self) -> Box<dyn WarpDriveItem>;
 }
 
-
 /// This uniquely identifies an item in Warp Drive index
 /// Includes spaces (which CloudObjectTypeAndId does not entail)
 #[derive(Debug, Clone, PartialEq, Eq, Copy)]

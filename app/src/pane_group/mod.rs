@@ -2621,7 +2621,6 @@ impl PaneGroup {
             .get()
             .is_anonymous_or_logged_out()
         {
-            
             return;
         }
 

@@ -36,8 +36,6 @@ impl WarpDriveItem for WarpDriveMCPServer {
         None
     }
 
-    
-
     fn preview(&self, _appearance: &Appearance) -> Option<Box<dyn Element>> {
         // TODO
         None

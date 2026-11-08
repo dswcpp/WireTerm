@@ -506,6 +506,9 @@ impl AIRequestUsageModel {
     /// Returns `true` if the user can start an interactive AI request.
     /// Prefers the server decision when present; otherwise uses the pre-fetch fallback.
     pub fn has_any_ai_remaining<S: TeamScope + ?Sized>(&self, scope: &S, ctx: &AppContext) -> bool {
+        if ai::api_keys::uses_direct_inference() {
+            return true;
+        }
         if let Some(availability) = self.server_availability.latest {
             return Self::server_availability_permits_ai(availability, scope, ctx);
         }

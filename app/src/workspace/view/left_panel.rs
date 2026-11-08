@@ -7,8 +7,8 @@ use warp_core::ui::theme::color::internal_colors;
 use warp_errors::report_error;
 use warp_util::path::LineAndColumnArg;
 use warpui::elements::{
-    ChildView, ConstrainedBox, Container, CrossAxisAlignment, DragBarSide, Element, Empty,
-    Flex, MainAxisAlignment, MainAxisSize, MouseStateHandle, ParentElement, Resizable,
+    ChildView, ConstrainedBox, Container, CrossAxisAlignment, DragBarSide, Element, Empty, Flex,
+    MainAxisAlignment, MainAxisSize, MouseStateHandle, ParentElement, Resizable,
     ResizableStateHandle, Shrinkable, resizable_state_handle,
 };
 use warpui::platform::Cursor;
@@ -18,6 +18,7 @@ use warpui::{
     ViewContext, ViewHandle, WeakViewHandle,
 };
 
+use super::{MAX_SIDEBAR_WIDTH_RATIO, MIN_SIDEBAR_WIDTH};
 use crate::TelemetryEvent;
 use crate::appearance::Appearance;
 use crate::code::buffer_location::LocalOrRemotePath;
@@ -25,7 +26,6 @@ use crate::code::buffer_location::LocalOrRemotePath;
 use crate::code::file_tree::FileTreeEvent;
 use crate::code::file_tree::FileTreeView;
 use crate::coding_panel_enablement_state::CodingPanelEnablementState;
-use super::{MAX_SIDEBAR_WIDTH_RATIO, MIN_SIDEBAR_WIDTH};
 use crate::pane_group::pane::view::header::PANE_HEADER_HEIGHT;
 use crate::pane_group::pane::view::header::components::HEADER_EDGE_PADDING;
 use crate::pane_group::working_directories::WorkingDirectory;
@@ -34,7 +34,7 @@ use crate::pane_group::{
 };
 #[cfg(feature = "local_fs")]
 use crate::server::telemetry::CodePanelsFileOpenEntrypoint;
-use crate::server::telemetry::{FileTreeSource};
+use crate::server::telemetry::FileTreeSource;
 use crate::settings_view::keybindings::{KeybindingChangedEvent, KeybindingChangedNotifier};
 use crate::terminal::resizable_data::{ModalType, ResizableData};
 use crate::ui_components::buttons::{icon_button, icon_button_with_color};
@@ -52,10 +52,8 @@ use crate::workspace::view::global_search::view::{
     Event as GlobalSearchViewEvent, GlobalSearchEntryFocus, GlobalSearchView,
 };
 use crate::workspace::view::{
-    LEFT_PANEL_GLOBAL_SEARCH_BINDING_NAME,
-    LEFT_PANEL_PROJECT_EXPLORER_BINDING_NAME,
-    OPEN_GLOBAL_SEARCH_BINDING_NAME,
-    TOGGLE_PROJECT_EXPLORER_BINDING_NAME,
+    LEFT_PANEL_GLOBAL_SEARCH_BINDING_NAME, LEFT_PANEL_PROJECT_EXPLORER_BINDING_NAME,
+    OPEN_GLOBAL_SEARCH_BINDING_NAME, TOGGLE_PROJECT_EXPLORER_BINDING_NAME,
 };
 
 #[derive(Default)]
@@ -168,9 +166,6 @@ fn toolbelt_tooltip_keybinding(binding_names: &[&'static str], app: &AppContext)
 }
 
 impl LeftPanelView {
-    
-
-    
     pub fn new(
         working_directories_model: ModelHandle<WorkingDirectoriesModel>,
         views: Vec<ToolPanelView>,
@@ -187,7 +182,10 @@ impl LeftPanelView {
                 resizable_state_handle(600.0)
             }
         };
-        let active_view = views.first().copied().unwrap_or(ToolPanelView::ProjectExplorer);
+        let active_view = views
+            .first()
+            .copied()
+            .unwrap_or(ToolPanelView::ProjectExplorer);
         let toolbelt_buttons = views
             .iter()
             .map(|view| Self::create_toolbelt_button_config(view, ctx))
@@ -377,8 +375,6 @@ impl LeftPanelView {
                     tooltip_keybinding_names,
                 }
             }
-            
-            
         }
     }
 
@@ -464,13 +460,9 @@ impl LeftPanelView {
         self.active_view.get()
     }
 
-    
-
     pub fn is_file_tree_active(&self) -> bool {
         self.active_view.get() == ToolPanelView::ProjectExplorer
     }
-
-    
 
     pub(crate) fn auto_expand_active_file_tree_to_most_recent_directory(
         &mut self,
@@ -624,8 +616,6 @@ impl LeftPanelView {
                     ctx,
                 );
             }
-            
-            
         }
     }
 
@@ -788,9 +778,6 @@ impl LeftPanelView {
                 LeftPanelAction::GlobalSearch { .. } => {
                     matches!(self.active_view.get(), ToolPanelView::GlobalSearch { .. })
                 }
-                
-                
-                
             };
         }
     }
@@ -908,14 +895,10 @@ impl LeftPanelView {
                     send_telemetry_from_ctx!(TelemetryEvent::GlobalSearchOpened, ctx);
                 }
             }
-            
-            
-            
         }
     }
 
     pub fn on_left_panel_visibility_changed(&self, ctx: &mut ViewContext<Self>) {
-
         self.update_active_file_tree_subscription_state(ctx);
     }
 
@@ -957,8 +940,6 @@ impl LeftPanelView {
             });
         }
     }
-
-    
 }
 
 impl TypedActionView for LeftPanelView {
@@ -976,8 +957,7 @@ impl View for LeftPanelView {
 
     fn on_focus(&mut self, focus_ctx: &FocusContext, ctx: &mut ViewContext<Self>) {
         // Focus the active tool panel view on-left-panel-focus.
-        if focus_ctx.is_self_focused()
-        {
+        if focus_ctx.is_self_focused() {
             match self.active_view.get() {
                 ToolPanelView::ProjectExplorer => {
                     if let Some(view) = self.active_file_tree_view(ctx) {
@@ -989,8 +969,6 @@ impl View for LeftPanelView {
                         ctx.focus(&view);
                     }
                 }
-                
-                
             }
         }
     }
@@ -1023,31 +1001,27 @@ impl View for LeftPanelView {
         };
 
         let active_view = self.active_view.get();
-        let content_area: Box<dyn Element> =             match active_view {
-                ToolPanelView::ProjectExplorer => match self.active_file_tree_view(app) {
-                    Some(file_tree_view) => Shrinkable::new(
-                        1.0,
-                        Container::new(ChildView::new(&file_tree_view).finish())
-                            .with_padding_left(2.)
-                            .with_padding_right(2.)
-                            .finish(),
-                    )
-                    .finish(),
-                    _ => Shrinkable::new(1.0, Container::new(Empty::new().finish()).finish())
+        let content_area: Box<dyn Element> = match active_view {
+            ToolPanelView::ProjectExplorer => match self.active_file_tree_view(app) {
+                Some(file_tree_view) => Shrinkable::new(
+                    1.0,
+                    Container::new(ChildView::new(&file_tree_view).finish())
+                        .with_padding_left(2.)
+                        .with_padding_right(2.)
                         .finish(),
-                },
-                ToolPanelView::GlobalSearch { .. } => match self.active_global_search_view(app) {
-                    Some(global_search_view) => Shrinkable::new(
-                        1.0,
-                        Container::new(ChildView::new(&global_search_view).finish()).finish(),
-                    )
-                    .finish(),
-                    _ => Shrinkable::new(1.0, Container::new(Empty::new().finish()).finish())
-                        .finish(),
-                },
-                
-                
-            };
+                )
+                .finish(),
+                _ => Shrinkable::new(1.0, Container::new(Empty::new().finish()).finish()).finish(),
+            },
+            ToolPanelView::GlobalSearch { .. } => match self.active_global_search_view(app) {
+                Some(global_search_view) => Shrinkable::new(
+                    1.0,
+                    Container::new(ChildView::new(&global_search_view).finish()).finish(),
+                )
+                .finish(),
+                _ => Shrinkable::new(1.0, Container::new(Empty::new().finish()).finish()).finish(),
+            },
+        };
 
         let panel_content = Container::new({
             let column = Flex::column();

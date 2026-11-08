@@ -2208,7 +2208,6 @@ impl TypedActionView for BillingAndUsagePageV2View {
             .is_anonymous_or_logged_out()
             && is_login_gated
         {
-            
             return;
         }
 
@@ -2234,9 +2233,7 @@ impl TypedActionView for BillingAndUsagePageV2View {
             BillingAndUsagePageAction::SignupAnonymousUser => {
                 ctx.emit(BillingAndUsagePageEvent::SignupAnonymousUser);
             }
-            BillingAndUsagePageAction::AttemptLoginGatedUpgrade => {
-                
-            }
+            BillingAndUsagePageAction::AttemptLoginGatedUpgrade => {}
             BillingAndUsagePageAction::OpenUrl(url) => ctx.open_url(&url.url),
             // Not applicable in v2
             BillingAndUsagePageAction::UpdateUsageBasedPricingSettings { .. }

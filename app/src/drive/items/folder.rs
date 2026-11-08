@@ -60,8 +60,6 @@ impl WarpDriveItem for WarpDriveFolder {
         Some(self.folder.model().is_open)
     }
 
-    
-
     fn preview(&self, _: &Appearance) -> Option<Box<dyn Element>> {
         None
     }

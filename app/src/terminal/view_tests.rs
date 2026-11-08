@@ -174,6 +174,29 @@ fn has_pending_user_query_block(view: &TerminalView) -> bool {
 }
 
 #[test]
+fn command_search_prompt_enters_agent_view_and_locks_ai_input() {
+    App::test((), |mut app| async move {
+        initialize_app_for_terminal_view(&mut app);
+        let _agent_view = FeatureFlag::AgentView.override_enabled(true);
+        let terminal = add_window_with_terminal(&mut app, None);
+        terminal.update(&mut app, |view, ctx| {
+            view.ask_blocklist_ai(
+                &AskAIType::FromAICommandSearch { query: Arc::new("hello".into()) },
+                ctx,
+            );
+        });
+        terminal.read(&app, |view, ctx| {
+            let input = view.ai_input_model().as_ref(ctx);
+            assert!(view.agent_view_controller().as_ref(ctx).is_fullscreen());
+            assert_eq!(input.input_type(), InputType::AI);
+            assert!(input.is_input_type_locked());
+            assert!(!input.should_run_input_autodetection(ctx));
+            assert_eq!(view.input().as_ref(ctx).buffer_text(ctx), "What is the command to: hello");
+        });
+    });
+}
+
+#[test]
 fn agent_view_lifecycle_updates_input_mode() {
     App::test((), |mut app| async move {
         initialize_app_for_terminal_view(&mut app);

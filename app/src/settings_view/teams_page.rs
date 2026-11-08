@@ -689,7 +689,6 @@ impl TypedActionView for TeamsPageView {
             .is_anonymous_or_logged_out()
             && action.blocked_for_anonymous_user()
         {
-            
             return;
         }
 

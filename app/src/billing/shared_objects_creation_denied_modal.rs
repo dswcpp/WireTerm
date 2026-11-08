@@ -108,8 +108,6 @@ impl SharedObjectsCreationDeniedModal {
         ctx.emit(SharedObjectsCreationDeniedModalEvent::Close);
     }
 
-    
-
     fn handle_shared_objects_creation_denied_body_event(
         &mut self,
         event: &SharedObjectsCreationDeniedBodyEvent,

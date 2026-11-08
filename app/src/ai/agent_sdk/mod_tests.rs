@@ -19,7 +19,7 @@ use warp_cli::agent::{
 use warp_cli::artifact::{
     ArtifactCommand, DownloadArtifactArgs, GetArtifactArgs, UploadArtifactArgs,
 };
-use warp_cli::task::{MessageCommand, MessageSendArgs, MessageWatchArgs, TaskCommand};
+use warp_cli::task::{MessageCommand, MessageSendArgs, TaskCommand};
 use warp_cli::{Args, CliCommand, Command};
 use warp_core::features::FeatureFlag;
 use warp_graphql::ai::AgentTaskState;

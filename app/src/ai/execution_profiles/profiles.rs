@@ -796,8 +796,6 @@ impl AIExecutionProfilesModel {
         });
     }
 
-    
-
     /// This function performs one-time migrations from legacy settings into the default profile.
     /// The issue this solves is that, whenever we migrate an existing setting into the profile object,
     /// users will initialize the new field to its default value. We need to manually check to see if

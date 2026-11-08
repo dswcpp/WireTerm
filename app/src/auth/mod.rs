@@ -1,19 +1,18 @@
 pub mod auth_manager;
 mod user_properties;
-pub use warp_server_auth::{auth_state, credentials, user, user_uid};
-
 use ::settings::{Setting, SettingsManager};
-#[cfg(any(test, feature = "tui"))]
-use warp_core::channel::ChannelState;
 use ai::index::full_source_code_embedding::manager::CodebaseIndexManager;
 pub use auth_manager::AuthManager;
 pub use auth_state::AuthStateProvider;
 #[cfg(feature = "tui")]
 use url::Url;
 pub use user_uid::UserUid;
+#[cfg(any(test, feature = "tui"))]
+use warp_core::channel::ChannelState;
 use warp_core::features::FeatureFlag;
 use warp_core::user_preferences::GetUserPreferences as _;
 use warp_errors::report_error;
+pub use warp_server_auth::{auth_state, credentials, user, user_uid};
 use warpui::{AppContext, SingletonEntity};
 
 use crate::ai::agent_conversations_model::AgentConversationsModel;
@@ -39,11 +38,7 @@ use crate::terminal::shared_session::manager::Manager as SharedSessionManager;
 use crate::workflows::manager::WorkflowManager;
 use crate::workspace::OneTimeModalModel;
 use crate::workspaces::update_manager::TeamUpdateManager;
-use crate::{
-    GlobalResourceHandlesProvider, persistence,
-};
-
-
+use crate::{GlobalResourceHandlesProvider, persistence};
 
 /// Returns the configured Warp web logout URL.
 ///
@@ -87,10 +82,6 @@ pub fn web_logout_url_with_continue(continue_url: &str) -> Option<String> {
         .append_pair("continue", continue_url.as_str());
     Some(logout_url.into())
 }
-
-
-
-
 
 // Log out the user, clears workspace state, stops running processes, and deletes database.
 pub fn log_out(app: &mut AppContext) {

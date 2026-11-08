@@ -392,7 +392,9 @@ impl TemplatableMCPServerManager {
                 // Fires on login and on user refresh; the credentials may
                 // have rotated either way, so respawn with the current token.
                 AuthManagerEvent::AuthComplete => me.sync_builtin_servers(true, ctx),
-                AuthManagerEvent::AuthFailed(_) | AuthManagerEvent::NeedsReauth => me.sync_builtin_servers(false, ctx),
+                AuthManagerEvent::AuthFailed(_) | AuthManagerEvent::NeedsReauth => {
+                    me.sync_builtin_servers(false, ctx)
+                }
                 AuthManagerEvent::ReceivedDeviceAuthorizationCode { .. } => {}
             });
 

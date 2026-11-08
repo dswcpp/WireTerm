@@ -20,7 +20,6 @@ use super::user::{
     AnonymousUserType, FirebaseAuthTokens, PersonalObjectLimits, PrincipalType, User,
 };
 
-
 const ANONYMOUS_USER_NOTIFICATION_BLOCK_TIMER: Duration = Duration::days(7);
 
 /// Describes what persistence action to take based on the current auth state.

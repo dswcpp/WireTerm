@@ -377,11 +377,7 @@ impl PaneContent for TerminalPane {
             .ambient_agent_task_id_for_details_panel(ctx)
             .map(|task_id| (active_stack_view.id(), task_id));
         ActiveAgentViewsModel::handle(ctx).update(ctx, |model, ctx| {
-            model.register_agent_view_controller(
-                &agent_view_controller,
-                terminal_view_id,
-                ctx,
-            );
+            model.register_agent_view_controller(&agent_view_controller, terminal_view_id, ctx);
             if let Some((terminal_view_id, task_id)) = active_ambient_session_registration {
                 model.register_ambient_session(terminal_view_id, task_id, ctx);
             }

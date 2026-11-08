@@ -1837,7 +1837,7 @@ impl AISettings {
             .is_anonymous_or_logged_out();
 
         *self.is_any_ai_enabled
-            && !is_anonymous_or_logged_out
+            && (ai::api_keys::uses_direct_inference() || !is_anonymous_or_logged_out)
             && !self.is_ai_disabled_due_to_remote_session_org_policy(app)
     }
 
@@ -1906,7 +1906,8 @@ impl AISettings {
     }
 
     pub fn is_active_ai_enabled(&self, app: &warpui::AppContext) -> bool {
-        self.is_any_ai_enabled(app)
+        !ai::api_keys::uses_direct_inference()
+            && self.is_any_ai_enabled(app)
             && *self.is_active_ai_enabled_internal
             && AppExecutionMode::as_ref(app).allows_active_ai()
     }

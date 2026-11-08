@@ -999,6 +999,11 @@ impl LLMPreferences {
         available: &'a AvailableLLMs,
         app: &'a AppContext,
     ) -> &'a LLMInfo {
+        if ai::api_keys::uses_direct_inference()
+            && let Some(model) = self.custom_llm_choices(app).next()
+        {
+            return model;
+        }
         available
             .usable_default_llm_info(app)
             .or_else(|| self.custom_llm_choices(app).next())
@@ -1018,6 +1023,9 @@ impl LLMPreferences {
         id: &LLMId,
         app: &'a AppContext,
     ) -> Option<&'a LLMInfo> {
+        if ai::api_keys::uses_direct_inference() {
+            return self.custom_llm_info_for_id_if_enabled(id, app);
+        }
         Self::server_info_for_id_router_gated(available, id)
             .or_else(|| self.custom_llm_info_for_id_if_enabled(id, app))
             .or_else(|| self.custom_router_llm_info_for_id_if_enabled(id))
@@ -1029,6 +1037,9 @@ impl LLMPreferences {
         id: &LLMId,
         app: &'a AppContext,
     ) -> Option<&'a LLMInfo> {
+        if ai::api_keys::uses_direct_inference() {
+            return self.custom_llm_info_for_id_if_enabled(id, app);
+        }
         Self::server_info_for_id_router_gated(available, id)
             .filter(|info| is_usable_llm(info, app))
             .or_else(|| self.custom_llm_info_for_id_if_enabled(id, app))
@@ -1103,10 +1114,15 @@ impl LLMPreferences {
             // Gate cloud/team routers behind the same flag as local routers so
             // the entire custom-router feature is controlled by one flag.
             .filter(move |llm| {
-                routers_enabled || !custom_model_routers::is_cloud_custom_router_id(llm.id.as_str())
+                !ai::api_keys::uses_direct_inference()
+                    && (routers_enabled
+                        || !custom_model_routers::is_cloud_custom_router_id(llm.id.as_str()))
             })
             .chain(self.custom_llm_choices(app))
-            .chain(self.custom_router_choices())
+            .chain(
+                self.custom_router_choices()
+                    .filter(|_| !ai::api_keys::uses_direct_inference()),
+            )
     }
 
     #[cfg(any(test, feature = "test-util"))]
@@ -1138,10 +1154,15 @@ impl LLMPreferences {
             .filter(|llm| !matches!(llm.disable_reason, Some(DisableReason::AdminDisabled)))
             // Gate cloud/team routers behind the same flag as local routers.
             .filter(move |llm| {
-                routers_enabled || !custom_model_routers::is_cloud_custom_router_id(llm.id.as_str())
+                !ai::api_keys::uses_direct_inference()
+                    && (routers_enabled
+                        || !custom_model_routers::is_cloud_custom_router_id(llm.id.as_str()))
             })
             .chain(self.custom_llm_choices(app))
-            .chain(self.custom_router_choices())
+            .chain(
+                self.custom_router_choices()
+                    .filter(|_| !ai::api_keys::uses_direct_inference()),
+            )
     }
 
     /// Returns the set of LLMs available for CLI agent.
@@ -2377,7 +2398,7 @@ fn get_new_agent_mode_choices(
 fn build_custom_llm_infos(endpoints: &[CustomEndpoint]) -> Vec<LLMInfo> {
     endpoints
         .iter()
-        .filter(|ep| !ep.url.trim().is_empty() && !ep.api_key.is_empty())
+        .filter(|ep| ai::api_keys::custom_endpoint_is_ready(ep))
         .flat_map(|endpoint| {
             endpoint
                 .models

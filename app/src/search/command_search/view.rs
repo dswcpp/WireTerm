@@ -943,9 +943,7 @@ impl TypedActionView for CommandSearchView {
             OpenUpgradeLink(upgrade_link) => {
                 ctx.open_url(upgrade_link);
             }
-            AttemptLoginGatedUpgrade => {
-                
-            }
+            AttemptLoginGatedUpgrade => {}
         }
     }
 }

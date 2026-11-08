@@ -2147,8 +2147,6 @@ fn test_fetch_single_cloud_object_pending_no_overwrite() {
     })
 }
 
-
-
 #[test]
 fn test_metadata_after_trash_item_success() {
     App::test(ASSETS, |mut app| async move {
@@ -4120,10 +4118,6 @@ fn test_delete_single_object() {
         );
     });
 }
-
-
-
-
 
 #[test]
 fn test_create_object_online_success() {

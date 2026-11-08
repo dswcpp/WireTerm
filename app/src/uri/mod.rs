@@ -82,14 +82,8 @@ pub enum OpenSettingsArgs {
 /// Used to skip opening settings page after GitHub auth completes.
 pub const CLOUD_SETUP_SOURCE: &str = "cloud_setup";
 
-
-
-
-
 #[derive(Debug, PartialEq, Eq)]
 pub enum UriHost {
-    
-    
     /// A host prefix for all actions (e.g.: new tab, new window).
     Action,
     /// A host prefix for all actions that involve launch configurations
@@ -98,7 +92,7 @@ pub enum UriHost {
     SharedSession,
     /// Supports viewing AI conversations via a warp:// URI.
     Conversation,
-    
+
     /// Supports opening warp's settings panel via URI
     Settings,
     /// A host prefix for a general-purpose home/landing page. Unlike other intent URIs, the home
@@ -123,15 +117,13 @@ impl FromStr for UriHost {
 
     fn from_str(s: &str) -> Result<Self> {
         match s {
-            
-            
             "action" => Ok(Self::Action),
             "launch" => Ok(Self::Launch),
             "shared_session" if FeatureFlag::ViewingSharedSessions.is_enabled() => {
                 Ok(Self::SharedSession)
             }
             "conversation" => Ok(Self::Conversation),
-            
+
             "settings" => Ok(Self::Settings),
             "home" => Ok(Self::Home),
             "mcp" => Ok(Self::Mcp),
@@ -151,7 +143,6 @@ impl UriHost {
     fn handle(&self, primary_window_id: Option<WindowId>, url: &Url, ctx: &mut AppContext) {
         // Handle host
         match self {
-            
             UriHost::ChatGPTLink => {
                 ChatGPTSubscriptionModel::handle(ctx).update(ctx, |model, ctx| {
                     model.handle_link_redirect(url, ctx);
@@ -160,7 +151,7 @@ impl UriHost {
                     ctx.windows().show_window_and_focus_app(window_id);
                 }
             }
-            
+
             UriHost::Action => {
                 match Action::parse(url) {
                     Ok(action) => action.handle(primary_window_id, url, ctx),
@@ -262,7 +253,7 @@ impl UriHost {
                     log::warn!("Failed to open conversation with uri={url}");
                 }
             }
-            
+
             UriHost::Settings => {
                 // We support opening different settings pages through URI:
                 // - warp://settings - opens a settings tab on the default page
@@ -1415,8 +1406,6 @@ fn execute_file(window_id: WindowId, path_str: &str, ctx: &mut AppContext) {
 
     send_telemetry_from_app_ctx!(TelemetryEvent::CommandFileRun, ctx);
 }
-
-
 
 fn find_workspace_for_terminal_view(
     terminal_view_id: EntityId,

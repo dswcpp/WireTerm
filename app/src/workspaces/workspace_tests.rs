@@ -4,7 +4,6 @@ use crate::server::ids::ServerId;
 // `ServerId::from_string_lossy` requires exactly 22 characters.
 const TEST_WORKSPACE_UID: &str = "workspace_uid123456789";
 
-
 fn make_workspace(policy: Option<UsageVisibilityPolicy>) -> Workspace {
     let mut workspace = Workspace::from_local_cache(
         ServerId::from_string_lossy(TEST_WORKSPACE_UID).into(),

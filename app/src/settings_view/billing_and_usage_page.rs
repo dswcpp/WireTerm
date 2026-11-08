@@ -865,7 +865,6 @@ impl TypedActionView for BillingAndUsagePageView {
             .is_anonymous_or_logged_out()
             && action.blocked_for_anonymous_user()
         {
-            
             return;
         }
 
@@ -895,9 +894,7 @@ impl TypedActionView for BillingAndUsagePageView {
             BillingAndUsagePageAction::SignupAnonymousUser => {
                 ctx.emit(BillingAndUsagePageEvent::SignupAnonymousUser);
             }
-            BillingAndUsagePageAction::AttemptLoginGatedUpgrade => {
-                
-            }
+            BillingAndUsagePageAction::AttemptLoginGatedUpgrade => {}
             BillingAndUsagePageAction::OpenUrl(url) => {
                 ctx.open_url(&url.url);
             }

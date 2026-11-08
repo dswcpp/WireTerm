@@ -1559,9 +1559,7 @@ impl TypedActionView for AgentProfilesPageView {
                 ctx.notify();
                 ctx.open_url(&hyperlink.url);
             }
-            AgentProfilesPageAction::AttemptLoginGatedUpgrade => {
-                
-            }
+            AgentProfilesPageAction::AttemptLoginGatedUpgrade => {}
             AgentProfilesPageAction::RemoveFromCommandExecutionAllowlist(cmd) => {
                 BlocklistAIPermissions::handle(ctx).update(ctx, |model, ctx| {
                     report_if_error!(model.remove_command_from_autoexecution_allowlist(cmd, ctx));

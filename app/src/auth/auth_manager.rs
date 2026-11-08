@@ -16,11 +16,11 @@ use warp_server_auth::user::persistence::PersistedUser;
 use warpui::r#async::Timer;
 use warpui::{Entity, ModelContext, SingletonEntity, UpdateModel};
 
+use super::AuthStateProvider;
 use super::auth_state::{AuthState, PersistAction};
 use super::credentials::{Credentials, LoginToken};
 use super::user::User;
 use super::user_properties::UserProperties;
-use super::AuthStateProvider;
 use crate::ai::AIRequestUsageModel;
 use crate::ai::llms::LLMPreferences;
 use crate::ai::persisted_workspace::PersistedWorkspace;
@@ -28,10 +28,7 @@ use crate::autoupdate::AutoupdateState;
 use crate::persistence::ModelEvent;
 use crate::server::cloud_objects::update_manager::UpdateManager;
 use crate::server::server_api::ServerApiProvider;
-use crate::server::server_api::auth::{
-    AuthClient, FetchUserResult,
-    UserAuthenticationError,
-};
+use crate::server::server_api::auth::{AuthClient, FetchUserResult, UserAuthenticationError};
 use crate::settings::PrivacySettings;
 use crate::settings::cloud_preferences_syncer::CloudPreferencesSyncer;
 use crate::settings::initializer::SettingsInitializer;
@@ -139,10 +136,6 @@ impl AuthManager {
             auth_client,
         }
     }
-
-    
-
-    
 
     #[cfg(target_family = "wasm")]
     pub fn initialize_user_from_session_cookie(&self, ctx: &mut ModelContext<Self>) {
@@ -482,16 +475,6 @@ impl AuthManager {
         }
     }
 
-    
-
-    
-
-    
-
-    
-
-    
-
     // Opens a page in the web app and logs the user in using a customToken if they are an anonymous user.
     // Accepts a callback that constructs the URL using the customToken to open a page and log in an anonymous user.
     pub fn open_url_maybe_with_anonymous_token(
@@ -528,27 +511,9 @@ impl AuthManager {
         );
     }
 
-    
-
-    
-
-    
-
-    
-
     pub fn upgrade_url(&self) -> String {
         format!("{}/upgrade", ChannelState::server_root_url())
     }
-
-    
-
-    
-
-    
-
-    
-
-    
 
     /// Sets the user as onboarded both on the server and locally.
     /// This method:

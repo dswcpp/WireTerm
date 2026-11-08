@@ -368,7 +368,56 @@ impl schemars::JsonSchema for CustomEndpointDefinitions {
     }
 }
 
+/// Whether inference is performed on this device instead of through Warp.
+pub fn uses_direct_inference() -> bool {
+    matches!(
+        warp_core::channel::ChannelState::channel(),
+        warp_core::channel::Channel::Oss
+    )
+}
+
+/// Validates a user-selected Chat Completions base URL without exposing its contents in errors.
+pub fn validate_direct_endpoint_url(value: &str) -> Result<(), &'static str> {
+    let parsed = Url::parse(value).map_err(|_| "Invalid endpoint URL")?;
+    if parsed.host().is_none() {
+        return Err("Endpoint URL must include a host");
+    }
+    if !parsed.username().is_empty()
+        || parsed.password().is_some()
+        || parsed.query().is_some()
+        || parsed.fragment().is_some()
+    {
+        return Err("Endpoint URL must not contain credentials, a query, or a fragment");
+    }
+    if parsed.scheme() != "https" && !(parsed.scheme() == "http" && is_loopback_endpoint(value)) {
+        return Err("Use HTTPS, or HTTP for a loopback model service");
+    }
+    Ok(())
+}
+
+pub fn is_loopback_endpoint(value: &str) -> bool {
+    Url::parse(value).ok().is_some_and(|url| match url.host() {
+        Some(url::Host::Domain(host)) => host.eq_ignore_ascii_case("localhost"),
+        Some(url::Host::Ipv4(ip)) => ip.is_loopback(),
+        Some(url::Host::Ipv6(ip)) => ip.is_loopback(),
+        None => false,
+    })
+}
+
+pub fn custom_endpoint_is_ready(endpoint: &CustomEndpoint) -> bool {
+    if uses_direct_inference() {
+        endpoint.schema == CustomEndpointSchema::OpenaiChatCompletions
+            && validate_direct_endpoint_url(&endpoint.url).is_ok()
+            && (!endpoint.api_key.trim().is_empty() || is_loopback_endpoint(&endpoint.url))
+    } else {
+        !endpoint.url.trim().is_empty() && !endpoint.api_key.is_empty()
+    }
+}
+
 pub fn validate_custom_endpoint_url(value: &str) -> Result<(), &'static str> {
+    if uses_direct_inference() {
+        return validate_direct_endpoint_url(value);
+    }
     let parsed = Url::parse(value).map_err(|_| "Invalid URL")?;
     if parsed.scheme() != "https" {
         return Err("URL must use HTTPS");
@@ -1134,7 +1183,7 @@ impl ApiKeyManager {
             .custom_endpoints
             .resolved
             .iter()
-            .filter(|endpoint| !endpoint.url.trim().is_empty() && !endpoint.api_key.is_empty())
+            .filter(|endpoint| custom_endpoint_is_ready(endpoint))
             .map(
                 |endpoint| api::request::settings::custom_model_providers::CustomModelProvider {
                     base_url: endpoint.url.clone(),

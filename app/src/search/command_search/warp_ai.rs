@@ -29,8 +29,8 @@ use crate::ui_components::icons::Icon as UIIcon;
 use crate::util::color::{ContrastingColor, MinimumAllowedContrast};
 use crate::workflows::{AIWorkflowOrigin, WorkflowSource, WorkflowType};
 
-const OPEN_WARP_AI_ITEM_BODY_TEXT: &str = "Ask Warp AI for command suggestions";
-const TRANSLATE_WITH_WARP_AI_ITEM_BODY_TEXT: &str = "Translate into shell command using Warp AI";
+const OPEN_WARP_AI_ITEM_BODY_TEXT: &str = "Ask Agent for command suggestions";
+const TRANSLATE_WITH_WARP_AI_ITEM_BODY_TEXT: &str = "Translate into shell command using Agent";
 
 #[derive(Clone, Debug)]
 pub enum WarpAISearchItem {
@@ -137,6 +137,21 @@ impl SearchItem for WarpAISearchItem {
     }
 }
 
+#[derive(Debug)]
+struct DirectCommandError(String);
+
+impl DataSourceRunError for DirectCommandError {
+    fn user_facing_error(&self) -> String {
+        self.0.clone()
+    }
+    fn telemetry_payload(&self) -> serde_json::Value {
+        json!({"error": "custom_model_command_suggestions"})
+    }
+    fn as_any(&self) -> &dyn Any {
+        self
+    }
+}
+
 /// The Warp AI data source provides two different types of results:
 /// - synchronous: the synchronous result provided by this data source is a
 ///   single item that opens/translates using Warp AI when selected.
@@ -186,16 +201,37 @@ impl AsyncDataSource for WarpAIDataSource {
     fn run_query(
         &self,
         query: &Query,
-        _app: &AppContext,
+        app: &AppContext,
     ) -> BoxFuture<'static, Result<Vec<QueryResult<Self::Action>>, DataSourceRunErrorWrapper>> {
         let query_text = query.text.clone();
         let ai_execution_context = self.ai_execution_context.clone();
         let ai_client = self.ai_client.clone();
+        let direct_endpoint = ai::api_keys::uses_direct_inference()
+            .then(|| crate::ai::agent::api::direct::command_endpoint(app));
 
         Box::pin(async move {
-            let res = ai_client
-                .generate_commands_from_natural_language(query_text, ai_execution_context)
-                .await;
+            let res: Result<_, DataSourceRunErrorWrapper> = if let Some(endpoint) = direct_endpoint
+            {
+                match endpoint {
+                    Ok((endpoint, model)) => crate::ai::agent::api::direct::generate_commands(
+                        endpoint,
+                        model,
+                        query_text,
+                        ai_execution_context,
+                    )
+                    .await
+                    .map_err(|error| {
+                        Box::new(DirectCommandError(error.to_string())) as DataSourceRunErrorWrapper
+                    }),
+                    Err(error) => Err(Box::new(DirectCommandError(error.to_string()))
+                        as DataSourceRunErrorWrapper),
+                }
+            } else {
+                ai_client
+                    .generate_commands_from_natural_language(query_text, ai_execution_context)
+                    .await
+                    .map_err(|error| Box::new(error) as DataSourceRunErrorWrapper)
+            };
 
             match res {
                 Ok(ai_commands) => {
@@ -220,12 +256,15 @@ impl AsyncDataSource for WarpAIDataSource {
                         .rev()
                         .collect_vec())
                 }
-                Err(e) => Err(Box::new(e) as Box<dyn DataSourceRunError>),
+                Err(error) => Err(error),
             }
         })
     }
 
     fn on_query_finished(&self, app: &mut AppContext) {
+        if ai::api_keys::uses_direct_inference() {
+            return;
+        }
         AIRequestUsageModel::handle(app).update(app, |request_usage_model, ctx| {
             request_usage_model.refresh_request_usage_async(ctx);
         });

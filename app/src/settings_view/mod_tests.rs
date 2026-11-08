@@ -93,7 +93,7 @@ fn match_data_countable_zero_is_not_truthy() {
 
 #[test]
 fn subpage_display_names_are_correct() {
-    assert_eq!(SettingsSection::WarpAgent.to_string(), "Warp Agent");
+    assert_eq!(SettingsSection::WarpAgent.to_string(), "Agent");
     assert_eq!(SettingsSection::AgentProfiles.to_string(), "Profiles");
     assert_eq!(SettingsSection::AgentMCPServers.to_string(), "MCP servers");
     assert_eq!(SettingsSection::Knowledge.to_string(), "Knowledge");
@@ -244,7 +244,7 @@ fn renamed_sections_keep_the_slug_they_were_seeded_with() {
 
 #[test]
 fn from_slug_accepts_legacy_spellings() {
-    // Both the legacy "Oz" name and the current "Warp Agent" slug must resolve
+    // Both the legacy "Oz" name and the current "Agent" slug must resolve
     // to SettingsSection::WarpAgent so existing deep links, persisted sessions
     // and external callers keep working after the user-facing rename (see
     // specs/GH1063/product.md, Behavior #8).
@@ -377,10 +377,7 @@ fn collapsed_umbrella_is_a_single_nav_stop() {
     // Expect: About, <Agents umbrella>, BillingAndUsage, <Code umbrella>,
     // <Cloud platform umbrella>, Teams.
     assert_eq!(stops.len(), 6);
-    assert!(matches!(
-        stops[0],
-        NavStop::Section(SettingsSection::About)
-    ));
+    assert!(matches!(stops[0], NavStop::Section(SettingsSection::About)));
     assert!(matches!(
         stops[1],
         NavStop::CollapsedUmbrella {

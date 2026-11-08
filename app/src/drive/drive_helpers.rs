@@ -81,7 +81,6 @@ fn has_feature_gated_anonymous_user_reached_limit(
             object_limit,
         )
     }) {
-        
         return true;
     };
 

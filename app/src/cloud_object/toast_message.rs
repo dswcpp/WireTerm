@@ -120,9 +120,7 @@ impl CloudObjectToastMessage {
                 },
                 OperationSuccessType::Success,
             ) => Some(format!("{count_objects_message} deleted forever")),
-            
-            
-            
+
             _ => None,
         }
     }

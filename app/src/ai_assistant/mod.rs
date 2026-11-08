@@ -85,6 +85,16 @@ pub struct AIGeneratedCommand {
     parameters: Vec<AIGeneratedCommandParameter>,
 }
 
+impl AIGeneratedCommand {
+    pub(crate) fn suggestion(command: String, description: String) -> Self {
+        Self {
+            command,
+            description,
+            parameters: Vec::new(),
+        }
+    }
+}
+
 pub struct AIGeneratedCommandParameter {
     id: String,
     description: String,

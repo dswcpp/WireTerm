@@ -17,7 +17,6 @@ use crate::ai::blocklist::orchestration_event_streamer::{
 /// Contains the handles needed to track an active agent view.
 struct ActiveAgentViewHandles {
     controller: WeakModelHandle<AgentViewController>,
-
 }
 
 #[derive(Clone)]
@@ -157,7 +156,6 @@ impl ActiveAgentViewsModel {
             terminal_view_id,
             ActiveAgentViewHandles {
                 controller: controller.downgrade(),
-
             },
         );
 
@@ -326,8 +324,6 @@ impl ActiveAgentViewsModel {
             .and_then(|state| state.active_conversation_id)
     }
 
-    
-
     /// Remove the focused state for a window
     /// (called when said window is closed and cleaned up from the undo stack).
     pub fn remove_focused_state_for_window(
@@ -405,8 +401,6 @@ impl ActiveAgentViewsModel {
             .is_some()
     }
 
-    
-
     /// Returns the controller for a conversation if it's currently active
     /// (i.e., has an expanded agent view).
     pub fn get_controller_for_conversation(
@@ -428,8 +422,6 @@ impl ActiveAgentViewsModel {
         }
         None
     }
-
-    
 
     /// Returns the terminal view ID that has an active ambient session with the given task ID.
     pub fn get_terminal_view_id_for_ambient_task(
@@ -481,7 +473,6 @@ impl ActiveAgentViewsModel {
 
         None
     }
-    
 
     /// Get all currently open conversation IDs.
     /// A conversation is considered open if it is in an expanded agent view.

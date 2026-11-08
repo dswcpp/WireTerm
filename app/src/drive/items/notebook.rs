@@ -50,8 +50,6 @@ impl WarpDriveItem for WarpDriveNotebook {
         None
     }
 
-    
-
     fn preview(&self, appearance: &Appearance) -> Option<Box<dyn Element>> {
         let title_text = self.notebook.model().title.clone();
         let title_to_render = if title_text.is_empty() {

@@ -8052,24 +8052,24 @@ impl TerminalView {
                 .get_pending_action(app)
                 .map(|action| match &action.action {
                     AIAgentActionType::RequestCommandOutput { command, .. } => {
-                        format!("Warp Agent needs your permission to run `{command}`")
+                        format!("Agent needs your permission to run `{command}`")
                     }
                     AIAgentActionType::ReadFiles(..) => {
-                        "Warp Agent needs your permission to read files".to_string()
+                        "Agent needs your permission to read files".to_string()
                     }
                     AIAgentActionType::SearchCodebase(..) => {
-                        "Warp Agent needs your permission to search your codebase".to_string()
+                        "Agent needs your permission to search your codebase".to_string()
                     }
                     AIAgentActionType::RequestFileEdits { .. } => {
-                        "Warp Agent needs your permission to edit a file".to_string()
+                        "Agent needs your permission to edit a file".to_string()
                     }
                     AIAgentActionType::WriteToLongRunningShellCommand { .. } => {
-                        "Warp Agent needs your permission to interact with a running shell command"
+                        "Agent needs your permission to interact with a running shell command"
                             .to_string()
                     }
-                    _ => "Warp Agent needs your confirmation to continue".to_string(),
+                    _ => "Agent needs your confirmation to continue".to_string(),
                 })
-                .unwrap_or("Warp Agent needs your confirmation to continue".to_string());
+                .unwrap_or("Agent needs your confirmation to continue".to_string());
             return Some(AIBlockNotificationSummary {
                 success: false,
                 title,
@@ -20437,6 +20437,20 @@ impl TerminalView {
     /// terminal input with an AI query (depending on whether the text selection has already been
     /// attached as context). If the input box is not visible, make a new pane and do the same.
     pub fn ask_blocklist_ai(&mut self, ask_type: &AskAIType, ctx: &mut ViewContext<Self>) {
+        if FeatureFlag::AgentView.is_enabled()
+            && let AskAIType::FromAICommandSearch { query } = ask_type
+        {
+            self.enter_agent_view_for_new_conversation(
+                None,
+                AgentViewEntryOrigin::Input { was_prompt_autodetected: false },
+                ctx,
+            );
+            if self.agent_view_controller.as_ref(ctx).is_fullscreen() {
+                let prompt = format!("What is the command to: {}", query.trim());
+                self.set_ai_input_mode_with_query(Some(&prompt), ctx);
+            }
+            return;
+        }
         let mut context_block_indices = HashSet::new();
 
         let (initial_query, auto_suggestion) = match ask_type {

@@ -36,8 +36,6 @@ impl WarpDriveItem for WarpDriveSpace {
         None
     }
 
-    
-
     fn preview(&self, _appearance: &Appearance) -> Option<Box<dyn Element>> {
         None
     }

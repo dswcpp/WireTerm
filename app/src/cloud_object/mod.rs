@@ -895,7 +895,6 @@ pub trait CloudObjectMetadataExt {
     /// Returns a semantic summary of the object's creator. For example, "Alice" or "joan@warp.dev".
     #[cfg_attr(target_family = "wasm", expect(dead_code))]
     fn semantic_creator(&self, app: &AppContext) -> Option<String>;
-
 }
 
 impl CloudObjectMetadataExt for CloudObjectMetadata {
@@ -931,11 +930,7 @@ impl CloudObjectMetadataExt for CloudObjectMetadata {
             .as_ref()
             .and_then(|uid| user_profiles.displayable_identifier_for_uid(UserUid::new(uid)))
     }
-
-    
 }
-
-
 
 pub use cloud_object_client::{
     ObjectDeleteResult, ObjectMetadataUpdateResult, ObjectPermissionsUpdateData,

@@ -16,9 +16,7 @@ pub enum OnboardingTutorial {
     NoProject { intention: OnboardingIntention },
 }
 
-impl OnboardingTutorial {
-    
-}
+impl OnboardingTutorial {}
 
 /// A tutorial dispatch held back until the blocking one-time modal that was open closes.
 #[derive(Debug, Clone, Copy)]

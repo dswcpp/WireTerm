@@ -269,7 +269,7 @@ pub enum WorkspaceAction {
     SelectNewSessionMenuItem(NewSessionMenuItem),
     AutoupdateFailureLink,
     ApplyUpdate,
-    
+
     CopyVersion(&'static str),
     DownloadNewVersion,
     ConfigureKeybindingSettings {
@@ -372,8 +372,7 @@ pub enum WorkspaceAction {
     DropGroup,
     /// Toggles the local tools panel as an explicit user action.
     ToggleLeftPanel,
-    
-    
+
     /// Toggles the right panel. This happens as an explicit action from the user.
     ToggleRightPanel,
     /// Opens the code review panel (right panel) without toggling. If already open,
@@ -700,8 +699,7 @@ pub enum WorkspaceAction {
     ToggleGlobalSearch,
     ToggleHiddenFiles,
     OpenGlobalSearch,
-    
-    
+
     OpenAgentManagementView,
     /// Open the Build Plan Migration Modal (for debugging)
     #[cfg(debug_assertions)]
@@ -1007,7 +1005,202 @@ impl WorkspaceAction {
             | OpenVerticalTabsPanel => true, // actions that actually change a state of the state of user's
             // workspace would most likely require a save, so that if the app gets
             // restarted, the user can continue working
-            AutoupdateFailureLink | ApplyUpdate | CopyVersion(_) | DownloadNewVersion | ConfigureKeybindingSettings { .. } | ExportAllWarpDriveObjects | ShowSettings | ShowSettingsPage(_) | ShowSettingsPageWithSearch { .. } | ShowThemeChooser(_) | ShowThemeChooserForActiveTheme | IncreaseFontSize | DecreaseFontSize | ResetFontSize | IncreaseZoom | DecreaseZoom | ResetZoom | OpenPalette { .. } | TogglePalette { mode: _, source: _ } | ShowUpgrade | ShowReferralSettingsPage | JoinSlack | ViewUserDocs | ViewLatestChangelog | ViewPrivacyPolicy | SendFeedback | ChangeCursor(_) | ToggleBlockSnackbar | ToggleErrorUnderlining | ToggleSyntaxHighlighting | OpenLaunchConfigSaveModal | ToggleTabRightClickMenu { .. } | ToggleTabSelectionRightClickMenu { .. } | ToggleTabGroupRightClickMenu { .. } | ToggleVerticalTabsPaneContextMenu { .. } | OpenNewSessionMenu { .. } | ToggleTabConfigsMenu | ToggleNewSessionMenu { .. } | SelectNewSessionMenuItem(_) | ToggleTabBarOverflowMenu | CheckForUpdate | SetA11yVerbosityLevel(_) | ToggleNotifications | DispatchToSettingsTab { .. } | ToggleResourceCenter | ToggleUserMenu | ClickedAIAssistantIcon | ToggleAIAssistant | OpenCloudAgentSetupGuide | OpenPromptSuggestionsUnavailableModal | ToggleKeybindingsPage | ShowCommandSearch(_) | TriggerExternalCtrlTFileSearch | TriggerExternalAltCDirectorySearch | ToggleMouseReporting | ToggleScrollReporting | ToggleFocusReporting | ImportToPersonalDrive | ImportToTeamDrive | CreatePersonalNotebook | CreateTeamNotebook | CreatePersonalWorkflow | CreateTeamWorkflow | CreatePersonalFolder | CreateTeamFolder | CreateTeamEnvVarCollection | CreatePersonalEnvVarCollection | CreatePersonalAIPrompt | CreateTeamAIPrompt | OpenInExplorer { .. } | DragTab { .. } | StartTabDrag | DragGroup { .. } | StartGroupDrag(_) | ToggleLeftPanel | ClosePanel | ToggleRightPanel | OpenCodeReviewPanel(..) | ToggleVerticalTabsSettingsPopup | SetVerticalTabsDisplayGranularity(_) | SetVerticalTabsTabItemMode(_) | SetVerticalTabsViewMode(_) | SetVerticalTabsPrimaryInfo(_) | SetVerticalTabsCompactSubtitle(_) | ToggleVerticalTabsShowPrLink | ToggleVerticalTabsShowDiffStats | ToggleVerticalTabsShowDetailsOnHover | ToggleWelcomeTips | CopyTextToClipboard(_) | CopyCurrentPath | CopyAccessTokenToClipboard | OpenTabConfigRepoPicker { .. } | OpenNewWorktreeModal | OpenNewWorktreeRepoPicker | OpenWorktreeInRepo { .. } | OpenWorktreeAddRepoPicker | Crash | Panic | DumpHeapProfile | OpenViewTreeDebugWindow | ShowAIAssistantWarmWelcome | ClickedAIAssistantWarmWelcome | DismissAIAssistantWarmWelcome | DismissWorkspaceBanner(..) | ToggleSyncAllTerminalInputsInAllTabs | ToggleSyncTerminalInputsInTab | DisableTerminalInputSync | HandleConflictingWorkflow(_) | HandleConflictingEnvVarCollection(_) | OpenPromptEditor { .. } | OpenAgentToolbarEditor | OpenCLIAgentToolbarEditor | OpenHeaderToolbarEditor | ShowHeaderToolbarContextMenu { .. } | Reauth | SignupAnonymousUser | OpenLink(_) | OpenShareSessionModal(_) | StopSharingSessionFromTabMenu { .. } | StopSharingAllSessionsInTab { .. } | CopySharedSessionLinkFromTab { .. } | OpenSharedSessionQrCode { .. } | ReopenClosedSession | FocusLeftPanel | FocusRightPanel | DumpDebugInfo | LogReviewCommentSendStatusForActiveTab | ToggleRecordingMode | ToggleInBandGenerators | ToggleDebugNetworkStatus | ToggleShowMemoryStats | RunAISuggestedCommand { .. } | RunCommand { .. } | InsertInInput { .. } | InsertForkSlashCommand | AttemptLoginGatedAIUpgrade | UndoTrash(_) | OpenFilePath { .. } | ViewObjectInWarpDrive(_) | OpenObjectSharingSettings { .. } | TerminateApp | TabHoverWidthStart { .. } | TabHoverWidthEnd | OpenAIFactCollection | OpenMCPServerCollection | FocusTerminalViewInWorkspace { .. } | FocusPane(..) | ShiftSelectTabRange { .. } | ToggleTabMultiSelection { .. } | ClearTabMultiSelection | CancelActiveRename | StartNewConversation { .. } | UndoRevertInCodeReviewPane { .. } | JumpToLatestToast | NavigatePrevPaneOrPanel | NavigateNextPaneOrPanel | ToggleProjectExplorer | OpenProjectExplorer | ToggleGlobalSearch | ToggleHiddenFiles | OpenGlobalSearch | ToggleNotificationMailbox { .. } | ToggleAgentManagementView | OpenAgentManagementView | ViewAgentRunsForEnvironment { .. } | ToggleAIDocumentPane { .. } | HideAIDocumentPanes | OpenAIDocumentPane { .. } | ShowRewindConfirmationDialog { .. } | ExecuteRewindAIConversation { .. } | ExecuteDeleteConversation { .. } | OpenOrAttachAmbientAgentConversation { .. } | OpenConversationTranscriptViewer { .. } | OpenLightbox { .. } | UpdateLightboxImage { .. } | StartAgentOnboardingTutorial(_) | ShowSessionConfigModal | DismissSessionConfigTabConfigChip | DismissFeatureIntroModal | SaveCurrentTabAsNewConfig(_) | SyncTrafficLights | OpenTabConfigErrorFile { .. } | TabConfigSidecarMakeDefault { .. } | TabConfigSidecarEditConfig { .. } | TabConfigSidecarRemoveConfig { .. } | OpenSettingsFile | FixSettingsWithOz { .. } | OpenLocalToCloudHandoffPane { .. } | AutoHandoffActiveAgentToCloud { .. } | ShowHandoffEnvironmentCreationModal | ShowCloudModeV2EnvironmentCreationModal | OpenCreateAuthSecretModal { .. } | OpenNetworkLogPane | OpenNewWindowForTeam { .. } | BrowseTeams | ShowTeamSwitcherMenu => false,
+            AutoupdateFailureLink
+            | ApplyUpdate
+            | CopyVersion(_)
+            | DownloadNewVersion
+            | ConfigureKeybindingSettings { .. }
+            | ExportAllWarpDriveObjects
+            | ShowSettings
+            | ShowSettingsPage(_)
+            | ShowSettingsPageWithSearch { .. }
+            | ShowThemeChooser(_)
+            | ShowThemeChooserForActiveTheme
+            | IncreaseFontSize
+            | DecreaseFontSize
+            | ResetFontSize
+            | IncreaseZoom
+            | DecreaseZoom
+            | ResetZoom
+            | OpenPalette { .. }
+            | TogglePalette { mode: _, source: _ }
+            | ShowUpgrade
+            | ShowReferralSettingsPage
+            | JoinSlack
+            | ViewUserDocs
+            | ViewLatestChangelog
+            | ViewPrivacyPolicy
+            | SendFeedback
+            | ChangeCursor(_)
+            | ToggleBlockSnackbar
+            | ToggleErrorUnderlining
+            | ToggleSyntaxHighlighting
+            | OpenLaunchConfigSaveModal
+            | ToggleTabRightClickMenu { .. }
+            | ToggleTabSelectionRightClickMenu { .. }
+            | ToggleTabGroupRightClickMenu { .. }
+            | ToggleVerticalTabsPaneContextMenu { .. }
+            | OpenNewSessionMenu { .. }
+            | ToggleTabConfigsMenu
+            | ToggleNewSessionMenu { .. }
+            | SelectNewSessionMenuItem(_)
+            | ToggleTabBarOverflowMenu
+            | CheckForUpdate
+            | SetA11yVerbosityLevel(_)
+            | ToggleNotifications
+            | DispatchToSettingsTab { .. }
+            | ToggleResourceCenter
+            | ToggleUserMenu
+            | ClickedAIAssistantIcon
+            | ToggleAIAssistant
+            | OpenCloudAgentSetupGuide
+            | OpenPromptSuggestionsUnavailableModal
+            | ToggleKeybindingsPage
+            | ShowCommandSearch(_)
+            | TriggerExternalCtrlTFileSearch
+            | TriggerExternalAltCDirectorySearch
+            | ToggleMouseReporting
+            | ToggleScrollReporting
+            | ToggleFocusReporting
+            | ImportToPersonalDrive
+            | ImportToTeamDrive
+            | CreatePersonalNotebook
+            | CreateTeamNotebook
+            | CreatePersonalWorkflow
+            | CreateTeamWorkflow
+            | CreatePersonalFolder
+            | CreateTeamFolder
+            | CreateTeamEnvVarCollection
+            | CreatePersonalEnvVarCollection
+            | CreatePersonalAIPrompt
+            | CreateTeamAIPrompt
+            | OpenInExplorer { .. }
+            | DragTab { .. }
+            | StartTabDrag
+            | DragGroup { .. }
+            | StartGroupDrag(_)
+            | ToggleLeftPanel
+            | ClosePanel
+            | ToggleRightPanel
+            | OpenCodeReviewPanel(..)
+            | ToggleVerticalTabsSettingsPopup
+            | SetVerticalTabsDisplayGranularity(_)
+            | SetVerticalTabsTabItemMode(_)
+            | SetVerticalTabsViewMode(_)
+            | SetVerticalTabsPrimaryInfo(_)
+            | SetVerticalTabsCompactSubtitle(_)
+            | ToggleVerticalTabsShowPrLink
+            | ToggleVerticalTabsShowDiffStats
+            | ToggleVerticalTabsShowDetailsOnHover
+            | ToggleWelcomeTips
+            | CopyTextToClipboard(_)
+            | CopyCurrentPath
+            | CopyAccessTokenToClipboard
+            | OpenTabConfigRepoPicker { .. }
+            | OpenNewWorktreeModal
+            | OpenNewWorktreeRepoPicker
+            | OpenWorktreeInRepo { .. }
+            | OpenWorktreeAddRepoPicker
+            | Crash
+            | Panic
+            | DumpHeapProfile
+            | OpenViewTreeDebugWindow
+            | ShowAIAssistantWarmWelcome
+            | ClickedAIAssistantWarmWelcome
+            | DismissAIAssistantWarmWelcome
+            | DismissWorkspaceBanner(..)
+            | ToggleSyncAllTerminalInputsInAllTabs
+            | ToggleSyncTerminalInputsInTab
+            | DisableTerminalInputSync
+            | HandleConflictingWorkflow(_)
+            | HandleConflictingEnvVarCollection(_)
+            | OpenPromptEditor { .. }
+            | OpenAgentToolbarEditor
+            | OpenCLIAgentToolbarEditor
+            | OpenHeaderToolbarEditor
+            | ShowHeaderToolbarContextMenu { .. }
+            | Reauth
+            | SignupAnonymousUser
+            | OpenLink(_)
+            | OpenShareSessionModal(_)
+            | StopSharingSessionFromTabMenu { .. }
+            | StopSharingAllSessionsInTab { .. }
+            | CopySharedSessionLinkFromTab { .. }
+            | OpenSharedSessionQrCode { .. }
+            | ReopenClosedSession
+            | FocusLeftPanel
+            | FocusRightPanel
+            | DumpDebugInfo
+            | LogReviewCommentSendStatusForActiveTab
+            | ToggleRecordingMode
+            | ToggleInBandGenerators
+            | ToggleDebugNetworkStatus
+            | ToggleShowMemoryStats
+            | RunAISuggestedCommand { .. }
+            | RunCommand { .. }
+            | InsertInInput { .. }
+            | InsertForkSlashCommand
+            | AttemptLoginGatedAIUpgrade
+            | UndoTrash(_)
+            | OpenFilePath { .. }
+            | ViewObjectInWarpDrive(_)
+            | OpenObjectSharingSettings { .. }
+            | TerminateApp
+            | TabHoverWidthStart { .. }
+            | TabHoverWidthEnd
+            | OpenAIFactCollection
+            | OpenMCPServerCollection
+            | FocusTerminalViewInWorkspace { .. }
+            | FocusPane(..)
+            | ShiftSelectTabRange { .. }
+            | ToggleTabMultiSelection { .. }
+            | ClearTabMultiSelection
+            | CancelActiveRename
+            | StartNewConversation { .. }
+            | UndoRevertInCodeReviewPane { .. }
+            | JumpToLatestToast
+            | NavigatePrevPaneOrPanel
+            | NavigateNextPaneOrPanel
+            | ToggleProjectExplorer
+            | OpenProjectExplorer
+            | ToggleGlobalSearch
+            | ToggleHiddenFiles
+            | OpenGlobalSearch
+            | ToggleNotificationMailbox { .. }
+            | ToggleAgentManagementView
+            | OpenAgentManagementView
+            | ViewAgentRunsForEnvironment { .. }
+            | ToggleAIDocumentPane { .. }
+            | HideAIDocumentPanes
+            | OpenAIDocumentPane { .. }
+            | ShowRewindConfirmationDialog { .. }
+            | ExecuteRewindAIConversation { .. }
+            | ExecuteDeleteConversation { .. }
+            | OpenOrAttachAmbientAgentConversation { .. }
+            | OpenConversationTranscriptViewer { .. }
+            | OpenLightbox { .. }
+            | UpdateLightboxImage { .. }
+            | StartAgentOnboardingTutorial(_)
+            | ShowSessionConfigModal
+            | DismissSessionConfigTabConfigChip
+            | DismissFeatureIntroModal
+            | SaveCurrentTabAsNewConfig(_)
+            | SyncTrafficLights
+            | OpenTabConfigErrorFile { .. }
+            | TabConfigSidecarMakeDefault { .. }
+            | TabConfigSidecarEditConfig { .. }
+            | TabConfigSidecarRemoveConfig { .. }
+            | OpenSettingsFile
+            | FixSettingsWithOz { .. }
+            | OpenLocalToCloudHandoffPane { .. }
+            | AutoHandoffActiveAgentToCloud { .. }
+            | ShowHandoffEnvironmentCreationModal
+            | ShowCloudModeV2EnvironmentCreationModal
+            | OpenCreateAuthSecretModal { .. }
+            | OpenNetworkLogPane
+            | OpenNewWindowForTeam { .. }
+            | BrowseTeams
+            | ShowTeamSwitcherMenu => false,
             #[cfg(debug_assertions)]
             ShowHoaOnboardingFlow => false,
             #[cfg(target_family = "wasm")]

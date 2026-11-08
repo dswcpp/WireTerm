@@ -525,11 +525,7 @@ fn wire_up_terminal_view_session_sharing(
 
     let agent_view_controller = view.as_ref(ctx).agent_view_controller().clone();
     ActiveAgentViewsModel::handle(ctx).update(ctx, |model, ctx| {
-        model.register_agent_view_controller(
-            &agent_view_controller,
-            terminal_view_id,
-            ctx,
-        );
+        model.register_agent_view_controller(&agent_view_controller, terminal_view_id, ctx);
     });
 
     let ai_context_model = view.as_ref(ctx).ai_context_model().clone();

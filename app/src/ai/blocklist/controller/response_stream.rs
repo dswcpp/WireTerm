@@ -576,6 +576,10 @@ impl ResponseStream {
         cancellation_rx: oneshot::Receiver<()>,
         ctx: &mut ModelContext<Self>,
     ) {
+        if ::ai::api_keys::uses_direct_inference() {
+            Self::spawn_generate(request_id, params, team_scope, cancellation_rx, ctx);
+            return;
+        }
         // The Grok subscription and its OAuth refresh are native-only.
         #[cfg(not(target_family = "wasm"))]
         {

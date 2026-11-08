@@ -61,8 +61,6 @@ impl SharedObjectsCreationDeniedBody {
             button_mouse_states: Default::default(),
         }
     }
-
-    
 }
 
 impl Entity for SharedObjectsCreationDeniedBody {

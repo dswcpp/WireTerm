@@ -48,8 +48,6 @@ impl WarpDriveItem for WarpDriveWorkflow {
         None
     }
 
-    
-
     fn preview(&self, appearance: &Appearance) -> Option<Box<dyn Element>> {
         let mut modal =
             Flex::column().with_cross_axis_alignment(warpui::elements::CrossAxisAlignment::Stretch);

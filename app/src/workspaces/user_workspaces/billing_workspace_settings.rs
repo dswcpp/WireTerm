@@ -165,6 +165,9 @@ impl UserWorkspaces {
     /// Anonymous or logged-out users are not allowed to use custom inference.
     /// Controlled by the BYO_ENDPOINT billing policy.
     pub fn is_byo_endpoint_enabled(&self, app: &AppContext) -> bool {
+        if ai::api_keys::uses_direct_inference() {
+            return true;
+        }
         if AuthStateProvider::as_ref(app)
             .get()
             .is_anonymous_or_logged_out()

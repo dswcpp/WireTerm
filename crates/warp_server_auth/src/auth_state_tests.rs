@@ -30,9 +30,7 @@ impl secure_storage::SecureStorage for RecordingStorage {
 #[test]
 fn local_session_has_no_account_or_credentials_and_keeps_local_identity() {
     App::test((), |app| async move {
-        app.add_singleton_model(|_| {
-            PrivatePreferences::new(Box::<InMemoryPreferences>::default())
-        });
+        app.add_singleton_model(|_| PrivatePreferences::new(Box::<InMemoryPreferences>::default()));
         app.read(|ctx| {
             let first = AuthState::initialize_local(ctx);
             let second = AuthState::initialize_local(ctx);
@@ -47,9 +45,7 @@ fn local_session_has_no_account_or_credentials_and_keeps_local_identity() {
 #[test]
 fn local_session_does_not_consume_or_remove_stored_warp_credentials() {
     App::test((), |mut app| async move {
-        app.add_singleton_model(|_| {
-            PrivatePreferences::new(Box::<InMemoryPreferences>::default())
-        });
+        app.add_singleton_model(|_| PrivatePreferences::new(Box::<InMemoryPreferences>::default()));
         app.update(|ctx| {
             let accesses = Arc::new(AtomicUsize::new(0));
             ctx.add_singleton_model(|_| -> secure_storage::Model {

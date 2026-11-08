@@ -570,7 +570,6 @@ impl AutoupdateState {
             ctx.emit_a11y_content(content);
         }
 
-
         ctx.notify();
 
         // A request might've gotten queued while this last one was in-flight. This point is when
@@ -640,7 +639,6 @@ impl AutoupdateState {
 
 /// The set of events that are emitted from the AutoupdateState model.
 pub enum AutoupdateStateEvent {
-
     /// Emitted when an update is available.
     UpdateAvailable,
 }

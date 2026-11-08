@@ -121,7 +121,7 @@ pub enum ObjectOperation {
     Untrash,
     Delete { initiated_by: InitiatedBy },
     UpdatePermissions,
-    }
+}
 
 #[derive(Debug)]
 pub struct ObjectOperationResult {
@@ -1505,8 +1505,6 @@ impl UpdateManager {
 
                             cloud_model.upsert_from_server_cloud_object(object.clone(), ctx);
 
-                            
-
                             Self::save_in_memory_object_to_sqlite(
                                 me,
                                 cloud_model,
@@ -2334,8 +2332,6 @@ impl UpdateManager {
         );
         self.spawned_futures.push(future.future_id());
     }
-
-    
 
     /// Sets or removes link sharing permissions for a cloud object.
     ///
@@ -3252,7 +3248,6 @@ impl UpdateManager {
                 count + 1,
             )
         }) {
-            
             return;
         };
 
@@ -3321,7 +3316,6 @@ impl UpdateManager {
                 count + 1,
             )
         }) {
-            
             return;
         };
 
@@ -3382,7 +3376,6 @@ impl UpdateManager {
         if AuthStateProvider::handle(ctx).read(ctx, |auth_state_provider, _ctx| {
             is_feature_gated_anonymous_user_past_env_var_limit(auth_state_provider.get(), count + 1)
         }) {
-            
             return;
         };
 
@@ -4501,8 +4494,6 @@ impl UpdateManager {
         self.spawned_futures.push(future.future_id());
     }
 
-    
-
     pub fn on_object_delete_success(
         &mut self,
         deleted_ids: Vec<SyncId>,
@@ -4539,8 +4530,6 @@ impl UpdateManager {
 
         num_deleted_objects
     }
-
-    
 
     /// Persist updated metadata returned by a non-content update API. Because this metadata comes
     /// from an online-only API call, we assume it is always more up-to-date than the local

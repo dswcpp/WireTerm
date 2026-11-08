@@ -400,8 +400,6 @@ impl WorkflowModal {
         })
     }
 
-    
-
     /// Populate the modal with the data of a [`Workflow`] struct
     #[allow(dead_code)]
     fn populate(&mut self, workflow: Workflow, ctx: &mut ViewContext<Self>) {

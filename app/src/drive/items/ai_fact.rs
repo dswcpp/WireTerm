@@ -50,8 +50,6 @@ impl WarpDriveItem for WarpDriveAIFact {
         None
     }
 
-    
-
     fn preview(&self, appearance: &Appearance) -> Option<Box<dyn Element>> {
         let title_to_render = match &self.ai_fact.model().string_model {
             AIFact::Memory(AIMemory { content, .. }) => content.clone(),
