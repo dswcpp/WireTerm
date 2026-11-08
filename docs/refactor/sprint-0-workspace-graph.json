@@ -1,0 +1,2756 @@
+{
+  "date": "2026-11-07",
+  "head": "decfd77a9a115c3d25e382ac0bbe790b17cc381a",
+  "working_tree": "dirty; existing changes preserved",
+  "target": "x86_64-pc-windows-msvc",
+  "kind": "declared workspace edges; includes optional, dev and platform-specific edges",
+  "packages": [
+    {
+      "name": "ai",
+      "manifest": "crates/ai/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "computer_use",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "persistence",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "repo_metadata",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "settings_value",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "string-offset",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_cli",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_graphql",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_terminal",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_util",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_extras",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "virtual-fs",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "http_client",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(not(target_arch = \"wasm32\"))"
+        },
+        {
+          "name": "languages",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(not(target_arch = \"wasm32\"))"
+        },
+        {
+          "name": "syntax_tree",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(not(target_arch = \"wasm32\"))"
+        },
+        {
+          "name": "watcher",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(not(target_arch = \"wasm32\"))"
+        }
+      ]
+    },
+    {
+      "name": "computer_use",
+      "manifest": "crates/computer_use/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "computer_use",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(any(target_os = \"linux\", target_os = \"freebsd\"))"
+        },
+        {
+          "name": "command",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(target_os = \"macos\")"
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(target_os = \"macos\")"
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(target_os = \"windows\")"
+        }
+      ]
+    },
+    {
+      "name": "warp_errors",
+      "manifest": "crates/warp_errors/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "websocket",
+          "kind": null,
+          "optional": true,
+          "target": "cfg(not(target_family = \"wasm\"))"
+        }
+      ]
+    },
+    {
+      "name": "websocket",
+      "manifest": "crates/websocket/Cargo.toml",
+      "dependencies": []
+    },
+    {
+      "name": "warpui_core",
+      "manifest": "crates/warpui_core/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "markdown_parser",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "settings_value",
+          "kind": null,
+          "optional": true,
+          "target": null
+        },
+        {
+          "name": "string-offset",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "sum_tree",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_util",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "command",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "markdown_parser",
+      "manifest": "crates/markdown_parser/Cargo.toml",
+      "dependencies": []
+    },
+    {
+      "name": "settings_value",
+      "manifest": "crates/settings_value/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "settings_value_derive",
+          "kind": null,
+          "optional": true,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "settings_value_derive",
+      "manifest": "crates/settings_value_derive/Cargo.toml",
+      "dependencies": []
+    },
+    {
+      "name": "string-offset",
+      "manifest": "crates/string-offset/Cargo.toml",
+      "dependencies": []
+    },
+    {
+      "name": "sum_tree",
+      "manifest": "crates/sum_tree/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "sum_tree",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "warp_util",
+      "manifest": "crates/warp_util/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "command",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "command",
+      "manifest": "crates/command/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "persistence",
+      "manifest": "crates/persistence/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "ai_types",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "ai_types",
+      "manifest": "crates/ai_types/Cargo.toml",
+      "dependencies": []
+    },
+    {
+      "name": "repo_metadata",
+      "manifest": "crates/repo_metadata/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_util",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "virtual-fs",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "watcher",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(not(target_family = \"wasm\"))"
+        }
+      ]
+    },
+    {
+      "name": "warp_core",
+      "manifest": "crates/warp_core/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "settings",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "settings_value",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "string-offset",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_features",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_util",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_extras",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "websocket",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "settings",
+      "manifest": "crates/settings/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "settings_value",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_features",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_extras",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_features",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_extras",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "warp_features",
+      "manifest": "crates/warp_features/Cargo.toml",
+      "dependencies": []
+    },
+    {
+      "name": "warpui_extras",
+      "manifest": "crates/warpui_extras/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_extras",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "virtual-fs",
+      "manifest": "crates/virtual_fs/Cargo.toml",
+      "dependencies": []
+    },
+    {
+      "name": "warpui",
+      "manifest": "crates/warpui/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "markdown_parser",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "sum_tree",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "asset_cache",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "virtual-fs",
+          "kind": "dev",
+          "optional": false,
+          "target": "cfg(any(target_os = \"linux\", target_os = \"freebsd\"))"
+        },
+        {
+          "name": "command",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(not(target_os = \"macos\"))"
+        }
+      ]
+    },
+    {
+      "name": "asset_cache",
+      "manifest": "crates/asset_cache/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "watcher",
+      "manifest": "crates/watcher/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "warp_cli",
+      "manifest": "crates/warp_cli/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "local_control",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_util",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "local_control",
+      "manifest": "crates/local_control/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "command",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "command",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(windows)"
+        }
+      ]
+    },
+    {
+      "name": "warp_graphql",
+      "manifest": "crates/graphql/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "http_client",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "persistence",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_graphql_schema",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "websocket",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "http_client",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "http_client",
+      "manifest": "crates/http_client/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "prevent_sleep",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "prevent_sleep",
+      "manifest": "crates/prevent_sleep/Cargo.toml",
+      "dependencies": []
+    },
+    {
+      "name": "warp_graphql_schema",
+      "manifest": "crates/warp_graphql_schema/Cargo.toml",
+      "dependencies": []
+    },
+    {
+      "name": "warp_terminal",
+      "manifest": "crates/warp_terminal/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "channel_versions",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "command",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "regex_dfas",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "secret_redaction",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "string-offset",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_assets",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_cli",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_completer",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_isolation_platform",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_util",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "channel_versions",
+      "manifest": "crates/channel_versions/Cargo.toml",
+      "dependencies": []
+    },
+    {
+      "name": "regex_dfas",
+      "manifest": "crates/regex_dfas/Cargo.toml",
+      "dependencies": []
+    },
+    {
+      "name": "secret_redaction",
+      "manifest": "crates/secret_redaction/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "regex_dfas",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "string-offset",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "warp_assets",
+      "manifest": "crates/warp_assets/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "warp_completer",
+      "manifest": "crates/warp_completer/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "fuzzy_match",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "string-offset",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_cli",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_util",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_completer",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "command",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(not(target_family = \"wasm\"))"
+        },
+        {
+          "name": "command",
+          "kind": "dev",
+          "optional": false,
+          "target": "cfg(not(target_family = \"wasm\"))"
+        }
+      ]
+    },
+    {
+      "name": "fuzzy_match",
+      "manifest": "crates/fuzzy_match/Cargo.toml",
+      "dependencies": []
+    },
+    {
+      "name": "warp_isolation_platform",
+      "manifest": "crates/isolation_platform/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "command",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "languages",
+      "manifest": "crates/languages/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "warp_editor",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_util",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "warp_editor",
+      "manifest": "crates/editor/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "asset_cache",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "ipynb_parser",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "markdown_parser",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "string-offset",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "sum_tree",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "vim",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_util",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "sum_tree",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "ipynb_parser",
+      "manifest": "crates/ipynb_parser/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "markdown_parser",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "vim",
+      "manifest": "crates/vim/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "string-offset",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "syntax_tree",
+      "manifest": "crates/syntax_tree/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "languages",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "string-offset",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_editor",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_util",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_editor",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "app-installation-detection",
+      "manifest": "crates/app-installation-detection/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "command",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "asset_macro",
+      "manifest": "crates/asset_macro/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "warp_util",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "build_cache",
+      "manifest": "crates/build_cache/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "command",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "cloud_object_client",
+      "manifest": "crates/cloud_object_client/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "cloud_object_models",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "cloud_objects",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_graphql",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "cloud_object_models",
+      "manifest": "crates/cloud_object_models/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "ai",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "cloud_objects",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "handlebars",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "settings",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "settings_value",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_cli",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_graphql",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_util",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "cloud_objects",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "cloud_object_persistence",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(not(target_family = \"wasm\"))"
+        },
+        {
+          "name": "persistence",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(not(target_family = \"wasm\"))"
+        }
+      ]
+    },
+    {
+      "name": "cloud_objects",
+      "manifest": "crates/cloud_objects/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "settings_value",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_graphql",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_server_auth",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "warp_server_auth",
+      "manifest": "crates/warp_server_auth/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_graphql",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_managed_secrets",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_extras",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "warp_managed_secrets",
+      "manifest": "crates/managed_secrets/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_graphql",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_isolation_platform",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "handlebars",
+      "manifest": "crates/handlebars/Cargo.toml",
+      "dependencies": []
+    },
+    {
+      "name": "cloud_object_persistence",
+      "manifest": "crates/cloud_object_persistence/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "cloud_objects",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "persistence",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_graphql",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "cloud_objects",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "field_mask",
+      "manifest": "crates/field_mask/Cargo.toml",
+      "dependencies": []
+    },
+    {
+      "name": "firebase",
+      "manifest": "crates/firebase/Cargo.toml",
+      "dependencies": []
+    },
+    {
+      "name": "http_server",
+      "manifest": "crates/http_server/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "input_classifier",
+      "manifest": "crates/input_classifier/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "natural_language_detection",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_completer",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_features",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "natural_language_detection",
+      "manifest": "crates/natural_language_detection/Cargo.toml",
+      "dependencies": []
+    },
+    {
+      "name": "integration",
+      "manifest": "crates/integration/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "command",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "settings",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "sum_tree",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_cli",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_extras",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "command",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "app-installation-detection",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(not(target_family = \"wasm\"))"
+        }
+      ]
+    },
+    {
+      "name": "warp",
+      "manifest": "app/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "ai",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "ai_types",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "asset_cache",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "asset_macro",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "channel_versions",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "cloud_object_client",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "cloud_object_models",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "cloud_objects",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "command",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "computer_use",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "field_mask",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "fuzzy_match",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "handlebars",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "http_client",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "input_classifier",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "ipc",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "languages",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "local_control",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "lsp",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "markdown_parser",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "mcp",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "natural_language_detection",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "onboarding",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "persistence",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "remote_server",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "repo_metadata",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "secret_redaction",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "settings",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "settings_value",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "simple_logger",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "string-offset",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "sum_tree",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "syntax_tree",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "ui_components",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "vim",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_assets",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_channel_config",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_cli",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_completer",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_editor",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_graphql",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_harness_usage",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_isolation_platform",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_logging",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_managed_secrets",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_multi_agent_client",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_ripgrep",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_search_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_server_auth",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_server_client",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_terminal",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_util",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_extras",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "websocket",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "ai",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "cloud_object_client",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "command",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "computer_use",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "firebase",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "http_client",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "repo_metadata",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "sum_tree",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "virtual-fs",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_completer",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_editor",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_files",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_server_auth",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_server_client",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_terminal",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_extras",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_util",
+          "kind": "build",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "app-installation-detection",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(not(target_family = \"wasm\"))"
+        },
+        {
+          "name": "build_cache",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(not(target_family = \"wasm\"))"
+        },
+        {
+          "name": "cloud_object_persistence",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(not(target_family = \"wasm\"))"
+        },
+        {
+          "name": "http_server",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(not(target_family = \"wasm\"))"
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(not(target_family = \"wasm\"))"
+        },
+        {
+          "name": "warp_files",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(not(target_family = \"wasm\"))"
+        },
+        {
+          "name": "watcher",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(not(target_family = \"wasm\"))"
+        },
+        {
+          "name": "warp_web_event_bus",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(target_family = \"wasm\")"
+        }
+      ]
+    },
+    {
+      "name": "ipc",
+      "manifest": "crates/ipc/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "lsp",
+      "manifest": "crates/lsp/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "http_client",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "jsonrpc",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "node_runtime",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_util",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "command",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(not(target_arch = \"wasm32\"))"
+        },
+        {
+          "name": "repo_metadata",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(not(target_arch = \"wasm32\"))"
+        },
+        {
+          "name": "simple_logger",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(not(target_arch = \"wasm32\"))"
+        }
+      ]
+    },
+    {
+      "name": "jsonrpc",
+      "manifest": "crates/jsonrpc/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "node_runtime",
+      "manifest": "crates/node_runtime/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "http_client",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "command",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(not(target_arch = \"wasm32\"))"
+        }
+      ]
+    },
+    {
+      "name": "simple_logger",
+      "manifest": "crates/simple_logger/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "mcp",
+      "manifest": "crates/mcp/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "cloud_object_models",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "handlebars",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "simple_logger",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_extras",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "onboarding",
+      "manifest": "crates/onboarding/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "ai",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "ui_components",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_logging",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "ui_components",
+      "manifest": "crates/ui_components/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "asset_cache",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "warp_logging",
+      "manifest": "crates/warp_logging/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_web_event_bus",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(target_family = \"wasm\")"
+        }
+      ]
+    },
+    {
+      "name": "warp_web_event_bus",
+      "manifest": "crates/warp_web_event_bus/Cargo.toml",
+      "dependencies": []
+    },
+    {
+      "name": "remote_server",
+      "manifest": "crates/remote_server/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "command",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "repo_metadata",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_util",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "warp_channel_config",
+      "manifest": "crates/warp_channel_config/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "command",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "warp_harness_usage",
+      "manifest": "crates/warp_harness_usage/Cargo.toml",
+      "dependencies": []
+    },
+    {
+      "name": "warp_multi_agent_client",
+      "manifest": "crates/warp_multi_agent_client/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_server_client",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "warp_server_client",
+      "manifest": "crates/warp_server_client/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "cloud_object_client",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "cloud_object_models",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "cloud_objects",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "command",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "firebase",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "http_client",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "settings_value",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_graphql",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_isolation_platform",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_server_auth",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_server_auth",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "websocket",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(not(target_family = \"wasm\"))"
+        }
+      ]
+    },
+    {
+      "name": "warp_ripgrep",
+      "manifest": "crates/warp_ripgrep/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "string-offset",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_cli",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "command",
+          "kind": null,
+          "optional": false,
+          "target": "cfg(not(target_family = \"wasm\"))"
+        }
+      ]
+    },
+    {
+      "name": "warp_search_core",
+      "manifest": "crates/warp_search_core/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "string-offset",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_errors",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": "dev",
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "warp_files",
+      "manifest": "crates/warp_files/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "remote_server",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "repo_metadata",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warp_util",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "warpui_core",
+          "kind": null,
+          "optional": false,
+          "target": null
+        },
+        {
+          "name": "watcher",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "managed_secrets_wasm",
+      "manifest": "crates/managed_secrets_wasm/Cargo.toml",
+      "dependencies": [
+        {
+          "name": "warp_managed_secrets",
+          "kind": null,
+          "optional": false,
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "serve-wasm",
+      "manifest": "crates/serve-wasm/Cargo.toml",
+      "dependencies": []
+    }
+  ]
+}

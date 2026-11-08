@@ -27,7 +27,10 @@
 1. Warp 客户端主要使用 AGPL-3.0-only，部分 WarpUI 组件使用 MIT；Warp 服务端、Drive 后端、Oz 编排并不在仓库中。
 2. 上游 `AGENTS.md` 描述 GUI 位于 `app/`，终端、workspace、auth、drive、settings、ai 等属于应用区域；复用候选 crate 有 `warp_terminal`、`warpui`、`warpui_core`、`warp_core` 等。
 3. 上游有 `.agents/skills/` 和 `skills-lock.json`，用于**仓库开发辅助**；不等于应用内对最终用户提供的 Skill 安装、信任、运行与管理机制。
-4. Warp 内置 Agent harness 当前由服务端提供，WireTerm 要独立运行 Agent 必须重新实现编排/模型与工具适配层。
+4. Warp 客户端已含相当规模的 Agent 基建：`crates/ai`（`agent/`、`llm_provider`、`skills/`）、`crates/mcp`（tool-call 运行时）、`crates/computer_use`、`warp_multi_agent_client`；模型执行的云端 harness/编排后端仍在服务端。WireTerm 独立运行 Agent 不是从零重写，而是复用/裁剪客户端编排与工具层，替换模型提供者与云端依赖。
+5. 上游默认二进制是 `warp-oss`（`app/Cargo.toml` 的 `default-run`），其 `Channel::Oss` 已禁用遥测/崩溃上报/自动更新，但仍配置 `WarpServerConfig::production()` 与 `OzConfig::production()`，不能仅靠切到 warp-oss 就实现彻底去云。
+6. 上游 SSH 以 `app/src/remote_server/ssh_transport.rs` 实现：通过 SSH ControlMaster 安装并启动远端 `remote-server-proxy`，属于「Warp 远程服务器 over SSH」，不是 russh 式直接远程 PTY。
+7. 客户端已有 `SKILL.md` 解析/Skill 提供者（`crates/ai/src/skills/`）；持久化层用 Diesel（`crates/persistence`），非 sqlx；另有现成 CLI crate `crates/warp_cli`。
 
 官方参考：
 - https://github.com/warpdotdev/warp
@@ -179,7 +182,7 @@ wireterm/
 | `app/settings/` | 重构 | Warp 服务端配置替换本地配置 | 无登录可保存/读取 |
 | `app/auth/` | 移除业务 | 先隔离调用、默认本地身份 | 离线正常启动 |
 | `app/drive/` | 移除业务 | 去除菜单/同步任务/启动副作用 | 无云同步请求 |
-| `app/ai/` | 重建/替换 | 不依赖 Warp 云 harness，WireTerm Agent 独立实现 | 关闭 Agent 时无外部调用 |
+| `app/ai/` | 重建/替换 | 客户端已有 `crates/ai`(agent/llm_provider/skills)、`crates/mcp`(tool-call 运行时)、`warp_multi_agent_client`；裁剪云端 harness 与模型后端，复用编排/工具/技能解析层 | 关闭 Agent 时无外部调用 |
 | 云服务器、GraphQL 相关 crates | 候选移除 | 对依赖图逐 crate 收缩 | 无悬挂依赖和编译错误 |
 | WarpUI | 继续复用 | 修改品牌和工作区视图 | GUI 正常渲染 |
 | 上游 `.agents/skills` | 开发用保留/另行维护 | 不作为用户运行时 Skills | 开发和产品目录隔离 |
@@ -371,8 +374,9 @@ UI input -> Application command -> bounded write queue -> Transport writer
 
 ### 7.1 SSH
 
-- 使用真正的 SSH 客户端传输：握手、主机密钥验证、用户认证、请求远端 PTY、交互 shell、窗口大小变化、退出与重连。
-- 库候选 `russh`（Rust/Tokio）；如果现有 Warp SSH 能力已满足，优先评估复用，避免重写成熟功能。
+- **现状**：上游 SSH 已存在但形态不同——`app/src/remote_server/ssh_transport.rs` 通过 SSH ControlMaster 安装并启动远端 `remote-server-proxy`，其 stdin/stdout 作为协议通道，属于「Warp 远程服务器 over SSH」，而非直接打开远端 shell PTY；另有 `app/src/terminal/ssh/`、`app/src/settings/ssh.rs`、SSH 文件上传等界面。复用前必须评估该路径对 `remote_server`/代理二进制的耦合是否可接受。
+- 若目标是「SSH 与本地 Shell 并列的普通远程终端」，现有 remote-server 架构并不等价，可能需新做直接远程 PTY 客户端（候选 `russh`）；若保留 Warp 远程服务器体验，则评估复用 `ssh_transport` 并继续裁剪其云/代理依赖。
+- 无论采用哪条路径，都要满足：握手、主机密钥验证、用户认证、请求远端 PTY、交互 shell、窗口大小变化、退出与重连。
 - 用户名、Host、Port、Profile 独立保存；密码、密钥口令通过 OS 安全存储管理，不将明文写 SQLite/日志。
 - 初次连接弹出 Host Key 指纹确认；已知 Host Key 变化必须高优先级拦截，绝不能自动接受。
 - 支持认证失败/超时/网络断开错误区分、keepalive、退避重连、会话工作目录等概念。
@@ -482,7 +486,7 @@ command_templates(id, title, transport_kind, content, terminator, updated_at)
 ```
 
 - 密码/API Key 不在 SQLite 以明文保存；仅存 SecretRef，值进 Windows Credential Manager 等安全存储。
-- DB 使用事务 + 迁移版本号（例如 `sqlx` migrations）；崩溃恢复测试包括 WAL 与日志轮转中断。
+- DB 沿用上游 `crates/persistence` 的 Diesel ORM + `diesel_migrations`（当前仓库已用 Diesel，不是 sqlx）；崩溃恢复测试包括 WAL 与日志轮转中断。
 - 默认限制会话历史保存期限和磁盘配额；提供日志敏感信息遮蔽与清除功能。
 - 导出日志时让用户预览是否包含 IP、账号、token、设备序列号等信息。
 
@@ -495,6 +499,8 @@ command_templates(id, title, transport_kind, content, terminator, updated_at)
 用户可以**手动加载自己的 Skill**，即把一个标准 `SKILL.md` 的文件夹拖入 WireTerm，就能在 Skill 管理器中看到、预览、启用，并在相应工作区/设备下供 Agent 使用。
 
 **必须明确：加载 Skill ≠ 立刻运行脚本 ≠ 默认允许访问串口/SSH。** Skill 是能力描述和流程知识。工具执行始终由 WireTerm 工具权限系统管控。
+
+**现状**：上游 `crates/ai/src/skills/` 已有 `SKILL.md` 解析（frontmatter `name`/`description`）、SkillProvider/Scope、读取与引用解析（`parse_skill`、`read_skills`、`skill_reference`、`listed_skill`）。WireTerm 的 Skill 管理器应优先复用这套解析/读取能力，把工作重心放在「本地导入入口、隔离安装、启停/卸载、权限审批」等上游缺失的产品层能力，而不是重新实现 frontmatter 解析。
 
 ### 10.2 支持格式与优先级
 
@@ -786,7 +792,7 @@ wireterm skills disable uart-log-triage
 wireterm doctor --offline-check
 ```
 
-CLI 和 GUI 共用 application service，而不是让 CLI 直接操作 UI 内部状态。
+CLI 和 GUI 共用 application service，而不是让 CLI 直接操作 UI 内部状态。上游已有 `crates/warp_cli`，v0.2 的 CLI 应评估复用/改造它，而非从零新写。
 
 ---
 

@@ -1,0 +1,165 @@
+crates\warp_server_client\src\public_api.rs:143:        let url = format!("{}/api/v1/{path}", ChannelState::server_root_url());
+crates\warp_server_client\src\auth\session.rs:442:            Url::parse(&ChannelState::server_root_url()).expect("Server root URL must be valid");
+crates\warp_server_client\src\auth\session.rs:459:        let proxy_url = token.proxy_url(&ChannelState::server_root_url(), &firebase_api_key);
+crates\warp_multi_agent_client\src\lib.rs:138:        ChannelState::server_root_url(),
+crates\warp_errors\src\lib.rs:271:        sentry::capture_error(self);
+crates\remote_server\src\setup.rs:606:    let base = ChannelState::server_root_url();
+crates\http_client\src\lib_tests.rs:75:        .get(ChannelState::server_root_url().into_owned())
+crates\http_client\src\lib_tests.rs:102:        ChannelState::server_root_url()
+crates\http_client\src\lib.rs:416:        ChannelState::server_root_url(),
+crates\http_client\src\lib.rs:806:        let server = reqwest::Url::parse(ChannelState::server_root_url().as_ref()).unwrap();
+crates\graphql\src\client.rs:107:        ChannelState::server_root_url(),
+app/src\workspace\view_tests.rs:107:    app.add_singleton_model(AuthManager::new_for_test);
+app/src\workspace\view.rs:23278:                ChannelState::server_root_url()
+app/src\workspace\view.rs:25433:                                                sentry::capture_message(
+app/src\workspaces\update_manager_tests.rs:57:    app.add_singleton_model(AuthManager::new_for_test);
+app/src\workspaces\user_workspaces\mod.rs:279:            ChannelState::server_root_url(),
+app/src\workspaces\user_workspaces\mod.rs:290:            ChannelState::server_root_url(),
+app/src\workspaces\user_workspaces\mod.rs:317:                    ChannelState::server_root_url().trim_end_matches('/'),
+app/src\workspaces\user_workspaces\mod.rs:328:            ChannelState::server_root_url().trim_end_matches('/')
+app/src\workspaces\user_workspaces\user_workspaces_tests.rs:141:    app.add_singleton_model(AuthManager::new_for_test);
+app/src\workspaces\user_workspaces\user_workspaces_tests.rs:1298:            ChannelState::server_root_url(),
+app/src\workspaces\user_workspaces\user_workspaces_tests.rs:1309:            ChannelState::server_root_url().trim_end_matches('/'),
+app/src\workspaces\user_workspaces\user_workspaces_tests.rs:1339:                    ChannelState::server_root_url().trim_end_matches('/'),
+app/src\workspaces\user_workspaces\user_workspaces_tests.rs:1369:                    ChannelState::server_root_url().trim_end_matches('/'),
+app/src\uri\web_intent_parser.rs:26:        let server_root = ChannelState::server_root_url();
+app/src\uri\uri_tests.rs:212:                ChannelState::server_root_url()
+app/src\uri\uri_tests.rs:234:                ChannelState::server_root_url()
+app/src\uri\uri_tests.rs:248:                ChannelState::server_root_url()
+app/src\uri\uri_tests.rs:269:    let url = Url::parse(&format!("{}/app", ChannelState::server_root_url())).unwrap();
+app/src\uri\uri_tests.rs:289:        ChannelState::server_root_url()
+app/src\uri\uri_tests.rs:294:        ChannelState::server_root_url()
+app/src\uri\uri_tests.rs:311:        ChannelState::server_root_url()
+app/src\uri\uri_tests.rs:323:    let base_app_url = Url::parse(&format!("{}/app", ChannelState::server_root_url())).unwrap();
+app/src\uri\uri_tests.rs:326:        ChannelState::server_root_url()
+app/src\uri\uri_tests.rs:343:        ChannelState::server_root_url()
+app/src\uri\uri_tests.rs:351:        Some(Url::parse(&format!("{}/app", ChannelState::server_root_url())).unwrap())
+app/src\uri\uri_tests.rs:359:        ChannelState::server_root_url()
+app/src\uri\uri_tests.rs:362:    let login_url = Url::parse(&format!("{}/login", ChannelState::server_root_url())).unwrap();
+app/src\uri\docker_tests.rs:16:        app.add_singleton_model(AuthManager::new_for_test);
+app/src\tui_test_support.rs:354:    app.add_singleton_model(AuthManager::new_for_test);
+app/src\server\server_api.rs:711:        let url = format!("{}/api/v1/{}", ChannelState::server_root_url(), path);
+app/src\server\server_api.rs:750:        let url = format!("{}/api/v1/{path}", ChannelState::server_root_url());
+app/src\server\server_api.rs:875:        let url = format!("{}/api/v1/{}", ChannelState::server_root_url(), path);
+app/src\server\server_api.rs:928:        let url = format!("{}/api/v1/{}", ChannelState::server_root_url(), path);
+app/src\server\server_api.rs:961:        let url = format!("{}/api/v1/{}", ChannelState::server_root_url(), path);
+app/src\server\server_api.rs:995:            ChannelState::server_root_url()
+app/src\server\server_api.rs:1024:            ChannelState::server_root_url()
+app/src\server\server_api.rs:1056:                    ChannelState::server_root_url()
+app/src\server\server_api.rs:1061:                    ChannelState::server_root_url()
+app/src\server\server_api.rs:1092:            ChannelState::server_root_url()
+app/src\server\server_api.rs:1127:        let time_endpoint = format!("{}/current_time", ChannelState::server_root_url());
+app/src\server\server_api.rs:1173:        let mut url = Url::parse(&ChannelState::server_root_url())
+app/src\server\server_api\ai.rs:3559:            ChannelState::server_root_url()
+app/src\server\server_api\block.rs:103:                    format!("{}{}", ChannelState::server_root_url(), output.url_ending);
+app/src\server\server_api\block.rs:148:            ChannelState::server_root_url()
+app/src\server\server_api\integrations.rs:297:            let auth_url = format!("{}/oauth/connect/github", ChannelState::server_root_url());
+app/src\server\server_api\harness_usage\publication.rs:181:            crate::ChannelState::server_root_url()
+app/src\server\server_api\object.rs:691:            &ChannelState::ws_server_url(),
+app/src\server\server_api\prewarmed_sandbox.rs:393:            ChannelState::server_root_url()
+app/src\server\server_api\prewarmed_sandbox_tests.rs:61:    let server_root = ChannelState::server_root_url();
+app/src\server\server_api\prewarmed_sandbox_tests.rs:89:        assert_eq!(ChannelState::server_root_url(), server_root);
+app/src\server\server_api\referral.rs:53:                        ChannelState::server_root_url(),
+app/src\server\server_api\harness_support.rs:480:        let url = format!("{}/api/v1/{}", crate::ChannelState::server_root_url(), path);
+app/src\server\server_api\harness_support.rs:517:        let url = format!("{}/api/v1/{}", crate::ChannelState::server_root_url(), path);
+app/src\settings\cloud_preferences_syncer_tests.rs:14:    SETTINGS_FILE_LAST_SYNCED_HASH_KEY, initialize_cloud_preferences_syncer,
+app/src\settings\cloud_preferences_syncer_tests.rs:1263:// `initialize_cloud_preferences_syncer` so the hash-check logic is
+app/src\settings\cloud_preferences_syncer_tests.rs:1367:            let syncer = initialize_cloud_preferences_syncer(
+app/src\settings\cloud_preferences_syncer_tests.rs:1435:            let syncer = initialize_cloud_preferences_syncer(toml_path_for_closure, None, ctx);
+app/src\settings\cloud_preferences_syncer_tests.rs:1503:            let syncer = initialize_cloud_preferences_syncer(
+app/src\settings\cloud_preferences_syncer_tests.rs:1562:            let syncer = initialize_cloud_preferences_syncer(missing_path, None, ctx);
+app/src\settings\cloud_preferences_syncer_tests.rs:1615:            let syncer = initialize_cloud_preferences_syncer(toml_path_for_closure, None, ctx);
+app/src\settings\cloud_preferences_syncer_tests.rs:1670:            let syncer = initialize_cloud_preferences_syncer(toml_path_for_closure, None, ctx);
+app/src\settings\cloud_preferences_syncer.rs:65:pub fn initialize_cloud_preferences_syncer(
+app/src\settings\cloud_preferences_syncer.rs:200:        // the syncer via `initialize_cloud_preferences_syncer`.
+app/src\tui\mod_tests.rs:118:        app.add_singleton_model(AuthManager::new_for_test);
+app/src\tui\mod_tests.rs:191:                ChannelState::server_root_url().trim_end_matches('/')
+app/src\tui\mod_tests.rs:276:                ChannelState::server_root_url().trim_end_matches('/')
+app/src\test_util\terminal.rs:136:    app.add_singleton_model(AuthManager::new_for_test);
+app/src\terminal\input_tests.rs:600:    app.add_singleton_model(AuthManager::new_for_test);
+app/src\terminal\shared_session\mod.rs:345:        format!("{}/session/{}", ChannelState::server_root_url(), session_id,)
+app/src\terminal\shared_session\sharer\network_tests.rs:1754:        app.add_singleton_model(AuthManager::new_for_test);
+app/src\terminal\shared_session\mod_tests.rs:27:    let server_root = ChannelState::server_root_url();
+app/src\terminal\shared_session\mod_tests.rs:55:    let server_root = ChannelState::server_root_url();
+app/src\server\cloud_objects\test_utils.rs:47:    app.add_singleton_model(AuthManager::new_for_test);
+app/src\settings_view\privacy_page.rs:95:            ChannelState::server_root_url(),
+app/src\settings_view\privacy_page.rs:98:        None => format!("{}/data_management", ChannelState::server_root_url(),),
+app/src\settings_view\show_blocks_view.rs:89:                ChannelState::server_root_url(),
+app/src\settings_view\show_blocks_view.rs:93:            format!("{}/{}", ChannelState::server_root_url(), self.id.as_str())
+app/src\settings_view\update_environment_form.rs:1284:        let base_url = format!("{}/oauth/connect/github", ChannelState::server_root_url());
+app/src\search\command_search\view_tests.rs:26:    app.add_singleton_model(AuthManager::new_for_test);
+app/src\search\command_search\searcher_tests.rs:148:    app.add_singleton_model(AuthManager::new_for_test);
+app/src\settings_view\admin_actions_tests.rs:6:    let expected_link = format!("{}/admin/{}", ChannelState::server_root_url(), team_uid);
+app/src\settings_view\admin_actions_tests.rs:13:    let expected_link = format!("{}/admin", ChannelState::server_root_url());
+app/src\settings_view\admin_actions_tests.rs:20:    let expected_link = format!("{}/admin/workspace/teams", ChannelState::server_root_url());
+app/src\settings_view\admin_actions.rs:12:        format!("{}/admin/{}", ChannelState::server_root_url(), team_uid)
+app/src\settings_view\admin_actions.rs:16:        format!("{}/admin", ChannelState::server_root_url())
+app/src\settings_view\admin_actions.rs:19:        format!("{}/admin/workspace/teams", ChannelState::server_root_url())
+app/src\profiling.rs:125:                    sentry::capture_message(
+app/src\pane_group\mod_tests.rs:145:    app.add_singleton_model(AuthManager::new_for_test);
+app/src\notebooks\manager_tests.rs:96:    app.add_singleton_model(AuthManager::new_for_test);
+app/src\notebooks\notebook_tests.rs:83:    app.add_singleton_model(AuthManager::new_for_test);
+app/src\persistence\sqlite.rs:310:                                sentry::capture_message(
+app/src\notebooks\file\mod_tests.rs:62:    app.add_singleton_model(AuthManager::new_for_test);
+app/src\drive\sharing\mod.rs:79:                            ChannelState::server_root_url(),
+app/src\lib.rs:301:    CloudPreferencesSyncerEvent, initialize_cloud_preferences_syncer,
+app/src\lib.rs:1584:        AuthManager::new(server_api_provider.as_ref(ctx).get_auth_client(), ctx)
+app/src\lib.rs:1633:    // in `initialize_cloud_preferences_syncer`; InvalidSettings means TOML
+app/src\lib.rs:2300:        initialize_cloud_preferences_syncer(
+app/src\lib.rs:2473:    AutoupdateState::register(ctx, server_api.clone());
+app/src\font_fallback.rs:11:        ChannelState::server_root_url(),
+app/src\crash_reporting\sentry_minidump.rs:134:    let _guard = sentry::init(super::sentry_client_options());
+app/src\crash_reporting\sentry_minidump.rs:259:        || sentry::capture_message(message, Level::Error),
+app/src\crash_reporting\mod.rs:351:        _guard: sentry::init(sentry_options),
+app/src\context_chips\current_prompt_tests.rs:267:        app.add_singleton_model(AuthManager::new_for_test);
+app/src\context_chips\current_prompt_tests.rs:417:        app.add_singleton_model(AuthManager::new_for_test);
+app/src\context_chips\current_prompt_tests.rs:621:        app.add_singleton_model(AuthManager::new_for_test);
+app/src\context_chips\current_prompt_tests.rs:711:        app.add_singleton_model(AuthManager::new_for_test);
+app/src\autoupdate\mod.rs:774:            // `AutoupdateState::register` gates the poll loop on the
+app/src\autoupdate\mod_tests.rs:14:    app.add_singleton_model(AuthManager::new_for_test);
+app/src\cloud_object\mod.rs:720:                    ChannelState::server_root_url(),
+app/src\auth\auth_manager_tests.rs:18:    app.add_singleton_model(AuthManager::new_for_test);
+app/src\auth\mod_tests.rs:9:    let server_root_url = ChannelState::server_root_url();
+app/src\auth\mod_tests.rs:19:    let server_root_url = ChannelState::server_root_url();
+app/src\auth\mod_tests.rs:44:        ChannelState::server_root_url().trim_end_matches('/')
+app/src\cloud_object\model\model_tests.rs:91:    app.add_singleton_model(AuthManager::new_for_test);
+app/src\auth\auth_manager.rs:515:        format!("{}/upgrade", ChannelState::server_root_url())
+app/src\auth\mod.rs:51:        ChannelState::server_root_url().trim_end_matches('/')
+app/src\ai\skills\bundled.rs:483:            ChannelState::server_root_url().into_owned(),
+app/src\ai\skills\skill_manager_tests.rs:562:    let expected_url = ChannelState::server_root_url();
+app/src\ai\skills\skill_manager_tests.rs:733:        &ChannelState::server_root_url().to_string()
+app/src\ai\llms_tests.rs:616:        app.add_singleton_model(AuthManager::new_for_test);
+app/src\ai\llms_tests.rs:746:        app.add_singleton_model(AuthManager::new_for_test);
+app/src\ai\llms_tests.rs:801:        app.add_singleton_model(AuthManager::new_for_test);
+app/src\ai\llms_tests.rs:863:        app.add_singleton_model(AuthManager::new_for_test);
+app/src\ai\llms_tests.rs:985:        app.add_singleton_model(AuthManager::new_for_test);
+app/src\ai\llms_tests.rs:1036:        app.add_singleton_model(AuthManager::new_for_test);
+app/src\ai\llms_tests.rs:1100:        app.add_singleton_model(AuthManager::new_for_test);
+app/src\ai\llms_tests.rs:1199:        app.add_singleton_model(AuthManager::new_for_test);
+app/src\ai\llms_tests.rs:1298:        app.add_singleton_model(AuthManager::new_for_test);
+app/src\ai\llms_tests.rs:1683:        app.add_singleton_model(AuthManager::new_for_test);
+app/src\ai\llms_tests.rs:1748:        app.add_singleton_model(AuthManager::new_for_test);
+app/src\ai\llms_tests.rs:1816:        app.add_singleton_model(AuthManager::new_for_test);
+app/src\ai\mcp\builtin.rs:117:        &ChannelState::server_root_url(),
+app/src\ai\mcp\builtin.rs:133:        &ChannelState::server_root_url(),
+app/src\ai\execution_profiles\profiles_tests.rs:580:        app.add_singleton_model(AuthManager::new_for_test);
+app/src\ai\execution_profiles\profiles_tests.rs:636:        app.add_singleton_model(AuthManager::new_for_test);
+app/src\ai\execution_profiles\editor\mod_tests.rs:68:        app.add_singleton_model(AuthManager::new_for_test);
+app/src\ai\ambient_agents\github_auth_url.rs:128:            let mut url = Url::parse(&ChannelState::server_root_url()).ok()?;
+app/src\ai\agent_sdk\ambient.rs:1067:                            ChannelState::server_root_url(),
+app/src\ai\agent_sdk\driver_tests.rs:793:    let server_root_url = ChannelState::server_root_url().into_owned();
+app/src\ai\agent_sdk\driver_tests.rs:803:    let ws_server_url = ChannelState::ws_server_url().into_owned();
+app/src\ai\agent_sdk\driver_tests.rs:852:        overrides_allowed && !ChannelState::server_root_url().is_empty()
+app/src\ai\agent_sdk\driver_tests.rs:856:        overrides_allowed && !ChannelState::ws_server_url().is_empty()
+app/src\ai\agent_sdk\provider.rs:42:        let server_url = ChannelState::server_root_url();
+app/src\ai\agent_sdk\driver\mcp_startup_tests.rs:180:        let server_root = ChannelState::server_root_url();
+app/src\ai\agent_sdk\driver\mcp_startup_tests.rs:245:                ChannelState::server_root_url().trim_end_matches('/')
+app/src\ai\agent_sdk\driver\terminal.rs:118:    should_share && !warp_core::channel::ChannelState::server_root_url().contains("ngrok")
+app/src\ai\agent_sdk\driver\harness\mod.rs:678:            ChannelState::server_root_url().into_owned(),
+app/src\ai\agent_sdk\driver\harness\mod.rs:683:            ChannelState::ws_server_url().into_owned(),
+app/src\ai\agent_sdk\common_tests.rs:275:        app.add_singleton_model(AuthManager::new_for_test);
+app/src\ai\agent_sdk\common_tests.rs:356:        app.add_singleton_model(AuthManager::new_for_test);
+app/src\ai\agent\api.rs:62:            ChannelState::server_root_url(),
+app/src\ai\agent\api.rs:95:            ChannelState::server_root_url(),
+app/src\ai\agent\conversation_tests.rs:300:    app.add_singleton_model(AuthManager::new_for_test);
+app/src\ai\agent\api_tests.rs:15:        ChannelState::server_root_url()

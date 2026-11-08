@@ -1,0 +1,1156 @@
+warp v0.1.0 (E:\code\WireTerm\app)
+├── addr v0.15.6
+│   ├── psl v2.1.4
+│   └── psl-types v2.0.11
+├── aha-reqwest-eventsource v0.1.0
+│   ├── eventsource-stream v0.2.3
+│   ├── futures-core v0.3.31
+│   ├── futures-timer v3.0.2
+│   ├── mime v0.3.17
+│   ├── nom v7.1.3
+│   ├── pin-project-lite v0.2.16
+│   ├── reqwest v0.13.5
+│   └── thiserror v1.0.63
+├── aho-corasick v1.1.3
+│   └── memchr v2.7.6
+├── ai v0.1.0 (E:\code\WireTerm\crates\ai)
+│   ├── anyhow v1.0.79
+│   ├── arborium v2.13.0
+│   ├── async-channel v2.3.1
+│   ├── async-fs v2.1.2
+│   ├── async-trait v0.1.89 (proc-macro)
+│   ├── base16ct v0.2.0
+│   ├── base64 v0.22.1
+│   ├── bincode v1.3.3
+│   ├── bytes v1.11.1
+│   ├── cfg-if v1.0.4
+│   ├── chrono v0.4.40
+│   ├── computer_use v0.0.0 (E:\code\WireTerm\crates\computer_use)
+│   │   [build-dependencies]
+│   ├── derivative v2.2.0 (proc-macro)
+│   ├── dirs v6.0.0
+│   ├── dunce v1.0.5
+│   ├── futures v0.3.31
+│   ├── generic-array v0.14.7
+│   │   [build-dependencies]
+│   ├── globset v0.4.18
+│   ├── hex v0.4.3
+│   ├── http_client v0.0.0 (E:\code\WireTerm\crates\http_client)
+│   ├── ignore v0.4.24
+│   ├── indexmap v2.12.0
+│   ├── instant v0.1.12
+│   ├── itertools v0.14.0
+│   ├── languages v0.0.0 (E:\code\WireTerm\crates\languages)
+│   ├── lazy_static v1.5.0
+│   ├── line-span v0.1.5
+│   ├── log v0.4.29
+│   ├── notify-debouncer-full v0.5.0 (https://github.com/warpdotdev/notify?rev=91b719849bc04ef251bcb2cc61076b099204e970#91b71984)
+│   ├── persistence v0.0.0 (E:\code\WireTerm\crates\persistence)
+│   ├── priority-queue v2.5.0
+│   │   [build-dependencies]
+│   ├── prost-types v0.14.3
+│   ├── rand v0.8.6
+│   ├── rayon v1.10.0
+│   ├── regex v1.11.1
+│   ├── repo_metadata v0.1.0 (E:\code\WireTerm\crates\repo_metadata)
+│   │   [build-dependencies]
+│   ├── rmcp v3.5.0
+│   ├── schemars v1.0.4
+│   ├── serde v1.0.228
+│   ├── serde_json v1.0.150
+│   ├── serde_urlencoded v0.7.1
+│   ├── serde_yaml v0.8.26
+│   ├── settings_value v0.1.0 (E:\code\WireTerm\crates\settings_value)
+│   ├── sha2 v0.10.9
+│   ├── shellexpand v3.1.1
+│   ├── streaming-iterator v0.1.9
+│   ├── string-offset v0.0.0 (E:\code\WireTerm\crates\string-offset)
+│   ├── strsim v0.11.1
+│   ├── strum v0.27.1
+│   ├── strum_macros v0.27.1 (proc-macro)
+│   ├── syntax_tree v0.1.0 (E:\code\WireTerm\crates\syntax_tree)
+│   ├── thiserror v2.0.17
+│   ├── tokio v1.50.0
+│   ├── typed-path v0.10.0
+│   ├── unicode-width v0.1.14
+│   ├── url v2.5.4
+│   ├── uuid v1.19.0
+│   ├── warp_cli v0.0.0 (E:\code\WireTerm\crates\warp_cli)
+│   │   [build-dependencies]
+│   ├── warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core)
+│   │   [build-dependencies]
+│   ├── warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors)
+│   ├── warp_graphql v0.1.0 (E:\code\WireTerm\crates\graphql)
+│   │   [build-dependencies]
+│   ├── warp_multi_agent_api v0.0.0 (https://github.com/warpdotdev/warp-proto-apis.git?rev=8320a94875bce9e730d9bfc4abda1544279e5db3#8320a948)
+│   │   [build-dependencies]
+│   ├── warp_terminal v0.0.0 (E:\code\WireTerm\crates\warp_terminal)
+│   ├── warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util)
+│   ├── warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core)
+│   │   [build-dependencies]
+│   ├── warpui_extras v0.0.0 (E:\code\WireTerm\crates\warpui_extras)
+│   ├── watcher v0.1.0 (E:\code\WireTerm\crates\watcher)
+│   └── yaml-rust v0.4.5 (https://github.com/warpdotdev/yaml-rust.git?rev=51684719d0102ca85ff4b21cec39877a0c669e19#51684719)
+│   [build-dependencies]
+│   └── anyhow v1.0.79
+├── ai_types v0.1.0 (E:\code\WireTerm\crates\ai_types)
+│   ├── anyhow v1.0.79
+│   ├── serde v1.0.228 (*)
+│   ├── serde_json v1.0.150 (*)
+│   ├── thiserror v2.0.17 (*)
+│   └── uuid v1.19.0 (*)
+├── alphanumeric-sort v1.5.7
+├── anyhow v1.0.79
+├── app-installation-detection v0.1.0 (E:\code\WireTerm\crates\app-installation-detection)
+│   ├── anyhow v1.0.79
+│   ├── axum v0.8.4
+│   ├── axum-extra v0.10.1
+│   ├── command v0.1.0 (E:\code\WireTerm\crates\command)
+│   ├── nix v0.26.4
+│   ├── tokio v1.50.0 (*)
+│   ├── tower v0.5.2
+│   ├── tower-http v0.6.8
+│   ├── tracing v0.1.44
+│   ├── tracing-subscriber v0.3.23
+│   └── win32job v2.0.3
+├── arrayvec v0.7.6
+├── asset_cache v0.0.0 (E:\code\WireTerm\crates\asset_cache)
+│   ├── anyhow v1.0.79
+│   ├── async-compat v0.2.5
+│   ├── async-fs v2.1.2 (*)
+│   ├── base64 v0.22.1
+│   ├── bytes v1.11.1 (*)
+│   ├── cfg-if v1.0.4
+│   ├── futures v0.3.31 (*)
+│   ├── log v0.4.29 (*)
+│   ├── reqwest v0.13.5 (*)
+│   ├── url v2.5.4 (*)
+│   ├── warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+│   └── warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+├── asset_macro v0.1.0 (proc-macro) (E:\code\WireTerm\crates\asset_macro)
+│   ├── proc-macro2 v1.0.106
+│   ├── quote v1.0.45
+│   ├── sha2 v0.10.9
+│   ├── syn v2.0.117
+│   └── warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util)
+├── async-broadcast v0.7.2
+│   ├── event-listener v5.4.0
+│   ├── event-listener-strategy v0.5.2
+│   ├── futures-core v0.3.31
+│   └── pin-project-lite v0.2.16
+├── async-channel v2.3.1 (*)
+├── async-compat v0.2.5 (*)
+├── async-fs v2.1.2 (*)
+├── async-io v2.6.0
+│   ├── cfg-if v1.0.4
+│   ├── concurrent-queue v2.5.0
+│   ├── futures-io v0.3.31
+│   ├── futures-lite v2.6.1
+│   ├── parking v2.2.0
+│   ├── polling v3.11.0
+│   ├── rustix v1.1.2
+│   ├── slab v0.4.9
+│   │   [build-dependencies]
+│   └── windows-sys v0.61.2
+│   [build-dependencies]
+│   └── autocfg v1.1.0
+├── async-recursion v1.1.1 (proc-macro)
+│   ├── proc-macro2 v1.0.106 (*)
+│   ├── quote v1.0.45 (*)
+│   └── syn v2.0.117 (*)
+├── async-stream v0.3.5
+│   ├── async-stream-impl v0.3.5 (proc-macro)
+│   ├── futures-core v0.3.31
+│   └── pin-project-lite v0.2.16
+├── async-trait v0.1.89 (proc-macro) (*)
+├── aws-config v1.8.16
+│   ├── aws-credential-types v1.2.14
+│   ├── aws-runtime v1.7.3
+│   ├── aws-sdk-signin v1.9.0
+│   ├── aws-sdk-sso v1.98.0
+│   ├── aws-sdk-ssooidc v1.100.0
+│   ├── aws-sdk-sts v1.103.0
+│   ├── aws-smithy-async v1.2.14
+│   ├── aws-smithy-http v0.63.6
+│   ├── aws-smithy-json v0.62.5
+│   ├── aws-smithy-runtime v1.11.1
+│   ├── aws-smithy-runtime-api v1.12.0
+│   ├── aws-smithy-types v1.4.7
+│   ├── aws-types v1.3.15
+│   │   [build-dependencies]
+│   ├── base64-simd v0.8.0
+│   ├── bytes v1.11.1 (*)
+│   ├── fastrand v2.3.0
+│   ├── hex v0.4.3
+│   ├── http v1.4.0
+│   ├── p256 v0.13.2
+│   ├── rand v0.8.6 (*)
+│   ├── sha1 v0.10.6
+│   ├── sha2 v0.10.9 (*)
+│   ├── time v0.3.47
+│   ├── tokio v1.50.0 (*)
+│   ├── tracing v0.1.44 (*)
+│   ├── url v2.5.4 (*)
+│   ├── uuid v1.19.0 (*)
+│   └── zeroize v1.8.2
+├── aws-credential-types v1.2.14 (*)
+├── aws-sdk-sts v1.103.0 (*)
+├── aws-types v1.3.15 (*)
+├── axum v0.8.4 (*)
+├── base64 v0.22.1
+├── bimap v0.6.3
+├── bincode v1.3.3 (*)
+├── bitflags v2.13.0
+│   └── serde_core v1.0.228
+├── bitflags-serde-legacy v0.1.1
+│   ├── bitflags v2.13.0 (*)
+│   └── serde v1.0.228 (*)
+├── blocking v1.6.2
+│   ├── async-channel v2.3.1 (*)
+│   ├── async-task v4.7.1
+│   ├── futures-io v0.3.31
+│   ├── futures-lite v2.6.1 (*)
+│   └── piper v0.2.1
+├── bounded-vec-deque v0.1.1
+├── build_cache v0.1.0 (E:\code\WireTerm\crates\build_cache)
+│   ├── async-io v2.6.0 (*)
+│   ├── chrono v0.4.40 (*)
+│   ├── command v0.1.0 (E:\code\WireTerm\crates\command) (*)
+│   ├── futures v0.3.31 (*)
+│   ├── futures-lite v1.13.0
+│   ├── hex v0.4.3
+│   ├── instant v0.1.12 (*)
+│   ├── is_executable v1.0.1
+│   ├── itertools v0.14.0 (*)
+│   ├── log v0.4.29 (*)
+│   ├── nix v0.26.4 (*)
+│   ├── serde v1.0.228 (*)
+│   ├── serde_json v1.0.150 (*)
+│   ├── sha2 v0.10.9 (*)
+│   ├── tempfile v3.23.0
+│   ├── thiserror v2.0.17 (*)
+│   ├── tokio v1.50.0 (*)
+│   ├── tracing v0.1.44 (*)
+│   ├── walkdir v2.4.0
+│   ├── warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+│   └── warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+├── byte-unit v5.2.0
+│   ├── rust_decimal v1.35.0
+│   ├── serde v1.0.228 (*)
+│   └── utf8-width v0.1.7
+├── bytecount v0.6.9
+├── bytemuck v1.24.0
+│   └── bytemuck_derive v1.10.2 (proc-macro)
+├── bytes v1.11.1 (*)
+├── cfg-if v1.0.4
+├── channel_versions v0.1.0 (E:\code\WireTerm\crates\channel_versions)
+│   ├── anyhow v1.0.79
+│   ├── chrono v0.4.40 (*)
+│   ├── lazy_static v1.5.0
+│   ├── memo-map v0.3.2
+│   ├── regex v1.11.1 (*)
+│   ├── serde v1.0.228 (*)
+│   └── serde_json v1.0.150 (*)
+├── chrono v0.4.40 (*)
+├── clap v4.5.48
+│   ├── clap_builder v4.5.48
+│   └── clap_derive v4.5.47 (proc-macro)
+├── cloud_object_client v0.1.0 (E:\code\WireTerm\crates\cloud_object_client)
+│   ├── anyhow v1.0.79
+│   ├── async-channel v2.3.1 (*)
+│   ├── async-trait v0.1.89 (proc-macro) (*)
+│   ├── chrono v0.4.40 (*)
+│   ├── cloud_object_models v0.1.0 (E:\code\WireTerm\crates\cloud_object_models)
+│   ├── cloud_objects v0.1.0 (E:\code\WireTerm\crates\cloud_objects)
+│   ├── serde v1.0.228 (*)
+│   ├── serde_json v1.0.150 (*)
+│   ├── uuid v1.19.0 (*)
+│   ├── warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+│   └── warp_graphql v0.1.0 (E:\code\WireTerm\crates\graphql) (*)
+├── cloud_object_models v0.1.0 (E:\code\WireTerm\crates\cloud_object_models) (*)
+├── cloud_object_persistence v0.1.0 (E:\code\WireTerm\crates\cloud_object_persistence)
+│   ├── anyhow v1.0.79
+│   ├── bincode v1.3.3 (*)
+│   ├── chrono v0.4.40 (*)
+│   ├── cloud_objects v0.1.0 (E:\code\WireTerm\crates\cloud_objects) (*)
+│   ├── diesel v2.3.10
+│   ├── log v0.4.29 (*)
+│   ├── persistence v0.0.0 (E:\code\WireTerm\crates\persistence) (*)
+│   ├── serde v1.0.228 (*)
+│   ├── warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+│   └── warp_graphql v0.1.0 (E:\code\WireTerm\crates\graphql) (*)
+├── cloud_objects v0.1.0 (E:\code\WireTerm\crates\cloud_objects) (*)
+├── comfy-table v7.2.1
+│   ├── crossterm v0.29.0
+│   ├── unicode-segmentation v1.11.0
+│   └── unicode-width v0.2.1
+├── command v0.1.0 (E:\code\WireTerm\crates\command) (*)
+├── command-corrections v0.0.0 (https://github.com/warpdotdev/command-corrections.git?rev=eae08c8c51d9bc9741fcb17eef2c21f696aebbeb#eae08c8c)
+│   ├── difflib v0.4.0
+│   ├── itertools v0.10.5
+│   ├── lazy_static v1.5.0
+│   ├── regex v1.11.1 (*)
+│   ├── shlex v1.3.0
+│   └── version-compare v0.1.1
+├── computer_use v0.0.0 (E:\code\WireTerm\crates\computer_use) (*)
+├── concat-idents v1.1.5 (proc-macro)
+│   ├── quote v1.0.45 (*)
+│   └── syn v2.0.117 (*)
+├── content_inspector v0.2.4
+│   └── memchr v2.7.6
+├── counter v0.6.0
+│   └── num-traits v0.2.19
+│       [build-dependencies]
+├── crc v3.4.0
+│   └── crc-catalog v2.4.0
+├── csv v1.3.1
+│   ├── csv-core v0.1.11
+│   ├── itoa v1.0.18
+│   ├── ryu v1.0.23
+│   └── serde v1.0.228 (*)
+├── cynic v3.8.0
+│   ├── cynic-proc-macros v3.8.0 (proc-macro)
+│   ├── ref-cast v1.0.23
+│   ├── serde v1.0.228 (*)
+│   ├── static_assertions v1.1.0
+│   └── thiserror v1.0.63 (*)
+├── dashmap v6.1.0
+│   ├── cfg-if v1.0.4
+│   ├── crossbeam-utils v0.8.21
+│   ├── hashbrown v0.14.1
+│   ├── lock_api v0.4.14
+│   ├── once_cell v1.21.3
+│   └── parking_lot_core v0.9.12
+├── deltae v0.3.2
+├── derivative v2.2.0 (proc-macro) (*)
+├── diesel v2.3.10 (*)
+├── diesel_migrations v2.3.1
+│   ├── diesel v2.3.10 (*)
+│   ├── migrations_internals v2.3.0
+│   └── migrations_macros v2.3.0 (proc-macro)
+├── difflib v0.4.0 (https://github.com/warpdotdev/difflib.git?rev=114177e7d8e1f8017baca397f943e11644b14d63#114177e7)
+│   └── rustc-hash v1.1.0
+├── directories v6.0.0
+│   └── dirs-sys v0.5.0
+├── dirs v6.0.0 (*)
+├── dunce v1.0.5
+├── email_address v0.2.3 (https://github.com/warpdotdev/rust-email_address?branch=main#b3e5205b)
+│   └── serde v1.0.228 (*)
+├── embed_plist v1.2.2
+├── enclose v1.1.8
+├── enum-iterator v1.4.1
+│   └── enum-iterator-derive v1.2.1 (proc-macro)
+├── env_logger v0.10.2
+│   ├── humantime v2.1.0
+│   ├── is-terminal v0.4.17
+│   ├── log v0.4.29 (*)
+│   ├── regex v1.11.1 (*)
+│   └── termcolor v1.4.1
+├── event-listener v5.4.0 (*)
+├── field_mask v0.0.0 (E:\code\WireTerm\crates\field_mask)
+│   ├── itertools v0.14.0 (*)
+│   ├── prost v0.14.3
+│   ├── prost-reflect v0.16.3
+│   ├── prost-types v0.14.3 (*)
+│   └── thiserror v2.0.17 (*)
+├── float-cmp v0.9.0
+│   └── num-traits v0.2.19 (*)
+├── futures v0.3.31 (*)
+├── futures-lite v1.13.0 (*)
+├── futures-util v0.3.31
+│   ├── futures-channel v0.3.31
+│   ├── futures-core v0.3.31
+│   ├── futures-io v0.3.31
+│   ├── futures-macro v0.3.31 (proc-macro)
+│   ├── futures-sink v0.3.31
+│   ├── futures-task v0.3.31
+│   ├── memchr v2.7.6
+│   ├── pin-project-lite v0.2.16
+│   ├── pin-utils v0.1.0
+│   └── slab v0.4.9 (*)
+├── fuzzy_match v0.1.0 (E:\code\WireTerm\crates\fuzzy_match)
+│   └── fuzzy-matcher v0.3.7
+├── getset v0.1.2 (proc-macro)
+│   ├── proc-macro-error v1.0.4
+│   │   [build-dependencies]
+│   ├── proc-macro2 v1.0.106 (*)
+│   ├── quote v1.0.45 (*)
+│   └── syn v1.0.109
+├── git2 v0.20.4
+│   ├── bitflags v2.13.0 (*)
+│   ├── libc v0.2.186
+│   ├── libgit2-sys v0.18.3+1.9.2
+│   │   [build-dependencies]
+│   ├── log v0.4.29 (*)
+│   └── url v2.5.4 (*)
+├── globset v0.4.18 (*)
+├── handlebars v0.0.0 (E:\code\WireTerm\crates\handlebars)
+├── hashbrown v0.17.1
+│   ├── allocator-api2 v0.2.16
+│   ├── equivalent v1.0.1
+│   └── foldhash v0.2.0
+├── hex v0.4.3
+├── http v1.4.0 (*)
+├── http_client v0.0.0 (E:\code\WireTerm\crates\http_client) (*)
+├── http_server v0.0.0 (E:\code\WireTerm\crates\http_server)
+│   ├── anyhow v1.0.79
+│   ├── axum v0.8.4 (*)
+│   ├── log v0.4.29 (*)
+│   ├── tokio v1.50.0 (*)
+│   ├── tower v0.5.2 (*)
+│   ├── tower-http v0.6.8 (*)
+│   ├── warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+│   ├── warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+│   └── warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+├── hyper v1.8.1
+│   ├── atomic-waker v1.1.2
+│   ├── bytes v1.11.1 (*)
+│   ├── futures-channel v0.3.31 (*)
+│   ├── futures-core v0.3.31
+│   ├── h2 v0.4.15
+│   ├── http v1.4.0 (*)
+│   ├── http-body v1.0.1
+│   ├── httparse v1.10.1
+│   ├── httpdate v1.0.3
+│   ├── itoa v1.0.18
+│   ├── pin-project-lite v0.2.16
+│   ├── pin-utils v0.1.0
+│   ├── smallvec v1.15.1
+│   ├── tokio v1.50.0 (*)
+│   └── want v0.3.1
+├── image v0.25.9
+│   ├── bytemuck v1.24.0 (*)
+│   ├── byteorder-lite v0.1.0
+│   ├── color_quant v1.1.0
+│   ├── gif v0.14.1
+│   ├── image-webp v0.2.4
+│   ├── moxcms v0.7.11
+│   ├── num-traits v0.2.19 (*)
+│   ├── png v0.18.1
+│   ├── rayon v1.10.0 (*)
+│   ├── zune-core v0.5.1
+│   └── zune-jpeg v0.5.12
+├── indexmap v2.12.0 (*)
+├── infer v0.19.0
+│   └── cfb v0.7.3
+├── input_classifier v0.0.0 (E:\code\WireTerm\crates\input_classifier)
+│   ├── anyhow v1.0.79
+│   ├── async-trait v0.1.89 (proc-macro) (*)
+│   ├── cfg-if v1.0.4
+│   ├── clap v4.5.48 (*)
+│   ├── futures v0.3.31 (*)
+│   ├── futures-lite v1.13.0 (*)
+│   ├── instant v0.1.12 (*)
+│   ├── itertools v0.14.0 (*)
+│   ├── lazy_static v1.5.0
+│   ├── log v0.4.29 (*)
+│   ├── natural_language_detection v0.1.0 (E:\code\WireTerm\crates\natural_language_detection)
+│   ├── serde v1.0.228 (*)
+│   ├── smol_str v0.2.2
+│   ├── warp_completer v0.1.0 (E:\code\WireTerm\crates\warp_completer)
+│   └── warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+├── inquire v0.9.1
+│   ├── bitflags v2.13.0 (*)
+│   ├── crossterm v0.29.0 (*)
+│   ├── dyn-clone v1.0.20
+│   ├── fuzzy-matcher v0.3.7 (*)
+│   ├── unicode-segmentation v1.11.0
+│   └── unicode-width v0.2.1
+├── instant v0.1.12 (*)
+├── inventory v0.3.20
+├── ipc v0.1.0 (E:\code\WireTerm\crates\ipc)
+│   ├── async-channel v2.3.1 (*)
+│   ├── async-compat v0.2.5 (*)
+│   ├── async-trait v0.1.89 (proc-macro) (*)
+│   ├── bincode v1.3.3 (*)
+│   ├── futures v0.3.31 (*)
+│   ├── interprocess v1.2.1
+│   │   [build-dependencies]
+│   ├── itertools v0.14.0 (*)
+│   ├── log v0.4.29 (*)
+│   ├── rand v0.8.6 (*)
+│   ├── serde v1.0.228 (*)
+│   ├── thiserror v2.0.17 (*)
+│   ├── uuid v1.19.0 (*)
+│   └── warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+├── is_executable v1.0.1 (*)
+├── iso8601-duration v0.2.0
+│   ├── chrono v0.4.40 (*)
+│   ├── nom v7.1.3 (*)
+│   └── serde v1.0.228 (*)
+├── itertools v0.14.0 (*)
+├── jaq-all v0.1.0
+│   ├── codesnake v0.3.0
+│   ├── jaq-core v3.0.0
+│   ├── jaq-fmts v0.1.0
+│   ├── jaq-json v2.0.0
+│   ├── jaq-std v3.0.0
+│   └── unicode-width v0.1.14
+├── jaq-json v2.0.0 (*)
+├── kmeans_colors v0.5.0
+│   ├── palette v0.6.1
+│   ├── rand v0.8.6 (*)
+│   └── rand_chacha v0.3.1
+├── languages v0.0.0 (E:\code\WireTerm\crates\languages) (*)
+├── lasso v0.7.3
+│   ├── dashmap v6.1.0 (*)
+│   └── hashbrown v0.14.1 (*)
+├── lazy_static v1.5.0
+├── libc v0.2.186
+├── libsqlite3-sys v0.33.0
+│   [build-dependencies]
+│   ├── cc v1.2.56
+│   ├── pkg-config v0.3.32
+│   └── vcpkg v0.2.15
+├── line-ending v1.5.1
+├── local_control v0.0.0 (E:\code\WireTerm\crates\local_control)
+│   ├── base64 v0.22.1
+│   ├── chrono v0.4.40 (*)
+│   ├── command v0.1.0 (E:\code\WireTerm\crates\command) (*)
+│   ├── rand v0.8.6 (*)
+│   ├── reqwest v0.13.5 (*)
+│   ├── serde v1.0.228 (*)
+│   ├── serde_json v1.0.150 (*)
+│   ├── thiserror v2.0.17 (*)
+│   └── uuid v1.19.0 (*)
+├── log v0.4.29 (*)
+├── log-panics v2.1.0
+│   ├── backtrace v0.3.76
+│   └── log v0.4.29 (*)
+├── lsp v0.1.0 (E:\code\WireTerm\crates\lsp)
+│   ├── anyhow v1.0.79
+│   ├── async-channel v2.3.1 (*)
+│   ├── async-fs v2.1.2 (*)
+│   ├── async-process v2.5.0
+│   ├── async-trait v0.1.89 (proc-macro) (*)
+│   ├── cfg-if v1.0.4
+│   ├── chrono v0.4.40 (*)
+│   ├── command v0.1.0 (E:\code\WireTerm\crates\command) (*)
+│   ├── env_logger v0.10.2 (*)
+│   ├── futures v0.3.31 (*)
+│   ├── globset v0.4.18 (*)
+│   ├── http_client v0.0.0 (E:\code\WireTerm\crates\http_client) (*)
+│   ├── instant v0.1.12 (*)
+│   ├── itertools v0.14.0 (*)
+│   ├── jsonrpc v0.1.0 (E:\code\WireTerm\crates\jsonrpc)
+│   ├── log v0.4.29 (*)
+│   ├── lsp-types v0.97.0
+│   ├── nix v0.26.4 (*)
+│   ├── node_runtime v0.1.0 (E:\code\WireTerm\crates\node_runtime)
+│   │   [build-dependencies]
+│   ├── repo_metadata v0.1.0 (E:\code\WireTerm\crates\repo_metadata) (*)
+│   ├── serde v1.0.228 (*)
+│   ├── serde_json v1.0.150 (*)
+│   ├── sha2 v0.10.9 (*)
+│   ├── simple_logger v0.1.0 (E:\code\WireTerm\crates\simple_logger)
+│   ├── strum v0.27.1
+│   ├── strum_macros v0.27.1 (proc-macro) (*)
+│   ├── tokio v1.50.0 (*)
+│   ├── url v2.5.4 (*)
+│   ├── warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+│   ├── warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+│   ├── warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util) (*)
+│   └── warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+│   [build-dependencies]
+│   └── anyhow v1.0.79
+├── lsp-types v0.97.0 (*)
+├── lz4_flex v0.11.6
+│   └── twox-hash v2.1.2
+├── markdown_parser v0.1.0 (E:\code\WireTerm\crates\markdown_parser)
+│   ├── anyhow v1.0.79
+│   ├── enum-iterator v1.4.1 (*)
+│   ├── html5ever v0.35.0
+│   ├── itertools v0.14.0 (*)
+│   ├── markup5ever_rcdom v0.35.0+unofficial
+│   ├── nom v7.1.3 (*)
+│   ├── serde_yaml v0.8.26 (*)
+│   └── thiserror v2.0.17 (*)
+├── mcp v0.1.0 (E:\code\WireTerm\crates\mcp)
+│   ├── anyhow v1.0.79
+│   ├── async-channel v2.3.1 (*)
+│   ├── async-trait v0.1.89 (proc-macro) (*)
+│   ├── cfg-if v1.0.4
+│   ├── cloud_object_models v0.1.0 (E:\code\WireTerm\crates\cloud_object_models) (*)
+│   ├── futures v0.3.31 (*)
+│   ├── handlebars v0.0.0 (E:\code\WireTerm\crates\handlebars)
+│   ├── http v1.4.0 (*)
+│   ├── instant v0.1.12 (*)
+│   ├── log v0.4.29 (*)
+│   ├── oauth2 v5.0.0
+│   ├── pin-project-lite v0.2.16
+│   ├── reqwest v0.13.5 (*)
+│   ├── rmcp v3.5.0 (*)
+│   ├── serde v1.0.228 (*)
+│   ├── serde_json v1.0.150 (*)
+│   ├── simple_logger v0.1.0 (E:\code\WireTerm\crates\simple_logger) (*)
+│   ├── sse-stream v0.2.6
+│   ├── thiserror v2.0.17 (*)
+│   ├── tokio v1.50.0 (*)
+│   ├── tracing v0.1.44 (*)
+│   ├── url v2.5.4 (*)
+│   ├── uuid v1.19.0 (*)
+│   ├── warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+│   ├── warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+│   ├── warpui v0.0.0 (E:\code\WireTerm\crates\warpui)
+│   │   [build-dependencies]
+│   ├── warpui_extras v0.0.0 (E:\code\WireTerm\crates\warpui_extras) (*)
+│   └── windows v0.62.2
+├── memchr v2.7.6
+├── memo-map v0.3.2
+├── mermaid_to_svg v0.1.0 (https://github.com/warpdotdev/mermaid-to-svg.git?rev=8d3f789c2eb49335d7bf247a06bb649f59b6d4ed#8d3f789c)
+│   ├── dagre_rust v0.0.5 (https://github.com/warpdotdev/mermaid-to-svg.git?rev=8d3f789c2eb49335d7bf247a06bb649f59b6d4ed#8d3f789c)
+│   ├── graphlib_rust v0.0.2
+│   ├── petgraph v0.8.3
+│   ├── regex v1.11.1 (*)
+│   ├── serde_yaml v0.9.34+deprecated
+│   ├── thiserror v1.0.63 (*)
+│   └── unicode-segmentation v1.11.0
+├── mime_guess v2.0.4
+│   ├── mime v0.3.17
+│   └── unicase v2.7.0
+│       [build-dependencies]
+│   [build-dependencies]
+│   └── unicase v2.7.0
+│       [build-dependencies]
+├── mio v1.1.1
+│   ├── log v0.4.29 (*)
+│   └── windows-sys v0.61.2 (*)
+├── natural_language_detection v0.1.0 (E:\code\WireTerm\crates\natural_language_detection) (*)
+├── notify-debouncer-full v0.5.0 (https://github.com/warpdotdev/notify?rev=91b719849bc04ef251bcb2cc61076b099204e970#91b71984) (*)
+├── num-traits v0.2.19 (*)
+├── num_cpus v1.16.0
+├── oauth2 v5.0.0 (*)
+├── onboarding v0.1.0 (E:\code\WireTerm\crates\onboarding)
+│   ├── ai v0.1.0 (E:\code\WireTerm\crates\ai) (*)
+│   ├── anyhow v1.0.79
+│   ├── cfg-if v1.0.4
+│   ├── instant v0.1.12 (*)
+│   ├── log v0.4.29 (*)
+│   ├── pathfinder_color v0.5.0
+│   ├── pathfinder_geometry v0.5.1
+│   ├── rust-embed v8.7.2
+│   ├── serde v1.0.228 (*)
+│   ├── serde_json v1.0.150 (*)
+│   ├── strum v0.27.1
+│   ├── strum_macros v0.27.1 (proc-macro) (*)
+│   ├── ui_components v0.0.0 (E:\code\WireTerm\crates\ui_components)
+│   ├── uuid v1.19.0 (*)
+│   ├── warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+│   ├── warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+│   ├── warp_logging v0.0.0 (E:\code\WireTerm\crates\warp_logging)
+│   ├── warpui v0.0.0 (E:\code\WireTerm\crates\warpui) (*)
+│   └── warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+├── once_cell v1.21.3
+├── ordered-float v3.9.2
+│   ├── num-traits v0.2.19 (*)
+│   └── serde v1.0.228 (*)
+├── os_info v3.7.0
+│   ├── log v0.4.29 (*)
+│   └── winapi v0.3.9
+├── palette v0.6.1 (*)
+├── parking_lot v0.12.5
+│   ├── lock_api v0.4.14 (*)
+│   └── parking_lot_core v0.9.12 (*)
+├── pathfinder_color v0.5.0 (*)
+├── pathfinder_geometry v0.5.1 (*)
+├── persistence v0.0.0 (E:\code\WireTerm\crates\persistence) (*)
+├── pin-project v1.1.3
+│   └── pin-project-internal v1.1.3 (proc-macro)
+├── plist v1.5.1
+│   ├── base64 v0.21.7
+│   ├── indexmap v1.9.3
+│   │   [build-dependencies]
+│   ├── line-wrap v0.1.1
+│   ├── quick-xml v0.30.0
+│   ├── serde v1.0.228 (*)
+│   └── time v0.3.47 (*)
+├── prost v0.14.3 (*)
+├── prost-types v0.14.3 (*)
+├── qrcode v0.14.1
+├── rand v0.8.6 (*)
+├── rangemap v1.4.0
+├── rayon v1.10.0 (*)
+├── regex v1.11.1 (*)
+├── regex-automata v0.4.9
+│   ├── aho-corasick v1.1.3 (*)
+│   ├── memchr v2.7.6
+│   └── regex-syntax v0.8.5
+├── remote_server v0.1.0 (E:\code\WireTerm\crates\remote_server)
+│   ├── anyhow v1.0.79
+│   ├── async-channel v2.3.1 (*)
+│   ├── async-io v2.6.0 (*)
+│   ├── async-process v2.5.0 (*)
+│   ├── bounded-vec-deque v0.1.1
+│   ├── command v0.1.0 (E:\code\WireTerm\crates\command) (*)
+│   ├── dashmap v6.1.0 (*)
+│   ├── futures v0.3.31 (*)
+│   ├── futures-lite v1.13.0 (*)
+│   ├── log v0.4.29 (*)
+│   ├── prost v0.14.3 (*)
+│   ├── repo_metadata v0.1.0 (E:\code\WireTerm\crates\repo_metadata) (*)
+│   ├── serde v1.0.228 (*)
+│   ├── thiserror v2.0.17 (*)
+│   ├── uuid v1.19.0 (*)
+│   ├── warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+│   ├── warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+│   ├── warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util) (*)
+│   └── warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+│   [build-dependencies]
+│   └── prost-build v0.14.3
+├── repo_metadata v0.1.0 (E:\code\WireTerm\crates\repo_metadata) (*)
+├── reqwest v0.13.5 (*)
+├── rmcp v3.5.0 (*)
+├── rust-embed v8.7.2 (*)
+├── rustc-hash v2.1.1
+├── rustls v0.23.45
+│   ├── aws-lc-rs v1.18.1
+│   ├── log v0.4.29 (*)
+│   ├── once_cell v1.21.3
+│   ├── rustls-pki-types v1.12.0
+│   ├── rustls-webpki v0.103.16
+│   ├── subtle v2.6.1
+│   └── zeroize v1.8.2 (*)
+├── schemars v1.0.4 (*)
+├── secret_redaction v0.0.0 (E:\code\WireTerm\crates\secret_redaction)
+│   ├── itertools v0.14.0 (*)
+│   ├── lazy_static v1.5.0
+│   ├── log v0.4.29 (*)
+│   ├── parking_lot v0.12.5 (*)
+│   ├── regex v1.11.1 (*)
+│   ├── regex-automata v0.4.9 (*)
+│   ├── regex_dfas v0.0.0 (E:\code\WireTerm\crates\regex_dfas)
+│   ├── string-offset v0.0.0 (E:\code\WireTerm\crates\string-offset) (*)
+│   ├── warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+│   └── warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+├── serde v1.0.228 (*)
+├── serde-bytes-repr v0.3.0
+│   ├── base64 v0.22.1
+│   ├── hex v0.4.3
+│   └── serde v1.0.228 (*)
+├── serde_bytes v0.11.19
+│   └── serde_core v1.0.228
+├── serde_json v1.0.150 (*)
+├── serde_regex v1.1.0
+│   ├── regex v1.11.1 (*)
+│   └── serde v1.0.228 (*)
+├── serde_urlencoded v0.7.1 (*)
+├── serde_with v3.21.0
+│   ├── serde_core v1.0.228
+│   └── serde_with_macros v3.21.0 (proc-macro)
+├── serde_yaml v0.8.26 (*)
+├── session-sharing-protocol v0.0.0 (https://github.com/warpdotdev/session-sharing-protocol.git?rev=f86afe16e65a56ecb9c062c961fcd91167192e9f#f86afe16)
+│   ├── byte-unit v5.2.0 (*)
+│   ├── serde v1.0.228 (*)
+│   ├── serde_json v1.0.150 (*)
+│   └── uuid v1.19.0 (*)
+├── settings v0.0.0 (E:\code\WireTerm\crates\settings)
+│   ├── anyhow v1.0.79
+│   ├── concat-idents v1.1.5 (proc-macro) (*)
+│   ├── inventory v0.3.20
+│   ├── log v0.4.29 (*)
+│   ├── schemars v1.0.4 (*)
+│   ├── serde v1.0.228 (*)
+│   ├── serde_json v1.0.150 (*)
+│   ├── settings_value v0.1.0 (E:\code\WireTerm\crates\settings_value) (*)
+│   ├── warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+│   ├── warp_features v0.0.0 (E:\code\WireTerm\crates\warp_features)
+│   ├── warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+│   └── warpui_extras v0.0.0 (E:\code\WireTerm\crates\warpui_extras) (*)
+├── settings_value v0.1.0 (E:\code\WireTerm\crates\settings_value) (*)
+├── sha2 v0.10.9 (*)
+├── shell-words v1.1.0
+├── shellexpand v3.1.1 (*)
+├── shlex v1.3.0
+├── similar v2.7.0
+├── simple_logger v0.1.0 (E:\code\WireTerm\crates\simple_logger) (*)
+├── siphasher v0.3.11
+├── smallvec v1.15.1
+├── smol_str v0.2.2
+├── static_assertions v1.1.0
+├── string-offset v0.0.0 (E:\code\WireTerm\crates\string-offset) (*)
+├── strum v0.27.1
+├── strum_macros v0.27.1 (proc-macro) (*)
+├── sum_tree v0.1.0 (E:\code\WireTerm\crates\sum_tree)
+│   ├── arrayvec v0.7.6
+│   ├── log v0.4.29 (*)
+│   └── warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+├── syntax_tree v0.1.0 (E:\code\WireTerm\crates\syntax_tree) (*)
+├── syntect v5.2.0
+│   ├── bincode v1.3.3 (*)
+│   ├── bitflags v1.3.2
+│   ├── flate2 v1.1.9
+│   ├── fnv v1.0.7
+│   ├── once_cell v1.21.3
+│   ├── onig v6.5.1
+│   ├── plist v1.5.1 (*)
+│   ├── regex-syntax v0.8.5
+│   ├── serde v1.0.228 (*)
+│   ├── serde_derive v1.0.228 (proc-macro)
+│   ├── serde_json v1.0.150 (*)
+│   ├── thiserror v1.0.63 (*)
+│   ├── walkdir v2.4.0 (*)
+│   └── yaml-rust v0.4.5 (https://github.com/warpdotdev/yaml-rust.git?rev=51684719d0102ca85ff4b21cec39877a0c669e19#51684719) (*)
+├── sysinfo v0.37.0
+│   ├── libc v0.2.186
+│   ├── memchr v2.7.6
+│   ├── ntapi v0.4.1
+│   ├── rayon v1.10.0 (*)
+│   └── windows v0.61.3
+├── tabwriter v1.4.1
+│   └── unicode-width v0.2.1
+├── tempfile v3.23.0 (*)
+├── thiserror v2.0.17 (*)
+├── thousands v0.2.0
+├── tokio v1.50.0 (*)
+├── tokio-util v0.7.18
+│   ├── bytes v1.11.1 (*)
+│   ├── futures-core v0.3.31
+│   ├── futures-sink v0.3.31
+│   ├── pin-project-lite v0.2.16
+│   └── tokio v1.50.0 (*)
+├── toml v0.8.23
+│   ├── serde v1.0.228 (*)
+│   ├── serde_spanned v0.6.9
+│   ├── toml_datetime v0.6.11
+│   └── toml_edit v0.22.27
+├── toml_edit v0.25.6+spec-1.1.0
+│   ├── indexmap v2.12.0 (*)
+│   ├── toml_datetime v1.1.0+spec-1.1.0
+│   ├── toml_parser v1.1.0+spec-1.1.0
+│   ├── toml_writer v1.1.0+spec-1.1.0
+│   └── winnow v1.0.0
+├── tracing v0.1.44 (*)
+├── tracing-futures v0.2.5
+│   ├── futures v0.3.31 (*)
+│   ├── futures-task v0.3.31
+│   ├── pin-project v1.1.3 (*)
+│   └── tracing v0.1.44 (*)
+├── typed-path v0.10.0
+├── ui_components v0.0.0 (E:\code\WireTerm\crates\ui_components) (*)
+├── unicase v2.7.0 (*)
+├── unicode-general-category v1.1.0
+├── unicode-width v0.1.14
+├── unindent v0.1.11
+├── url v2.5.4 (*)
+├── urlencoding v2.1.3
+├── urlocator v0.1.4
+├── uuid v1.19.0 (*)
+├── validator v0.19.0
+│   ├── idna v1.0.3
+│   ├── once_cell v1.21.3
+│   ├── regex v1.11.1 (*)
+│   ├── serde v1.0.228 (*)
+│   ├── serde_derive v1.0.228 (proc-macro) (*)
+│   ├── serde_json v1.0.150 (*)
+│   └── url v2.5.4 (*)
+├── variant_count v1.1.0 (proc-macro)
+│   ├── quote v1.0.45 (*)
+│   └── syn v1.0.109 (*)
+├── vec1 v1.10.1
+│   └── serde v1.0.228 (*)
+├── version-compare v0.1.1
+├── vim v0.1.0 (E:\code\WireTerm\crates\vim)
+│   ├── anyhow v1.0.79
+│   ├── itertools v0.14.0 (*)
+│   ├── log v0.4.29 (*)
+│   ├── string-offset v0.0.0 (E:\code\WireTerm\crates\string-offset) (*)
+│   ├── unindent v0.2.4
+│   ├── warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+│   └── warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+├── vte v0.13.0 (https://github.com/warpdotdev/vte.git?rev=4b399c87b63ba88f45709edaa6383fc519f6c900#4b399c87)
+│   ├── utf8parse v0.2.1 (https://github.com/warpdotdev/vte.git?rev=4b399c87b63ba88f45709edaa6383fc519f6c900#4b399c87)
+│   └── vte_generate_state_changes v0.1.1 (proc-macro) (https://github.com/warpdotdev/vte.git?rev=4b399c87b63ba88f45709edaa6383fc519f6c900#4b399c87)
+├── walkdir v2.4.0 (*)
+├── warp-command-signatures v0.0.0 (https://github.com/warpdotdev/command-signatures.git?rev=48fd7aa5b7b4d99f5db57d1c5a25c47c05567fcf#48fd7aa5)
+│   ├── cfg-if v1.0.4
+│   ├── itertools v0.10.5 (*)
+│   ├── lazy_static v1.5.0
+│   ├── log v0.4.29 (*)
+│   ├── rayon v1.10.0 (*)
+│   ├── regex v1.11.1 (*)
+│   ├── rust-embed v6.8.1
+│   ├── serde v1.0.228 (*)
+│   ├── serde_json v1.0.150 (*)
+│   ├── serde_with v3.21.0 (*)
+│   └── warp-completion-metadata v0.0.0 (https://github.com/warpdotdev/command-signatures.git?rev=48fd7aa5b7b4d99f5db57d1c5a25c47c05567fcf#48fd7aa5)
+├── warp-workflows v0.1.0 (https://github.com/warpdotdev/workflows?rev=793a98ddda6ef19682aed66364faebd2829f0e01#793a98dd)
+│   └── warp-workflows-types v0.1.0 (https://github.com/warpdotdev/workflows?rev=793a98ddda6ef19682aed66364faebd2829f0e01#793a98dd)
+│   [build-dependencies]
+│   ├── anyhow v1.0.79
+│   ├── convert_case v0.4.0
+│   ├── memmap v0.7.0
+│   ├── serde_yaml v0.8.26
+│   ├── uneval v0.2.3 (https://github.com/warpdotdev/uneval?rev=df4d9fad372aedc447e6f93ca0f930fabaf9dd1a#df4d9fad)
+│   ├── walkdir v2.4.0
+│   └── warp-workflows-types v0.1.0 (https://github.com/warpdotdev/workflows?rev=793a98ddda6ef19682aed66364faebd2829f0e01#793a98dd)
+├── warp_assets v0.0.0 (E:\code\WireTerm\crates\warp_assets)
+│   ├── anyhow v1.0.79
+│   ├── rust-embed v8.7.2 (*)
+│   └── warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+├── warp_channel_config v0.0.0 (E:\code\WireTerm\crates\warp_channel_config)
+│   ├── command v0.1.0 (E:\code\WireTerm\crates\command) (*)
+│   ├── serde_json v1.0.150 (*)
+│   └── warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+├── warp_cli v0.0.0 (E:\code\WireTerm\crates\warp_cli) (*)
+├── warp_completer v0.1.0 (E:\code\WireTerm\crates\warp_completer) (*)
+├── warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+├── warp_editor v0.1.0 (E:\code\WireTerm\crates\editor)
+│   ├── anyhow v1.0.79
+│   ├── arrayvec v0.7.6
+│   ├── asset_cache v0.0.0 (E:\code\WireTerm\crates\asset_cache) (*)
+│   ├── async-channel v2.3.1 (*)
+│   ├── bytes v1.11.1 (*)
+│   ├── enum-iterator v1.4.1 (*)
+│   ├── float-cmp v0.9.0 (*)
+│   ├── futures-lite v1.13.0 (*)
+│   ├── html5ever v0.35.0 (*)
+│   ├── imara-diff v0.2.0
+│   ├── instant v0.1.12 (*)
+│   ├── ipynb_parser v0.1.0 (E:\code\WireTerm\crates\ipynb_parser)
+│   ├── itertools v0.14.0 (*)
+│   ├── lazy_static v1.5.0
+│   ├── line-ending v1.5.1
+│   ├── log v0.4.29 (*)
+│   ├── markdown_parser v0.1.0 (E:\code\WireTerm\crates\markdown_parser) (*)
+│   ├── markup5ever v0.35.0
+│   ├── mermaid_to_svg v0.1.0 (https://github.com/warpdotdev/mermaid-to-svg.git?rev=8d3f789c2eb49335d7bf247a06bb649f59b6d4ed#8d3f789c) (*)
+│   ├── mime_guess v2.0.4 (*)
+│   ├── num-traits v0.2.19 (*)
+│   ├── ordered-float v3.9.2 (*)
+│   ├── parking_lot v0.12.5 (*)
+│   ├── pathfinder_color v0.5.0 (*)
+│   ├── rand v0.8.6 (*)
+│   ├── rangemap v1.4.0
+│   ├── rayon v1.10.0 (*)
+│   ├── regex-automata v0.4.9 (*)
+│   ├── regex-syntax v0.8.5
+│   ├── serde v1.0.228 (*)
+│   ├── serde_yaml v0.8.26 (*)
+│   ├── string-offset v0.0.0 (E:\code\WireTerm\crates\string-offset) (*)
+│   ├── sum_tree v0.1.0 (E:\code\WireTerm\crates\sum_tree) (*)
+│   ├── thiserror v2.0.17 (*)
+│   ├── unicode-linebreak v0.1.5
+│   ├── unicode-segmentation v1.11.0
+│   ├── unicode-width v0.1.14
+│   ├── urlocator v0.1.4
+│   ├── vec1 v1.10.1 (*)
+│   ├── vim v0.1.0 (E:\code\WireTerm\crates\vim) (*)
+│   ├── warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+│   ├── warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+│   ├── warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util) (*)
+│   └── warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+├── warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+├── warp_files v0.1.0 (E:\code\WireTerm\crates\warp_files)
+│   ├── anyhow v1.0.79
+│   ├── async-channel v2.3.1 (*)
+│   ├── async-fs v2.1.2 (*)
+│   ├── futures v0.3.31 (*)
+│   ├── log v0.4.29 (*)
+│   ├── notify-debouncer-full v0.5.0 (https://github.com/warpdotdev/notify?rev=91b719849bc04ef251bcb2cc61076b099204e970#91b71984) (*)
+│   ├── remote_server v0.1.0 (E:\code\WireTerm\crates\remote_server) (*)
+│   ├── repo_metadata v0.1.0 (E:\code\WireTerm\crates\repo_metadata) (*)
+│   ├── same-file v1.0.6
+│   ├── thiserror v2.0.17 (*)
+│   ├── warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+│   ├── warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util) (*)
+│   ├── warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+│   └── watcher v0.1.0 (E:\code\WireTerm\crates\watcher) (*)
+├── warp_graphql v0.1.0 (E:\code\WireTerm\crates\graphql) (*)
+├── warp_harness_usage v0.0.0 (E:\code\WireTerm\crates\warp_harness_usage)
+│   ├── chrono v0.4.40 (*)
+│   ├── serde v1.0.228 (*)
+│   └── serde_json v1.0.150 (*)
+├── warp_isolation_platform v0.1.0 (E:\code\WireTerm\crates\isolation_platform)
+│   ├── anyhow v1.0.79
+│   ├── base64 v0.22.1
+│   ├── chrono v0.4.40 (*)
+│   ├── command v0.1.0 (E:\code\WireTerm\crates\command) (*)
+│   ├── log v0.4.29 (*)
+│   ├── serde v1.0.228 (*)
+│   ├── serde_json v1.0.150 (*)
+│   ├── thiserror v2.0.17 (*)
+│   └── warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+├── warp_logging v0.0.0 (E:\code\WireTerm\crates\warp_logging) (*)
+├── warp_managed_secrets v0.1.0 (E:\code\WireTerm\crates\managed_secrets)
+│   ├── anyhow v1.0.79
+│   ├── async-trait v0.1.89 (proc-macro) (*)
+│   ├── base64 v0.22.1
+│   ├── chrono v0.4.40 (*)
+│   ├── hpke v0.13.0
+│   ├── log v0.4.29 (*)
+│   ├── rand v0.9.4
+│   ├── serde v1.0.228 (*)
+│   ├── serde_json v1.0.150 (*)
+│   ├── tempfile v3.23.0 (*)
+│   ├── thiserror v2.0.17 (*)
+│   ├── tink-core v0.3.0 (https://github.com/warpdotdev/tink-rust?rev=54b9ac9af93b0c08b446a7bc0582836c9403a71b#54b9ac9a)
+│   ├── tink-hybrid v0.3.0 (https://github.com/warpdotdev/tink-rust?rev=54b9ac9af93b0c08b446a7bc0582836c9403a71b#54b9ac9a)
+│   ├── tink-proto v0.3.0 (https://github.com/warpdotdev/tink-rust?rev=54b9ac9af93b0c08b446a7bc0582836c9403a71b#54b9ac9a)
+│   │   [build-dependencies]
+│   ├── tracing v0.1.44 (*)
+│   ├── vec1 v1.10.1 (*)
+│   ├── warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+│   ├── warp_graphql v0.1.0 (E:\code\WireTerm\crates\graphql) (*)
+│   ├── warp_isolation_platform v0.1.0 (E:\code\WireTerm\crates\isolation_platform) (*)
+│   ├── warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+│   └── zeroize v1.8.2 (*)
+├── warp_multi_agent_api v0.0.0 (https://github.com/warpdotdev/warp-proto-apis.git?rev=8320a94875bce9e730d9bfc4abda1544279e5db3#8320a948) (*)
+├── warp_multi_agent_client v0.1.0 (E:\code\WireTerm\crates\warp_multi_agent_client)
+│   ├── aha-reqwest-eventsource v0.1.0 (*)
+│   ├── anyhow v1.0.79
+│   ├── base64 v0.22.1
+│   ├── cfg-if v1.0.4
+│   ├── futures v0.3.31 (*)
+│   ├── prost v0.14.3 (*)
+│   ├── thiserror v2.0.17 (*)
+│   ├── tracing v0.1.44 (*)
+│   ├── tracing-futures v0.2.5 (*)
+│   ├── warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+│   ├── warp_multi_agent_api v0.0.0 (https://github.com/warpdotdev/warp-proto-apis.git?rev=8320a94875bce9e730d9bfc4abda1544279e5db3#8320a948) (*)
+│   └── warp_server_client v0.1.0 (E:\code\WireTerm\crates\warp_server_client)
+├── warp_ripgrep v0.1.0 (E:\code\WireTerm\crates\warp_ripgrep)
+│   ├── anyhow v1.0.79
+│   ├── async-process v2.5.0 (*)
+│   ├── command v0.1.0 (E:\code\WireTerm\crates\command) (*)
+│   ├── futures v0.3.31 (*)
+│   ├── grep v0.4.1
+│   ├── ignore v0.4.24 (*)
+│   ├── instant v0.1.12 (*)
+│   ├── log v0.4.29 (*)
+│   ├── serde v1.0.228 (*)
+│   ├── serde_json v1.0.150 (*)
+│   ├── string-offset v0.0.0 (E:\code\WireTerm\crates\string-offset) (*)
+│   └── warp_cli v0.0.0 (E:\code\WireTerm\crates\warp_cli) (*)
+├── warp_search_core v0.1.0 (E:\code\WireTerm\crates\warp_search_core)
+│   ├── anyhow v1.0.79
+│   ├── async-channel v2.3.1 (*)
+│   ├── async-trait v0.1.89 (proc-macro) (*)
+│   ├── enum-iterator v1.4.1 (*)
+│   ├── futures v0.3.31 (*)
+│   ├── futures-util v0.3.31 (*)
+│   ├── instant v0.1.12 (*)
+│   ├── itertools v0.14.0 (*)
+│   ├── lazy_static v1.5.0
+│   ├── log v0.4.29 (*)
+│   ├── ordered-float v3.9.2 (*)
+│   ├── parking_lot v0.12.5 (*)
+│   ├── paste v1.0.14 (proc-macro)
+│   ├── pathfinder_color v0.5.0 (*)
+│   ├── serde v1.0.228 (*)
+│   ├── serde_json v1.0.150 (*)
+│   ├── sha2 v0.10.9 (*)
+│   ├── string-offset v0.0.0 (E:\code\WireTerm\crates\string-offset) (*)
+│   ├── strum v0.27.1
+│   ├── strum_macros v0.27.1 (proc-macro) (*)
+│   ├── tantivy v0.26.0
+│   ├── warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+│   ├── warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+│   └── warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+├── warp_server_auth v0.1.0 (E:\code\WireTerm\crates\warp_server_auth)
+│   ├── anyhow v1.0.79
+│   ├── chrono v0.4.40 (*)
+│   ├── cynic v3.8.0 (*)
+│   ├── lasso v0.7.3 (*)
+│   ├── log v0.4.29 (*)
+│   ├── parking_lot v0.12.5 (*)
+│   ├── serde v1.0.228 (*)
+│   ├── serde_json v1.0.150 (*)
+│   ├── thiserror v2.0.17 (*)
+│   ├── uuid v1.19.0 (*)
+│   ├── warp_core v0.0.0 (E:\code\WireTerm\crates\warp_core) (*)
+│   ├── warp_errors v0.0.0 (E:\code\WireTerm\crates\warp_errors) (*)
+│   ├── warp_graphql v0.1.0 (E:\code\WireTerm\crates\graphql) (*)
+│   ├── warp_managed_secrets v0.1.0 (E:\code\WireTerm\crates\managed_secrets) (*)
+│   ├── warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+│   └── warpui_extras v0.0.0 (E:\code\WireTerm\crates\warpui_extras) (*)
+├── warp_server_client v0.1.0 (E:\code\WireTerm\crates\warp_server_client) (*)
+├── warp_terminal v0.0.0 (E:\code\WireTerm\crates\warp_terminal) (*)
+├── warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util) (*)
+├── warpui v0.0.0 (E:\code\WireTerm\crates\warpui) (*)
+├── warpui_core v0.1.0 (E:\code\WireTerm\crates\warpui_core) (*)
+├── warpui_extras v0.0.0 (E:\code\WireTerm\crates\warpui_extras) (*)
+├── watcher v0.1.0 (E:\code\WireTerm\crates\watcher) (*)
+├── websocket v0.1.0 (E:\code\WireTerm\crates\websocket)
+│   ├── anyhow v1.0.79
+│   ├── async-io v2.6.0 (*)
+│   ├── async-net v2.0.0
+│   ├── async-tungstenite v0.28.2
+│   ├── base64 v0.22.1
+│   ├── cfg-if v1.0.4
+│   ├── futures v0.3.31 (*)
+│   ├── futures-util v0.3.31 (*)
+│   ├── graphql-ws-client v0.11.1
+│   ├── http v1.4.0 (*)
+│   ├── http-body-util v0.1.3
+│   ├── hyper v1.8.1 (*)
+│   ├── hyper-util v0.1.16
+│   ├── itertools v0.14.0 (*)
+│   ├── log v0.4.29 (*)
+│   ├── percent-encoding v2.3.1
+│   ├── pin-project v1.1.3 (*)
+│   ├── rustls v0.23.45 (*)
+│   ├── rustls-platform-verifier v0.7.0
+│   ├── thiserror v2.0.17 (*)
+│   ├── tokio v1.50.0 (*)
+│   ├── tokio-rustls v0.26.4
+│   └── url v2.5.4 (*)
+├── wgpu v30.0.0
+│   ├── arrayvec v0.7.6
+│   ├── bitflags v2.13.0 (*)
+│   ├── bytemuck v1.24.0 (*)
+│   ├── cfg-if v1.0.4
+│   ├── document-features v0.2.12 (proc-macro)
+│   ├── hashbrown v0.17.1 (*)
+│   ├── log v0.4.29 (*)
+│   ├── parking_lot v0.12.5 (*)
+│   ├── profiling v1.0.11
+│   ├── raw-window-handle v0.6.2
+│   ├── smallvec v1.15.1
+│   ├── static_assertions v1.1.0
+│   ├── wgpu-core v30.0.0
+│   │   [build-dependencies]
+│   ├── wgpu-hal v30.0.0
+│   │   [build-dependencies]
+│   └── wgpu-types v30.0.0
+│   [build-dependencies]
+│   └── cfg_aliases v0.2.1
+├── windows v0.62.2 (*)
+├── windows-registry v0.2.0
+│   ├── windows-result v0.2.0
+│   ├── windows-strings v0.1.0
+│   └── windows-targets v0.52.6
+├── windows-result v0.2.0 (*)
+├── winit v0.30.13 (https://github.com/warpdotdev/winit.git?rev=14db95a686387211d57cf2afd1d908b2d82a20fe#14db95a6)
+│   ├── bitflags v2.13.0 (*)
+│   ├── cursor-icon v1.1.0
+│   ├── dpi v0.1.1 (https://github.com/warpdotdev/winit.git?rev=14db95a686387211d57cf2afd1d908b2d82a20fe#14db95a6)
+│   ├── raw-window-handle v0.6.2
+│   ├── smol_str v0.2.2
+│   ├── tracing v0.1.44 (*)
+│   ├── unicode-segmentation v1.11.0
+│   ├── windows-sys v0.52.0
+│   └── windows-version v0.1.7
+│   [build-dependencies]
+│   └── cfg_aliases v0.2.1
+└── winreg v0.55.0
+    ├── cfg-if v1.0.4
+    └── windows-sys v0.59.0
+[build-dependencies]
+├── anyhow v1.0.79
+├── cc v1.2.56 (*)
+├── cfg_aliases v0.2.1
+├── embed-resource v3.0.6
+│   ├── cc v1.2.56 (*)
+│   ├── rustc_version v0.4.0
+│   ├── toml v0.9.6
+│   ├── vswhom v0.1.0
+│   └── winreg v0.55.0
+├── prost-build v0.14.3 (*)
+├── sha2 v0.10.9 (*)
+├── tempfile v3.23.0
+│   ├── fastrand v2.3.0
+│   ├── getrandom v0.3.4
+│   ├── once_cell v1.21.3
+│   └── windows-sys v0.61.2
+├── walkdir v2.4.0 (*)
+└── warp_util v0.1.0 (E:\code\WireTerm\crates\warp_util) (*)
