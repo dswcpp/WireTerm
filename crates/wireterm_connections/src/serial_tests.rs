@@ -1,8 +1,9 @@
-use super::*;
 #[cfg(unix)]
 use tokio::io::AsyncReadExt;
 use tokio::io::AsyncWriteExt;
 use tokio_serial::{SerialPortInfo, SerialPortType, UsbPortInfo};
+
+use super::*;
 
 fn usb(name: &str, serial: &str) -> SerialPortInfo {
     SerialPortInfo {

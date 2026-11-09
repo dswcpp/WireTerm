@@ -7196,12 +7196,26 @@ impl Workspace {
     fn open_wireterm_connection(&mut self, transport: &str, ctx: &mut ViewContext<Self>) {
         use crate::launch_configs::launch_config::{CommandTemplate, PaneMode, PaneTemplateType};
 
-        let Ok(executable) = std::env::current_exe() else { return; };
+        let Ok(executable) = std::env::current_exe() else {
+            return;
+        };
         let path = executable.to_string_lossy();
         let (shell, command) = if cfg!(windows) {
-            ("powershell", format!("$wireTermConnection = [System.Diagnostics.Process]::Start([System.Diagnostics.ProcessStartInfo]@{{ FileName = '{}'; Arguments = '--wireterm wizard {transport}'; UseShellExecute = $false }}); $wireTermConnection.WaitForExit(); $global:LASTEXITCODE = $wireTermConnection.ExitCode", path.replace('\'', "''")))
+            (
+                "powershell",
+                format!(
+                    "$wireTermConnection = [System.Diagnostics.Process]::Start([System.Diagnostics.ProcessStartInfo]@{{ FileName = '{}'; Arguments = '--wireterm wizard {transport}'; UseShellExecute = $false }}); $wireTermConnection.WaitForExit(); exit $wireTermConnection.ExitCode",
+                    path.replace('\'', "''")
+                ),
+            )
         } else {
-            ("bash", format!("'{}' --wireterm wizard {transport}", path.replace('\'', "'\\''")))
+            (
+                "bash",
+                format!(
+                    "exec '{}' --wireterm wizard {transport}",
+                    path.replace('\'', "'\\''")
+                ),
+            )
         };
         self.add_tab_with_pane_layout(
             PanesLayout::Template(PaneTemplateType::PaneTemplate {

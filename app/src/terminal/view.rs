@@ -7976,8 +7976,25 @@ impl TerminalView {
                 }
                 ctx.notify();
             }
-            ShellCommandExecutorEvent::WriteToPty { input, mode } => {
-                self.write_agent_bytes_to_pty(input.to_vec(), mode, ctx);
+            ShellCommandExecutorEvent::WriteToPty {
+                input,
+                mode,
+                block_id,
+                conversation_id,
+            } => {
+                let target_is_current = {
+                    let model = self.model.lock();
+                    let block = model.block_list().active_block();
+                    block.id() == block_id
+                        && !block.finished()
+                        && model
+                            .block_list()
+                            .active_conversation_id()
+                            .is_none_or(|id| id == *conversation_id)
+                };
+                if target_is_current {
+                    self.write_agent_bytes_to_pty(input.to_vec(), mode, ctx);
+                }
             }
             ShellCommandExecutorEvent::CancelExecution => {
                 // We need to manually invoke ctrl-c to terminate the running command because the

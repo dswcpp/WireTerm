@@ -206,7 +206,6 @@ impl ShellCommandExecutor {
         scope: &TeamContext<'_>,
         ctx: &ModelContext<Self>,
     ) -> bool {
-        let blocklist_permissions = BlocklistAIPermissions::as_ref(ctx);
         match &input.action.action {
             AIAgentActionType::RequestCommandOutput {
                 command,
@@ -214,6 +213,7 @@ impl ShellCommandExecutor {
                 is_risky,
                 ..
             } => {
+                let blocklist_permissions = BlocklistAIPermissions::as_ref(ctx);
                 let Some(escape_char) = self
                     .active_session
                     .as_ref(ctx)
@@ -248,11 +248,19 @@ impl ShellCommandExecutor {
                 let terminal_model = self.terminal_model.lock();
                 let block = terminal_model.block_list().block_with_id(block_id);
 
+                if block.is_some_and(|block| {
+                    let command = block.command_with_secrets_unobfuscated(false);
+                    command.contains("--wireterm") || command.contains("wireterm-connect")
+                }) {
+                    return false;
+                }
+
                 if block.is_none_or(|block| block.finished()) {
                     // If the block is already finished, allow auto-execution - the finished output
                     // will be returned.
                     true
                 } else {
+                    let blocklist_permissions = BlocklistAIPermissions::as_ref(ctx);
                     let should_autoexecute = match blocklist_permissions.can_write_to_pty(
                         &input.conversation_id,
                         Some(self.terminal_view_id),
@@ -321,6 +329,7 @@ impl ShellCommandExecutor {
             .clone();
 
         let handle = ctx.handle();
+        let input_conversation_id = input.conversation_id;
         match &input.action.action {
             AIAgentActionType::RequestCommandOutput {
                 command,
@@ -442,6 +451,18 @@ impl ShellCommandExecutor {
                         ),
                     );
                 }
+                if model.active_block_id() != block_id
+                    || model
+                        .block_list()
+                        .active_conversation_id()
+                        .is_some_and(|id| id != input_conversation_id)
+                {
+                    return ActionExecution::Sync(
+                        AIAgentActionResultType::WriteToLongRunningShellCommand(
+                            WriteToLongRunningShellCommandResult::Cancelled,
+                        ),
+                    );
+                }
                 // Drop immutable borrow.
                 drop(model);
 
@@ -454,6 +475,8 @@ impl ShellCommandExecutor {
                 ctx.emit(ShellCommandExecutorEvent::WriteToPty {
                     input: input.clone(),
                     mode: *mode,
+                    block_id: block_id.clone(),
+                    conversation_id: input_conversation_id,
                 });
 
                 let block_selector = BlockSelector::Id(block_id.clone());
@@ -1210,6 +1233,8 @@ pub enum ShellCommandExecutorEvent {
     WriteToPty {
         input: Bytes,
         mode: AIAgentPtyWriteMode,
+        block_id: BlockId,
+        conversation_id: AIConversationId,
     },
     CancelExecution,
     InterruptForInjectedFollowup {

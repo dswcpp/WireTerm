@@ -31,6 +31,106 @@ use crate::terminal::model_events::{ModelEvent, ModelEventDispatcher};
 use crate::test_util::terminal::initialize_app_for_terminal_view;
 
 #[test]
+fn connection_input_cannot_follow_a_displaced_or_finished_terminal() {
+    App::test((), |mut app| async move {
+        let sessions = app.add_model(|_| Sessions::new_for_test());
+        let (_tx, rx) = unbounded();
+        let dispatcher = app.add_model(|ctx| ModelEventDispatcher::new(rx, sessions.clone(), ctx));
+        let active_session =
+            app.add_model(|ctx| ActiveSession::new(sessions, dispatcher.clone(), ctx));
+        let model = Arc::new(FairMutex::new(TerminalModel::mock(None, None)));
+        model
+            .lock()
+            .simulate_long_running_block("warp-oss --wireterm serial --port COM4", "device ready");
+        let block_id = model.lock().active_block_id().clone();
+        let executor = app.add_model(|ctx| {
+            ShellCommandExecutor::new(
+                active_session,
+                model.clone(),
+                &dispatcher,
+                EntityId::new(),
+                ctx,
+            )
+        });
+        let events = Rc::new(RefCell::new(Vec::new()));
+        let observed = events.clone();
+        app.update(|ctx| {
+            ctx.subscribe_to_model(&executor, move |_, event: &ShellCommandExecutorEvent, _| {
+                observed.borrow_mut().push(event.clone());
+            });
+        });
+        let action = AIAgentAction {
+            id: "write-device".to_owned().into(),
+            task_id: TaskId::new("root".into()),
+            requires_result: true,
+            action: AIAgentActionType::WriteToLongRunningShellCommand {
+                block_id,
+                input: "status\r".as_bytes().to_vec().into(),
+                mode: crate::ai::agent::AIAgentPtyWriteMode::Raw,
+            },
+        };
+        let resolver =
+            crate::workspaces::user_workspaces::UserWorkspaces::teamless_context_resolver_for_test(
+            );
+        executor.update(&mut app, |executor, ctx| {
+            assert!(!executor.should_autoexecute(
+                ExecuteActionInput {
+                    action: &action,
+                    conversation_id: AIConversationId::new()
+                },
+                &resolver(ctx),
+                ctx
+            ));
+        });
+        model
+            .lock()
+            .block_list_mut()
+            .set_active_conversation_context(AIConversationId::new(), false, false);
+        let execution: AnyActionExecution = executor.update(&mut app, |executor, ctx| {
+            executor
+                .execute(
+                    ExecuteActionInput {
+                        action: &action,
+                        conversation_id: AIConversationId::new(),
+                    },
+                    ctx,
+                )
+                .into()
+        });
+        assert!(matches!(
+            execution,
+            AnyActionExecution::Sync(AIAgentActionResultType::WriteToLongRunningShellCommand(
+                crate::ai::agent::WriteToLongRunningShellCommandResult::Cancelled
+            ))
+        ));
+        assert!(events.borrow().is_empty());
+        model
+            .lock()
+            .block_list_mut()
+            .clear_active_conversation_context();
+        model.lock().finish_block();
+        let execution: AnyActionExecution = executor.update(&mut app, |executor, ctx| {
+            executor
+                .execute(
+                    ExecuteActionInput {
+                        action: &action,
+                        conversation_id: AIConversationId::new(),
+                    },
+                    ctx,
+                )
+                .into()
+        });
+        assert!(matches!(
+            execution,
+            AnyActionExecution::Sync(AIAgentActionResultType::WriteToLongRunningShellCommand(
+                crate::ai::agent::WriteToLongRunningShellCommandResult::CommandFinished { .. }
+            ))
+        ));
+        assert!(events.borrow().is_empty());
+    });
+}
+
+#[test]
 fn polling_snapshot_exposes_continuation_prompt_and_cursor() {
     App::test((), |mut app| async move {
         let sessions = app.add_model(|_| Sessions::new_for_test());

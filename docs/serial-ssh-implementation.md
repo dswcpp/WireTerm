@@ -49,7 +49,7 @@ HEX 输入必须为完整字节，HEX 发送不追加行结束符。不能编码
 | Ctrl+Q | 关闭并释放端口 |
 | Ctrl+C | TEXT/HEX 模式取消输入；ANSI 模式发送中断字节 |
 | Ctrl+X | 切换 TEXT/HEX 发送 |
-| Ctrl+V | 切换 TEXT/HEX 显示；也可在连接时指定 `--display` |
+| Ctrl+V | 循环切换 ANSI/TEXT/HEX 显示；也可在连接时指定 `--display` |
 | Ctrl+T | 切换行时间戳 |
 | Ctrl+] | 进入本地控制输入；Escape 取消，Enter 确认 |
 
@@ -58,6 +58,25 @@ BREAK 持续 100 ms；期间仍轮询接收。控制操作和状态变化作为 
 TEXT 显示会转义设备控制字符，避免把原始 MCU 输出当作终端控制指令执行；只有显式选择 ANSI
 模式时才保留控制序列交给终端解析。ANSI 与 TEXT 都使用增量字符解码，避免 UTF-8/GBK 字符在跨包时损坏。
 ANSI 模式即时转发键盘，保留上表中的本地快捷键，不额外输出每键 TX 提示；切到 HEX 发送时仍需 Enter 提交。
+新建串口连接默认使用 ANSI 交互模式：输入字符、回车、方向键和 Ctrl+C 直接交给设备，设备负责回显。
+如果输入后屏幕没有显示字符，可能是设备未启用回显；这不代表按键未发送。仅输出日志的固件也可能没有交互命令行。
+Ctrl+V 按 ANSI → TEXT → HEX → ANSI 循环切换，键盘行为随当前模式更新；切换时取消未提交的本地输入。
+已有配置保持其保存的模式。需要按行编辑后发送时，选择 TEXT；原始终端 Enter 发送 CR，TEXT 则使用配置的行结束符。
+
+已连接的 COM4 可直接打开：
+
+```powershell
+& .\target\debug\wireterm-connect.exe serial --port COM4 --baud 115200
+```
+
+打开后点击串口标签页中的终端区域获得键盘焦点，即可输入设备支持的命令。输入完整命令后按 Enter；
+需要 CRLF 行结束符的设备可切换 TEXT 模式（默认行结束符为 CRLF）。Ctrl+Q 断开后，端口可由其他程序重新打开。
+
+COM4（USB-SERIAL CH340）已按 115200、8N1 完成实物接收验证：通过实际 `warp-oss --wireterm`
+入口接收 2375 字节、发送 0 字节、显示跳过 0 字节，Ctrl+Q 正常释放端口。设备日志包含 I²C 超时及网络错误；
+尚未验证设备命令协议、双向交互回显、控制线电平和拔插重连。
+交互修复后，独立连接器在 COM4 实测 ANSI → TEXT → HEX → ANSI 切换及 Ctrl+Q 退出成功，
+接收 3114 字节、发送 0 字节、显示跳过 0 字节；32 项模块测试与定向 Clippy 通过。
 
 发送模板只保存数据，不是可执行脚本：
 
@@ -115,12 +134,42 @@ ANSI/VT 渲染、窗口缩放和密码/私钥口令交互。Windows 使用系统
 - `app/src/lib.rs`：`--wireterm` 在 GUI/网络初始化前分派。
 - `app/src/tab.rs`、`workspace`：连接菜单、命令面板和标签页启动。
 - 串口 IO 运行于连接进程的 Tokio 任务中，GUI 仅处理既有 PTY 输出，不同步读写设备。
-- 传输模块不引用 UI、Agent、Skill 或 Warp 云 API。Agent 没有获得绕过审批的设备写入口。
+- 传输模块不引用 UI、Agent、Skill 或 Warp 云 API。Agent 使用工作区的终端工具与审批入口。
+
+## Agent 联动
+
+开发快照状态：本节 Agent 联动代码已加入，新增应用定向测试仍在构建，尚未完成验证；
+不能将前述串口模块测试或 COM4 接收结果视为 Agent 端到端操作验收通过。
+
+选择并配置第三方模型后，在串口或 SSH 标签页对当前运行命令发起 Agent 对话。
+当前运行命令的标识及最多 32 KiB 输出快照会作为不可信上下文提供给模型；也支持显式附加终端命令块。
+可先要求“分析当前设备日志，不发送任何命令”，再明确要求发送设备支持的命令。
+
+- `read_shell_command_output`：读取所选命令块的当前快照，不等待连接结束。
+- `write_to_long_running_shell_command`：请求向该终端输入 UTF-8 文本，每条 WireTerm 连接输入均须确认。
+  输入不自动追加回车；模型必须明确提出所需的 `\r`/`\n`，审批中预览实际输入。
+- 输入通过当前终端的 TEXT/HEX/ANSI 处理流程。交互操作建议使用 ANSI 模式；这不是独立的二进制串口写入 API。
+- 写入工具返回终端快照，不代表设备命令成功或远程命令退出；应继续读取设备响应来判断结果。
+- 模型只能使用用户选择或终端工具结果提供的命令块标识。选中连接时不能改用 `run_shell_command` 执行本地命令。
+- 拒绝或取消输入后停止本轮工具链；每次请求最多八次工具调用。输出限量并脱敏，设备日志不构成操作授权。
+- 终端工具发现连接已结束后也停止本轮调用，不继续转为本地 Shell 执行。
+- 执行前和终端输入事件处理时复核命令块及对话归属；目标结束或被接管时不发送。
+  连接启动 Shell 随连接程序退出，不回落为可执行设备输入的本地命令提示符。
+
+主机指纹、密码和密钥口令仍由用户在原生 SSH 终端完成，Agent 不代填凭据。设备能力未确认时不能假设存在 Shell。
+这轮复用既有终端审批界面，尚未增加跨标签页 `list_sessions`、独立 SSH `exec`、二进制 `write_serial` 或连接重连代次的专用授权协议。
+自动重连和连接建立阶段应由用户接管；Agent 不应在这些阶段发送输入。
 
 这一版采用“现有终端 + 连接向导”，没有另造终端渲染器。设计中的独立设备树和原生 SerialToolbar
 仍属于后续界面扩展，不影响当前连接、参数配置和收发入口。
 
 ## 验证与剩余验收
+
+Windows 本地验证：连接模块 29 项测试通过，模块及主程序定向 Clippy 通过，GUI 主程序构建通过。
+使用实际 `warp-oss.exe --wireterm` 入口的 7 组原生连接回归通过，报告位于
+`target/connection-verification/app-ssh-results.json`。覆盖串口打开失败恢复、首次指纹确认与拒绝、
+主机密钥变更阻断、密钥及密码认证、PTY 缩放、交互收发、Ctrl+C、退出码，以及 PowerShell 启动桥接。
+本轮桌面启动未取得可验证窗口，GUI 菜单点击验收仍未完成。
 
 ```powershell
 cargo nextest run -p wireterm_connections
@@ -136,6 +185,7 @@ cargo build -p warp --bin warp-oss --features gui
 
 ```powershell
 python script/verify-wireterm-ssh.py --binary target/debug/wireterm-connect.exe --output target/connection-verification/ssh-results.json
+python script/verify-wireterm-ssh.py --app --binary target/debug/warp-oss.exe --output target/connection-verification/app-ssh-results.json
 ```
 
 Unix 另有真实 pseudo-terminal 串口测试，覆盖不隐式发送、收发和关闭后重新打开。Windows 本机未枚举到

@@ -79,7 +79,7 @@ struct SerialArgs {
     rts: Option<bool>,
     #[arg(long, default_value = "utf-8")]
     encoding: String,
-    #[arg(long, value_enum, default_value = "text")]
+    #[arg(long, value_enum, default_value = "ansi")]
     display: DisplayMode,
     #[arg(long)]
     hex_send: bool,
@@ -165,12 +165,13 @@ fn wizard(transport: &str, directory: &std::path::Path) -> Result<ConnectionProf
             let stop_bits = prompt("Stop bits (1/2)", "1")?.parse()?;
             let flow_control = prompt("Flow control (none/hardware/software)", "none")?;
             let encoding = prompt("Text encoding (utf-8/gbk)", "utf-8")?;
-            let display = match prompt("Display (text/hex/ansi)", "text")?.as_str() {
-                "text" => DisplayMode::Text,
-                "hex" => DisplayMode::Hex,
-                "ansi" => DisplayMode::Ansi,
-                _ => anyhow::bail!("Invalid display mode"),
-            };
+            let display =
+                match prompt("Display (ansi=interactive terminal/text/hex)", "ansi")?.as_str() {
+                    "text" => DisplayMode::Text,
+                    "hex" => DisplayMode::Hex,
+                    "ansi" => DisplayMode::Ansi,
+                    _ => anyhow::bail!("Invalid display mode"),
+                };
             let line_ending =
                 match prompt("Text send line ending (none/lf/crlf/cr)", "crlf")?.as_str() {
                     "none" => LineEnding::None,
@@ -361,7 +362,7 @@ fn serial_console(profile: SerialProfile) -> Result<i32> {
     let mut decoder = TextDecoder::new(&profile.encoding)?;
     let mut session = SerialSession::spawn(profile.clone())?;
     println!(
-        "Serial console: type a line and Enter to send; opening sends no data.\nCtrl+Q: close | Ctrl+X: TEXT/HEX send | Ctrl+V: TEXT/HEX display | Ctrl+T: timestamps | Ctrl+]: control command\nControl commands: dtr on/off, rts on/off, break — type then Enter to confirm.\nIn ANSI mode keys except the local shortcuts above are forwarded immediately."
+        "Serial console: ANSI forwards keys directly; TEXT/HEX sends a line on Enter. Opening sends no data.\nCtrl+Q: close | Ctrl+X: TEXT/HEX send | Ctrl+V: ANSI/TEXT/HEX display | Ctrl+T: timestamps | Ctrl+]: control command\nControl commands: dtr on/off, rts on/off, break — type then Enter to confirm.\nIn ANSI mode keys except the local shortcuts above are forwarded immediately."
     );
     crossterm::terminal::enable_raw_mode()?;
     let raw = RawMode;
@@ -513,12 +514,21 @@ fn console_loop(
                     continue;
                 }
                 KeyCode::Char('v') => {
-                    display = if display == DisplayMode::Hex {
-                        DisplayMode::Text
-                    } else {
-                        DisplayMode::Hex
-                    };
+                    display = next_display(display);
                     *decoder = TextDecoder::new(&profile.encoding)?;
+                    at_line_start = true;
+                    input.clear();
+                    control = false;
+                    history_index = None;
+                    write!(
+                        output,
+                        "\r\n[Display: {display:?}; keyboard: {}]\r\n",
+                        if display == DisplayMode::Ansi && !hex_send {
+                            "direct"
+                        } else {
+                            "line input; Enter sends"
+                        }
+                    )?;
                     continue;
                 }
                 KeyCode::Char(']') => {
@@ -530,9 +540,7 @@ fn console_loop(
                     )?;
                     continue;
                 }
-                KeyCode::Char('c')
-                    if profile.display != DisplayMode::Ansi || hex_send || control =>
-                {
+                KeyCode::Char('c') if display != DisplayMode::Ansi || hex_send || control => {
                     input.clear();
                     control = false;
                     write!(output, "^C\r\n")?;
@@ -541,7 +549,7 @@ fn console_loop(
                 _ => {}
             }
         }
-        if profile.display == DisplayMode::Ansi && !control && !hex_send {
+        if display == DisplayMode::Ansi && !control && !hex_send {
             let bytes = if let KeyCode::Char(c) = key.code
                 && (!key.modifiers.contains(KeyModifiers::CONTROL) || !c.is_ascii())
             {
@@ -704,3 +712,15 @@ fn ansi_key(key: event::KeyEvent) -> Vec<u8> {
         _ => Vec::new(),
     }
 }
+
+fn next_display(display: DisplayMode) -> DisplayMode {
+    match display {
+        DisplayMode::Ansi => DisplayMode::Text,
+        DisplayMode::Text => DisplayMode::Hex,
+        DisplayMode::Hex => DisplayMode::Ansi,
+    }
+}
+
+#[cfg(test)]
+#[path = "cli_unit_tests.rs"]
+mod tests;

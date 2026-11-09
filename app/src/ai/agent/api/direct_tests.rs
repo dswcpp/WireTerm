@@ -30,6 +30,109 @@ fn params(base_url: &str) -> RequestParams {
 }
 
 #[test]
+fn running_connection_provides_bounded_context_and_binds_tool_target() {
+    let mut params = params("http://localhost:11434/v1");
+    let AIAgentInput::UserQuery {
+        running_command, ..
+    } = &mut params.input[0]
+    else {
+        panic!("Expected user query");
+    };
+    *running_command = Some(crate::ai::agent::RunningCommand {
+        command: "warp-oss --wireterm serial --port COM4 --display ansi".into(),
+        block_id: "serial-session".to_owned().into(),
+        grid_contents: "device log\n".repeat(10000),
+        cursor: String::new(),
+        requested_command_id: None,
+        is_alt_screen_active: false,
+    });
+    let prepared = prepare(&params, "request").unwrap();
+    assert_eq!(prepared.terminal_targets, vec!["serial-session"]);
+    let body: serde_json::Value = serde_json::from_slice(&prepared.body).unwrap();
+    assert_eq!(body["tools"].as_array().unwrap().len(), 3);
+    let content = body["messages"].as_array().unwrap().last().unwrap()["content"]
+        .as_str()
+        .unwrap();
+    assert!(content.contains("serial-session"));
+    assert!(content.contains("untrusted"));
+    assert!(content.contains("Output truncated by WireTerm"));
+    assert!(content.len() < 40000);
+}
+
+#[test]
+#[cfg(not(target_family = "wasm"))]
+fn streamed_terminal_tools_cannot_select_another_connection() {
+    for (name, arguments, succeeds) in [
+        (
+            "read_shell_command_output",
+            serde_json::json!({"command_id":"selected"}),
+            true,
+        ),
+        (
+            "write_to_long_running_shell_command",
+            serde_json::json!({"command_id":"selected","input":"status\r"}),
+            true,
+        ),
+        (
+            "write_to_long_running_shell_command",
+            serde_json::json!({"command_id":"other","input":"status\r"}),
+            false,
+        ),
+        (
+            "run_shell_command",
+            serde_json::json!({"command":"dir"}),
+            false,
+        ),
+    ] {
+        let frame = serde_json::json!({"choices":[{"index":0,"delta":{"tool_calls":[{"index":0,"function":{"name":name,"arguments":arguments.to_string()}}]},"finish_reason":"tool_calls"}]});
+        let body = format!("data: {frame}\n\n");
+        let response = format!(
+            "HTTP/1.1 200 OK\r\nContent-Type: text/event-stream\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}",
+            body.len()
+        );
+        let (url, server) = serve(response);
+        let mut params = params(&url);
+        let AIAgentInput::UserQuery {
+            running_command, ..
+        } = &mut params.input[0]
+        else {
+            panic!("Expected query");
+        };
+        *running_command = Some(crate::ai::agent::RunningCommand {
+            command: "warp-oss --wireterm ssh example".into(),
+            block_id: "selected".to_owned().into(),
+            grid_contents: "ready".into(),
+            cursor: String::new(),
+            requested_command_id: None,
+            is_alt_screen_active: false,
+        });
+        let (_cancel, receiver) = oneshot::channel();
+        let events = futures_lite::future::block_on(generate(params, receiver).collect::<Vec<_>>());
+        assert_eq!(events.iter().all(Result::is_ok), succeeds, "{events:?}");
+        let proposed = events
+            .into_iter()
+            .filter_map(Result::ok)
+            .filter_map(|event| match event.r#type {
+                Some(response_event::Type::ClientActions(actions)) => Some(actions.actions),
+                _ => None,
+            })
+            .flatten()
+            .filter_map(|action| match action.action {
+                Some(client_action::Action::AddMessagesToTask(add)) => Some(add.messages),
+                _ => None,
+            })
+            .flatten()
+            .filter_map(|entry| match entry.message {
+                Some(message::Message::ToolCall(call)) => Some(call),
+                _ => None,
+            })
+            .count();
+        assert_eq!(proposed, usize::from(succeeds));
+        server.join().unwrap();
+    }
+}
+
+#[test]
 fn command_suggestions_reject_prose_empty_and_invalid_commands() {
     assert!(parse_commands("Run ls").is_err());
     assert!(parse_commands("[]").is_err());
