@@ -15,6 +15,7 @@ pub(crate) mod onboarding;
 pub(crate) mod openwarp_launch_modal;
 pub(crate) mod orchestration_launch_modal;
 pub(crate) mod right_panel;
+pub(crate) mod serial_connection_modal;
 mod startup_directory;
 mod tab_grouping;
 #[cfg(test)]
@@ -1087,6 +1088,8 @@ pub struct Workspace {
     model_event_sender: Option<mpsc::SyncSender<ModelEvent>>,
     launch_config_save_modal: ModalViewState<LaunchConfigSaveModal>,
     tab_config_params_modal: ModalViewState<Modal<TabConfigParamsModal>>,
+    serial_connection_modal:
+        Option<ViewHandle<Modal<serial_connection_modal::SerialConnectionModal>>>,
     session_config_modal: ModalViewState<Modal<SessionConfigModal>>,
     pending_session_config_replacement: Option<PendingSessionConfigReplacement>,
     /// When set, the guided onboarding tutorial will start after the session
@@ -3419,6 +3422,7 @@ impl Workspace {
             model_event_sender,
             launch_config_save_modal,
             tab_config_params_modal,
+            serial_connection_modal: None,
             session_config_modal,
             pending_session_config_replacement: None,
             pending_onboarding_intention: None,
@@ -7194,25 +7198,79 @@ impl Workspace {
 
     #[cfg(not(target_family = "wasm"))]
     fn open_wireterm_connection(&mut self, transport: &str, ctx: &mut ViewContext<Self>) {
+        if transport == "serial" {
+            self.show_serial_connection_modal(ctx);
+            return;
+        }
+        self.launch_wireterm_connection(vec!["wizard".into(), transport.into()], transport, ctx);
+    }
+
+    #[cfg(not(target_family = "wasm"))]
+    fn show_serial_connection_modal(&mut self, ctx: &mut ViewContext<Self>) {
+        use serial_connection_modal::{SerialConnectionEvent, SerialConnectionModal};
+
+        let body = ctx.add_typed_action_view(SerialConnectionModal::new);
+        ctx.subscribe_to_view(&body, |me, _, event, ctx| {
+            me.serial_connection_modal = None;
+            match event {
+                SerialConnectionEvent::Connect(args) => {
+                    me.launch_wireterm_connection(args.clone(), "serial", ctx);
+                }
+                SerialConnectionEvent::Close => me.focus_active_tab(ctx),
+            }
+            ctx.notify();
+        });
+        let modal = ctx.add_typed_action_view(|ctx| {
+            Modal::new(Some("串口连接".into()), body, ctx).with_max_height_percentage(0.9)
+        });
+        ctx.subscribe_to_view(&modal, |me, _, _, ctx| {
+            me.serial_connection_modal = None;
+            me.focus_active_tab(ctx);
+            ctx.notify();
+        });
+        ctx.focus(&modal);
+        self.serial_connection_modal = Some(modal);
+        ctx.notify();
+    }
+
+    #[cfg(not(target_family = "wasm"))]
+    fn launch_wireterm_connection(
+        &mut self,
+        args: Vec<String>,
+        transport: &str,
+        ctx: &mut ViewContext<Self>,
+    ) {
         use crate::launch_configs::launch_config::{CommandTemplate, PaneMode, PaneTemplateType};
 
         let Ok(executable) = std::env::current_exe() else {
             return;
         };
         let path = executable.to_string_lossy();
+        let arguments = args
+            .iter()
+            .map(|arg| {
+                if cfg!(windows) {
+                    format!("\"{}\"", arg.replace('"', "\\\""))
+                } else {
+                    format!("'{}'", arg.replace('\'', "'\\''"))
+                }
+            })
+            .collect::<Vec<_>>()
+            .join(" ");
         let (shell, command) = if cfg!(windows) {
             (
                 "powershell",
                 format!(
-                    "$wireTermConnection = [System.Diagnostics.Process]::Start([System.Diagnostics.ProcessStartInfo]@{{ FileName = '{}'; Arguments = '--wireterm wizard {transport}'; UseShellExecute = $false }}); $wireTermConnection.WaitForExit(); exit $wireTermConnection.ExitCode",
-                    path.replace('\'', "''")
+                    "$wireTermConnection = [System.Diagnostics.Process]::Start([System.Diagnostics.ProcessStartInfo]@{{ FileName = '{}'; Arguments = '--wireterm {}'; UseShellExecute = $false }}); $wireTermConnection.WaitForExit(); exit $wireTermConnection.ExitCode",
+                    path.replace('\'', "''"),
+                    arguments.replace('\'', "''")
                 ),
             )
         } else {
             (
                 "bash",
                 format!(
-                    "exec '{}' --wireterm wizard {transport}",
+                    "exec '{}' --wireterm {arguments}",
                     path.replace('\'', "'\\''")
                 ),
             )
@@ -26684,6 +26742,10 @@ impl View for Workspace {
 
         if self.tab_config_params_modal.is_open() {
             stack.add_child(self.tab_config_params_modal.render());
+        }
+
+        if let Some(modal) = &self.serial_connection_modal {
+            stack.add_child(ChildView::new(modal).finish());
         }
 
         if self.session_config_modal.is_open() {
